@@ -2,6 +2,8 @@ package futurepath.config;
 
 import javax.sql.DataSource;
 
+import static futurepath.common.CommonConstant.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,26 +57,30 @@ public class SecurityConfig {
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests((requests) -> requests
-						.requestMatchers("/images/**").permitAll()
-						.requestMatchers("/css/**").permitAll()
-						.requestMatchers("/script/**").permitAll()
-						.requestMatchers("/gif/**").permitAll()
 						
-	
 						.anyRequest().permitAll()
+						
+						//.requestMatchers("/images/**").permitAll()
+						//.requestMatchers("/css/**").permitAll()
+						//.requestMatchers("/script/**").permitAll()
+						//.requestMatchers("/gif/**").permitAll()
+						
+						//.requestMatchers("/dashboard").hasAnyAuthority(ROLE_USER)
+	
+	
 						
 						)
 				.formLogin((form) -> form
 						.loginPage("/login")
 						.permitAll()
-						.failureUrl("/login")
+						.failureUrl("/login?error")
 						//.failureHandler(authenticationFailureHandler())
 						.usernameParameter("userId")
 						.passwordParameter("password")
 						 .defaultSuccessUrl("/dashboard")
 						.successHandler(authenticationSuccessHandler()))
 				.logout((logout) -> logout
-						.logoutSuccessUrl("/login")
+						.logoutSuccessUrl("/login?logout")
 						.invalidateHttpSession(true)
 						.permitAll());
 
