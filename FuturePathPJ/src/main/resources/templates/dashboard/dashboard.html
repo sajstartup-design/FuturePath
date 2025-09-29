@@ -13,11 +13,21 @@
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
 	<main>
-		<section class="header">
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
 			DASHBOARD
-		</section>
-		<section class="body">
-			<div class="content-one">
+		</nav>
+		<hr>
+			<div class="content">
+				
+			</div>
+			
+			
+			
+			
+			
+			<!--<div class="content-one">
 				<div class="dashboard-overviews">
 					<div class="dashboard-overview">
 					    <span>
@@ -102,9 +112,9 @@
 				    </table>
 				</div>
 
-			</div>
+			</div>-->
 			
-			<div class="content-two">
+			<!--<div class="content-two">
 				<div class="bold">SHORTCUTS</div>
 				<div class="dashboard-shortcuts">
 				  <button class="shortcut-btn">
@@ -153,8 +163,7 @@
 				    </div>
 				</div>
 				
-			</div>	
-		</section>
+			</div>	-->
 	</main>
 	<script>
 	    // Pie chart for strands

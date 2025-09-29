@@ -22,7 +22,7 @@
 
 html, body {
   font-family: 'Montserrat', sans-serif;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   background: #dfe6e9;
@@ -33,157 +33,302 @@ html, body {
 
 
 *{
-	color: #0a3d62;
+	color: white;
 	letter-spacing: 0.1rem;
-}
-
-button,
-.button {
-  font-size: 1rem;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: rgba(50, 50, 93, 0.25) 0rem 0.375rem 0.75rem -0.125rem, 
-              rgba(0, 0, 0, 0.3) 0rem 0.1875rem 0.4375rem -0.1875rem;
-  background: #fff;
-  padding: 0.6rem 0.7rem;
-  box-sizing: border-box;
-  text-align: center;
-  text-decoration: none;
-}
-
-button i,
-.button i{
-	color: inherit !important;
-}
-
-button.edit-btn {
-  background-color: #4CAF50;
-  color: white;
-}
-
-button.edit-btn:hover {
-  background-color: #45a049; 
-}
-
-button.delete-btn {
-  background-color: #e74c3c; 
-  color: white;
-}
-
-button.create-btn,
-.button.create-btn {
-  background-color: #3498db !important;
-  color: white !important;
-}
-
-button.create-btn:hover,
-.button.create-btn {
-  background-color: #2980b9; 
-}
-
-button.back-btn,
-.button.back-btn {
-  background-color: #7f8c8d; 
-  color: white;
-}
-
-button.back-btn:hover,
-.button.back-btn:hover {
-  background-color: #636e72; 
-}
-
-button.save-btn {
-  background-color: #27ae60; 
-  color: white;
-}
-
-button.save-btn:hover {
-  background-color: #219150;
-}
-
-body{
-	display: flex;
-	
-}
-
-hr.vertical-line {
-  width: 0.05rem;               
-  height: -webkit-fill-available;             
-  background-color: #90a4ae; 
-  border: none;              
-  margin: 0 1rem;             
 }
 
 hr {
   border: none;
-  background-color: #90a4ae;
-  height: 0.05rem;
-  margin: 1rem 0;
-}
-
-.bold{
-	font-weight: 600;
+  height: 1px;
+  background: #2A397D; /* slightly lighter than #161E43 */
+  margin: 0;
+  opacity: 0.6; /* makes it softer */
 }
 
 
+body{
+	display: flex;
+	background: #161E43;
+}
 
+main {
+  background: #1C2656;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 1rem;
+  margin: 1rem;
+  box-sizing: border-box;
+}
+
+i{
+	color: inherit;
+}
+
+/* Header Container */
+.header {
+  background: #1C2656;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  height: 5vh;
+  min-height: 3rem; /* fallback for very small vh */
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+/* Flex groups */
+.header-left,
+.header-center,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Normalize element sizes */
+.menu-btn,
+.header-right button,
+.search-bar,
+.search-bar input,
+.flag-icon,
+.dropdown-btn {
+  height: 2.2rem;         /* unified height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Menu button */
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Search bar */
+.search-bar {
+  flex: 1;
+  max-width: 16rem;
+  background: #1a234f;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Right section */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Generic buttons (bell, mail, etc.) */
+.header-right button {
+  width: 2.2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* Flag */
+.flag-icon {
+  width: auto;
+  height: 1.2rem; /* visually balanced with buttons */
+  border-radius: 2px;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+
+.profile-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.profile-text small {
+  font-size: 0.65rem;
+  color: #d1d1d1;
+}
+
+.profile-text span {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* Dropdown button */
+.dropdown-btn {
+  width: 2rem;
+  background: #4A6ADB !important;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.8rem; /* smaller arrow */
+}
+/*Header Design*/
+
+
+.sub-header {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  height: 3rem;            /* adjust as needed */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.05rem; /* optional for spacing */
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+
+.container {
+  background: #1C2656;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  overflow: auto;
+}
+
+
+
+/* SIDEBAR DESIGN */
 .sidebar {
   padding: 0.5rem;
-  box-sizing: border-box;
-  background: #29387D;
-  border-right: solid 0.05rem #222F67;
- /*  width: 3.75rem;   */
   width: 18rem;
-  height: 100vh; 
-  transition: width 0.3s ease;
-  box-shadow: rgba(50, 50, 93, 0.25) 0rem 0.375rem 0.75rem -0.125rem, 
-              rgba(0, 0, 0, 0.3) 0rem 0.1875rem 0.4375rem -0.1875rem;
-
-  /* prevent line break + hide overflow */
-  white-space: nowrap;
-  overflow: hidden;
+  background: #161E43;
+  border-right: 1px solid rgba(34, 47, 103, 0.6);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  color: #9bb0f9;
 }
 
-/* .sidebar:hover {
-  width: 13.75rem; 
-  overflow: visible; show the rest of the text
-} */
-
-.sidebar .option{
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+.sidebar-header {
+  display: flex; /* flex row */
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
 }
 
-.sidebar a{
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	font-size: 1rem;
-	padding: 0.3rem;
-	box-sizing: border-box;
-	cursor: pointer;
+.sidebar-header .logo {
+  width: 2rem;
+  height: 2rem;
 }
 
-.sidebar a:hover{
-	background: #f1f1f1;
+.sidebar-header .brand {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2rem;
 }
 
-.sidebar a img{
-	width: 1rem;
-	height: 1rem;
+
+.sidebar-header .brand small {
+  font-size: 0.7rem;
+  color: #ccc;
+  font-weight: normal;
 }
 
-.search-box {
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.sidebar-menu .menu-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #9bb0f9;
+  margin: 1rem 0 0.3rem;
+  padding-left: 0.3rem;
+  letter-spacing: 0.05rem;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #9bb0f9;
+  border-radius: 4px;
+  transition: background 0.2s;
+  font-size: 0.8rem;
+}
+
+.sidebar-menu a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Icon button style */
+.icon-btn {
+  background: #4A6ADB !important;
+  border: none;
+  padding: 0.2rem 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: inherit;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+/* SIDEBAR DESIGN */
+
+/*.search-box {
   display: flex;
   align-items: center;
   border-radius: 4px;
    background: #fff;
   padding: 0.6rem 0.7rem;
   box-sizing: border-box;
-  width: 20rem; /* adjust as needed */
+  width: 20rem;  adjust as needed 
   background: #fff;
   box-shadow: rgba(50, 50, 93, 0.25) 0rem 0.375rem 0.75rem -0.125rem, 
               rgba(0, 0, 0, 0.3) 0rem 0.1875rem 0.4375rem -0.1875rem;
@@ -199,12 +344,9 @@ hr {
   outline: none;
   flex: 1;
   font-size: 0.9rem;
-}
+}*/
 
-
-
-
-main{
+/*main{
 	width: -webkit-fill-available;
 	padding: 1rem;
 	box-sizing: border-box;
@@ -353,4 +495,4 @@ th {
 	box-sizing: border-box;
 	text-align: center;
 	width: 3rem;
-}
+}*/
