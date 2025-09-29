@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | University</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<section class="header">
+			STRAND AND DEGREE
+		</section>
+		<section class="body">
+			<div class="overview">
+				<div class="bold">STRAND AND DEGREE OVERVIEW</div>
+				<span>A quick summary of all strand and degree</span>
+				<div class="little-information">
+					<div class="information">
+						<span>1</span>
+						<span>TOTAL STRANDS</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>INACTIVE STRANDS</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>ACTIVE STRANDS</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>TOTAL DEGREES</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>INACTIVE DEGREES</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>ACTIVE DEGREES</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="content">
+				<div class="table-header">
+					<button class="create-btn"><i class="fa-solid fa-circle-plus"></i> ADD NEW</button>
+				</div>
+				
+				<div class="table-header">
+					<button><i class="fa-solid fa-filter"></i></button>
+					<div class="search-box">
+					    <i class="fa-solid fa-magnifying-glass"></i>
+					    <input type="text" placeholder="SEARCH"/>
+					  </div>
+					  
+				</div>
+				
+				<div class="table-container">
+					<table>
+						<thead>
+						  <tr>
+						    <th scope="col">ID</th>
+						    <th scope="col">NAME</th>
+						    <th scope="col">CODE</th>
+						    <th scope="col">CATEGORY</th>
+						    <th scope="col">DETAILS</th>
+						    <th scope="col">CREATED DATE</th>
+						    <th scope="col">UPDATED DATE</th>
+						    <th scope="col">STATUS</th>
+						    <th scope="col">ACTION</th>
+						  </tr>
+						</thead>
+
+		
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Bachelor of Information Technology</td>
+								<td><span class="type-label private">BSIT</span></td>
+								<td><span class="type-label private">DEGREE</span></td>
+								<td>Information Technology (IT) is the use of computers and other electronic devices to store, retrieve, transmit, and manage data.</td>
+								<td>09/29/2025</td>
+								<td>09/29/2025</td>
+								<td><span class="status-label active">ACTIVE</span></td>
+								<td>
+									<div>
+										<button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+										<button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+									</div>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<div class="pagination">
+					  <button><i class="fa-solid fa-angle-left"></i> PREV</button>
+					  <button>1</button>
+					  <button>2</button>
+					  <button>3</button>	
+					  <button>4</button>	
+					  <button>5</button>	
+					  <button>..</button>
+					  <input type="text" />
+					  <button>NEXT <i class="fa-solid fa-angle-right"></i></button>			
+					</div>
+	
+				</div>
+			</div>
+			
+			
+		</section>
+	</main>
+</body>
+</html>
