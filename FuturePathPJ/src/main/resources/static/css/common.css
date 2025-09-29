@@ -35,13 +35,45 @@ html, body {
   padding: 0.5rem;
   box-sizing: border-box;
   background: #fff;
-  width: 3.75rem;  /* 60px ÷ 16 */
+ /*  width: 3.75rem;   */
+  width: 13.75rem;
   height: 100vh; 
   transition: width 0.3s ease;
   box-shadow: rgba(50, 50, 93, 0.25) 0rem 0.375rem 0.75rem -0.125rem, 
               rgba(0, 0, 0, 0.3) 0rem 0.1875rem 0.4375rem -0.1875rem;
+
+  /* prevent line break + hide overflow */
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .sidebar:hover {
-  width: 13.75rem; /* 220px ÷ 16 */
+  width: 13.75rem; 
+  overflow: visible; /* show the rest of the text */
 }
+
+.sidebar .option{
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.sidebar a{
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1rem;
+	padding: 0.3rem;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.sidebar a:hover{
+	background: #f1f1f1;
+}
+
+.sidebar a img{
+	width: 1rem;
+	height: 1rem;
+}
+
