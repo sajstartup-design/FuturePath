@@ -12,4 +12,10 @@ public class UserController {
 		
 		return "user/user-view";
 	}
+	
+	@GetMapping("/admin/user/add")
+	public String showAddUser() {
+		
+		return "user/user-add";
+	}
 }

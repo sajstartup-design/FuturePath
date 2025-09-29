@@ -25,18 +25,20 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #f1f1f1;
+  background: #dfe6e9;
   letter-spacing: 0.1rem;
   color: #0a3d62 !important;
   font-size: 0.8rem;
 }
+
 
 *{
 	color: #0a3d62;
 	letter-spacing: 0.1rem;
 }
 
-button {
+button,
+.button {
   font-size: 1rem;
   padding: 0.4rem 0.8rem;
   border: none;
@@ -48,10 +50,12 @@ button {
   padding: 0.6rem 0.7rem;
   box-sizing: border-box;
   text-align: center;
+  text-decoration: none;
 }
 
-button i{
-	color: inherit;
+button i,
+.button i{
+	color: inherit !important;
 }
 
 button.edit-btn {
@@ -68,13 +72,35 @@ button.delete-btn {
   color: white;
 }
 
-button.create-btn {
-  background-color: #3498db;
+button.create-btn,
+.button.create-btn {
+  background-color: #3498db !important;
+  color: white !important;
+}
+
+button.create-btn:hover,
+.button.create-btn {
+  background-color: #2980b9; 
+}
+
+button.back-btn,
+.button.back-btn {
+  background-color: #7f8c8d; 
   color: white;
 }
 
-button.create-btn:hover {
-  background-color: #2980b9; 
+button.back-btn:hover,
+.button.back-btn:hover {
+  background-color: #636e72; 
+}
+
+button.save-btn {
+  background-color: #27ae60; 
+  color: white;
+}
+
+button.save-btn:hover {
+  background-color: #219150;
 }
 
 body{
@@ -85,9 +111,16 @@ body{
 hr.vertical-line {
   width: 0.05rem;               
   height: -webkit-fill-available;             
-  background-color: #cccccc;    
+  background-color: #90a4ae; 
   border: none;              
   margin: 0 1rem;             
+}
+
+hr {
+  border: none;
+  background-color: #90a4ae;
+  height: 0.05rem;
+  margin: 1rem 0;
 }
 
 .bold{
@@ -99,7 +132,8 @@ hr.vertical-line {
 .sidebar {
   padding: 0.5rem;
   box-sizing: border-box;
-  background: #fff;
+  background: #29387D;
+  border-right: solid 0.05rem #222F67;
  /*  width: 3.75rem;   */
   width: 18rem;
   height: 100vh; 

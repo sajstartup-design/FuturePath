@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | University</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/user-add.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<section class="header">
+			ADD USER 
+		</section>
+		<section class="body">
+			<form>
+				
+				<!-- Name group -->
+				<div class="field-group">
+				  <div class="field">
+				    <label>FIRST NAME</label>  
+				    <div class="input-wrapper">
+				      <i class="fas fa-user"></i>
+				      <input type="text" placeholder="Enter first name" />
+				    </div>
+				  </div>
+
+				  <div class="field">
+				    <label>MIDDLE NAME</label>
+				    <div class="input-wrapper">
+				      <i class="fas fa-user"></i>
+				      <input type="text" placeholder="Enter middle name" />
+				    </div>
+				  </div>
+
+				  <div class="field">
+				    <label>LAST NAME</label>
+				    <div class="input-wrapper">
+				      <i class="fas fa-user"></i>
+				      <input type="text" placeholder="Enter last name" />
+				    </div>
+				  </div>
+				</div>
+				<hr>
+
+				<div class="field-group">
+					<div class="field">
+					  <label>EMAIL ADDRESS</label>
+					  <div class="input-wrapper">
+					    <i class="fas fa-envelope"></i>
+					    <input type="email" placeholder="Enter email address" />
+					  </div>
+					</div>
+				</div>
+				<hr>
+
+				<div class="field-group">
+					<div class="field">
+					  <label>USERNAME</label>
+					  <div class="input-wrapper">
+					    <i class="fas fa-id-badge"></i>
+					    <input type="text" placeholder="Enter username" />
+					  </div>
+					</div>
+				</div>
+				<hr>
+
+				<div class="field-group">
+					<div class="field">
+					  <label>PASSWORD</label>
+					  <div class="input-wrapper">
+					    <i class="fas fa-lock"></i>
+					    <input type="password" placeholder="Enter password" />
+					  </div>
+					</div>
+					<div class="field">
+					  <label>CONFIRM PASSWORD</label>
+					  <div class="input-wrapper">
+					    <i class="fas fa-lock"></i>
+					    <input type="password" placeholder="Enter password" />
+					  </div>
+					</div>
+				</div>
+				<hr>
+
+				<!-- Buttons -->
+				<div class="btn-group">
+				  <a class="button back-btn" th:href="@{/admin/user}">
+				    <i class="fas fa-arrow-left"></i> BACK
+				  </a>
+				  <button class="save-btn">
+				    <i class="fas fa-save"></i> SAVE
+				  </button>
+				</div>
+
+			</form>		
+		</section>
+	</main>
+</body>
+</html>
