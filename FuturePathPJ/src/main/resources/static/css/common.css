@@ -518,6 +518,17 @@ i{
   background: #2d3970;
 }
 
+th:not(:last-child), 
+td:not(:last-child) {
+  width: auto; 
+}
+
+th:last-child,
+td:last-child {
+  white-space: nowrap;   
+  width: 1%;            
+}
+
 /* Actions cell */
 .actions-cell {
   display: flex;
