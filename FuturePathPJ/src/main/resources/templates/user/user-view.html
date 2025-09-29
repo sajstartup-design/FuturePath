@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | University</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<section class="header">
+			USER
+		</section>
+		<section class="body">
+			<div class="overview">
+				<div class="bold">USER OVERVIEW</div>
+				<span>A quick summary of all user</span>
+				<div class="little-information">
+					<div class="information">
+						<span>1</span>
+						<span>TOTAL USERS</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>ACTIVE USERS</span>
+					</div>
+					<hr class="vertical-line">
+					<div class="information">
+						<span>1</span>
+						<span>INACTIVE USERS</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="content">
+				<div class="table-header">
+					<button class="create-btn"><i class="fa-solid fa-circle-plus"></i> ADD NEW</button>
+				</div>
+				
+				<div class="table-header">
+					<button><i class="fa-solid fa-filter"></i></button>
+					<div class="search-box">
+					    <i class="fa-solid fa-magnifying-glass"></i>
+					    <input type="text" placeholder="SEARCH"/>
+					  </div>
+					  
+				</div>
+				
+				<div class="table-container">
+					<table>
+						<thead>
+						  <tr>
+						    <th scope="col">ID</th>
+						    <th scope="col">FIRST NAME</th>
+						    <th scope="col">LAST NAME</th>
+						    <th scope="col">EMAIL ADDRESS</th>
+						    <th scope="col">CATEGORY</th>
+						    <th scope="col">CREATED DATE</th>
+						    <th scope="col">UPDATED DATE</th>
+						    <th scope="col">STATUS</th>
+						    <th scope="col">ACTION</th>
+						  </tr>
+						</thead>
+		
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Christine</td>
+								<td>Pagobo</td>
+								<td>ChristinePagobo@gmail.com</td>
+								<td><span class="type-label private">STRAND</span></td>
+								<td>09/29/2025</td>
+								<td>09/29/2025</td>
+								<td><span class="status-label active">ACTIVE</span></td>
+								<td>
+									<div>
+										<button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+										<button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+									</div>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<div class="pagination">
+					  <button><i class="fa-solid fa-angle-left"></i> PREV</button>
+					  <button>1</button>
+					  <button>2</button>
+					  <button>3</button>	
+					  <button>4</button>	
+					  <button>5</button>	
+					  <button>..</button>
+					  <input type="text" />
+					  <button>NEXT <i class="fa-solid fa-angle-right"></i></button>			
+					</div>
+	
+				</div>
+			</div>
+			
+			
+		</section>
+	</main>
+</body>
+</html>
