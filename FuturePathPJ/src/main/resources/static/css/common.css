@@ -427,9 +427,35 @@ i{
 }
 
 .btn-primary {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
   background: #2563eb;
-  color: white;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
 }
+
+.btn-primary i {
+  margin-right: 6px;
+}
+
+.btn-secondary {
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #9bb0f9;
+  color: #9bb0f9;
+  cursor: pointer;
+  font-weight: 500;
+	text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(155,176,249,0.15);
+}
+
 
 .btn-icon {
   background: #f3f4f6;
