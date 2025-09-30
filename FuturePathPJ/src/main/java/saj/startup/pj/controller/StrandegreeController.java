@@ -29,11 +29,15 @@ public class StrandegreeController {
 			e.printStackTrace();
 		}
 		
+		model.addAttribute("page", "strandegrees");
+		
 		return "strandegree/strandegree-view";
 	}
 	
 	@GetMapping("/admin/strandegrees/add")
 	public String showStrandegreesAdd(Model model) {
+		
+		model.addAttribute("page", "strandegrees");
 		
 		return "strandegree/strandegree-add";
 	}
@@ -48,9 +52,8 @@ public class StrandegreeController {
 		}catch(Exception e) {
 			
 			e.printStackTrace();
-			
-			
-		}
+					
+		}	
 		
 		return "redirect:/admin/strandegrees";
 	}

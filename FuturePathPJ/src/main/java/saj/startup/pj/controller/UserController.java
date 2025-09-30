@@ -32,11 +32,15 @@ public class UserController {
 			e.printStackTrace();
 		}
 		
+		model.addAttribute("page", "user");
+		
 		return "user/user-view";
 	}
 	
 	@GetMapping("/admin/user/add")
-	public String showAddUser(@ModelAttribute UserDto webDto) {
+	public String showAddUser(Model model, @ModelAttribute UserDto webDto) {
+		
+		model.addAttribute("page", "user");
 		
 		return "user/user-add";
 	}

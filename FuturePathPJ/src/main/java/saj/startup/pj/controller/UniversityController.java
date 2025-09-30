@@ -17,7 +17,9 @@ public class UniversityController {
 	private StrandegreeService strandegreeService;
 
 	@GetMapping("/admin/universities")
-	public String showUniversities() {
+	public String showUniversities(Model model) {
+		
+		model.addAttribute("page", "universities");
 		
 		return "university/university-view";
 	}
@@ -34,6 +36,8 @@ public class UniversityController {
 			
 			e.printStackTrace();
 		}
+		
+		model.addAttribute("page", "universities");
 		
 		return "university/university-add";
 	}

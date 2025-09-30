@@ -421,19 +421,27 @@ i{
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.4rem 0.6rem;
+  padding: 0.6rem 0.8rem;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #9bb0f9;
-  border-radius: 4px;
-  transition: background 0.2s;
-  font-size: 0.8rem;
+  border-radius: 6px;
+  transition: all 0.25s ease;
 }
 
-.sidebar-menu a:hover {
-  background: rgba(255, 255, 255, 0.1);
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
   color: #fff;
 }
+
+
+.sidebar-menu a i {
+  font-size: 1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
 
 /* Icon button style */
 .icon-btn {
