@@ -11,3 +11,15 @@ CREATE TABLE users (
     is_deleted BOOLEAN DEFAULT FALSE,   -- soft delete flag
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE strandegrees (
+    idPk BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    code VARCHAR(50) UNIQUE NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    details TEXT,
+    isActive BOOLEAN DEFAULT TRUE,
+    isDeleted BOOLEAN DEFAULT FALSE,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
