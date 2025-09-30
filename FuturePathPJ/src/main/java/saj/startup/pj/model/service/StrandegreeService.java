@@ -8,4 +8,8 @@ import saj.startup.pj.model.dto.StrandegreeDto;
 public interface StrandegreeService {
 
 	public void saveStrandegree(StrandegreeDto inDto) throws Exception;
+	
+	public StrandegreeDto getStrandegreeOverview() throws Exception;
+	
+	public StrandegreeDto getAllStrandegrees(StrandegreeDto inDto) throws Exception;
 }

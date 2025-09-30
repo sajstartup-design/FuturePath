@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +20,16 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/admin/user")
-	public String showUsers(@ModelAttribute UserDto webDto) {
+	public String showUsers(Model model) {
 		
 		try {
 			UserDto outDto = userService.getUserOverview();
 			
-			webDto.setOverview(outDto.getOverview());
+			model.addAttribute("userDto", outDto);
+			
 		}catch(Exception e) {
 			
 			e.printStackTrace();
-
 		}
 		
 		return "user/user-view";

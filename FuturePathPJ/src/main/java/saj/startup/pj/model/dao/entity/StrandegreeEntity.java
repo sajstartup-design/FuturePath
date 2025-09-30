@@ -22,7 +22,7 @@ public class StrandegreeEntity {
 	
 	private String code;
 	
-	private String category;
+	private String category; 
 	
 	private String details;
 	
