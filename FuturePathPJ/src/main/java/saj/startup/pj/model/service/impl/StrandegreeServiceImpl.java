@@ -2,16 +2,19 @@ package saj.startup.pj.model.service.impl;
 
 import java.sql.Timestamp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dto.StrandegreeDto;
+import saj.startup.pj.model.logic.StrandegreeLogic;
 import saj.startup.pj.model.service.StrandegreeService;
 
 @Service
 public class StrandegreeServiceImpl implements StrandegreeService {
 	
-	
+	@Autowired
+	private StrandegreeLogic strandegreeLogic;
 
 	@Override
 	public void saveStrandegree(StrandegreeDto inDto) throws Exception {
@@ -28,7 +31,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		newStrandegree.setIsDeleted(false);
 		newStrandegree.setCreatedAt(timeNow);
 		
-		
+		strandegreeLogic.saveStrandegree(newStrandegree);
 	}
 
 }

@@ -1,12 +1,20 @@
 package saj.startup.pj.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import ch.qos.logback.core.model.Model;
+import saj.startup.pj.model.dto.StrandegreeDto;
+import saj.startup.pj.model.service.StrandegreeService;
 
 @Controller
 public class StrandegreeController {
+	
+	@Autowired
+	private StrandegreeService strandegreeService;
 
 	@GetMapping("/admin/strandegrees") 
 	public String showStrandegrees(Model model) {
@@ -18,5 +26,22 @@ public class StrandegreeController {
 	public String showStrandegreesAdd(Model model) {
 		
 		return "strandegree/strandegree-add";
+	}
+	
+	@PostMapping("/admin/strandegrees/add")
+	public String postStrandegreeAdd(@ModelAttribute StrandegreeDto webDto) {
+		
+		try {
+			
+			strandegreeService.saveStrandegree(webDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			
+		}
+		
+		return "redirect:/admin/strandegrees";
 	}
 }

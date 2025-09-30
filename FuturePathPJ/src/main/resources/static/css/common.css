@@ -76,6 +76,7 @@ main {
 
 i{
 	color: inherit;
+	line-height: unset !important;
 }
 
 .content {
@@ -536,7 +537,8 @@ i{
 }
 
 .btn-primary i {
-  margin-right: 6px;
+	display: flex;
+	align-items: center;
 }
 
 .btn-secondary {
@@ -547,7 +549,7 @@ i{
   color: #9bb0f9;
   cursor: pointer;
   font-weight: 500;
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .btn-secondary:hover {
