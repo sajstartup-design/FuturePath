@@ -92,7 +92,7 @@
 			      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
 			      <div class="search-box">
 			        <i class="fa-solid fa-magnifying-glass"></i>
-			        <input type="text" placeholder="SEARCH STRAND/DEGREE..." />
+			        <input type="text" placeholder="SEARCH STRAND/DEGREE..." class="search"/>
 			      </div>
 			    </div>
 			  </div>
@@ -108,48 +108,32 @@
 					    <th scope="col">CATEGORY</th>
 					    <th scope="col">DETAILS</th>
 					    <th scope="col">CREATED DATE</th>
-					    <th scope="col">UPDATED DATE</th>
 					    <th scope="col">STATUS</th>
 					    <th scope="col">ACTION</th>
 			        </tr>
 			      </thead>
-			      <tbody>
-			        <tr>
-		          		<td>1</td>
-						<td>Bachelor of Information Technology</td>
-						<td><span class="type-label private">BSIT</span></td>
-						<td><span class="type-label private">DEGREE</span></td>
-						<td>Information Technology (IT) is the use of computers and other electronic devices to store, retrieve, transmit, and manage data.</td>
-						<td>09/29/2025</td>
-						<td>09/29/2025</td>
-						<td><span class="status-label active">ACTIVE</span></td>
-						<td>
-							<div>
-								<button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
-	            				<button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
-							</div>
-						</td>
-			        </tr>
+			      <tbody id="table-body">			       
 			      </tbody>
 			    </table>
 			  </div>
 			
 			  <!-- Pagination -->
 			  <div class="pagination">
-			    <button><i class="fa-solid fa-angle-left"></i> PREV</button>
-			    <button class="active">1</button>
-			    <button>2</button>
-			    <button>3</button>
-			    <button>4</button>
-			    <button>5</button>
+			    <button class="prev-btn"><i class="fa-solid fa-angle-left"></i> PREV</button>
+			    <button class="btn-page active">1</button>
+			    <button class="btn-page">2</button>
+			    <button class="btn-page">3</button>
+			    <button class="btn-page">4</button>
+			    <button class="btn-page">5</button>
 			    <span>..</span>
-			    <input type="text" placeholder="Go to" />
-			    <button>NEXT <i class="fa-solid fa-angle-right"></i></button>
+			    <input type="text" placeholder="Go to" class="input-page"/>
+			    <button class="next-btn">NEXT <i class="fa-solid fa-angle-right"></i></button>
 			  </div>
 	
 		</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/pagination.js}"></script>
+	<script th:src="@{/script/strandegree-api.js}"></script>
 </body>
 </html>

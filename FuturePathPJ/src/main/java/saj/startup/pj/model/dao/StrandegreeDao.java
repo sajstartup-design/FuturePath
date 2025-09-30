@@ -1,8 +1,11 @@
 package saj.startup.pj.model.dao;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
@@ -23,4 +26,21 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	
 	@Query(GET_STRANDEGREE_OVERVIEW)
 	public StrandegreeOverviewData getUserOverview() throws DataAccessException;
+	
+	public final String GET_ALL_STRANDEGREES = "SELECT e "
+			+ "FROM StrandegreeEntity e "
+			+ "WHERE e.isDeleted = false "
+			+ "AND ( "
+		    + "   (:search IS NOT NULL AND :search <> '' AND ( " 
+		    + "       LOWER(e.name) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(e.code) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(e.category) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(CAST(e.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
+		    + "   )) " 
+		    + "   OR (:search IS NULL OR :search = '') " 
+		    + ")";
+	
+	@Query(GET_ALL_STRANDEGREES)
+	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable,
+			@Param("search") String search) throws DataAccessException;
 }

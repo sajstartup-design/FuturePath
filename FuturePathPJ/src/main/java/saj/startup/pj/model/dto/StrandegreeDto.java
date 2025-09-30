@@ -1,7 +1,12 @@
 package saj.startup.pj.model.dto;
 
+import java.util.List;
+
 import lombok.Data;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
+import saj.startup.pj.model.object.FilterAndSearchObj;
+import saj.startup.pj.model.object.PaginationObj;
+import saj.startup.pj.model.object.StrandegreeObj;
 
 @Data
 public class StrandegreeDto {
@@ -15,4 +20,10 @@ public class StrandegreeDto {
 	private String details;
 	
 	private StrandegreeOverviewData overview;
+	
+	private List<StrandegreeObj> strandegrees;
+	
+	private PaginationObj pagination;
+	
+	private FilterAndSearchObj filter;
 }

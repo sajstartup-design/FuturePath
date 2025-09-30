@@ -1,6 +1,8 @@
 package saj.startup.pj.model.logic.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.StrandegreeDao;
@@ -24,6 +26,12 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 	public StrandegreeOverviewData getStrandegreeOverview() {
 		
 		return strandegreeDao.getUserOverview();
+	}
+
+	@Override
+	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable, String search) {
+	
+		return strandegreeDao.getAllStrandegrees(pageable, search);
 	}
 
 }
