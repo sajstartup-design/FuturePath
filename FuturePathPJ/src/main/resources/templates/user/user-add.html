@@ -60,11 +60,11 @@
 					    <label>GENDER</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-venus-mars"></i>
-					      <select>
-					      	<option>SELECT GENDER...</option>
-					      	<option>MALE</option>
-					      	<option>FEMALE</option>
-					      	<option>OTHER</option>
+					      <select name="gender">
+					      	<option>Select Gender...</option>
+					      	<option>Male</option>
+					      	<option>Female</option>
+					      	<option>Other</option>
 					      </select>
 					    </div>
 					  </div>
@@ -97,7 +97,7 @@
 
 				<!-- Buttons -->
 				<div class="btn-group">
-					<a th:href="@{/admin/user}" class="btn btn-secondary">
+					<a th:href="@{/admin/user}" class="btn btn-secondary transitioning">
 						<i class="fas fa-times"></i> CANCEL
 					</a>
 					<button type="submit" class="btn btn-primary">
@@ -107,5 +107,6 @@
 			</form>			
 		</div>
 	</main>
+	<script th:src="@{/script/loading.js}"></script>
 </body>
 </html>

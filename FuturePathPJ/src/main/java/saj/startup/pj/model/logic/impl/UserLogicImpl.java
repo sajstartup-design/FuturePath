@@ -1,6 +1,8 @@
 package saj.startup.pj.model.logic.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.UserDao;
@@ -18,6 +20,13 @@ public class UserLogicImpl implements UserLogic{
 		
 		userDao.save(entity);
 		
+	}
+
+	@Override
+	public Page<UserEntity> getAllUsers(Pageable pageable, 
+			String search) {
+	
+		return userDao.getAllUsers(pageable, search);
 	}
 
 }

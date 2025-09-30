@@ -8,4 +8,6 @@ import saj.startup.pj.model.dto.UserDto;
 public interface UserService {
 
 	public void saveUser(UserDto inDto) throws Exception;
+	
+	public UserDto getAllUsers(UserDto inDto) throws Exception;
 }

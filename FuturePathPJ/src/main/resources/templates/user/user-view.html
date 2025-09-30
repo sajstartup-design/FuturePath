@@ -53,7 +53,7 @@
 			  <div class="data-section">
 			  <!-- Top Controls -->
 			  <div class="data-controls">
-			    <a th:href="@{/admin/user/add}" class="btn btn-primary">
+			    <a th:href="@{/admin/user/add}" class="btn btn-primary transitioning">
 			      <i class="fa-solid fa-circle-plus"></i> ADD USER
 			    </a>
 			
@@ -61,7 +61,7 @@
 			      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
 			      <div class="search-box">
 			        <i class="fa-solid fa-magnifying-glass"></i>
-			        <input type="text" placeholder="SEARCH USER..." />
+			        <input type="text" placeholder="SEARCH USER..." class="search"/>
 			      </div>
 			    </div>
 			  </div>
@@ -75,153 +75,35 @@
 					  <th scope="col"><i class="fa-solid fa-user"></i> FIRST NAME</th>
 					  <th scope="col"><i class="fa-solid fa-user"></i> LAST NAME</th>
 					  <th scope="col"><i class="fa-solid fa-envelope"></i> EMAIL ADDRESS</th>
+					  <th scope="col"><i class="fa-solid fa-envelope"></i> PHONE NUMBER</th>
+					  <th scope="col"><i class="fa-solid fa-envelope"></i> GENDER</th>
 					  <th scope="col"><i class="fa-solid fa-calendar-plus"></i> CREATED DATE</th>
-					  <th scope="col"><i class="fa-solid fa-calendar-check"></i> UPDATED DATE</th>
 					  <th scope="col"><i class="fa-solid fa-circle-info"></i> STATUS</th>
 					  <th scope="col"><i class="fa-solid fa-gear"></i> ACTION</th>
 					</tr>
 			      </thead>
-			      <tbody>
-			        <tr>
-			          <td>1</td>
-					<td>Christine</td>
-					<td>Pagobo</td>
-					<td>ChristinePagobo@gmail.com</td>
-					<td>09/29/2025</td>
-					<td>09/29/2025</td>
-					<td><span class="status-label active">ACTIVE</span></td>
-					<td class="actions-cell">
-			            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
-			            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
-			          </td>
-			        </tr>
+			      <tbody id="table-body">		       
 			      </tbody>
 			    </table>
 			  </div>
 			
 			  <!-- Pagination -->
 			  <div class="pagination">
-			    <button><i class="fa-solid fa-angle-left"></i> PREV</button>
-			    <button class="active">1</button>
-			    <button>2</button>
-			    <button>3</button>
-			    <button>4</button>
-			    <button>5</button>
+			    <button class="prev-btn"><i class="fa-solid fa-angle-left"></i> PREV</button>
+			    <button class="btn-page active">1</button>
+			    <button class="btn-page">2</button>
+			    <button class="btn-page">3</button>
+			    <button class="btn-page">4</button>
+			    <button class="btn-page">5</button>
 			    <span>..</span>
-			    <input type="text" placeholder="Go to" />
-			    <button>NEXT <i class="fa-solid fa-angle-right"></i></button>
+			    <input type="text" placeholder="Go to" class="input-page"/>
+			    <button class="next-btn">NEXT <i class="fa-solid fa-angle-right"></i></button>
 			  </div>
 			</div>
 		</div>
 	</main>
+	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/pagination.js}"></script>
+	<script th:src="@{/script/user-api.js}"></script>
 </body>
 </html>
-<!--<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>FuturePath | University</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}" />
-</head>
-<body>
-	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
-		<section class="header">
-			USER
-		</section>
-		<section class="body">
-			<div class="overview">
-				<div class="bold">USER OVERVIEW</div>
-				<span>A quick summary of all user</span>
-				<div class="little-information">
-					<div class="information">
-						<span>1</span>
-						<span>TOTAL USERS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>ACTIVE USERS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>INACTIVE USERS</span>
-					</div>
-				</div>
-			</div>
-			
-			<div class="content">
-				<div class="table-header">
-					<a class="button create-btn" th:href="@{/admin/user/add}"}><i class="fa-solid fa-circle-plus"></i> ADD NEW</a>
-				</div>
-				
-				<div class="table-header">
-					<button><i class="fa-solid fa-filter"></i></button>
-					<div class="search-box">
-					    <i class="fa-solid fa-magnifying-glass"></i>
-					    <input type="text" placeholder="SEARCH"/>
-					  </div>
-					  
-				</div>
-				
-				<div class="table-container">
-					<table>
-						<thead>
-						  <tr>
-						    <th scope="col">ID</th>
-						    <th scope="col">FIRST NAME</th>
-						    <th scope="col">LAST NAME</th>
-						    <th scope="col">EMAIL ADDRESS</th>
-						    <th scope="col">CATEGORY</th>
-						    <th scope="col">CREATED DATE</th>
-						    <th scope="col">UPDATED DATE</th>
-						    <th scope="col">STATUS</th>
-						    <th scope="col">ACTION</th>
-						  </tr>
-						</thead>
-		
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Christine</td>
-								<td>Pagobo</td>
-								<td>ChristinePagobo@gmail.com</td>
-								<td><span class="type-label private">STRAND</span></td>
-								<td>09/29/2025</td>
-								<td>09/29/2025</td>
-								<td><span class="status-label active">ACTIVE</span></td>
-								<td>
-									<div>
-										<button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-										<button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-									</div>
-								</td>
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
-				<div>
-					<div class="pagination">
-					  <button><i class="fa-solid fa-angle-left"></i> PREV</button>
-					  <button>1</button>
-					  <button>2</button>
-					  <button>3</button>	
-					  <button>4</button>	
-					  <button>5</button>	
-					  <button>..</button>
-					  <input type="text" />
-					  <button>NEXT <i class="fa-solid fa-angle-right"></i></button>			
-					</div>
-	
-				</div>
-			</div>
-			
-			
-		</section>
-	</main>
-</body>
-</html>-->
