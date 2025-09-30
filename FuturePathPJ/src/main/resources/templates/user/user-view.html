@@ -10,6 +10,124 @@
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
 	<main>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			USERS
+		</nav>
+		<hr>	
+		<div class="content">
+		
+		  <!-- Overview Section -->
+		  <div class="overview">
+			  <h2 class="title">USERS OVERVIEW</h2>
+			  <span class="subtitle">A quick summary of all users</span>
+			
+			  <div class="stats">
+			    <div class="stat-card">
+			      <div class="icon total">
+			        <i class="fas fa-users"></i>
+			      </div>
+			      <p class="label">TOTAL USERS</p>
+			      <p class="value">15,280</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon active">
+			        <i class="fas fa-check-circle"></i>
+			      </div>
+			      <p class="label">ACTIVE</p>
+			      <p class="value">42</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon inactive">
+			        <i class="fas fa-times-circle"></i>
+			      </div>
+			      <p class="label">INACTIVE</p>
+			      <p class="value">12</p>
+			    </div>
+			  </div>
+			</div>
+
+			  <div class="data-section">
+			  <!-- Top Controls -->
+			  <div class="data-controls">
+			    <a th:href="@{/admin/user/add}" class="btn btn-primary">
+			      <i class="fa-solid fa-circle-plus"></i> ADD USER
+			    </a>
+			
+			    <div class="actions">
+			      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
+			      <div class="search-box">
+			        <i class="fa-solid fa-magnifying-glass"></i>
+			        <input type="text" placeholder="Search University..." />
+			      </div>
+			    </div>
+			  </div>
+			
+			  <!-- Table -->
+			  <div class="data-table">
+			    <table>
+			      <thead>
+			        <tr>
+					  <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
+					  <th scope="col"><i class="fa-solid fa-user"></i> FIRST NAME</th>
+					  <th scope="col"><i class="fa-solid fa-user"></i> LAST NAME</th>
+					  <th scope="col"><i class="fa-solid fa-envelope"></i> EMAIL ADDRESS</th>
+					  <th scope="col"><i class="fa-solid fa-calendar-plus"></i> CREATED DATE</th>
+					  <th scope="col"><i class="fa-solid fa-calendar-check"></i> UPDATED DATE</th>
+					  <th scope="col"><i class="fa-solid fa-circle-info"></i> STATUS</th>
+					  <th scope="col"><i class="fa-solid fa-gear"></i> ACTION</th>
+					</tr>
+			      </thead>
+			      <tbody>
+			        <tr>
+			          <td>1</td>
+					<td>Christine</td>
+					<td>Pagobo</td>
+					<td>ChristinePagobo@gmail.com</td>
+					<td>09/29/2025</td>
+					<td>09/29/2025</td>
+					<td><span class="status-label active">ACTIVE</span></td>
+					<td class="actions-cell">
+			            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
+			            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+			          </td>
+			        </tr>
+			      </tbody>
+			    </table>
+			  </div>
+			
+			  <!-- Pagination -->
+			  <div class="pagination">
+			    <button><i class="fa-solid fa-angle-left"></i> PREV</button>
+			    <button class="active">1</button>
+			    <button>2</button>
+			    <button>3</button>
+			    <button>4</button>
+			    <button>5</button>
+			    <span>..</span>
+			    <input type="text" placeholder="Go to" />
+			    <button>NEXT <i class="fa-solid fa-angle-right"></i></button>
+			  </div>
+	
+		</div>
+	</main>
+</body>
+</html>
+<!--<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | University</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
 		<section class="header">
 			USER
 		</section>
@@ -37,7 +155,7 @@
 			
 			<div class="content">
 				<div class="table-header">
-					<button class="create-btn"><i class="fa-solid fa-circle-plus"></i> ADD NEW</button>
+					<a class="button create-btn" th:href="@{/admin/user/add}"}><i class="fa-solid fa-circle-plus"></i> ADD NEW</a>
 				</div>
 				
 				<div class="table-header">
@@ -106,4 +224,4 @@
 		</section>
 	</main>
 </body>
-</html>
+</html>-->

@@ -3,12 +3,6 @@
 	flex-direction: row !important;
 }
 
-.bold{
-	    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-}
-
 .content-one{
 	display: flex;
 	flex-direction: column;

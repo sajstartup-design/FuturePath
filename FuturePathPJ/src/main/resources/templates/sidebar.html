@@ -2,54 +2,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sidebar</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 	<nav th:fragment="sidebar" class="sidebar">
-		<hr>
-		HELLO ADMIN
-		<hr>
-		<div class="option" >
-			<span>MAIN</span>
-			<div>
-				<a><img th:src="@{/images/graduation.png}"> DASHBOARD</a>
-			</div>
-		</div>
-		<hr>
-		<div class="option" >
-			<span>UNIVERSITY</span>
-			<div>
-				<a><img th:src="@{/images/graduation.png}"> UNIVERSITY LIST</a>
-			</div>
-		</div>
-		<hr>
-		<div class="option" >
-			<span>QUESTION</span>
-			<div>
-				<a><img th:src="@{/images/graduation.png}"> QUESTION LIST</a>
-			</div>
-		</div>
-		<hr>
-		<div class="option" >
-			<span>USER</span>
-			<div>
-				<a><img th:src="@{/images/graduation.png}"> USER LIST</a>
-			</div>
-		</div>
-		<hr>
-		<div class="option" >
-			<span>HISTORY</span>
-			<div>
-				<a><img th:src="@{/images/graduation.png}"> HISTORY LIST</a>
-			</div>
-		</div>
-		<hr>
-		<div class="option" >
-			<span>LOGOUT</span>
-			<div>
-				<a><img th:src="@{/images/graduation.png}"> LOGOUT</a>
-			</div>
-		</div>
+	  <div class="sidebar-header">
+	    <img th:src="@{/images/letter-a.png}" alt="Logo" class="logo" />
+	    <div class="brand">
+	      FuturePath
+	      <small>ADMIN DASHBOARD</small>
+	    </div>
+	  </div>
+	
+	  <div class="sidebar-menu">
+	    <p class="menu-title">MAIN</p>
+	    <a th:href="@{/admin/dashboard}"><i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD</a>
+	
+	    <p class="menu-title">UNIVERSITY</p>
+	    <a th:href="@{/admin/universities}"><i class="fas fa-university icon-btn"></i> UNIVERSITY</a>
+	    
+	    <p class="menu-title">QUIZ</p>
+	    <a th:href="@{/admin/questions}"><i class="fas fa-question-circle icon-btn"></i> QUESTION</a>
+	    <a href="#"><i class="fas fa-cogs icon-btn"></i> QUIZ CONFIG</a>
+	    
+	    <p class="menu-title">STRAND & DEGREE</p>
+	    <a th:href="@{/admin/strandegrees}"><i class="fas fa-graduation-cap icon-btn"></i> STRAND & DEGREE</a>
+	
+	    <p class="menu-title">USER</p>
+	    <a th:href="@{/admin/user}"><i class="fas fa-user icon-btn"></i> USER</a>
+	
+	  </div>
 	</nav>
 </body>
 </html>

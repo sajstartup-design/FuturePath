@@ -10,211 +10,142 @@
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
 	<main>
-		<section class="header">
-			QUESTIONS
-		</section>
-		<section class="body">
-			<div class="overview">
-				<div class="bold">QUESTION OVERVIEW</div>
-				<span>A quick summary of all university</span>
-				<div class="bold">STRANDS</div>
-				<div class="little-information">
-					<div class="information">
-						<span>1</span>
-						<span>TOTAL QUESTION</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>STEM QUESTIONS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>ABM QUESTIONS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>HUMMS QUESTIONS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>GAS QUESTIONS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>ICT QUESTIONS</span>
-					</div>
-				</div>
-				<div class="bold">DEGREES</div>
-				<div class="little-information">
-					<div class="information">
-						<span>1</span>
-						<span>BSIT QUESTION</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>STEM QUESTIONS</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>INACTIVE UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PRIVATE UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-					<hr class="vertical-line">
-					<div class="information">
-						<span>1</span>
-						<span>PUBLIC UNIVERSITY</span>
-					</div>
-				</div>
-			</div>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			UNIVERSITY
+		</nav>
+		<hr>	
+		<div class="content">
+		
+		  <!-- Overview Section -->
+		  <div class="overview">
+			  <h2 class="title">UNIVERSITY OVERVIEW</h2>
+			  <span class="subtitle">A quick summary of all questions from strand and degree</span>
+				
+			  <h3 class="title">STRAND</h3>
+			  <div class="stats">
+			    <div class="stat-card">
+			      <div class="icon total">
+			        <i class="fas fa-graduation-cap"></i>
+			      </div>
+			      <p class="label">TOTAL QUESTIONS</p>
+			      <p class="value">15,280</p>
+			    </div>
 			
-			<div class="content">
-				<div class="table-header">
-					<button class="create-btn"><i class="fa-solid fa-circle-plus"></i> ADD NEW</button>
-				</div>
-				
-				<div class="table-header">
-					<button><i class="fa-solid fa-filter"></i></button>
-					<div class="search-box">
-					    <i class="fa-solid fa-magnifying-glass"></i>
-					    <input type="text" placeholder="SEARCH"/>
-					  </div>
-					  
-				</div>
-				
-				<div class="table-container">
-					<table>
-						<thead>
-						  <tr>
-						    <th scope="col">ID</th>
-						    <th scope="col">QUESTION</th>
-						    <th scope="col">CATEGORY</th>
-						    <th scope="col">STRAND / DEGREE</th>
-						    <th scope="col">CREATED DATE</th>
-						    <th scope="col">UPDATED DATE</th>
-						    <th scope="col">STATUS</th>
-						    <th scope="col">ACTION</th>
-						  </tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
+			    <div class="stat-card">
+			      <div class="icon active">
+			        <i class="fas fa-check-circle"></i>
+			      </div>
+			      <p class="label">ACTIVE</p>
+			      <p class="value">42</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon inactive">
+			        <i class="fas fa-times-circle"></i>
+			      </div>
+			      <p class="label">INACTIVE</p>
+			      <p class="value">12</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon private">
+			        <i class="fas fa-lock"></i>
+			      </div>
+			      <p class="label">PRIVATE</p>
+			      <p class="value">25</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon public">
+			        <i class="fas fa-university"></i>
+			      </div>
+			      <p class="label">PUBLIC</p>
+			      <p class="value">17</p>
+			    </div>
+			  </div>
+			  
+			  <h3 class="title">DEGREE</h3>
+			  <div class="stats">
+			    <div class="stat-card">
+			      <div class="icon total">
+			        <i class="fas fa-graduation-cap"></i>
+			      </div>
+			      <p class="label">TOTAL QUESTIONS</p>
+			      <p class="value">15,280</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon active">
+			        <i class="fas fa-check-circle"></i>
+			      </div>
+			      <p class="label">ACTIVE</p>
+			      <p class="value">42</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon inactive">
+			        <i class="fas fa-times-circle"></i>
+			      </div>
+			      <p class="label">INACTIVE</p>
+			      <p class="value">12</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon private">
+			        <i class="fas fa-lock"></i>
+			      </div>
+			      <p class="label">PRIVATE</p>
+			      <p class="value">25</p>
+			    </div>
+			
+			    <div class="stat-card">
+			      <div class="icon public">
+			        <i class="fas fa-university"></i>
+			      </div>
+			      <p class="label">PUBLIC</p>
+			      <p class="value">17</p>
+			    </div>
+			    
+			  </div>
+			  
+			</div>
+
+			  <div class="data-section">
+			  <!-- Top Controls -->
+			  <div class="data-controls">
+			    <button class="btn btn-primary">
+			      <i class="fa-solid fa-circle-plus"></i> ADD UNIVERSITY
+			    </button>
+			
+			    <div class="actions">
+			      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
+			      <div class="search-box">
+			        <i class="fa-solid fa-magnifying-glass"></i>
+			        <input type="text" placeholder="Search University..." />
+			      </div>
+			    </div>
+			  </div>
+			
+			  <!-- Table -->
+			  <div class="data-table">
+			    <table>
+			      <thead>
+			        <tr>
+			          <th scope="col">ID</th>
+					    <th scope="col">QUESTION</th>
+					    <th scope="col">CATEGORY</th>
+					    <th scope="col">STRAND / DEGREE</th>
+					    <th scope="col">CREATED DATE</th>
+					    <th scope="col">UPDATED DATE</th>
+					    <th scope="col">STATUS</th>
+					    <th scope="col">ACTION</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr>
+			          <td>1</td>
 								<td>What is the chemical symbol for Sodium?</td>
 								<td><span class="type-label private">STRAND</span></td>
 								<td><span class="type-label private">STEM</span></td>
@@ -223,47 +154,29 @@
 								<td><span class="status-label active">ACTIVE</span></td>
 								<td>
 									<div>
-										<button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-										<button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+										<button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
+			            				<button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
 									</div>
 								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Which of the following is a primary function of a database management system (DBMS)?</td>
-								<td><span class="type-label private">DEGREE</span></td>
-								<td><span class="type-label private">BSIT</span></td>
-								<td>09/29/2025</td>
-								<td>09/29/2025</td>
-								<td><span class="status-label active">ACTIVE</span></td>
-								<td>
-									<div>
-										<button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-										<button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div>
-					<div class="pagination">
-					  <button><i class="fa-solid fa-angle-left"></i> PREV</button>
-					  <button>1</button>
-					  <button>2</button>
-					  <button>3</button>	
-					  <button>4</button>	
-					  <button>5</button>	
-					  <button>..</button>
-					  <input type="text" />
-					  <button>NEXT <i class="fa-solid fa-angle-right"></i></button>			
-					</div>
+			        </tr>
+			      </tbody>
+			    </table>
+			  </div>
+			
+			  <!-- Pagination -->
+			  <div class="pagination">
+			    <button><i class="fa-solid fa-angle-left"></i> PREV</button>
+			    <button class="active">1</button>
+			    <button>2</button>
+			    <button>3</button>
+			    <button>4</button>
+			    <button>5</button>
+			    <span>..</span>
+			    <input type="text" placeholder="Go to" />
+			    <button>NEXT <i class="fa-solid fa-angle-right"></i></button>
+			  </div>
 	
-				</div>
-			</div>
-			
-			
-		</section>
+		</div>
 	</main>
 </body>
 </html>
