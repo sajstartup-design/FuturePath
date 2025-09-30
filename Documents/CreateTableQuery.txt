@@ -1,0 +1,13 @@
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,         -- Auto-incrementing ID
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,     -- store hashed password
+    is_active BOOLEAN DEFAULT TRUE,     -- active/inactive user
+    is_deleted BOOLEAN DEFAULT FALSE,   -- soft delete flag
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

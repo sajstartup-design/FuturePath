@@ -25,7 +25,7 @@
     <button><i class="fas fa-envelope"></i></button>
 
     <!-- Profile -->
-    <div class="profile">
+    <div class="profile" id="profileBtn">
       <img th:src="@{/images/letter-a.png}" alt="User" />
       <div class="profile-text">
         <small>Welcome,</small>
@@ -34,8 +34,37 @@
       <button class="dropdown-btn">
         <i class="fas fa-chevron-down"></i>
       </button>
+      
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="header">
+          <img th:src="@{/images/letter-a.png}" alt="User" />
+        </div>
+        <br>
+        <hr>
+        <ul>
+          <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+        </ul>
+      </div>
     </div>
   </div>
+  <script>
+  	const profile = document.getElementById('profile');
+	const profileBtn = document.getElementById('profileBtn');
+	const profileDropdown = document.getElementById('profileDropdown');
+	
+	profileBtn.addEventListener('click', () => {
+	  profileDropdown.classList.toggle('active');
+	  profileBtn.classList.toggle('active');
+	});
+	
+	// Close dropdown when clicking outside
+	document.addEventListener('click', function(event) {
+	  if (!profileBtn.contains(event.target)) {
+	    profileDropdown.classList.remove('active');
+	    profileBtn.classList.remove('active')
+	  }
+	});
+	</script>
 </nav>
 
 </body>

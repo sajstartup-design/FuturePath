@@ -198,7 +198,15 @@ i{
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  box-sizing: border-box;
 }
+
+.profile.active{
+	  background: #355098;
+  border-radius: 0.5rem;
+}
+
 
 .profile img {
   width: 1.5rem;
@@ -226,13 +234,83 @@ i{
 /* Dropdown button */
 .dropdown-btn {
   width: 2rem;
-  background: #4A6ADB !important;
+  background: #2f3b73 !important;
   border: none;
   border-radius: 4px;
   color: white;
   cursor: pointer;
   font-size: 0.8rem; /* smaller arrow */
 }
+
+/* Dropdown Modal */
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 5.5rem;
+  right: 1.5rem;
+  background: #fff;
+  color: #000;
+  width: 15rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.profile-dropdown.active {
+  display: block;
+}
+
+.profile-dropdown .header {
+  background: #1a234f;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-dropdown .header img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.profile-dropdown .header h3 {
+  margin: 0.2rem 0;
+}
+
+.profile-dropdown .header p {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.profile-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-dropdown ul li {
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.profile-dropdown ul li:last-child {
+  color: #e74c3c;
+  border-bottom: none;
+}
+
+.profile-dropdown ul li:hover {
+  background: #f0f0f0;
+}
+
 /*Header Design*/
 
 
@@ -338,7 +416,7 @@ i{
 
 /* Icon button style */
 .icon-btn {
-  background: #4A6ADB !important;
+  background: #2f3b73 !important;
   border: none;
   padding: 0.2rem 0.2rem;
   display: flex;
@@ -458,36 +536,57 @@ i{
 
 
 .btn-icon {
-  background: #f3f4f6;
+  background: #2f3b73;
   color: #374151;
   padding: 0.5rem;
+}
+
+.btn-icon i{
+	color: #fff;
 }
 
 .btn-icon.edit { color: #2563eb; }
 .btn-icon.delete { color: #dc2626; }
 
 /* Search box */
+/* Search box (fixed) */
 .search-box {
-  position: relative;
-  display: flex;
+  flex: 1;
+  max-width: 16rem;           /* match search-bar */
+  background: #1a234f;
+  border-radius: 0.5rem;      /* rounded corners like search-bar */
+  padding: 0 0.5rem;          /* horizontal padding like search-bar */
+  display: flex;              /* to align input and icon horizontally */
   align-items: center;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
+  box-sizing: border-box;
+  height: 2.5rem;
 }
 
 .search-box i {
   margin-right: 0.4rem;
-  color: #6b7280;
+  color: #fff;
 }
 
 .search-box input {
+  flex: 1;
+  background: transparent;
   border: none;
   outline: none;
-  background: transparent;
+  color: white;
   font-size: 0.85rem;
+  padding: 0.5rem 0;          /* vertical padding */
+  box-sizing: border-box;
+    height: 2rem;
 }
+
+.search-box button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 
 /* Table Design */
 .data-table table {
