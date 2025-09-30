@@ -11,4 +11,10 @@ public class QuestionController {
 		
 		return "question/question-view";
 	}
+	
+	@GetMapping("/admin/questions/add")
+	public String showQuestionsAdd() {
+		
+		return "question-question-add";
+	}
 }
