@@ -69,15 +69,15 @@
 			  <div class="data-section">
 			  <!-- Top Controls -->
 			  <div class="data-controls">
-			    <button class="btn btn-primary">
+			    <a th:href="@{/admin/universities/add}" class="btn btn-primary transitioning">
 			      <i class="fa-solid fa-circle-plus"></i> ADD UNIVERSITY
-			    </button>
+			    </a>
 			
 			    <div class="actions">
 			      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
 			      <div class="search-box">
 			        <i class="fa-solid fa-magnifying-glass"></i>
-			        <input type="text" placeholder="Search University..." />
+			        <input type="text" placeholder="SEARCH UNIVERSITY" class="search"/>
 			      </div>
 			    </div>
 			  </div>
@@ -127,18 +127,20 @@
 			
 			  <!-- Pagination -->
 			  <div class="pagination">
-			    <button><i class="fa-solid fa-angle-left"></i> PREV</button>
-			    <button class="active">1</button>
-			    <button>2</button>
-			    <button>3</button>
-			    <button>4</button>
-			    <button>5</button>
+			    <button class="prev-btn"><i class="fa-solid fa-angle-left"></i> PREV</button>
+			    <button class="btn-page active">1</button>
+			    <button class="btn-page">2</button>
+			    <button class="btn-page">3</button>
+			    <button class="btn-page">4</button>
+			    <button class="btn-page">5</button>
 			    <span>..</span>
-			    <input type="text" placeholder="Go to" />
-			    <button>NEXT <i class="fa-solid fa-angle-right"></i></button>
+			    <input type="text" placeholder="Go to" class="input-page"/>
+			    <button class="next-btn">NEXT <i class="fa-solid fa-angle-right"></i></button>
 			  </div>
 	
 		</div>
 	</main>
+	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/pagination.js}"></script>
 </body>
 </html>

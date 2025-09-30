@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | Strand & Degree</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/user-add.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			UNIVERSITY > ADD
+		</nav>
+		<hr>
+		<div class="content">
+			<form th:action="@{/admin/strandegrees/add}" method="POST" th:object="${strandegreeDto}">
+				
+				<!-- University Name -->
+				<div class="field-group">
+					<div class="field">
+					    <label>UNIVERSITY NAME</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-university"></i>
+					      <input type="text" placeholder="Enter university name" name="name"/>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="field-group">
+					<div class="field">
+					    <label>CATEGORY</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-layer-group"></i>
+					      <select name="category">
+					      	<option>Select Type...</option>
+					      	<option>PRIVATE</option>
+					      	<option>PUBLIC</option>
+					      </select>
+					    </div>
+					</div>
+					<div class="field">
+					    <label>CONTACT</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-phone"></i>
+					      <input type="text" placeholder="Enter contact number" name="contact"/>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="field-group">
+					<div class="field">
+					    <label>STREET</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-road"></i>
+					      <input type="text" placeholder="Enter street" name="street"/>
+					    </div>
+					</div>
+					<div class="field">
+					    <label>CITY</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-city"></i>
+					      <input type="text" placeholder="Enter city" name="city"/>
+					    </div>
+					</div>
+					<div class="field">
+					    <label>PROVINCE</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-map-marked-alt"></i>
+					      <input type="text" placeholder="Enter province" name="province"/>
+					    </div>
+					</div>
+					<div class="field">
+					    <label>POSTAL CODE</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-mail-bulk"></i>
+					      <input type="text" placeholder="Enter postal code" name="postalCode"/>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="evaluation-section">
+				    <h4>STRANDS PROGRAMS</h4>
+				    <h5>Please check the strand available in the university</h5>
+				    <table class="evaluation-table">
+				        <thead>
+				            <tr>
+				                <th>Strand</th>
+				                <th>Availability</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr th:each="strandegree, iterStat : ${strandegreeDto.strandegrees}"
+				                th:if="${strandegree.category == 'STRAND'}">
+				                <td><strong th:text="'(' + ${strandegree.code} + ') ' + ${strandegree.name}">Degree Name</strong></td>
+				                <td>
+				                    <label>
+				                        <input type="radio"
+				                               th:name="${strandegree.code}"
+				                               value="available"> Available
+				                    </label>
+				                    <label style="margin-left:1rem;">
+				                        <input type="radio"
+				                               th:name="${strandegree.code}"
+				                               value="not_available"> Not Available
+				                    </label>
+				                </td>
+				            </tr>
+				        </tbody>
+				    </table>
+				</div>
+				
+				<div class="evaluation-section">
+				    <h4>DEGREE PROGRAMS</h4>
+				    <h5>Please check the degrees available in the university</h5>
+				    <table class="evaluation-table">
+				        <thead>
+				            <tr>
+				                <th>Degree</th>
+				                <th>Availability</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr th:each="strandegree, iterStat : ${strandegreeDto.strandegrees}"
+				                th:if="${strandegree.category == 'DEGREE'}">
+				                <td><strong th:text="'(' + ${strandegree.code} + ') ' + ${strandegree.name}">Degree Name</strong></td>
+				                <td>
+				                    <label>
+				                        <input type="radio"
+				                               th:name="${strandegree.code}"
+				                               value="available"> Available
+				                    </label>
+				                    <label style="margin-left:1rem;">
+				                        <input type="radio"
+				                               th:name="${strandegree.code}"
+				                               value="not_available"> Not Available
+				                    </label>
+				                </td>
+				            </tr>
+				        </tbody>
+				    </table>
+				</div>
+
+
+
+				<hr>
+				<!-- Buttons -->
+				<div class="btn-group">
+					<a th:href="@{/admin/universities}" class="btn btn-secondary transitioning">
+						<i class="fas fa-times"></i> CANCEL
+					</a>
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-save"></i> SAVE
+					</button>
+				</div>
+			</form>			
+		</div>
+	</main>
+	<script th:src="@{/script/loading.js}"></script>
+</body>
+</html>
