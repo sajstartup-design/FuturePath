@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
+import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.logic.StrandegreeLogic;
 import saj.startup.pj.model.service.StrandegreeService;
@@ -32,6 +33,18 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		newStrandegree.setCreatedAt(timeNow);
 		
 		strandegreeLogic.saveStrandegree(newStrandegree);
+	}
+
+	@Override
+	public StrandegreeDto getStrandegreeOverview() throws Exception {
+		
+		StrandegreeDto outDto = new StrandegreeDto();
+		
+		StrandegreeOverviewData overview = strandegreeLogic.getStrandegreeOverview();
+		
+		outDto.setOverview(overview);
+		
+		return outDto;
 	}
 
 }

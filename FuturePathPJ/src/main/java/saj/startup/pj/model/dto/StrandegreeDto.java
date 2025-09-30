@@ -1,6 +1,7 @@
 package saj.startup.pj.model.dto;
 
 import lombok.Data;
+import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
 
 @Data
 public class StrandegreeDto {
@@ -12,4 +13,6 @@ public class StrandegreeDto {
 	private String category;
 	
 	private String details;
+	
+	private StrandegreeOverviewData overview;
 }

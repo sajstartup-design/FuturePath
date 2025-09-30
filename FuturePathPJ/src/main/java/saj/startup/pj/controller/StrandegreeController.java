@@ -2,11 +2,11 @@ package saj.startup.pj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import ch.qos.logback.core.model.Model;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.service.StrandegreeService;
 
@@ -18,6 +18,16 @@ public class StrandegreeController {
 
 	@GetMapping("/admin/strandegrees") 
 	public String showStrandegrees(Model model) {
+		
+		try {
+			
+			StrandegreeDto outDto = strandegreeService.getStrandegreeOverview();
+			
+			model.addAttribute("strandegreeDto", outDto);
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		return "strandegree/strandegree-view";
 	}
