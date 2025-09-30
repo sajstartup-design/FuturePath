@@ -45,7 +45,8 @@ form{
 }
 
 .input-wrapper input,
-.input-wrapper select {
+.input-wrapper select,
+.input-wrapper textarea {
   flex: 1;
   border: none;
   outline: none;
@@ -53,6 +54,10 @@ form{
   color: #f1f5f9;
   font-size: 0.9rem;
   height: 2rem;
+}
+
+.input-wrapper textarea{
+	height: 5rem;
 }
 
 .input-wrapper input:-webkit-autofill {

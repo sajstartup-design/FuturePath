@@ -13,4 +13,10 @@ public class StrandegreeController {
 		
 		return "strandegree/strandegree-view";
 	}
+	
+	@GetMapping("/admin/strandegrees/add")
+	public String showStrandegreesAdd(Model model) {
+		
+		return "strandegree/strandegree-add";
+	}
 }
