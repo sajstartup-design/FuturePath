@@ -1,5 +1,7 @@
 package saj.startup.pj.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +19,17 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/admin/user")
-	public String showUsers() {
+	public String showUsers(@ModelAttribute UserDto webDto) {
 		
+		try {
+			UserDto outDto = userService.getUserOverview();
+			
+			webDto.setOverview(outDto.getOverview());
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+
+		}
 		
 		return "user/user-view";
 	}

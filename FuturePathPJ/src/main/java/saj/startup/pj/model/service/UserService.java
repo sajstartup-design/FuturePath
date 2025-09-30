@@ -9,5 +9,7 @@ public interface UserService {
 
 	public void saveUser(UserDto inDto) throws Exception;
 	
+	public UserDto getUserOverview() throws Exception;
+	
 	public UserDto getAllUsers(UserDto inDto) throws Exception;
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
+	<main th:object="${userDto}">
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">
@@ -29,7 +29,7 @@
 			        <i class="fas fa-users"></i>
 			      </div>
 			      <p class="label">TOTAL USERS</p>
-			      <p class="value">15,280</p>
+			      <p class="value" th:text="*{overview.totalUsers}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -37,7 +37,7 @@
 			        <i class="fas fa-check-circle"></i>
 			      </div>
 			      <p class="label">ACTIVE</p>
-			      <p class="value">42</p>
+			      <p class="value" th:text="*{overview.totalActiveUsers}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -45,7 +45,7 @@
 			        <i class="fas fa-times-circle"></i>
 			      </div>
 			      <p class="label">INACTIVE</p>
-			      <p class="value">12</p>
+			      <p class="value" th:text="*{overview.totalInactiveUsers}">0</p>
 			    </div>
 			  </div>
 			</div>

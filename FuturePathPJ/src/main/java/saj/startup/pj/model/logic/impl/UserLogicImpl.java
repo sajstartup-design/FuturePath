@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.UserDao;
 import saj.startup.pj.model.dao.entity.UserEntity;
+import saj.startup.pj.model.dao.entity.UserOverviewData;
 import saj.startup.pj.model.logic.UserLogic;
 
 @Service
@@ -27,6 +28,12 @@ public class UserLogicImpl implements UserLogic{
 			String search) {
 	
 		return userDao.getAllUsers(pageable, search);
+	}
+
+	@Override
+	public UserOverviewData getUserOverview() {
+		
+		return userDao.getUserOverview();
 	}
 
 }

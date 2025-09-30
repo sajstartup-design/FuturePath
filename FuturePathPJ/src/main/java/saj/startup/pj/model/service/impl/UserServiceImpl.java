@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.UserEntity;
+import saj.startup.pj.model.dao.entity.UserOverviewData;
 import saj.startup.pj.model.dto.UserDto;
 import saj.startup.pj.model.logic.UserLogic;
 import saj.startup.pj.model.object.FilterAndSearchObj;
@@ -48,6 +49,18 @@ public class UserServiceImpl implements UserService{
 		newUser.setCreatedAt(timeNow);
 		
 		userLogic.saveUser(newUser);
+	}
+	
+	@Override
+	public UserDto getUserOverview() throws Exception {
+		
+		UserDto outDto = new UserDto();
+		
+		UserOverviewData overview = userLogic.getUserOverview();
+		
+		outDto.setOverview(overview);
+		
+		return outDto;
 	}
 
 	@Override

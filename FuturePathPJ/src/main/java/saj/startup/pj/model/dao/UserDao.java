@@ -8,8 +8,22 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import saj.startup.pj.model.dao.entity.UserEntity;
+import saj.startup.pj.model.dao.entity.UserOverviewData;
 
 public interface UserDao extends JpaRepository<UserEntity, Integer>{
+	
+	public final String GET_USERS_OVERVIEW =
+		    "SELECT new saj.startup.pj.model.dao.entity.UserOverviewData( " +
+		    "CAST(COUNT(e) AS INTEGER), " +
+		    "CAST(SUM(CASE WHEN e.isActive = true THEN 1 ELSE 0 END) AS INTEGER), " +
+		    "CAST(SUM(CASE WHEN e.isActive = false THEN 1 ELSE 0 END) AS INTEGER) " +
+		    ") " +
+		    "FROM UserEntity e "
+		    + "WHERE e.isDeleted = false ";
+	
+	@Query(GET_USERS_OVERVIEW)
+	public UserOverviewData getUserOverview() throws DataAccessException;
+
 
 	public final String GET_ALL_USERS = "SELECT u "
 			+ "FROM UserEntity u "
