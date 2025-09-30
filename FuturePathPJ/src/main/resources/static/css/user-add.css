@@ -44,7 +44,9 @@ form{
   font-size: 0.9rem;
 }
 
-.input-wrapper input {
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
   flex: 1;
   border: none;
   outline: none;
@@ -52,6 +54,21 @@ form{
   color: #f1f5f9;
   font-size: 0.9rem;
   height: 2rem;
+}
+
+.input-wrapper textarea{
+	height: 5rem;
+}
+
+.input-wrapper input:-webkit-autofill {
+  background: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* removes yellow bg */
+  -webkit-text-fill-color: white; /* set text color */
+  transition: background-color 5000s ease-in-out 0s; /* prevents flashing */
+}
+
+.input-wrapper select option{
+	color: #000;
 }
 
 .input-wrapper input::placeholder {

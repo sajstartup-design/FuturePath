@@ -34,7 +34,7 @@ html, body {
 
 *{
 	color: white;
-	letter-spacing: 0.1rem;
+	letter-spacing: 0.15rem;
 }
 
 hr {
@@ -43,6 +43,19 @@ hr {
   background: #2A397D; /* slightly lighter than #161E43 */
   margin: 0;
   opacity: 0.6; /* makes it softer */
+}
+
+.loading-background {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(128, 128, 128, 0.5); /* Gray with 50% transparency */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999999;
 }
 
 
@@ -214,6 +227,13 @@ i{
   border-radius: 50%;
 }
 
+.profile .name{
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	color: #000;
+}
+
 .profile-text {
   display: flex;
   flex-direction: column;
@@ -251,7 +271,7 @@ i{
   background: #fff;
   color: #000;
   width: 15rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   z-index: 100;
   overflow: hidden;
@@ -541,12 +561,14 @@ i{
   padding: 0.5rem;
 }
 
+.btn-icon.edit i{ color: #2563eb !important; }
+.btn-icon.delete i{ color: #dc2626 !important; }
+
 .btn-icon i{
 	color: #fff;
 }
 
-.btn-icon.edit { color: #2563eb; }
-.btn-icon.delete { color: #dc2626; }
+
 
 /* Search box */
 /* Search box (fixed) */
@@ -650,8 +672,7 @@ td:not(:last-child) {
 
 th:last-child,
 td:last-child {
-  white-space: nowrap;   
-  width: 1%;            
+  white-space: nowrap;             
 }
 
 /* Actions cell */
@@ -708,6 +729,14 @@ td:last-child {
   color: white;
 }
 
+.pagination button:disabled {
+  background: #2a345f;      
+  color: #888;              
+  cursor: not-allowed;     
+  opacity: 0.6;            
+  border: 1px solid #3a4675; 
+}
+
 .pagination input {
   width: 50px;
   padding: 0.3rem;
@@ -718,10 +747,24 @@ td:last-child {
   font-size: 0.8rem;
   text-align: center;
 }
+/*TABLE DESIGN */
 
+/* BADES */
+.status-label {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  color: #fff;
+  font-size: 0.875rem;
+}
 
+.status-label.active {
+  background-color: #2ecc71; 
+}
 
-
+.status-label.inactive {
+  background-color: #e74c3c;
+}
+/* BADES */
 
 /*.search-box {
   display: flex;
