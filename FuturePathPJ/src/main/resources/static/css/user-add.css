@@ -114,3 +114,49 @@ form{
 .save-btn:hover {
   background: #7f96f2;
 }
+
+.evaluation-section {
+  margin-top: 2rem;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+}
+
+.evaluation-section h4 {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #2D3D88;
+  color: #f1f5f9;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+  border: 1px solid #37418e;
+  padding: 0.75rem;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.evaluation-table td label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem; 
+  cursor: pointer;
+}
+
+
+.evaluation-table th {
+  background: #1e2761;
+  font-weight: 600;
+}
+
+.evaluation-table input[type="radio"] {
+  margin: 0;
+  accent-color: #9bb0f9; /* gives checkbox theme color */
+}

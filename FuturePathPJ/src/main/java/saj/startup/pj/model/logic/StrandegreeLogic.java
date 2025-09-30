@@ -1,5 +1,7 @@
 package saj.startup.pj.model.logic;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,4 +17,6 @@ public interface StrandegreeLogic {
 	public StrandegreeOverviewData getStrandegreeOverview();
 	
 	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable, String search);
+	
+	public List<StrandegreeEntity> getAllStrandegreesNoPageable();
 }

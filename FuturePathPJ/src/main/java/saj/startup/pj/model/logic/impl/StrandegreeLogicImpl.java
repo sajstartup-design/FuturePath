@@ -1,5 +1,7 @@
 package saj.startup.pj.model.logic.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +34,12 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable, String search) {
 	
 		return strandegreeDao.getAllStrandegrees(pageable, search);
+	}
+
+	@Override
+	public List<StrandegreeEntity> getAllStrandegreesNoPageable() {
+		
+		return strandegreeDao.getAllStrandegreesNoPageable();
 	}
 
 }

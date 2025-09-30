@@ -1,5 +1,7 @@
 package saj.startup.pj.model.dao;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,4 +45,11 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	@Query(GET_ALL_STRANDEGREES)
 	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable,
 			@Param("search") String search) throws DataAccessException;
+	
+	public final String GET_ALL_STRANDEGREES_NO_PAGEABLE = "SELECT e "
+			+ "FROM StrandegreeEntity e "
+			+ "WHERE isDeleted = false ";
+	
+	@Query(GET_ALL_STRANDEGREES_NO_PAGEABLE)
+	public List<StrandegreeEntity> getAllStrandegreesNoPageable() throws DataAccessException;
 }

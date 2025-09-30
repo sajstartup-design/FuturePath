@@ -97,4 +97,32 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		return outDto;
 	}
 
+	@Override
+	public StrandegreeDto getAllStrandegreesNoPageable() throws Exception {
+		
+		StrandegreeDto outDto = new StrandegreeDto();
+		
+		List<StrandegreeEntity> allStrandegrees = strandegreeLogic.getAllStrandegreesNoPageable();
+		
+		List<StrandegreeObj> strandegrees = new ArrayList<>();
+		
+		for (StrandegreeEntity strandegree : allStrandegrees) {
+			StrandegreeObj obj = new StrandegreeObj();
+			
+			obj.setIdPk(strandegree.getIdPk());
+		    obj.setName(strandegree.getName());
+		    obj.setCode(strandegree.getCode());
+		    obj.setCategory(strandegree.getCategory());
+		    obj.setDetails(strandegree.getDetails());
+		    obj.setIsActive(strandegree.getIsActive());
+		    obj.setCreatedAt(strandegree.getCreatedAt());
+		    
+		    strandegrees.add(obj);
+		}
+		
+		outDto.setStrandegrees(strandegrees);
+
+		return outDto;
+	}
+
 }
