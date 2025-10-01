@@ -3,10 +3,13 @@ package saj.startup.pj.model.logic.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.UniversityDao;
 import saj.startup.pj.model.dao.UniversityStrandegreeAvailabilityDao;
+import saj.startup.pj.model.dao.entity.UniversityData;
 import saj.startup.pj.model.dao.entity.UniversityEntity;
 import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
@@ -38,6 +41,12 @@ public class UniversityLogicImpl implements UniversityLogic{
 	public UniversityOverviewData getUniversitiesOverview() {
 		
 		return universityDao.getUniversitiesOverview();
+	}
+
+	@Override
+	public Page<UniversityData> getAllUniversities(Pageable pageable, String search) {
+		
+		return universityDao.getAllUniversities(pageable, search);
 	}
 
 }

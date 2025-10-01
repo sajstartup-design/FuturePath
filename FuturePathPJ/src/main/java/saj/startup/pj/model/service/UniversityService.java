@@ -10,4 +10,6 @@ public interface UniversityService {
 	public void saveUniversity(UniversityDto inDto) throws Exception;
 	
 	public UniversityDto getUniversitiesOverview() throws Exception;
+	
+	public UniversityDto getAllUniversities(UniversityDto inDto) throws Exception;
 }

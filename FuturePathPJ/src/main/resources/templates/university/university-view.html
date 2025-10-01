@@ -94,39 +94,19 @@
 			    <table>
 			      <thead>
 			        <tr>
-					  <th><i class="fa-solid fa-hashtag"></i> ID</th>
-					  <th><i class="fa-solid fa-building-columns"></i> NAME</th>
-					  <th><i class="fa-solid fa-tags"></i> TYPE</th>
-					  <th><i class="fa-solid fa-book-open"></i> COURSES OFFERED</th>
-					  <th><i class="fa-solid fa-phone"></i> CONTACT</th>
-					  <th><i class="fa-solid fa-road"></i> STREET</th>
-					  <th><i class="fa-solid fa-city"></i> CITY</th>
-					  <th><i class="fa-solid fa-map"></i> PROVINCE</th>
-					  <th><i class="fa-solid fa-mail-bulk"></i> POSTAL CODE</th>
-					  <th><i class="fa-solid fa-calendar-plus"></i> CREATED DATE</th>
-					  <th><i class="fa-solid fa-toggle-on"></i> STATUS</th>
-					  <th><i class="fa-solid fa-ellipsis-vertical"></i> ACTION</th>
+					  <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
+					  <th scope="col"><i class="fa-solid fa-building-columns"></i> NAME</th>
+					  <th scope="col"><i class="fa-solid fa-tags"></i> TYPE</th>
+					  <th scope="col"><i class="fa-solid fa-book-open"></i> COURSES OFFERED</th>
+					  <th scope="col"><i class="fa-solid fa-phone"></i> CONTACT</th>
+					  <th scope="col"><i class="fa-solid fa-road"></i> LOCATION</th>
+					  <th scope="col"><i class="fa-solid fa-calendar-plus"></i> CREATED DATE</th>
+					  <th scope="col"><i class="fa-solid fa-circle-info"></i> STATUS</th>
+					  <th scope="col"><i class="fa-solid fa-gear"></i> ACTION</th>
 					</tr>
 
 			      </thead>
-			      <tbody>
-			        <tr>
-			          <td>1</td>
-			          <td>University of Cebu - Main Campus</td>
-			          <td><span class="badge private">Private</span></td>
-			          <td>23</td>
-			          <td>+639323245694</td>
-			          <td>Osmeña Blvd</td>
-			          <td>Cebu City</td>
-			          <td>Cebu</td>
-			          <td>6000</td>
-			          <td>09/29/2025</td>
-			          <td><span class="badge active">Active</span></td>
-			          <td class="actions-cell">
-			            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
-			            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
-			          </td>
-			        </tr>
+			      <tbody id="table-body">		       
 			      </tbody>
 			    </table>
 			  </div>
@@ -148,5 +128,6 @@
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/pagination.js}"></script>
+	<script th:src="@{/script/university-api.js}"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ public class CommonConstant {
 
 	public static final int USER_MAX_DISPLAY = 10;
 	public static final int STRANDEGREE_MAX_DISPLAY = 10;
+	public static final int UNIVERSITY_MAX_DISPLAY = 10;
 	
 	public static final String PRIVATE = "PRIVATE";
 	public static final String PUBLIC = "PUBLIC";
