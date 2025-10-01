@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.UniversityEntity;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
+import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityId;
 import saj.startup.pj.model.dto.UniversityDto;
 import saj.startup.pj.model.logic.UniversityLogic;
 import saj.startup.pj.model.service.UniversityService;
@@ -43,10 +44,14 @@ public class UniversityServiceImpl implements UniversityService {
 		
 		if (inDto.getStrandegreesAvailability() != null) {
 		    inDto.getStrandegreesAvailability().forEach((id, available) -> {
+		        UniversityStrandegreeAvailabilityId key = new UniversityStrandegreeAvailabilityId();
+		        key.setUniversityIdPk(universityIdPk);
+		        key.setStrandegreeIdPk(id);
+
 		        UniversityStrandegreeAvailabilityEntity entity = new UniversityStrandegreeAvailabilityEntity();
-		        entity.setUniversityIdPk(universityIdPk);
-		        entity.setStrandegreeIdPk(id);
-		        entity.setAvailability(available);
+		        entity.setId(key);
+		        entity.setAvailability(true);
+		        
 		        strandegreeAvailability.add(entity);
 		    });
 		}
