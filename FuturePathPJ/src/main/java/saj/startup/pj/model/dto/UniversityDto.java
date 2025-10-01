@@ -3,6 +3,7 @@ package saj.startup.pj.model.dto;
 import java.util.HashMap;
 
 import lombok.Data;
+import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 
 @Data
 public class UniversityDto {
@@ -22,4 +23,6 @@ public class UniversityDto {
 	private String postalCode;
 
 	private HashMap<Integer, Boolean> strandegreesAvailability;
+	
+	private UniversityOverviewData overview;
 }

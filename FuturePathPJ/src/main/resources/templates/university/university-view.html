@@ -9,7 +9,7 @@
 </head>
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>  
+	<main th:object="${universityDto}">  
 		<th:block th:if="${isSuccess}">
 		    <div th:replace="~{alert :: success}"></div>
 		</th:block>
@@ -36,7 +36,7 @@
 			        <i class="fas fa-graduation-cap"></i>
 			      </div>
 			      <p class="label">TOTAL UNIVERSITIES</p>
-			      <p class="value">15,280</p>
+			      <p class="value" th:text="*{overview.totalUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -44,7 +44,7 @@
 			        <i class="fas fa-check-circle"></i>
 			      </div>
 			      <p class="label">ACTIVE</p>
-			      <p class="value">42</p>
+			      <p class="value" th:text="*{overview.totalActiveUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -52,7 +52,7 @@
 			        <i class="fas fa-times-circle"></i>
 			      </div>
 			      <p class="label">INACTIVE</p>
-			      <p class="value">12</p>
+			      <p class="value" th:text="*{overview.totalInactiveUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -60,7 +60,7 @@
 			        <i class="fas fa-lock"></i>
 			      </div>
 			      <p class="label">PRIVATE</p>
-			      <p class="value">25</p>
+			      <p class="value" th:text="*{overview.totalPrivateUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -68,7 +68,7 @@
 			        <i class="fas fa-university"></i>
 			      </div>
 			      <p class="label">PUBLIC</p>
-			      <p class="value">17</p>
+			      <p class="value" th:text="*{overview.totalPublicUniversity}">0</p>
 			    </div>
 			  </div>
 			</div>

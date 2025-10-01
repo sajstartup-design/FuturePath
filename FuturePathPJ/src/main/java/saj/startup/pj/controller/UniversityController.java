@@ -26,6 +26,15 @@ public class UniversityController {
 	@GetMapping("/admin/universities")
 	public String showUniversities(Model model) {
 		
+		try {
+			UniversityDto outDto = universityService.getUniversitiesOverview();
+			
+			model.addAttribute("universityDto", outDto);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		model.addAttribute("page", "universities");
 		
 		return "university/university-view";

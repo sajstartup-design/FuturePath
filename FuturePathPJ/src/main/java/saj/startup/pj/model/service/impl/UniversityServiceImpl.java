@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.UniversityEntity;
+import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityId;
 import saj.startup.pj.model.dto.UniversityDto;
@@ -57,6 +58,18 @@ public class UniversityServiceImpl implements UniversityService {
 		}
 
 		universityLogic.saveAllStrandegreeAvailability(strandegreeAvailability);
+	}
+
+	@Override
+	public UniversityDto getUniversitiesOverview() throws Exception {
+		
+		UniversityDto outDto = new UniversityDto();
+		
+		UniversityOverviewData overview = universityLogic.getUniversitiesOverview();
+		
+		outDto.setOverview(overview);
+		
+		return outDto;
 	}
 
 }

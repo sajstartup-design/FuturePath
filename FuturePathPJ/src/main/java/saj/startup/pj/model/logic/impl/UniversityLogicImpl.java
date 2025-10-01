@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.model.dao.UniversityDao;
 import saj.startup.pj.model.dao.UniversityStrandegreeAvailabilityDao;
 import saj.startup.pj.model.dao.entity.UniversityEntity;
+import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
 import saj.startup.pj.model.logic.UniversityLogic;
 
@@ -31,6 +32,12 @@ public class UniversityLogicImpl implements UniversityLogic{
 
 		universityStrandegreeAvailabilityDao.saveAll(entities);
 		
+	}
+
+	@Override
+	public UniversityOverviewData getUniversitiesOverview() {
+		
+		return universityDao.getUniversitiesOverview();
 	}
 
 }
