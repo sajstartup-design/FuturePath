@@ -6,7 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import saj.startup.pj.common.CommonConstant;
+import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.service.StrandegreeService;
 
@@ -43,15 +46,28 @@ public class StrandegreeController {
 	}
 	
 	@PostMapping("/admin/strandegrees/add")
-	public String postStrandegreeAdd(@ModelAttribute StrandegreeDto webDto) {
+	public String postStrandegreeAdd(@ModelAttribute StrandegreeDto webDto,
+			RedirectAttributes ra) {
 		
 		try {
 			
 			strandegreeService.saveStrandegree(webDto);
 			
+			ra.addFlashAttribute("isSuccess", true);
+			
+			if(CommonConstant.DEGREE.equals(webDto.getCategory())) {
+				
+				ra.addFlashAttribute("successMsg", MessageConstant.DEGREE_ADDED);
+			}else {
+				ra.addFlashAttribute("successMsg", MessageConstant.STRAND_ADDED);
+			}
+			
 		}catch(Exception e) {
 			
 			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 					
 		}	
 		
