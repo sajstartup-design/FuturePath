@@ -585,7 +585,7 @@ i{
 /* Search box (fixed) */
 .search-box {
   flex: 1;
-  max-width: 16rem;           /* match search-bar */
+  max-width: 26rem;           /* match search-bar */
   background: #1a234f;
   border-radius: 0.5rem;      /* rounded corners like search-bar */
   padding: 0 0.5rem;          /* horizontal padding like search-bar */
@@ -610,6 +610,7 @@ i{
   padding: 0.5rem 0;          /* vertical padding */
   box-sizing: border-box;
     height: 2rem;
+    width: 26rem;
 }
 
 .search-box button {
