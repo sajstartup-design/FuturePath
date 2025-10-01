@@ -8,8 +8,8 @@
 	  <div th:fragment="success" class="alert success">
 	    <div class="alert-icon"><img th:src="@{/images/success.png}"></div>
 	    <div class="alert-content">
-	      <strong>Congratulations!</strong>
-	      <span>Your OS has been updated to the latest version.</span>
+	      <strong>SUCCESS</strong>
+	      <span th:text="${successMsg}">-</span>
 	    </div>
 	    <button class="alert-close" aria-label="close">&times;</button>
 	    <script>
@@ -27,8 +27,8 @@
 	  <div th:fragment="error" class="alert error">
 	    <div class="alert-icon"><img th:src="@{/images/error.png}"></div>
 	    <div class="alert-content">
-	      <strong>Congratulations!</strong>
-	      <span>Your OS has been updated to the latest version.</span>
+	      <strong>ERROR</strong>
+	      <span th:text="${errorMsg}">-</span>
 	    </div>
 	    <button class="alert-close" aria-label="close">&times;</button>
 	    <script>
