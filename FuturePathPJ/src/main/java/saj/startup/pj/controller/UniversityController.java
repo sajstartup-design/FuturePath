@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.dto.UniversityDto;
 import saj.startup.pj.model.service.StrandegreeService;
@@ -51,38 +52,21 @@ public class UniversityController {
 	@PostMapping("/admin/universities/add")
 	public String postUniversitiesAdd(@ModelAttribute UniversityDto webDto,
 			RedirectAttributes ra) {
-
-//	    System.out.println("=== UniversityDto Submitted ===");
-//	    System.out.println("University Name : " + webDto.getUniversityName());
-//	    System.out.println("Category        : " + webDto.getCategory());
-//	    System.out.println("Contact         : " + webDto.getContact());
-//	    System.out.println("Street          : " + webDto.getStreet());
-//	    System.out.println("City            : " + webDto.getCity());
-//	    System.out.println("Province        : " + webDto.getProvince());
-//	    System.out.println("Postal Code     : " + webDto.getPostalCode());
-//
-//	    if (webDto.getStrandegreesAvailability() != null && !webDto.getStrandegreesAvailability().isEmpty()) {
-//	        System.out.println("=== Strandegrees Availability ===");
-//	        webDto.getStrandegreesAvailability().forEach((id, available) -> {
-//	            System.out.println("Strandegree ID: " + id + " | Available: " + available);
-//	        });
-//	    } else {
-//	        System.out.println("No strandegree availability provided.");
-//	    }
 	      
 	    try {
 		    universityService.saveUniversity(webDto);
 		    
 		    ra.addFlashAttribute("isSuccess", true);
+		    ra.addFlashAttribute("successMsg", MessageConstant.UNIVERSITY_ADDED);
 		    
 	    } catch(Exception e) {
 	    	
 	    	e.printStackTrace();
 	    	
-	    	ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 	    }
 	   
-
 	    return "redirect:/admin/universities";
 	}
 
