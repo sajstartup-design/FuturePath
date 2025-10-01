@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>FuturePath | University</title>
@@ -9,7 +9,14 @@
 </head>
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
+	<main th:object="${universityDto}">  
+		<th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
+
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">
@@ -29,7 +36,7 @@
 			        <i class="fas fa-graduation-cap"></i>
 			      </div>
 			      <p class="label">TOTAL UNIVERSITIES</p>
-			      <p class="value">15,280</p>
+			      <p class="value" th:text="*{overview.totalUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -37,7 +44,7 @@
 			        <i class="fas fa-check-circle"></i>
 			      </div>
 			      <p class="label">ACTIVE</p>
-			      <p class="value">42</p>
+			      <p class="value" th:text="*{overview.totalActiveUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -45,7 +52,7 @@
 			        <i class="fas fa-times-circle"></i>
 			      </div>
 			      <p class="label">INACTIVE</p>
-			      <p class="value">12</p>
+			      <p class="value" th:text="*{overview.totalInactiveUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -53,7 +60,7 @@
 			        <i class="fas fa-lock"></i>
 			      </div>
 			      <p class="label">PRIVATE</p>
-			      <p class="value">25</p>
+			      <p class="value" th:text="*{overview.totalPrivateUniversity}">0</p>
 			    </div>
 			
 			    <div class="stat-card">
@@ -61,7 +68,7 @@
 			        <i class="fas fa-university"></i>
 			      </div>
 			      <p class="label">PUBLIC</p>
-			      <p class="value">17</p>
+			      <p class="value" th:text="*{overview.totalPublicUniversity}">0</p>
 			    </div>
 			  </div>
 			</div>
@@ -87,40 +94,19 @@
 			    <table>
 			      <thead>
 			        <tr>
-			          <th>ID</th>
-			          <th>NAME</th>
-			          <th>TYPE</th>
-			          <th>COURSES OFFERED</th>
-			          <th>CONTACT</th>
-			          <th>STREET</th>
-			          <th>CITY</th>
-			          <th>PROVINCE</th>
-			          <th>POSTAL CODE</th>
-			          <th>CREATED DATE</th>
-			          <th>UPDATED DATE</th>
-			          <th>STATUS</th>
-			          <th>ACTION</th>
-			        </tr>
+					  <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
+					  <th scope="col"><i class="fa-solid fa-building-columns"></i> NAME</th>
+					  <th scope="col"><i class="fa-solid fa-tags"></i> TYPE</th>
+					  <th scope="col"><i class="fa-solid fa-book-open"></i> COURSES OFFERED</th>
+					  <th scope="col"><i class="fa-solid fa-phone"></i> CONTACT</th>
+					  <th scope="col"><i class="fa-solid fa-road"></i> LOCATION</th>
+					  <th scope="col"><i class="fa-solid fa-calendar-plus"></i> CREATED DATE</th>
+					  <th scope="col"><i class="fa-solid fa-circle-info"></i> STATUS</th>
+					  <th scope="col"><i class="fa-solid fa-gear"></i> ACTION</th>
+					</tr>
+
 			      </thead>
-			      <tbody>
-			        <tr>
-			          <td>1</td>
-			          <td>University of Cebu - Main Campus</td>
-			          <td><span class="badge private">Private</span></td>
-			          <td>23</td>
-			          <td>+639323245694</td>
-			          <td>Osmeña Blvd</td>
-			          <td>Cebu City</td>
-			          <td>Cebu</td>
-			          <td>6000</td>
-			          <td>09/29/2025</td>
-			          <td>09/29/2025</td>
-			          <td><span class="badge active">Active</span></td>
-			          <td class="actions-cell">
-			            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
-			            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
-			          </td>
-			        </tr>
+			      <tbody id="table-body">		       
 			      </tbody>
 			    </table>
 			  </div>
@@ -137,10 +123,11 @@
 			    <input type="text" placeholder="Go to" class="input-page"/>
 			    <button class="next-btn">NEXT <i class="fa-solid fa-angle-right"></i></button>
 			  </div>
-	
+			</div>
 		</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/pagination.js}"></script>
+	<script th:src="@{/script/university-api.js}"></script>
 </body>
 </html>

@@ -23,3 +23,23 @@ CREATE TABLE strandegrees (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE universities (
+    id_pk BIGSERIAL PRIMARY KEY,
+    university_name VARCHAR(255) NOT NULL,
+    category VARCHAR(10) NOT NULL CHECK (category IN ('PRIVATE', 'PUBLIC')),
+    contact VARCHAR(100),
+    street VARCHAR(255),
+    city VARCHAR(100),
+    province VARCHAR(100),
+    postal_code VARCHAR(20),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE university_strandegree_availability (
+    id_pk BIGSERIAL PRIMARY KEY,
+    university_id_pk BIGINT NOT NULL,
+    strandegree_id_pk BIGINT NOT NULL,
+    availability BOOLEAN NOT NULL DEFAULT TRUE
+);

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	  <div th:fragment="success" class="alert success">
+	    <div class="alert-icon"><img th:src="@{/images/success.png}"></div>
+	    <div class="alert-content">
+	      <strong>SUCCESS</strong>
+	      <span th:text="${successMsg}">-</span>
+	    </div>
+	    <button class="alert-close" aria-label="close">&times;</button>
+	    <script>
+		    // Attach click event to close buttons
+		    document.addEventListener("DOMContentLoaded", function () {
+		      document.querySelectorAll(".alert-close").forEach(function (btn) {
+		        btn.addEventListener("click", function () {
+		          this.closest(".alert").style.display = "none";
+		        });
+		      });
+		    });
+		  </script>
+	  </div>
+	  
+	  <div th:fragment="error" class="alert error">
+	    <div class="alert-icon"><img th:src="@{/images/error.png}"></div>
+	    <div class="alert-content">
+	      <strong>ERROR</strong>
+	      <span th:text="${errorMsg}">-</span>
+	    </div>
+	    <button class="alert-close" aria-label="close">&times;</button>
+	    <script>
+		    // Attach click event to close buttons
+		    document.addEventListener("DOMContentLoaded", function () {
+		      document.querySelectorAll(".alert-close").forEach(function (btn) {
+		        btn.addEventListener("click", function () {
+		          this.closest(".alert").style.display = "none";
+		        });
+		      });
+		    });
+		  </script>
+	  </div>
+</body>
+</html>

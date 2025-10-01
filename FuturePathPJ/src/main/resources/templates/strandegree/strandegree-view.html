@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <title>FuturePath | University</title>
@@ -10,6 +11,12 @@
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
 	<main th:object="${strandegreeDto}">
+		<th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">
@@ -17,7 +24,7 @@
 		</nav>
 		<hr>	
 		<div class="content">
-		
+			
 		  <!-- Overview Section -->
 		  <div class="overview">
 			  <h2 class="title">STRAND & DEGREE OVERVIEW</h2>
@@ -131,7 +138,7 @@
 			    <input type="text" placeholder="Go to" class="input-page"/>
 			    <button class="next-btn">NEXT <i class="fa-solid fa-angle-right"></i></button>
 			  </div>
-	
+			</div>
 		</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>

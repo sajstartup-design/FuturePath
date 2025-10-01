@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.UserDto;
 import saj.startup.pj.model.service.UserService;
 
@@ -53,12 +54,17 @@ public class UserController {
 			
 			userService.saveUser(webDto);
 			
-			return "redirect:/admin/user";
+			ra.addFlashAttribute("isSuccess", true);
+			ra.addFlashAttribute("successMsg", MessageConstant.USER_ADDED);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			
-			return "redirect:/admin/user";
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+
 		}
+		
+		return "redirect:/admin/user";
 	}
 }

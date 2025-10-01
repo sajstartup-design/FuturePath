@@ -157,6 +157,9 @@ form{
 }
 
 .evaluation-table input[type="radio"] {
-  margin: 0;
-  accent-color: #9bb0f9; /* gives checkbox theme color */
+  margin: 0 6px 0 0;
+  accent-color: #9bb0f9;
+  height: 1.2rem;
+  width: 1.2rem;
+  cursor: pointer;
 }
