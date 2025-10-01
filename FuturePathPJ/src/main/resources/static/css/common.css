@@ -623,6 +623,13 @@ i{
 
 
 /* Table Design */
+
+.data-table{
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
 .data-table table {
   width: 100%;
   border-collapse: collapse;

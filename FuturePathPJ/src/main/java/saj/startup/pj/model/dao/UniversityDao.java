@@ -46,7 +46,7 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 		  + "ON s.id.universityIdPk = e.idPk "
 		  + "WHERE e.isDeleted = false "
 		  + "GROUP BY e.idPk, e.universityName, e.category, e.contact, "
-		  + " e.street, e.city, e.province, e.postalCode, e.isActive, e.createdAt "
+		  + " e.street, e.city, e.province, e.postalCode, e.isActive, e.createdAt " 
 		  + "HAVING ( "
 		  + "   (:search IS NOT NULL AND :search <> '' AND ( " 
 		  + "       LOWER(e.universityName) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
