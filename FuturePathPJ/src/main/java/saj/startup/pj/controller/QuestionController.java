@@ -33,8 +33,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/admin/questions/add")
-	public String showQuestionsAdd() {
+	public String showQuestionsAdd(Model model) {
 		
-		return "question-question-add";
+		return "question/question-add";
 	}
 }

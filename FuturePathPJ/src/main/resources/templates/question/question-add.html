@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | Strand & Degree</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/question-add.css}" />
+</head>
+<body>
+	
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			QUESTIONS > ADD
+		</nav>
+		<hr>
+		<div class="content">
+
+			<form th:action="@{/admin/questions/add}" method="POST" th:object="${questionDto}">
+				
+				<div class="field-group">
+					<div class="field">
+					    <label>CATEGORY</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-list-alt"></i>
+					      <select name="category">
+					      	<option>Select Type...</option>
+					      	<option>STRAND</option>
+					      	<option>DEGREE</option>
+					      </select>
+					    </div>
+					</div>
+					<div class="field">
+					    <label>STRAND/DEGREE</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-graduation-cap"></i>
+					      <select name="strandDegree">
+					      	<option>Select Type...</option>
+					      	<option>STRAND</option>
+					      	<option>DEGREE</option>
+					      </select>
+					    </div>
+					</div>
+				</div>
+							
+				<!-- Question -->
+				<div class="field-group">
+					<div class="field">
+					    <label>QUESTION</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-question-circle"></i> <!-- Changed to question-circle -->
+					      <textarea name="question" placeholder="Enter your question"></textarea>
+					    </div>
+					</div>
+				</div>
+							
+				<!-- Answers -->
+				<div class="field-group">
+					<div class="field">
+					    <label>ANSWERS</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-check-circle"></i> <!-- Changed to check-circle -->
+					      <input type="text" placeholder="Enter answer option" name="answers"/>
+					    </div>
+					    <div class="input-wrapper">
+					      <i class="fas fa-check-circle"></i>
+					      <input type="text" placeholder="Enter answer option" name="answers"/>
+					    </div>
+					    <div class="input-wrapper">
+					      <i class="fas fa-check-circle"></i>
+					      <input type="text" placeholder="Enter answer option" name="answers"/>
+					    </div>
+					</div>
+				</div>
+							
+				<hr>
+				<!-- Buttons -->
+				<div class="btn-group">
+					<a th:href="@{/admin/questions}" class="btn btn-secondary transitioning">
+						<i class="fas fa-times"></i> CANCEL
+					</a>
+					<button type="submit" class="btn btn-primary transitioning">
+						<i class="fas fa-save"></i> SAVE
+					</button>
+				</div>
+			</form>
+				
+		</div>
+	</main>
+	<script th:src="@{/script/loading.js}"></script>
+</body>
+</html>

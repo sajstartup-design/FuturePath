@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>FuturePath | University</title>
@@ -114,9 +114,9 @@
 			  <div class="data-section">
 			  <!-- Top Controls -->
 			  <div class="data-controls">
-			    <button class="btn btn-primary">
+			    <a class="btn btn-primary" th:href="@{/admin/questions/add}">
 			      <i class="fa-solid fa-circle-plus"></i> ADD QUESTION
-			    </button>
+			    </a>
 			
 			    <div class="actions">
 			      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
