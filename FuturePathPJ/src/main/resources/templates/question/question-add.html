@@ -39,7 +39,7 @@
 					    <label>STRAND/DEGREE</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-graduation-cap"></i>
-					      <select name="strandDegree" class="dropdown">
+					      <select name="strandegreeIdPk" class="dropdown">
 					      	<option>Select Strand/Degree...</option>
 					      	<option th:each="strandegree : ${strandegreeDto.strandegrees}" 
 					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
@@ -67,15 +67,15 @@
 					    <label>ANSWERS</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-check-circle"></i> <!-- Changed to check-circle -->
-					      <input type="text" placeholder="Enter answer option" name="answers"/>
+					      <input type="text" placeholder="Enter answer option" name="answers[0]"/>
 					    </div>
 					    <div class="input-wrapper">
 					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers"/>
+					      <input type="text" placeholder="Enter answer option" name="answers[1]"/>
 					    </div>
 					    <div class="input-wrapper">
 					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers"/>
+					      <input type="text" placeholder="Enter answer option" name="answers[2]"/>
 					    </div>
 					</div>
 				</div>
