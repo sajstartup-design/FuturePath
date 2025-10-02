@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" th:href="@{/css/common.css}" />
 <link rel="stylesheet" th:href="@{/css/question-add.css}" />
+<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
 </head>
 <body>
 	
@@ -38,8 +39,8 @@
 					    <label>STRAND/DEGREE</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-graduation-cap"></i>
-					      <select name="strandDegree">
-					      	<option>Select Type...</option>
+					      <select name="strandDegree" class="dropdown">
+					      	<option>Select Strand/Degree...</option>
 					      	<option th:each="strandegree : ${strandegreeDto.strandegrees}" 
 					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
 					      		th:value="${strandegree.idPk}"
@@ -94,5 +95,6 @@
 		</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/dropdown.js}"></script>
 </body>
 </html>
