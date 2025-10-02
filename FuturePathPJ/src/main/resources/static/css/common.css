@@ -623,27 +623,33 @@ i{
 
 
 /* Table Design */
-.data-table table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #1e293b; /* dark slate background */
-  border-radius: 8px;
-  overflow: hidden;
+
+.data-table-group{
+	width: 100%;
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
 }
 
-/* Table Header */
-.data-table th {
-  text-align: left;
-  padding: 0.75rem;
-  background: #334155; /* darker header */
-  font-size: 0.85rem;
-  color: #9BB0F9; /* highlight header text */
-  border-bottom: 1px solid #475569; /* subtle border */
-  font-weight: 600;
+.data-table{
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+
+.data-table-view{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;	
+	flex-wrap: wrap;
+	flex: 1 1 0;
 }
 
 /* Table Cells */
-.data-table table {
+.data-table table,
+.data-table-view table {
   width: 100%;
   border-collapse: collapse;
   background: #243066; /* slightly lighter than #1C2656 */
@@ -652,8 +658,13 @@ i{
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
+.data-table-view table{
+	width: 100%;
+}
+
 /* Table Header */
-.data-table th {
+.data-table th,
+.data-table-view th {
   text-align: left;
   padding: 0.75rem;
   background: #2f3b73; /* header darker tone */
@@ -665,15 +676,21 @@ i{
 }
 
 /* Table Cells */
-.data-table td {
+.data-table td,
+.data-table-view td {
   padding: 0.75rem;
   border-bottom: 1px solid #313c70;
   font-size: 0.85rem;
   color: #f1f5f9; /* near white */
 }
 
+.data-table-view td{
+	padding: 0.3rem 0.75rem;
+}
+
 /* Hover effect for rows */
-.data-table tr:hover td {
+.data-table tr:hover td,
+.data-table-view tr:hover td {
   background: #2d3970;
 }
 
@@ -881,4 +898,7 @@ td:last-child {
   background: rgba(255,255,255,0.12); 
   transform: translateY(-0.0625rem); 
 }
+
+
+
 
