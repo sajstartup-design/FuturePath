@@ -27,13 +27,23 @@ public class QuestionController {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("page", "universities");
+		model.addAttribute("page", "questions");
 		
 		return "question/question-view";
 	}
 	
 	@GetMapping("/admin/questions/add")
 	public String showQuestionsAdd(Model model) {
+		
+		try {
+			
+			StrandegreeDto outDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			model.addAttribute("strandegreeDto", outDto);
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		return "question/question-add";
 	}

@@ -40,8 +40,10 @@
 					      <i class="fas fa-graduation-cap"></i>
 					      <select name="strandDegree">
 					      	<option>Select Type...</option>
-					      	<option>STRAND</option>
-					      	<option>DEGREE</option>
+					      	<option th:each="strandegree : ${strandegreeDto.strandegrees}" 
+					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
+					      		th:value="${strandegree.idPk}"
+					      	>STRAND</option>
 					      </select>
 					    </div>
 					</div>
