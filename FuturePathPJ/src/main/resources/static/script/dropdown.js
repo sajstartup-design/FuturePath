@@ -53,7 +53,7 @@ function createCustomDropdown(dropdown){
 	      const item = document.createElement("div");
 	      item.classList.add("dropdown-menu-item");
 	      item.dataset.value = option.value;
-	      item.textContent = option.textContent;
+	      item.innerHTML = `<i class="fas fa-circle"></i>  ${option.textContent}`;
 	      menuInnerWrapper.appendChild(item);
 
 	      item.addEventListener(

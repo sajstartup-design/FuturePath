@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" th:href="@{/css/common.css}" />
 <link rel="stylesheet" th:href="@{/css/user-add.css}" />
+<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
 </head>
 <body>
 	
@@ -37,7 +38,7 @@
 					    <label>CATEGORY</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-layer-group"></i>
-					      <select name="category">
+					      <select name="category" class="dropdown">
 					      	<option>Select Type...</option>
 					      	<option>PRIVATE</option>
 					      	<option>PUBLIC</option>
@@ -169,5 +170,6 @@
 		</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/dropdown.js}"></script>
 </body>
 </html>

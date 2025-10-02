@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" th:href="@{/css/common.css}" />
 <link rel="stylesheet" th:href="@{/css/user-add.css}" />
+<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
 </head>
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
@@ -60,7 +61,7 @@
 					    <label>GENDER</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-venus-mars"></i>
-					      <select name="gender">
+					      <select name="gender" class="dropdown">
 					      	<option>Select Gender...</option>
 					      	<option>Male</option>
 					      	<option>Female</option>
@@ -108,5 +109,6 @@
 		</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/dropdown.js}"></script>
 </body>
 </html>
