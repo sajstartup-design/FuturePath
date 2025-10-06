@@ -1,0 +1,245 @@
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #dfe6e9;
+  letter-spacing: 0.1rem;
+  color: #0a3d62 !important;
+  font-size: 0.8rem;
+}
+
+
+*{
+	color: white;
+	letter-spacing: 0.15rem;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: #2A397D; /* slightly lighter than #161E43 */
+  margin: 0;
+  opacity: 0.6; /* makes it softer */
+}
+
+.loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(10, 17, 36, 0.95);
+  z-index: 999;
+}
+.loader-content {
+  text-align: center;
+}
+
+body{
+	display: flex;
+	background: #161E43;
+}
+
+main {
+  background: #1C2656;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 1rem;
+  margin: 1rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+
+.header {
+  backdrop-filter: blur(10px);
+  padding: 2rem 2rem !important;
+  position: relative;
+  z-index: 10;
+  border-radius: 1rem !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem;
+  width: 100%;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+.logo-icon {
+  width: 40px;
+  margin-right: 10px;
+}
+.logo-text h5 {
+  font-size: 20px;
+  margin: 0;
+}
+.logo-text p {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin: 0;
+}
+.badge {
+  background: #ff4d4d;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+}
+.btn-primary {
+  background: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background: #005ecb;
+}
+.btn-primary.full {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(6px) brightness(0.4);
+}
+
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 2rem;
+}
+.login-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 380px;
+}
+.welcome {
+  font-weight: 300;
+  color: #ccc;
+}
+.login-card h3 {
+  margin-bottom: 1.5rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.form-group input {
+  border: none;
+  background: transparent;
+  color: #fff;
+  padding: 0.9rem;
+  font-size: 15px;
+  outline: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+    box-sizing: border-box;
+}
+.form-group input:last-child {
+  border-bottom: none;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 1rem;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.checkbox input {
+  accent-color: #4ea1ff;
+}
+.forgot {
+  color: #4ea1ff;
+  text-decoration: none;
+}
+.forgot:hover {
+  text-decoration: underline;
+}
+.signup {
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: #bbb;
+}
+.signup a {
+  color: #4ea1ff;
+  text-decoration: none;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 13px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer p{
+	text-align: center;
+}
+
+.footer-links a {
+  color: #4ea1ff;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  text-decoration: underline;
+}
+ 

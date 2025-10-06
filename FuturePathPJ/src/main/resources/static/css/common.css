@@ -157,6 +157,7 @@ i{
   min-height: 3rem; /* fallback for very small vh */
   color: #fff;
   font-size: 0.9rem;
+  border-radius: 1rem;
 }
 
 /* Flex groups */
