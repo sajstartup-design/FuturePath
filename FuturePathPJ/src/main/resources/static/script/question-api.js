@@ -95,6 +95,9 @@ async function loadQuestions(page = 0,
 
             row.innerHTML = `
                 <td>${question.idPk}</td>
+				<td>${question.category}</td>
+				<td>${question.question}</td>
+				<td>${question.strandegree}</td>
 				<td>${question.createdAt}</td>
 				<td><span class="status-label ${question.isActive ? 'active' : 'inactive'}">${question.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">

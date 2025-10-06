@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
 
@@ -19,5 +20,5 @@ public interface QuestionLogic {
 	
 	public QuestionOverviewData getQuestionOverview();
 	
-	public Page<QuestionEntity> getAllQuestions(Pageable pageable, String search);
+	public Page<QuestionData> getAllQuestions(Pageable pageable, String search);
 }
