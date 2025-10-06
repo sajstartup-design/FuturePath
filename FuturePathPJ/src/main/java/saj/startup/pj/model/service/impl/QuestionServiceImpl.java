@@ -1,10 +1,13 @@
 package saj.startup.pj.model.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.logic.QuestionLogic;
@@ -31,9 +34,22 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		int questionIdPk = questionLogic.saveQuestion(newQuestion);
 		
-
+		List<AnswerEntity> answers = new ArrayList<>();
+		
+		for(String answer : inDto.getAnswers()) {
+			
+			AnswerEntity newAnswer = new AnswerEntity();
+			
+			newAnswer.setQuestionIdPk(questionIdPk);
+			newAnswer.setAnswer(answer);
+			newAnswer.setIsActive(true);
+			newAnswer.setIsDeleted(false);
+			newAnswer.setCreatedAt(timeNow);
+			
+			answers.add(newAnswer);
+			
+		}
+		
+		questionLogic.saveAnswers(answers);
 	}
-
-
-
 }

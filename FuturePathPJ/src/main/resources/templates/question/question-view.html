@@ -10,6 +10,12 @@
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
 	<main>
+		<th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">

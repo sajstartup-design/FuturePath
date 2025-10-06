@@ -6,9 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.dto.StrandegreeDto;
+import saj.startup.pj.model.service.QuestionService;
 import saj.startup.pj.model.service.StrandegreeService;
 
 @Controller
@@ -16,6 +19,9 @@ public class QuestionController {
 	
 	@Autowired
 	private StrandegreeService strandegreeService;
+	
+	@Autowired
+	private QuestionService questionService;
 
 	@GetMapping("/admin/questions")
 	public String showQuestions(Model model) {
@@ -52,7 +58,8 @@ public class QuestionController {
 	}
 	
 	@PostMapping("/admin/questions/add")
-	public String postQuestionsAdd(@ModelAttribute QuestionDto questionDto, Model model) {
+	public String postQuestionsAdd(@ModelAttribute QuestionDto questionDto, Model model,
+			RedirectAttributes ra) {
 
 	    // Print everything to console (for debugging)
 	    System.out.println("Category: " + questionDto.getCategory());
@@ -67,9 +74,20 @@ public class QuestionController {
 	    } else {
 	        System.out.println("No answers provided.");
 	    }
-
-	    // You can also add to model if needed
-	    model.addAttribute("questionDto", questionDto);
+	    
+	    try {
+	    	questionService.saveQuestion(questionDto);
+	    	
+	    	ra.addFlashAttribute("isSuccess", true);
+	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_ADDED);
+	    }catch(Exception e) {
+	    	
+	    	e.printStackTrace();
+	    	
+	    	ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+	    	
+	    }
 
 	    return "redirect:/admin/questions";
 	}
