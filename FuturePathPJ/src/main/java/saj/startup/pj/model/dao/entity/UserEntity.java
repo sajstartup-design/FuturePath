@@ -37,4 +37,6 @@ public class UserEntity {
 	private Boolean isDeleted;
 	
 	private Timestamp createdAt;
+	
+	private String role;
 }

@@ -14,6 +14,8 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import saj.startup.pj.common.CommonConstant;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -26,12 +28,12 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	private static final String USER_ACCOUNT_SQL = "SELECT USER_ID,PASSWORD,TRUE"
+	private static final String USER_ACCOUNT_SQL = "SELECT USERNAME,PASSWORD,TRUE"
 			+ " FROM USERS "
-			+ " WHERE USER_ID = ?"
+			+ " WHERE USERNAME = ?"
 			+ " AND USERS.IS_DELETED = FALSE ";
 
-	private static final String USER_ROLE_SQL = "SELECT USER_ID, ROLE FROM USERS WHERE USER_ID = ?";
+	private static final String USER_ROLE_SQL = "SELECT USERNAME, ROLE FROM USERS WHERE USERNAME = ?";
 	
 	@Bean
 	protected UserDetailsManager userDetailsService() {
@@ -55,6 +57,14 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests((requests) -> requests
 						
+						.requestMatchers("/images/**").permitAll()
+						.requestMatchers("/css/**").permitAll()
+						.requestMatchers("/script/**").permitAll()
+						.requestMatchers("/fonts/**").permitAll()
+						
+						.requestMatchers("/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
+						.requestMatchers("/api/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
+						
 						.anyRequest().permitAll()
 						
 						)
@@ -63,7 +73,7 @@ public class SecurityConfig {
 						.permitAll()
 						.failureUrl("/login")
 						//.failureHandler(authenticationFailureHandler())
-						.usernameParameter("userId")
+						.usernameParameter("username")
 						.passwordParameter("password")
 						 .defaultSuccessUrl("/dashboard")
 						.successHandler(authenticationSuccessHandler()))

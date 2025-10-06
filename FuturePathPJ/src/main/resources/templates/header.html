@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -43,9 +43,15 @@
         <span class="name">ADMIN</span>
         <br>
         <hr>
-        <ul>
-          <li><i class="fas fa-sign-out-alt"></i> Logout</li>
-        </ul>
+        <div class="profile-menu">
+        	<form>
+        		<button>SETTINGS</button>
+        	</form>
+        	<hr>
+        	<form th:action="@{/logout}" method="POST">
+        		<button>LOGOUT</button>
+        	</form>
+        </div>
       </div>
     </div>
   </div>

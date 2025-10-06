@@ -14,7 +14,7 @@ function createLoadingScreen(){
 	return fragment;
 }
 
-function createLoadingScreenBody(){
+/*function createLoadingScreenBody(){
 	
 	if (document.querySelector('.loading-background')) return; // already exists
 	
@@ -33,10 +33,33 @@ function createLoadingScreenBody(){
 	
 	BODY.append(fragment);
 	
-}	
+}	*/
+
+function createLoadingScreenBody() {
+  if (document.querySelector('.loader')) return; // already exists
+
+  const BODY = document.body;
+
+  const fragment = document.createDocumentFragment();
+
+  const background = document.createElement('div');
+  background.classList.add('loader');
+
+  background.innerHTML = `
+    <div class="loader-content">
+      <img src="/gif/loading.gif">
+      <h2>Future Path</h2>
+      <p>"Your future is created by what you choose today."</p>
+    </div>
+  `;
+
+  fragment.append(background);
+  BODY.append(fragment);
+}
+
 
 function removeLoadingScreenBody() {
-    const background = document.querySelector('.loading-background');
+    const background = document.querySelector('.loader');
     if (background) {
         background.remove();
     }

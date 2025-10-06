@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
 
@@ -28,7 +29,9 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 	@Query(GET_QUESTION_OVERVIEW)
 	public QuestionOverviewData getQuestionOverview() throws DataAccessException;
 	
-	public final String GET_ALL_QUESTIONS = "SELECT e "
+	public final String GET_ALL_QUESTIONS = "SELECT new saj.startup.pj.model.dao.entity.QuestionData("
+			+ " e.idPk, s.category, e.question, s.code, e.isActive, e.createdAt "
+			+ ") "
 			+ "FROM QuestionEntity e "
 			+ "LEFT JOIN StrandegreeEntity s ON s.idPk = e.strandegreeIdPk "
 			+ "WHERE e.isDeleted = false "
@@ -36,6 +39,7 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    + "   (:search IS NOT NULL AND :search <> '' AND ( " 
 		    + "       LOWER(s.category) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
 		    + "       LOWER(e.question) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(s.code) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
 		    + "       LOWER(s.name) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
 		    + "       LOWER(CAST(e.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
 		    + "   )) " 
@@ -43,6 +47,6 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    + ")";
 	
 	@Query(GET_ALL_QUESTIONS)
-	public Page<QuestionEntity> getAllStrandegrees(Pageable pageable,
+	public Page<QuestionData> getAllQuestions(Pageable pageable,
 			@Param("search") String search) throws DataAccessException;
 }

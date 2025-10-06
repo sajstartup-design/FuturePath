@@ -24,11 +24,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 		if (authorities.stream().anyMatch(role -> role.getAuthority().equals("ADMIN"))) {
 
 			response.sendRedirect("/admin/dashboard");
-		} else if (authorities.stream().anyMatch(role -> role.getAuthority().equals("LENDER"))) { 
-																									
-			response.sendRedirect("/lender/dashboard");
-			
-		} else if (authorities.stream().anyMatch(role -> role.getAuthority().equals("BORROWER"))) { 
+		} else if (authorities.stream().anyMatch(role -> role.getAuthority().equals("USER"))) { 
 																									
 			response.sendRedirect("/dashboard");
 			

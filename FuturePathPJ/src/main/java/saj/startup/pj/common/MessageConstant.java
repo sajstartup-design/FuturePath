@@ -11,5 +11,7 @@ public class MessageConstant {
 	
 	public static final String UNIVERSITY_ADDED = "A new university has been added";
 	
+	public static final String REGISTER_SUCCESS = "Welcome aboard! Your registration was successful.";
+	
 	public static final String SOMETHING_WENT_WRONG = "Something went wrong";
 }

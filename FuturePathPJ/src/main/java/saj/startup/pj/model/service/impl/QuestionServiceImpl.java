@@ -12,16 +12,14 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
-import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dto.QuestionDto;
-import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.logic.QuestionLogic;
 import saj.startup.pj.model.object.FilterAndSearchObj;
 import saj.startup.pj.model.object.PaginationObj;
 import saj.startup.pj.model.object.QuestionObj;
-import saj.startup.pj.model.object.StrandegreeObj;
 import saj.startup.pj.model.service.QuestionService;
 
 @Service
@@ -85,15 +83,18 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		FilterAndSearchObj filter = inDto.getFilter();
 		
-		Page<QuestionEntity> allQuestions = questionLogic.getAllQuestions(pageable, filter.getSearch());
+		Page<QuestionData> allQuestions = questionLogic.getAllQuestions(pageable, filter.getSearch());
 		
 		List<QuestionObj> questions = new ArrayList<>();
 		
-		for (QuestionEntity question : allQuestions) {
+		for (QuestionData question : allQuestions) {
 			QuestionObj obj = new QuestionObj();
 			
-			obj.setIdPk(question.getIdPk());
-		    obj.setIsActive(question.getIsActive());
+			obj.setIdPk(question.getQuestionIdPk());
+			obj.setCategory(question.getCategory());
+			obj.setQuestion(question.getQuestion());
+			obj.setStrandegree(question.getStrandegree());
+			obj.setIsActive(question.getIsActive());
 		    obj.setCreatedAt(question.getCreatedAt());
 		    
 		    questions.add(obj);

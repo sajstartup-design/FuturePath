@@ -1,10 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | AdminUX-PRO (Custom CSS)</title>
+   <link rel="stylesheet" th:href="@{/css/common.css}" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" />
 </head>
+
 <body>
-	<a>NOT</a>
+
+  <main class="wrapper">
+  		<th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
+		
+    <header class="header">
+      <nav>
+        <div class="nav-left">
+          <a href="#" class="logo">
+            <img th:src="@{/images/logo.png}" alt="logo" class="logo-icon">
+            <div class="logo-text">
+              <h5>FuturePath</h5>
+              <p>A capstone project</p>
+            </div>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a th:href="@{/register}" class="btn-primary">Sign up</a>
+        </div>
+      </nav>
+    </header>
+    <hr>
+
+    <div class="background">
+      <img src="../assets/img/team.jpg" alt="background">
+    </div>
+
+    <div class="main-container">
+      <form th:action="@{/login}" method="POST" class="login-card">
+        <h5 class="welcome">Welcome,</h5>
+        <h3>Please Sign In</h3>
+
+        <div class="form-group">
+			<div class="field">
+			  <label>USERNAME</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-user-circle"></i>
+			    <input type="text" placeholder="Enter username" name="username" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>PASSWORD</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-lock"></i>
+			    <input type="password" placeholder="Enter password" name="password" />
+			  </div>
+			</div>
+        </div>
+
+        <div class="row">
+          <label class="checkbox">
+            <input type="checkbox" checked />
+            <span>Remember Me</span>
+          </label>
+          <a href="#" class="forgot">Forgot Password?</a>
+        </div>
+
+        <button class="btn-primary full">Sign In →</button>
+
+        <p class="signup">
+          Don’t have an account yet? <a th:href="@{/register}">Sign up</a> here.
+        </p>
+      </form>
+    </div>
+	<hr>
+    <footer class="footer">
+      <p>All rights reserved by <a href="#">FuturePath</a></p>
+      <div class="footer-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact us</a>
+      </div>
+    </footer>
+  </main>
 </body>
 </html>

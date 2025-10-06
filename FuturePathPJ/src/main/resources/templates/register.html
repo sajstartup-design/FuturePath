@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FuturePath | Register</title>
+   <link rel="stylesheet" th:href="@{/css/common.css}" />
+  <link rel="stylesheet" th:href="@{/css/login.css}" />
+  <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+</head>
+
+<body>
+  <main class="wrapper">
+    <header class="header">
+      <nav>
+        <div class="nav-left">
+          <a href="#" class="logo">
+            <img th:src="@{/images/logo.png}" alt="logo" class="logo-icon">
+            <div class="logo-text">
+              <h5>FuturePath</h5>
+              <p>A capstone project</p>
+            </div>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a th:href="@{/login}" class="btn-primary">Sign In</a>
+        </div>
+      </nav>
+    </header>
+    <hr>
+
+    <div class="background">
+      <img src="../assets/img/team.jpg" alt="background">
+    </div>
+
+    <div class="main-container">
+      <form th:action="@{/register}" method="POST" class="login-card">
+        <h5 class="welcome">We are FUTUREPATH</h5>
+        <h3>Sign up with us</h3>
+
+        <div class="form-group">
+          
+            <div class="field">
+			  <label>FIRST NAME</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-user"></i>
+			    <input type="text" placeholder="Enter first name" name="firstName" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>LAST NAME</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-user"></i>
+			    <input type="text" placeholder="Enter last name" name="lastName" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>EMAIL</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-envelope"></i>
+			    <input type="email" placeholder="Enter email address" name="email" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>PHONE</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-phone"></i>
+			    <input type="text" placeholder="Enter phone number" name="phone" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>GENDER</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-venus-mars"></i>
+			    <select name="gender" class="dropdown">
+			      <option>SELECT GENDER</option>
+			      <option>Male</option>
+			      <option>Female</option>
+			      <option>Other</option>
+			    </select>
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>USERNAME</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-user-circle"></i>
+			    <input type="text" placeholder="Enter username" name="username" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>PASSWORD</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-lock"></i>
+			    <input type="password" placeholder="Enter password" name="password" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>CONFIRM PASSWORD</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-lock"></i>
+			    <input type="password" placeholder="Confirm password" name="confirmPassword" />
+			  </div>
+			</div>
+
+		  
+
+        </div>
+
+        <button class="btn-primary full transitioning">Sign In →</button>
+
+        <p class="signup">
+          Already have an account? <a th:href="@{/login}" class="transitioning">Sign In</a> here.
+        </p>
+      </form>
+    </div>
+	<hr>
+    <footer class="footer">
+      <p>All rights reserved by <a href="#">FuturePath</a></p>
+      <div class="footer-links">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact us</a>
+      </div>
+    </footer>
+  </main> 
+  <script th:src="@{/script/loading.js}"></script>
+  <script th:src="@{/script/dropdown.js}"></script>
+</body>
+</html>

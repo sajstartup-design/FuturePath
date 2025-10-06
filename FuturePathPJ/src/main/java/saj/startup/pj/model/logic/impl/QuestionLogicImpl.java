@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.model.dao.AnswerDao;
 import saj.startup.pj.model.dao.QuestionDao;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
 import saj.startup.pj.model.logic.QuestionLogic;
@@ -43,9 +44,9 @@ public class QuestionLogicImpl implements QuestionLogic{
 	}
 
 	@Override
-	public Page<QuestionEntity> getAllQuestions(Pageable pageable, String search) {
+	public Page<QuestionData> getAllQuestions(Pageable pageable, String search) {
 		
-		return questionDao.getAllStrandegrees(pageable, search);
+		return questionDao.getAllQuestions(pageable, search);
 	}
 
 }
