@@ -46,7 +46,7 @@ public class QuestionLogicImpl implements QuestionLogic{
 	@Override
 	public Page<QuestionData> getAllQuestions(Pageable pageable, String search) {
 		
-		return questionDao.getAllStrandegrees(pageable, search);
+		return questionDao.getAllQuestions(pageable, search);
 	}
 
 }

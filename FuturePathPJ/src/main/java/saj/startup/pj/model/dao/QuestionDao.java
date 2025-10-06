@@ -47,6 +47,6 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    + ")";
 	
 	@Query(GET_ALL_QUESTIONS)
-	public Page<QuestionData> getAllStrandegrees(Pageable pageable,
+	public Page<QuestionData> getAllQuestions(Pageable pageable,
 			@Param("search") String search) throws DataAccessException;
 }
