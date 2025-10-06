@@ -1,56 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Sidebar</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-	<nav th:fragment="sidebar" class="sidebar">
-	  <div class="sidebar-header">
-	    <img th:src="@{/images/letter-a.png}" alt="Logo" class="logo" />
-	    <div class="brand">
-	      FuturePath
-	      <small>ADMIN DASHBOARD</small>
-	    </div>
-	  </div>
 	
-	  <div class="sidebar-menu">
-	    <p class="menu-title">MAIN</p>
-	    <a th:href="@{/admin/dashboard}" 
-	       th:classappend="${page == 'dashboard'} ? ' active'">
-	       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
-	    </a>
-	
-	    <p class="menu-title">UNIVERSITY</p>
-	    <a th:href="@{/admin/universities}" 
-	       th:classappend="${page == 'universities'} ? ' active'">
-	       <i class="fas fa-university icon-btn"></i> UNIVERSITY
-	    </a>
-	    
-	    <p class="menu-title">QUIZ</p>
-	    <a th:href="@{/admin/questions}" 
-	       th:classappend="${page == 'questions'} ? ' active'">
-	       <i class="fas fa-question-circle icon-btn"></i> QUESTION
-	    </a>
-	    <a href="#"
-	       th:classappend="${page == 'quiz-config'} ? ' active'">
-	       <i class="fas fa-cogs icon-btn"></i> QUIZ CONFIG
-	    </a>
-	    
-	    <p class="menu-title">STRAND & DEGREE</p>
-	    <a th:href="@{/admin/strandegrees}" 
-	       th:classappend="${page == 'strandegrees'} ? ' active'">
-	       <i class="fas fa-graduation-cap icon-btn"></i> STRAND & DEGREE
-	    </a>
-	
-	    <p class="menu-title">USER</p>
-	    <a th:href="@{/admin/user}" 
-	       th:classappend="${page == 'user'} ? ' active'">
-	       <i class="fas fa-user icon-btn"></i> USER
-	    </a>
-	
-	  </div>
-	</nav>
+	<th:block sec:authorize="hasAuthority('ADMIN')">
+		<nav th:fragment="sidebar" class="sidebar">
+		  <div class="sidebar-header">
+		    <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
+		    <div class="brand">
+		      FuturePath
+		      <small>ADMIN DASHBOARD</small>
+		    </div>
+		  </div>
+		
+		  <div class="sidebar-menu">
+		    <p class="menu-title">MAIN</p>
+		    <a th:href="@{/admin/dashboard}" 
+		       th:classappend="${page == 'dashboard'} ? ' active'">
+		       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
+		    </a>
+		
+		    <p class="menu-title">UNIVERSITY</p>
+		    <a th:href="@{/admin/universities}" 
+		       th:classappend="${page == 'universities'} ? ' active'">
+		       <i class="fas fa-university icon-btn"></i> UNIVERSITY
+		    </a>
+		    
+		    <p class="menu-title">QUIZ</p>
+		    <a th:href="@{/admin/questions}" 
+		       th:classappend="${page == 'questions'} ? ' active'">
+		       <i class="fas fa-question-circle icon-btn"></i> QUESTION
+		    </a>
+		    <a href="#"
+		       th:classappend="${page == 'quiz-config'} ? ' active'">
+		       <i class="fas fa-cogs icon-btn"></i> QUIZ CONFIG
+		    </a>
+		    
+		    <p class="menu-title">STRAND & DEGREE</p>
+		    <a th:href="@{/admin/strandegrees}" 
+		       th:classappend="${page == 'strandegrees'} ? ' active'">
+		       <i class="fas fa-graduation-cap icon-btn"></i> STRAND & DEGREE
+		    </a>
+		
+		    <p class="menu-title">USER</p>
+		    <a th:href="@{/admin/user}" 
+		       th:classappend="${page == 'user'} ? ' active'">
+		       <i class="fas fa-user icon-btn"></i> USER
+		    </a>
+		
+		  </div>
+		</nav>
+	</th:block>
+	<th:block sec:authorize="hasAuthority('USER')">
+		<nav th:fragment="sidebar" class="sidebar">
+		  <div class="sidebar-header">
+		    <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
+		    <div class="brand">
+		      FuturePath
+		      <small>USER DASHBOARD</small>
+		    </div>
+		  </div>
+		
+		  <div class="sidebar-menu">
+		    <p class="menu-title">MAIN</p>
+		    <a th:href="@{/admin/dashboard}" 
+		       th:classappend="${page == 'dashboard'} ? ' active'">
+		       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
+		    </a>
+		  </div>
+		</nav>
+	</th:block>
 </body>
 </html>
