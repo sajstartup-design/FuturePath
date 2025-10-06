@@ -7,6 +7,8 @@ import saj.startup.pj.model.dto.QuestionDto;
 
 @Service
 public interface QuestionService {
+	
+	public QuestionDto getQuestionOverview() throws Exception;
 
 	public void saveQuestion(QuestionDto inDto) throws Exception;
 }

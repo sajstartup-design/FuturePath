@@ -9,6 +9,7 @@ import saj.startup.pj.model.dao.AnswerDao;
 import saj.startup.pj.model.dao.QuestionDao;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
+import saj.startup.pj.model.dao.entity.QuestionOverviewData;
 import saj.startup.pj.model.logic.QuestionLogic;
 
 @Service
@@ -31,6 +32,12 @@ public class QuestionLogicImpl implements QuestionLogic{
 		
 		answerDao.saveAll(entities);
 		
+	}
+
+	@Override
+	public QuestionOverviewData getQuestionOverview() {
+		
+		return questionDao.getQuestionOverview();
 	}
 
 }

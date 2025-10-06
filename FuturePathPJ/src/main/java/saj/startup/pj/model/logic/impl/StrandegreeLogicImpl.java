@@ -28,7 +28,7 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 	@Override
 	public StrandegreeOverviewData getStrandegreeOverview() {
 		
-		return strandegreeDao.getUserOverview();
+		return strandegreeDao.getStrandegreeOverview();
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
+import saj.startup.pj.model.dao.entity.QuestionOverviewData;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.logic.QuestionLogic;
 import saj.startup.pj.model.service.QuestionService;
@@ -51,5 +52,17 @@ public class QuestionServiceImpl implements QuestionService{
 		}
 		
 		questionLogic.saveAnswers(answers);
+	}
+
+	@Override
+	public QuestionDto getQuestionOverview() throws Exception {
+		
+		QuestionDto outDto = new QuestionDto();
+		
+		QuestionOverviewData overview = questionLogic.getQuestionOverview();
+		
+		outDto.setOverview(overview);
+		
+		return outDto;
 	}
 }

@@ -28,7 +28,7 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	        "WHERE e.isDeleted = false";
 	
 	@Query(GET_STRANDEGREE_OVERVIEW)
-	public StrandegreeOverviewData getUserOverview() throws DataAccessException;
+	public StrandegreeOverviewData getStrandegreeOverview() throws DataAccessException;
 	
 	public final String GET_ALL_STRANDEGREES = "SELECT e "
 			+ "FROM StrandegreeEntity e "

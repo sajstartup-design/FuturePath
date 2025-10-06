@@ -35,7 +35,7 @@
 			        <i class="fas fa-list-alt"></i> <!-- total questions -->
 			      </div>
 			      <p class="label">TOTAL QUESTIONS</p>
-			      <p class="value">0</p>
+			      <p class="value" th:text="${questionDto.overview.totalQuestions}">0</p>
 			    </div>
 			    
 			    <div class="stat-card">
@@ -43,7 +43,7 @@
 			        <i class="fas fa-university"></i> <!-- degree -->
 			      </div>
 			      <p class="label">DEGREE</p>
-			      <p class="value">0</p>
+			      <p class="value" th:text="${questionDto.overview.totalDegreeQuestions}">0</p>
 			    </div>
 			    
 			    <div class="stat-card">
@@ -51,7 +51,7 @@
 			        <i class="fas fa-project-diagram"></i> <!-- strand -->
 			      </div>
 			      <p class="label">STRAND</p>
-			      <p class="value">0</p>
+			      <p class="value" th:text="${questionDto.overview.totalStrandQuestions}">0</p>
 			    </div>
 			    
 			    <div class="stat-card">
@@ -59,7 +59,7 @@
 			        <i class="fas fa-check-circle"></i> <!-- active -->
 			      </div>
 			      <p class="label">ACTIVE</p>
-			      <p class="value">0</p>
+			      <p class="value" th:text="${questionDto.overview.totalActiveQuestions}">0</p>
 			    </div>
 			    
 			    <div class="stat-card">
@@ -67,7 +67,7 @@
 			        <i class="fas fa-times-circle"></i> <!-- inactive -->
 			      </div>
 			      <p class="label">INACTIVE</p>
-			      <p class="value">0</p>
+			      <p class="value" th:text="${questionDto.overview.totalInactiveQuestions}">0</p>
 			    </div>
 			  </div>
 			</div>

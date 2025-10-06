@@ -28,9 +28,13 @@ public class QuestionController {
 		
 		try {
 			
-			StrandegreeDto outDto = strandegreeService.getStrandegreesQuestionsOverview();
+			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreesQuestionsOverview();
 			
-			model.addAttribute("strandegreeDto", outDto);
+			QuestionDto questionOutDto = questionService.getQuestionOverview();
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("questionDto", questionOutDto);
+			
 		}catch(Exception e) {
 			
 			e.printStackTrace();
