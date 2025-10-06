@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
+import saj.startup.pj.model.dao.entity.StrandegreeQuestionData;
 
 public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer> {
 
@@ -52,4 +53,15 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	
 	@Query(GET_ALL_STRANDEGREES_NO_PAGEABLE)
 	public List<StrandegreeEntity> getAllStrandegreesNoPageable() throws DataAccessException;
+	
+	public final String GET_ALL_STRANDEGREE_WITH_TOTAL_QUESTIONS = ""
+		    + "SELECT new saj.startup.pj.model.dao.entity.StrandegreeQuestionData( "
+		    + "e.category, e.code, e.name, CAST(COUNT(q.idPk) AS INTEGER) ) "
+		    + "FROM StrandegreeEntity e "
+		    + "LEFT JOIN QuestionEntity q ON q.strandegreeIdPk = e.idPk AND q.isDeleted = false "
+		    + "GROUP BY e.category, e.code, e.name";
+	
+	
+	@Query(GET_ALL_STRANDEGREE_WITH_TOTAL_QUESTIONS)
+	public List<StrandegreeQuestionData> getAllStrandegreeQuestion() throws DataAccessException;
 }

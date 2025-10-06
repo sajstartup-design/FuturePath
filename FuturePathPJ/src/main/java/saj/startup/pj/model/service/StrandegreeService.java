@@ -14,4 +14,6 @@ public interface StrandegreeService {
 	public StrandegreeDto getAllStrandegrees(StrandegreeDto inDto) throws Exception;
 	
 	public StrandegreeDto getAllStrandegreesNoPageable() throws Exception;
+	
+	public StrandegreeDto getStrandegreesQuestionsOverview() throws Exception;
 }

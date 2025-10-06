@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.model.dao.StrandegreeDao;
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
+import saj.startup.pj.model.dao.entity.StrandegreeQuestionData;
 import saj.startup.pj.model.logic.StrandegreeLogic;
 
 @Service
@@ -40,6 +41,12 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 	public List<StrandegreeEntity> getAllStrandegreesNoPageable() {
 		
 		return strandegreeDao.getAllStrandegreesNoPageable();
+	}
+
+	@Override
+	public List<StrandegreeQuestionData> getStrandegreeQuestionOverview() {
+		
+		return strandegreeDao.getAllStrandegreeQuestion();
 	}
 
 }

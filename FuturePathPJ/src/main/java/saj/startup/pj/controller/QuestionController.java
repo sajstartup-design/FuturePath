@@ -28,7 +28,7 @@ public class QuestionController {
 		
 		try {
 			
-			StrandegreeDto outDto = strandegreeService.getAllStrandegreesNoPageable();
+			StrandegreeDto outDto = strandegreeService.getStrandegreesQuestionsOverview();
 			
 			model.addAttribute("strandegreeDto", outDto);
 		}catch(Exception e) {

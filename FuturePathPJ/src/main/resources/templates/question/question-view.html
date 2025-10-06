@@ -73,47 +73,49 @@
 			</div>
 			
 			<div class="data-table-group">
-				<div class="data-table-view">
-					<h3 class="title" style="margin: 0;">STRAND</h3>
-				    <table>
-				      <thead>
-				        <tr>
-				        	<th scope="col">CODE</th>
-				          	<th scope="col">STRAND</th>
-						    <th scope="col">TOTAL QUESTIONS</th>			    
-				        </tr>
-				      </thead>
-				      <tbody>
-			            <tr th:each="strandegree, iterStat : ${strandegreeDto.strandegrees}"
-					                th:if="${strandegree.category == 'STRAND'}">
-							<td th:text="${strandegree.code}"></td>
-							<td th:text="${strandegree.name}">AWAW</td>
-							<td>0</td>
-						</tr>
-				      </tbody>
-				    </table>
-				  </div>
-				  <div class="data-table-view">
-				<h3 class="title" style="margin: 0;">DEGREE</h3>
+			  <div class="data-table-view">
+			    <h3 class="title" style="margin: 0;">STRAND</h3>
 			    <table>
 			      <thead>
 			        <tr>
-			        	<th scope="col">CODE</th>
-			          	<th scope="col">DEGREE</th>
-					    <th scope="col">TOTAL QUESTIONS</th>			    
+			          <th scope="col">CODE</th>
+			          <th scope="col">STRAND</th>
+			          <th scope="col">TOTAL QUESTIONS</th>
 			        </tr>
 			      </thead>
-			      <tbody>
-		            <tr th:each="strandegree, iterStat : ${strandegreeDto.strandegrees}"
-				                th:if="${strandegree.category == 'DEGREE'}">
-						<td th:text="${strandegree.code}"></td>
-						<td th:text="${strandegree.name}"></td>
-						<td>0</td>
-					</tr>
+			      <tbody th:if="${strandegreeDto != null and strandegreeDto.strandegreesQuestions != null}">
+			        <tr th:each="strandegree, iterStat : ${strandegreeDto.strandegreesQuestions}"
+			            th:if="${strandegree.category == 'STRAND'}">
+			          <td th:text="${strandegree.code}"></td>
+			          <td th:text="${strandegree.name}">AWAW</td>
+			          <td th:text="${strandegree.totalQuestions}"></td>
+			        </tr>
+			      </tbody>
+			    </table>
+			  </div>
+			
+			  <div class="data-table-view">
+			    <h3 class="title" style="margin: 0;">DEGREE</h3>
+			    <table>
+			      <thead>
+			        <tr>
+			          <th scope="col">CODE</th>
+			          <th scope="col">DEGREE</th>
+			          <th scope="col">TOTAL QUESTIONS</th>
+			        </tr>
+			      </thead>
+			      <tbody th:if="${strandegreeDto != null and strandegreeDto.strandegreesQuestions != null}">
+			        <tr th:each="strandegree, iterStat : ${strandegreeDto.strandegreesQuestions}"
+			            th:if="${strandegree.category == 'DEGREE'}">
+			          <td th:text="${strandegree.code}"></td>
+			          <td th:text="${strandegree.name}"></td>
+			          <td th:text="${strandegree.totalQuestions}"></td>
+			        </tr>
 			      </tbody>
 			    </table>
 			  </div>
 			</div>
+
 			
 
 
