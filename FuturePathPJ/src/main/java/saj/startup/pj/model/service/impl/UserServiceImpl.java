@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService{
 		newUser.setIsActive(true);
 		newUser.setIsDeleted(false);
 		newUser.setCreatedAt(timeNow);
+		newUser.setRole(CommonConstant.ROLE_USER);
 		
 		userLogic.saveUser(newUser);
 	}

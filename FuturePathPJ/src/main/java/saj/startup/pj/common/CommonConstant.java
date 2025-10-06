@@ -13,4 +13,7 @@ public class CommonConstant {
 	
 	public static final String STRAND = "STRAND";
 	public static final String DEGREE = "DEGREE";
+	
+	public static final String ROLE_USER = "USER";
+	public static final String ROLE_ADMIN = "ADMIN";
 }
