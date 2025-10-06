@@ -1,0 +1,66 @@
+-- 🎓 BS Computer Science (strandegree_id_pk = 2)
+INSERT INTO question (strandegree_id_pk, question, is_active, is_deleted, created_at)
+VALUES
+(2, 'What is an algorithm?', TRUE, FALSE, NOW()),
+(2, 'Which of the following best describes Big O notation?', TRUE, FALSE, NOW()),
+(2, 'What is the primary function of an operating system kernel?', TRUE, FALSE, NOW()),
+(2, 'Which data structure is used to implement recursion?', TRUE, FALSE, NOW()),
+(2, 'What is the main purpose of object-oriented programming?', TRUE, FALSE, NOW()),
+(2, 'What does SQL stand for?', TRUE, FALSE, NOW()),
+(2, 'Which of the following is an example of a non-relational database?', TRUE, FALSE, NOW()),
+(2, 'What is the main difference between a compiler and an interpreter?', TRUE, FALSE, NOW()),
+(2, 'Which searching algorithm divides the search interval in half?', TRUE, FALSE, NOW()),
+(2, 'What is the role of an API in software development?', TRUE, FALSE, NOW());
+
+-- 🧠 Answers for BS Computer Science (strandegree_id_pk = 2)
+INSERT INTO answer (question_id_pk, answer, is_active, is_deleted, created_at)
+VALUES
+-- Q1: What is an algorithm?
+(11, 'A step-by-step procedure to solve a problem', TRUE, FALSE, NOW()),
+(11, 'A programming language', TRUE, FALSE, NOW()),
+(11, 'A type of data structure', TRUE, FALSE, NOW()),
+
+-- Q2: Which of the following best describes Big O notation?
+(12, 'It measures program readability', TRUE, FALSE, NOW()),
+(12, 'It measures algorithm efficiency', TRUE, FALSE, NOW()),
+(12, 'It determines memory type', TRUE, FALSE, NOW()),
+
+-- Q3: What is the primary function of an operating system kernel?
+(13, 'Managing system resources and communication between hardware and software', TRUE, FALSE, NOW()),
+(13, 'Providing graphical interface for users', TRUE, FALSE, NOW()),
+(13, 'Compiling source code', TRUE, FALSE, NOW()),
+
+-- Q4: Which data structure is used to implement recursion?
+(14, 'Queue', TRUE, FALSE, NOW()),
+(14, 'Stack', TRUE, FALSE, NOW()),
+(14, 'Tree', TRUE, FALSE, NOW()),
+
+-- Q5: What is the main purpose of object-oriented programming?
+(15, 'To structure code using objects and classes for reusability', TRUE, FALSE, NOW()),
+(15, 'To increase execution speed only', TRUE, FALSE, NOW()),
+(15, 'To store data in arrays', TRUE, FALSE, NOW()),
+
+-- Q6: What does SQL stand for?
+(16, 'Structured Query Language', TRUE, FALSE, NOW()),
+(16, 'Sequential Query Language', TRUE, FALSE, NOW()),
+(16, 'Simple Query Logic', TRUE, FALSE, NOW()),
+
+-- Q7: Which of the following is an example of a non-relational database?
+(17, 'PostgreSQL', TRUE, FALSE, NOW()),
+(17, 'MongoDB', TRUE, FALSE, NOW()),
+(17, 'SQLite', TRUE, FALSE, NOW()),
+
+-- Q8: What is the main difference between a compiler and an interpreter?
+(18, 'Compiler translates all code at once; interpreter runs line by line', TRUE, FALSE, NOW()),
+(18, 'Interpreter is faster than compiler', TRUE, FALSE, NOW()),
+(18, 'Compiler executes code directly', TRUE, FALSE, NOW()),
+
+-- Q9: Which searching algorithm divides the search interval in half?
+(19, 'Binary Search', TRUE, FALSE, NOW()),
+(19, 'Linear Search', TRUE, FALSE, NOW()),
+(19, 'Hash Search', TRUE, FALSE, NOW()),
+
+-- Q10: What is the role of an API in software development?
+(20, 'It allows communication between different software systems', TRUE, FALSE, NOW()),
+(20, 'It stores user credentials', TRUE, FALSE, NOW()),
+(20, 'It manages database transactions', TRUE, FALSE, NOW());

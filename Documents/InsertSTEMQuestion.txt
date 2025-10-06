@@ -1,0 +1,66 @@
+-- STRAND STEAM (strandegree_id_pk = 69)
+INSERT INTO question (strandegree_id_pk, question, is_active, is_deleted, created_at)
+VALUES
+(69, 'What does the "A" in STEAM stand for?', TRUE, FALSE, NOW()),
+(69, 'Which branch of science studies living organisms?', TRUE, FALSE, NOW()),
+(69, 'What is the process of turning an idea into a working product called?', TRUE, FALSE, NOW()),
+(69, 'Which of the following is an example of renewable energy?', TRUE, FALSE, NOW()),
+(69, 'Who painted the Mona Lisa?', TRUE, FALSE, NOW()),
+(69, 'What is the chemical symbol for water?', TRUE, FALSE, NOW()),
+(69, 'In engineering, what does CAD stand for?', TRUE, FALSE, NOW()),
+(69, 'Which planet is known as the Red Planet?', TRUE, FALSE, NOW()),
+(69, 'What type of code is used to program computers?', TRUE, FALSE, NOW()),
+(69, 'Which mathematical constant is approximately equal to 3.1416?', TRUE, FALSE, NOW());
+
+-- Question 31: What does the "A" in STEAM stand for?
+INSERT INTO answer (question_id_pk, answer, is_active, is_deleted, created_at, correct_flg)
+VALUES
+(31, 'Art', TRUE, FALSE, NOW(), TRUE),
+(31, 'Astronomy', TRUE, FALSE, NOW(), FALSE),
+(31, 'Arithmetic', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 32: Which branch of science studies living organisms?
+(32, 'Biology', TRUE, FALSE, NOW(), TRUE),
+(32, 'Physics', TRUE, FALSE, NOW(), FALSE),
+(32, 'Chemistry', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 33: What is the process of turning an idea into a working product called?
+(33, 'Innovation', TRUE, FALSE, NOW(), TRUE),
+(33, 'Replication', TRUE, FALSE, NOW(), FALSE),
+(33, 'Calibration', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 34: Which of the following is an example of renewable energy?
+(34, 'Solar Power', TRUE, FALSE, NOW(), TRUE),
+(34, 'Coal Energy', TRUE, FALSE, NOW(), FALSE),
+(34, 'Nuclear Fission', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 35: Who painted the Mona Lisa?
+(35, 'Leonardo da Vinci', TRUE, FALSE, NOW(), TRUE),
+(35, 'Pablo Picasso', TRUE, FALSE, NOW(), FALSE),
+(35, 'Vincent van Gogh', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 36: What is the chemical symbol for water?
+(36, 'H₂O', TRUE, FALSE, NOW(), TRUE),
+(36, 'O₂', TRUE, FALSE, NOW(), FALSE),
+(36, 'CO₂', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 37: In engineering, what does CAD stand for?
+(37, 'Computer-Aided Design', TRUE, FALSE, NOW(), TRUE),
+(37, 'Centralized Application Data', TRUE, FALSE, NOW(), FALSE),
+(37, 'Calculated Angle Drawing', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 38: Which planet is known as the Red Planet?
+(38, 'Mars', TRUE, FALSE, NOW(), TRUE),
+(38, 'Venus', TRUE, FALSE, NOW(), FALSE),
+(38, 'Jupiter', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 39: What type of code is used to program computers?
+(39, 'Programming Language', TRUE, FALSE, NOW(), TRUE),
+(39, 'Binary Code Only', TRUE, FALSE, NOW(), FALSE),
+(39, 'Encryption Key', TRUE, FALSE, NOW(), FALSE),
+
+-- Question 40: Which mathematical constant is approximately equal to 3.1416?
+(40, 'Pi', TRUE, FALSE, NOW(), TRUE),
+(40, 'Euler’s Number', TRUE, FALSE, NOW(), FALSE),
+(40, 'Golden Ratio', TRUE, FALSE, NOW(), FALSE);
+

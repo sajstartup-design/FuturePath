@@ -1,0 +1,57 @@
+-- 💻 BS Information Systems (BSIS)
+INSERT INTO question (strandegree_id_pk, question, is_active, is_deleted, created_at)
+VALUES
+(3, 'What is the main goal of a Management Information System (MIS)?', TRUE, FALSE, NOW()),
+(3, 'Which component of an Information System handles data storage and retrieval?', TRUE, FALSE, NOW()),
+(3, 'What is the role of a Systems Analyst in an organization?', TRUE, FALSE, NOW()),
+(3, 'Which of the following best describes a Decision Support System (DSS)?', TRUE, FALSE, NOW()),
+(3, 'What is the main difference between data and information?', TRUE, FALSE, NOW()),
+(3, 'Which process ensures that system requirements meet business needs?', TRUE, FALSE, NOW()),
+(3, 'What type of system integrates various business functions like finance and HR?', TRUE, FALSE, NOW()),
+(3, 'What is the purpose of business process modeling?', TRUE, FALSE, NOW()),
+(3, 'Which of the following tools is commonly used for data visualization in business intelligence?', TRUE, FALSE, NOW()),
+(3, 'What is the primary purpose of database normalization?', TRUE, FALSE, NOW());
+
+
+-- BSIS (Additional 10 Questions) — answers for question_id_pk 21-30
+INSERT INTO answer (question_id_pk, answer, is_active, is_deleted, created_at)
+VALUES
+(21, 'Business Intelligence', true, false, NOW()),
+(21, 'Data Warehousing', true, false, NOW()),
+(21, 'Data Mining', true, false, NOW()),
+
+(22, 'Systems Integration', true, false, NOW()),
+(22, 'IT Infrastructure', true, false, NOW()),
+(22, 'Cloud Computing', true, false, NOW()),
+
+(23, 'E-Commerce Systems', true, false, NOW()),
+(23, 'Digital Marketing Tools', true, false, NOW()),
+(23, 'Customer Relationship Management', true, false, NOW()),
+
+(24, 'IT Governance', true, false, NOW()),
+(24, 'Risk Management', true, false, NOW()),
+(24, 'Compliance Standards', true, false, NOW()),
+
+(25, 'Enterprise Resource Planning', true, false, NOW()),
+(25, 'Supply Chain Systems', true, false, NOW()),
+(25, 'Financial Information Systems', true, false, NOW()),
+
+(26, 'Network Administration', true, false, NOW()),
+(26, 'System Security', true, false, NOW()),
+(26, 'Server Management', true, false, NOW()),
+
+(27, 'Software Quality Assurance', true, false, NOW()),
+(27, 'Testing Methodologies', true, false, NOW()),
+(27, 'Version Control Systems', true, false, NOW()),
+
+(28, 'Mobile Application Systems', true, false, NOW()),
+(28, 'Cross-platform Tools', true, false, NOW()),
+(28, 'App Deployment', true, false, NOW()),
+
+(29, 'Knowledge Management Systems', true, false, NOW()),
+(29, 'Information Retrieval', true, false, NOW()),
+(29, 'Document Management', true, false, NOW()),
+
+(30, 'Emerging Technologies', true, false, NOW()),
+(30, 'Artificial Intelligence in Business', true, false, NOW()),
+(30, 'Blockchain Applications', true, false, NOW());

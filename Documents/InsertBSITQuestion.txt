@@ -1,0 +1,64 @@
+INSERT INTO question (strandegree_id_pk, question, is_active, is_deleted, created_at) VALUES
+(1, 'What is the main purpose of an operating system?', TRUE, FALSE, NOW()),
+(1, 'Which data structure uses LIFO (Last In, First Out)?', TRUE, FALSE, NOW()),
+(1, 'What is the function of a compiler?', TRUE, FALSE, NOW()),
+(1, 'Which of the following is an example of a relational database?', TRUE, FALSE, NOW()),
+(1, 'What does HTML stand for?', TRUE, FALSE, NOW()),
+(1, 'What is the primary goal of software engineering?', TRUE, FALSE, NOW()),
+(1, 'What does CPU stand for?', TRUE, FALSE, NOW()),
+(1, 'Which programming language is primarily used for web development on the client side?', TRUE, FALSE, NOW()),
+(1, 'What is the difference between RAM and ROM?', TRUE, FALSE, NOW()),
+(1, 'Which network device is used to connect multiple devices within the same local area network?', TRUE, FALSE, NOW());
+
+-- 🧠 Answers for IT Strandegree (strandegree_id_pk = 1)
+INSERT INTO answer (question_id_pk, answer, is_active, is_deleted, created_at)
+VALUES
+-- Question 1: What is the main purpose of an operating system?
+(1, 'To manage hardware and software resources', TRUE, FALSE, NOW()),
+(1, 'To compile source code', TRUE, FALSE, NOW()),
+(1, 'To create web pages', TRUE, FALSE, NOW()),
+
+-- Question 2: Which data structure uses LIFO (Last In, First Out)?
+(2, 'Queue', TRUE, FALSE, NOW()),
+(2, 'Stack', TRUE, FALSE, NOW()),
+(2, 'Array', TRUE, FALSE, NOW()),
+
+-- Question 3: What is the function of a compiler?
+(3, 'Translates high-level code into machine code', TRUE, FALSE, NOW()),
+(3, 'Executes code line by line', TRUE, FALSE, NOW()),
+(3, 'Manages memory allocation', TRUE, FALSE, NOW()),
+
+-- Question 4: Which of the following is an example of a relational database?
+(4, 'MongoDB', TRUE, FALSE, NOW()),
+(4, 'MySQL', TRUE, FALSE, NOW()),
+(4, 'Firebase', TRUE, FALSE, NOW()),
+
+-- Question 5: What does HTML stand for?
+(5, 'Hyper Text Markup Language', TRUE, FALSE, NOW()),
+(5, 'Home Tool Markup Language', TRUE, FALSE, NOW()),
+(5, 'Hyperlinks and Text Markup Language', TRUE, FALSE, NOW()),
+
+-- Question 6: What is the primary goal of software engineering?
+(6, 'To write complex code', TRUE, FALSE, NOW()),
+(6, 'To develop reliable and efficient software', TRUE, FALSE, NOW()),
+(6, 'To test hardware components', TRUE, FALSE, NOW()),
+
+-- Question 7: What does CPU stand for?
+(7, 'Central Processing Unit', TRUE, FALSE, NOW()),
+(7, 'Central Power Unit', TRUE, FALSE, NOW()),
+(7, 'Control Processing Utility', TRUE, FALSE, NOW()),
+
+-- Question 8: Which programming language is primarily used for web development on the client side?
+(8, 'Java', TRUE, FALSE, NOW()),
+(8, 'Python', TRUE, FALSE, NOW()),
+(8, 'JavaScript', TRUE, FALSE, NOW()),
+
+-- Question 9: What is the difference between RAM and ROM?
+(9, 'RAM is volatile, ROM is non-volatile', TRUE, FALSE, NOW()),
+(9, 'RAM stores permanent data, ROM stores temporary data', TRUE, FALSE, NOW()),
+(9, 'They are both used for permanent storage', TRUE, FALSE, NOW()),
+
+-- Question 10: Which network device connects multiple devices within the same local area network?
+(10, 'Router', TRUE, FALSE, NOW()),
+(10, 'Switch', TRUE, FALSE, NOW()),
+(10, 'Modem', TRUE, FALSE, NOW());
