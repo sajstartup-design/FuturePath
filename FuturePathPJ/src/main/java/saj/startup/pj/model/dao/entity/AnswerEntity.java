@@ -27,4 +27,6 @@ public class AnswerEntity {
 	private Boolean isDeleted;
 	
 	private Timestamp createdAt;
+	
+	private Boolean isCorrect;
 }
