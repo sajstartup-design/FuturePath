@@ -43,3 +43,22 @@ CREATE TABLE university_strandegree_availability (
     strandegree_id_pk BIGINT NOT NULL,
     availability BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+CREATE TABLE question (
+    id_pk SERIAL PRIMARY KEY,
+    strandegree_id_pk INT NOT NULL,
+    question TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE answer (
+    id_pk SERIAL PRIMARY KEY,
+    question_id_pk INT NOT NULL,
+    answer TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+

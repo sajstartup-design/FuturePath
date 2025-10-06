@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
+import saj.startup.pj.model.dao.entity.StrandegreeQuestionData;
 
 @Service
 public interface StrandegreeLogic {
@@ -19,4 +20,6 @@ public interface StrandegreeLogic {
 	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable, String search);
 	
 	public List<StrandegreeEntity> getAllStrandegreesNoPageable();
+	
+	public List<StrandegreeQuestionData> getStrandegreeQuestionOverview();
 }

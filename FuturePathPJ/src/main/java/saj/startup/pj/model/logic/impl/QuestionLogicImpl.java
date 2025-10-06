@@ -1,0 +1,51 @@
+package saj.startup.pj.model.logic.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import saj.startup.pj.model.dao.AnswerDao;
+import saj.startup.pj.model.dao.QuestionDao;
+import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.QuestionEntity;
+import saj.startup.pj.model.dao.entity.QuestionOverviewData;
+import saj.startup.pj.model.logic.QuestionLogic;
+
+@Service
+public class QuestionLogicImpl implements QuestionLogic{
+	
+	@Autowired
+	private QuestionDao questionDao;
+	
+	@Autowired
+	private AnswerDao answerDao;
+
+	@Override
+	public int saveQuestion(QuestionEntity entity) {
+		
+		return questionDao.save(entity).getIdPk();
+	}
+
+	@Override
+	public void saveAnswers(List<AnswerEntity> entities) {
+		
+		answerDao.saveAll(entities);
+		
+	}
+
+	@Override
+	public QuestionOverviewData getQuestionOverview() {
+		
+		return questionDao.getQuestionOverview();
+	}
+
+	@Override
+	public Page<QuestionEntity> getAllQuestions(Pageable pageable, String search) {
+		
+		return questionDao.getAllStrandegrees(pageable, search);
+	}
+
+}

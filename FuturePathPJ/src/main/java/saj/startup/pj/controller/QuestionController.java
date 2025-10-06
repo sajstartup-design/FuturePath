@@ -4,8 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import saj.startup.pj.common.MessageConstant;
+import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.dto.StrandegreeDto;
+import saj.startup.pj.model.service.QuestionService;
 import saj.startup.pj.model.service.StrandegreeService;
 
 @Controller
@@ -13,15 +19,22 @@ public class QuestionController {
 	
 	@Autowired
 	private StrandegreeService strandegreeService;
+	
+	@Autowired
+	private QuestionService questionService;
 
 	@GetMapping("/admin/questions")
 	public String showQuestions(Model model) {
 		
 		try {
 			
-			StrandegreeDto outDto = strandegreeService.getAllStrandegreesNoPageable();
+			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreesQuestionsOverview();
 			
-			model.addAttribute("strandegreeDto", outDto);
+			QuestionDto questionOutDto = questionService.getQuestionOverview();
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("questionDto", questionOutDto);
+			
 		}catch(Exception e) {
 			
 			e.printStackTrace();
@@ -47,4 +60,40 @@ public class QuestionController {
 		
 		return "question/question-add";
 	}
+	
+	@PostMapping("/admin/questions/add")
+	public String postQuestionsAdd(@ModelAttribute QuestionDto questionDto, Model model,
+			RedirectAttributes ra) {
+
+	    // Print everything to console (for debugging)
+	    System.out.println("Category: " + questionDto.getCategory());
+	    System.out.println("StrandegreeIdPk: " + questionDto.getStrandegreeIdPk());
+	    System.out.println("Question: " + questionDto.getQuestion());
+	    
+	    if (questionDto.getAnswers() != null && !questionDto.getAnswers().isEmpty()) {
+	        System.out.println("Answers:");
+	        for (int i = 0; i < questionDto.getAnswers().size(); i++) {
+	            System.out.println("  " + (i + 1) + ". " + questionDto.getAnswers().get(i));
+	        }
+	    } else {
+	        System.out.println("No answers provided.");
+	    }
+	    
+	    try {
+	    	questionService.saveQuestion(questionDto);
+	    	
+	    	ra.addFlashAttribute("isSuccess", true);
+	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_ADDED);
+	    }catch(Exception e) {
+	    	
+	    	e.printStackTrace();
+	    	
+	    	ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+	    	
+	    }
+
+	    return "redirect:/admin/questions";
+	}
+
 }

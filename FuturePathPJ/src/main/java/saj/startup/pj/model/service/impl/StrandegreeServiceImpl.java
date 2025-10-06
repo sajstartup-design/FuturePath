@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
+import saj.startup.pj.model.dao.entity.StrandegreeQuestionData;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.logic.StrandegreeLogic;
 import saj.startup.pj.model.object.FilterAndSearchObj;
@@ -122,6 +123,20 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		
 		outDto.setStrandegrees(strandegrees);
 
+		return outDto;
+	}
+
+	@Override
+	public StrandegreeDto getStrandegreesQuestionsOverview() throws Exception {
+		
+		StrandegreeDto outDto = new StrandegreeDto();
+		
+		List<StrandegreeQuestionData> strandegreesQuestions = strandegreeLogic.getStrandegreeQuestionOverview();
+		
+		System.out.println(strandegreesQuestions);
+		
+		outDto.setStrandegreesQuestions(strandegreesQuestions);
+		
 		return outDto;
 	}
 
