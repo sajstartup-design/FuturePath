@@ -2,6 +2,8 @@ package saj.startup.pj.model.logic;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.entity.AnswerEntity;
@@ -16,4 +18,6 @@ public interface QuestionLogic {
 	public void saveAnswers(List<AnswerEntity> entities);
 	
 	public QuestionOverviewData getQuestionOverview();
+	
+	public Page<QuestionEntity> getAllQuestions(Pageable pageable, String search);
 }

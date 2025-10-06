@@ -1,8 +1,11 @@
 package saj.startup.pj.model.dao;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
@@ -24,4 +27,22 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 	
 	@Query(GET_QUESTION_OVERVIEW)
 	public QuestionOverviewData getQuestionOverview() throws DataAccessException;
+	
+	public final String GET_ALL_QUESTIONS = "SELECT e "
+			+ "FROM QuestionEntity e "
+			+ "LEFT JOIN StrandegreeEntity s ON s.idPk = e.strandegreeIdPk "
+			+ "WHERE e.isDeleted = false "
+			+ "AND ( "
+		    + "   (:search IS NOT NULL AND :search <> '' AND ( " 
+		    + "       LOWER(s.category) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(e.question) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(s.name) LIKE LOWER(CONCAT('%', :search, '%')) OR " 
+		    + "       LOWER(CAST(e.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
+		    + "   )) " 
+		    + "   OR (:search IS NULL OR :search = '') " 
+		    + ")";
+	
+	@Query(GET_ALL_QUESTIONS)
+	public Page<QuestionEntity> getAllStrandegrees(Pageable pageable,
+			@Param("search") String search) throws DataAccessException;
 }

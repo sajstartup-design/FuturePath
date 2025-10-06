@@ -3,6 +3,8 @@ package saj.startup.pj.model.logic.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.AnswerDao;
@@ -38,6 +40,12 @@ public class QuestionLogicImpl implements QuestionLogic{
 	public QuestionOverviewData getQuestionOverview() {
 		
 		return questionDao.getQuestionOverview();
+	}
+
+	@Override
+	public Page<QuestionEntity> getAllQuestions(Pageable pageable, String search) {
+		
+		return questionDao.getAllStrandegrees(pageable, search);
 	}
 
 }
