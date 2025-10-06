@@ -48,7 +48,7 @@ hr {
 .loading-background {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	background: rgba(128, 128, 128, 0.5); /* Gray with 50% transparency */
