@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +9,15 @@
 </head>
 
 <body>
+
   <main class="wrapper">
+  		<th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
+		
     <header class="header">
       <nav>
         <div class="nav-left">
@@ -22,7 +30,7 @@
           </a>
         </div>
         <div class="nav-right">
-          <a href="#" class="btn-primary">Register</a>
+          <a th:href="@{/register}" class="btn-primary">Sign up</a>
         </div>
       </nav>
     </header>
@@ -38,8 +46,21 @@
         <h3>Please Sign In</h3>
 
         <div class="form-group">
-          <input type="email" placeholder="Email address" name="email" required />
-          <input type="password" placeholder="Password" name="password" required />
+			<div class="field">
+			  <label>USERNAME</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-user-circle"></i>
+			    <input type="text" placeholder="Enter username" name="username" />
+			  </div>
+			</div>
+			
+			<div class="field">
+			  <label>PASSWORD</label>  
+			  <div class="input-wrapper">
+			    <i class="fas fa-lock"></i>
+			    <input type="password" placeholder="Enter password" name="password" />
+			  </div>
+			</div>
         </div>
 
         <div class="row">
@@ -53,7 +74,7 @@
         <button class="btn-primary full">Sign In →</button>
 
         <p class="signup">
-          Don’t have an account yet? <a href="#">Sign up</a> here.
+          Don’t have an account yet? <a th:href="@{/register}">Sign up</a> here.
         </p>
       </form>
     </div>
