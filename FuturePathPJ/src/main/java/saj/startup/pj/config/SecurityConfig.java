@@ -14,6 +14,8 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import saj.startup.pj.common.CommonConstant;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -26,12 +28,12 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	private static final String USER_ACCOUNT_SQL = "SELECT USER_ID,PASSWORD,TRUE"
+	private static final String USER_ACCOUNT_SQL = "SELECT EMAIL,PASSWORD,TRUE"
 			+ " FROM USERS "
-			+ " WHERE USER_ID = ?"
+			+ " WHERE EMAIL = ?"
 			+ " AND USERS.IS_DELETED = FALSE ";
 
-	private static final String USER_ROLE_SQL = "SELECT USER_ID, ROLE FROM USERS WHERE USER_ID = ?";
+	private static final String USER_ROLE_SQL = "SELECT EMAIL, ROLE FROM USERS WHERE EMAIL = ?";
 	
 	@Bean
 	protected UserDetailsManager userDetailsService() {
@@ -55,6 +57,9 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests((requests) -> requests
 						
+						.requestMatchers("/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
+						.requestMatchers("/api/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
+						
 						.anyRequest().permitAll()
 						
 						)
@@ -63,7 +68,7 @@ public class SecurityConfig {
 						.permitAll()
 						.failureUrl("/login")
 						//.failureHandler(authenticationFailureHandler())
-						.usernameParameter("userId")
+						.usernameParameter("email")
 						.passwordParameter("password")
 						 .defaultSuccessUrl("/dashboard")
 						.successHandler(authenticationSuccessHandler()))
