@@ -8,8 +8,8 @@
 </head>
 <body>
 	
-	<th:block sec:authorize="hasAuthority('ADMIN')">
-		<nav th:fragment="sidebar" class="sidebar">
+	<th:block>
+		<nav th:fragment="sidebar" class="sidebar" sec:authorize="hasAuthority('ADMIN')">
 		  <div class="sidebar-header">
 		    <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
 		    <div class="brand">
@@ -56,8 +56,8 @@
 		  </div>
 		</nav>
 	</th:block>
-	<th:block sec:authorize="hasAuthority('USER')">
-		<nav th:fragment="sidebar" class="sidebar">
+	<th:block>
+		<nav th:fragment="sidebar" class="sidebar" sec:authorize="hasAuthority('USER')">
 		  <div class="sidebar-header">
 		    <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
 		    <div class="brand">
@@ -68,9 +68,17 @@
 		
 		  <div class="sidebar-menu">
 		    <p class="menu-title">MAIN</p>
-		    <a th:href="@{/admin/dashboard}" 
+		    <a th:href="@{/dashboard}" 
 		       th:classappend="${page == 'dashboard'} ? ' active'">
 		       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
+		    </a>
+		    <a th:href="@{/quiz}" 
+		       th:classappend="${page == 'dashboard'} ? ' active'">
+		       <i class="fas fa-tachometer-alt icon-btn"></i> QUIZ
+		    </a>
+		    <a th:href="@{/history}" 
+		       th:classappend="${page == 'dashboard'} ? ' active'">
+		       <i class="fas fa-tachometer-alt icon-btn"></i> HISTORY
 		    </a>
 		  </div>
 		</nav>

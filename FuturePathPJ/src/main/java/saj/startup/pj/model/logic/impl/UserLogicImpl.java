@@ -36,4 +36,10 @@ public class UserLogicImpl implements UserLogic{
 		return userDao.getUserOverview();
 	}
 
+	@Override
+	public UserEntity getUserByUsername(String username) {
+		
+		return userDao.getUserByUsername(username);
+	}
+
 }
