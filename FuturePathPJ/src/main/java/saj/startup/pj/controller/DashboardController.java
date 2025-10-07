@@ -12,6 +12,12 @@ public class DashboardController {
 		
 		model.addAttribute("page", "dashboard");
 		
-		return "dashboard/dashboard";
+		return "dashboard/admin-dashboard";
+	}
+	
+	@GetMapping("/dashboard")
+	public String showUserDashboard(Model model) {
+		
+		return "dashboard/user-dashboard";
 	}
 }

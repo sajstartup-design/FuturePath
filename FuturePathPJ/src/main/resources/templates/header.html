@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -25,7 +26,7 @@
     <button><i class="fas fa-envelope"></i></button>
 
     <!-- Profile -->
-    <div class="profile" id="profileBtn">
+    <div class="profile" id="profileBtn" sec:authorize="hasAuthority('ADMIN')">
       <img th:src="@{/images/letter-a.png}" alt="User" />
       <div class="profile-text">
         <small>Welcome,</small>
@@ -54,6 +55,37 @@
         </div>
       </div>
     </div>
+    
+    <div class="profile" id="profileBtn" sec:authorize="hasAuthority('USER')">
+      <img th:src="@{/images/letter-a.png}" alt="User" />
+      <div class="profile-text">
+        <small>Welcome,</small>
+        <span th:text="${session.fullname}">name</span>
+      </div>
+      <button class="dropdown-btn">
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="header">
+          <img th:src="@{/images/letter-a.png}" alt="User" />
+        </div>
+        <br>
+        <span class="name" th:text="${session.fullname}">name</span>
+        <br>
+        <hr>
+        <div class="profile-menu">
+        	<form>
+        		<button>SETTINGS</button>
+        	</form>
+        	<hr>
+        	<form th:action="@{/logout}" method="POST">
+        		<button>LOGOUT</button>
+        	</form>
+        </div>
+      </div>
+    </div>
+    
   </div>
   <script>
   	const profile = document.getElementById('profile');

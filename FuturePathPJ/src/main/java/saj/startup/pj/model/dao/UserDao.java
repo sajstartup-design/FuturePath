@@ -44,4 +44,12 @@ public interface UserDao extends JpaRepository<UserEntity, Integer>{
 	@Query(GET_ALL_USERS)
 	public Page<UserEntity> getAllUsers(Pageable pageable,
 			@Param("search") String search) throws DataAccessException;
+	
+	public final String GET_USER_BY_USERNAME = "SELECT e "
+			+ "FROM UserEntity e "
+			+ "WHERE e.username = :username "
+			+ "AND e.isDeleted = false ";
+	
+	@Query(GET_USER_BY_USERNAME)
+	public UserEntity getUserByUsername(@Param("username") String username) throws DataAccessException;
 }
