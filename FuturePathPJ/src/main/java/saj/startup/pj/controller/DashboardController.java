@@ -15,7 +15,7 @@ public class DashboardController {
 		return "dashboard/admin-dashboard";
 	}
 	
-	@GetMapping("/user/dashboard")
+	@GetMapping("/dashboard")
 	public String showUserDashboard(Model model) {
 		
 		return "dashboard/user-dashboard";

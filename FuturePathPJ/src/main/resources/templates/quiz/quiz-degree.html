@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/quiz.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			QUIZ
+			<div class="btn-group">
+				<button>CANCEL</button>
+			</div>
+		</nav>
+		<hr>
+		<div class="content">
+			<form th:action="@{/quiz}" method="POST">
+				<label>Which one would you take the quiz for?</label>
+				<button name="college">FOR COLLEGE</button>
+				<button name="strand">FOR SENIOR HIGH SCHOOL</button>
+			</form>
+		</div>
+	</main>
+</body>
+</html>
