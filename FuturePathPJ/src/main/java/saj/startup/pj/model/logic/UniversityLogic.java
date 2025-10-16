@@ -21,4 +21,6 @@ public interface UniversityLogic {
 	public UniversityOverviewData getUniversitiesOverview();
 	
 	public Page<UniversityData> getAllUniversities(Pageable pageable, String search);
+	
+	public List<UniversityEntity> getAllUniversitiesNoPageable();
 }

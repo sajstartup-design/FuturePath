@@ -41,4 +41,16 @@ public class UniversityRestController {
             return new UniversityDto();
         }
     }
+    
+    @GetMapping("/universities/retrieve")
+    public UniversityDto getAllUniversities() {
+        try {
+            return universityService.getAllUniversitiesNoPageable();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // Return empty UserDto on error
+            return new UniversityDto();
+        }
+    }
 }

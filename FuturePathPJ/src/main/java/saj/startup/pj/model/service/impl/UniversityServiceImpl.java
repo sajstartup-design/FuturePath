@@ -20,6 +20,7 @@ import saj.startup.pj.model.dto.UniversityDto;
 import saj.startup.pj.model.logic.UniversityLogic;
 import saj.startup.pj.model.object.FilterAndSearchObj;
 import saj.startup.pj.model.object.PaginationObj;
+import saj.startup.pj.model.object.UniversityObj;
 import saj.startup.pj.model.service.UniversityService;
 
 @Service
@@ -103,6 +104,41 @@ public class UniversityServiceImpl implements UniversityService {
 		outDto.setUniversities(universities);
 		outDto.setPagination(pagination);
 
+		return outDto;
+	}
+
+	@Override
+	public UniversityDto getAllUniversitiesNoPageable() throws Exception {
+		
+		UniversityDto outDto = new UniversityDto();
+		
+		List<UniversityEntity> allUniversities = universityLogic.getAllUniversitiesNoPageable();
+		
+		List<UniversityObj> universities = new ArrayList<>();
+		
+		for(UniversityEntity university : allUniversities) {
+			
+			UniversityObj obj = new UniversityObj();
+			
+			obj.setUniversityIdPk(university.getIdPk());
+			obj.setUniversityName(university.getUniversityName());
+			obj.setCategory(university.getCategory());
+			obj.setContact(university.getContact());
+			obj.setStreet(university.getStreet());
+			obj.setCity(university.getCity());
+			obj.setProvince(university.getProvince());
+			obj.setPostalCode(university.getPostalCode());		
+			
+			
+			
+			
+			
+			universities.add(obj);
+			
+		}
+		
+		outDto.setAllUniversities(universities);
+		
 		return outDto;
 	}
 

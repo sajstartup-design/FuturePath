@@ -12,4 +12,6 @@ public interface UniversityService {
 	public UniversityDto getUniversitiesOverview() throws Exception;
 	
 	public UniversityDto getAllUniversities(UniversityDto inDto) throws Exception;
+	
+	public UniversityDto getAllUniversitiesNoPageable() throws Exception;
 }

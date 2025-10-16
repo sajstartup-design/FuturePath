@@ -8,6 +8,7 @@ import saj.startup.pj.model.dao.entity.UniversityData;
 import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.object.FilterAndSearchObj;
 import saj.startup.pj.model.object.PaginationObj;
+import saj.startup.pj.model.object.UniversityObj;
 
 @Data
 public class UniversityDto {
@@ -33,6 +34,8 @@ public class UniversityDto {
 	private FilterAndSearchObj filter;
 	
 	private List<UniversityData> universities;
+	
+	private List<UniversityObj> allUniversities;
 	
 	private UniversityOverviewData overview;
 }
