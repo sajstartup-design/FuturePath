@@ -3,11 +3,75 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>FuturePath | Dashboard</title>
+<title>FuturePath | Assessment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" th:href="@{/css/common.css}" />
 <link rel="stylesheet" th:href="@{/css/quiz.css}" />
+<style>
+.content {
+    margin: 3rem auto;
+    text-align: center;
+}
+.question-card {
+    background: linear-gradient(145deg, #273777, #1f2b59);
+    padding: 2.5rem 2.5rem 3rem;
+    border-radius: 1rem;
+    display: inline-block;
+    color: white;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #3d4b8a;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+.question-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.question-card .message {
+    font-size: 1.1rem;
+    color: #d8defa;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.2rem;
+    border-radius: 0.6rem;
+    border-left: 3px solid #5673ff;
+}
+.question-card .choices {
+    display: flex;
+    flex-direction: column;
+}
+.question-card button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: transparent;       /* transparent background */
+    border: 2px solid #4461ff;    /* add border */
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+}
+.question-card button:hover {
+    background: #46a1ff;           /* sky-blue background on hover */
+    box-shadow: 0 6px 18px rgba(68, 161, 255, 0.4);
+    transform: translateY(-2px);
+    border-color: #46a1ff;        /* match border to hover background */
+}
+.question-card button:active {
+    transform: scale(0.98);
+}
+</style>
+
 </head>
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
@@ -15,17 +79,71 @@
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">
-			QUIZ
+			ASSESSMENT
 			<div class="btn-group">
 				<button>CANCEL</button>
 			</div>
 		</nav>
 		<hr>
 		<div class="content">
-			<form th:action="@{/quiz}" method="POST">
-				<label>Which one would you take the quiz for?</label>
-				<button name="college">FOR COLLEGE</button>
-				<button name="strand">FOR SENIOR HIGH SCHOOL</button>
+			<form th:action="@{/assessment}" method="POST">
+
+				<!-- Question 1 -->
+				<div class="question-card">
+					<div class="message">
+						<strong>1. Which subject do you enjoy the most?</strong><br>
+						Select the subject that excites you and motivates you to learn more.
+					</div>
+					<div class="choices">
+						<button type="submit" name="q1" value="math">Mathematics</button>
+						<button type="submit" name="q1" value="science">Science</button>
+						<button type="submit" name="q1" value="arts">Arts</button>
+						<button type="submit" name="q1" value="languages">Languages</button>
+					</div>
+				</div>
+
+				<!-- Question 2 -->
+				<div class="question-card">
+					<div class="message">
+						<strong>2. What kind of activities do you prefer?</strong><br>
+						Choose the type of activity that best fits your personality and interests.
+					</div>
+					<div class="choices">
+						<button type="submit" name="q2" value="creative">Creative / Arts</button>
+						<button type="submit" name="q2" value="analytical">Analytical / Math</button>
+						<button type="submit" name="q2" value="physical">Physical / Sports</button>
+						<button type="submit" name="q2" value="social">Social / Teamwork</button>
+					</div>
+				</div>
+
+				<!-- Question 3 -->
+				<div class="question-card">
+					<div class="message">
+						<strong>3. Which environment helps you learn best?</strong><br>
+						Select the environment where you feel most productive and focused.
+					</div>
+					<div class="choices">
+						<button type="submit" name="q3" value="classroom">Structured Classroom</button>
+						<button type="submit" name="q3" value="project">Hands-on Projects</button>
+						<button type="submit" name="q3" value="online">Online / Self-paced</button>
+						<button type="submit" name="q3" value="group">Group Work / Collaboration</button>
+					</div>
+				</div>
+
+				<!-- Question 4 -->
+				<div class="question-card">
+					<div class="message">
+						<strong>4. Which field would you like to explore in the future?</strong><br>
+						Pick the area you are curious about for your career or studies.
+					</div>
+					<div class="choices">
+						<button type="submit" name="q4" value="tech">Technology / IT</button>
+						<button type="submit" name="q4" value="business">Business / Management</button>
+						<button type="submit" name="q4" value="health">Health / Medicine</button>
+						<button type="submit" name="q4" value="arts">Arts / Design</button>
+					</div>
+				</div>
+
 			</form>
 		</div>
 	</main>
