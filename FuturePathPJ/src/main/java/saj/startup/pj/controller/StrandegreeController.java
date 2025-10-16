@@ -73,4 +73,16 @@ public class StrandegreeController {
 		
 		return "redirect:/admin/strandegrees";
 	}
+	
+	/*
+	 * USER
+	 * 
+	 */
+	@GetMapping("/strandegrees")
+	public String showUniversities() {
+		
+		
+		
+		return "strandegree/strandegree-list";
+	}
 }
