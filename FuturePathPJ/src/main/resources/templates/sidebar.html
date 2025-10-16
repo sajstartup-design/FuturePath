@@ -74,19 +74,33 @@
 		
 		  <div class="sidebar-menu">
 		    <p class="menu-title">MAIN</p>
+		
 		    <a th:href="@{/dashboard}" 
 		       th:classappend="${page == 'dashboard'} ? ' active'">
 		       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
 		    </a>
-		    <a th:href="@{/quiz}" 
-		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> ASSESSMENT
+		
+		    <a th:href="@{/assessment}" 
+		       th:classappend="${page == 'assessment'} ? ' active'">
+		       <i class="fas fa-clipboard-check icon-btn"></i> ASSESSMENT
 		    </a>
+		
 		    <a th:href="@{/history}" 
-		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> HISTORY
+		       th:classappend="${page == 'history'} ? ' active'">
+		       <i class="fas fa-history icon-btn"></i> HISTORY
 		    </a>
-		  </div>
+		
+		    <a th:href="@{/courses}" 
+		       th:classappend="${page == 'courses'} ? ' active'">
+		       <i class="fas fa-book-open icon-btn"></i> COURSES
+		    </a>
+		
+		    <a th:href="@{/universities}" 
+		       th:classappend="${page == 'universities'} ? ' active'">
+		       <i class="fas fa-university icon-btn"></i> UNIVERSITIES
+		    </a>
+		</div>
+
 		</nav>
 	</th:block>
 </body>
