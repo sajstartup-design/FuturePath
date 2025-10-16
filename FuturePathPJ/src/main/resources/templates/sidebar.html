@@ -31,14 +31,14 @@
 		       <i class="fas fa-university icon-btn"></i> UNIVERSITY
 		    </a>
 		    
-		    <p class="menu-title">QUIZ</p>
+		    <p class="menu-title">ASSESSMENT</p>
 		    <a th:href="@{/admin/questions}" 
 		       th:classappend="${page == 'questions'} ? ' active'">
 		       <i class="fas fa-question-circle icon-btn"></i> QUESTION
 		    </a>
 		    <a href="#"
 		       th:classappend="${page == 'quiz-config'} ? ' active'">
-		       <i class="fas fa-cogs icon-btn"></i> QUIZ CONFIG
+		       <i class="fas fa-cogs icon-btn"></i> ASSESSMENT CONFIG
 		    </a>
 		    
 		    <p class="menu-title">STRAND & DEGREE</p>
@@ -51,6 +51,12 @@
 		    <a th:href="@{/admin/user}" 
 		       th:classappend="${page == 'user'} ? ' active'">
 		       <i class="fas fa-user icon-btn"></i> USER
+		    </a>
+		    
+		    <p class="menu-title">NOTIFICATION</p>
+		    <a th:href="@{/admin/user}" 
+		       th:classappend="${page == 'user'} ? ' active'">
+		       <i class="fas fa-user icon-btn"></i> PUSH NOTIFICATION
 		    </a>
 		
 		  </div>
@@ -74,7 +80,7 @@
 		    </a>
 		    <a th:href="@{/quiz}" 
 		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> QUIZ
+		       <i class="fas fa-tachometer-alt icon-btn"></i> ASSESSMENT
 		    </a>
 		    <a th:href="@{/history}" 
 		       th:classappend="${page == 'dashboard'} ? ' active'">
