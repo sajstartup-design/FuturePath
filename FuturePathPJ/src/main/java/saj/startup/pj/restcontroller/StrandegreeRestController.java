@@ -41,4 +41,17 @@ public class StrandegreeRestController {
             return new StrandegreeDto();
         }
     }
+    
+    @GetMapping("/strandegrees/retrieve")
+    public StrandegreeDto getAllStrandegree() {
+        try {
+
+            return strandegreeService.getAllStrandegreesNoPageable();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // Return empty UserDto on error
+            return new StrandegreeDto();
+        }
+    }
 }

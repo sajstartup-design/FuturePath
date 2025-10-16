@@ -1,216 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-  <meta charset="UTF-8">
-  <title>FuturePath | Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" th:href="@{/css/common.css}" />
-  <link rel="stylesheet" th:href="@{/css/strandegree-list.css}" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <nav th:replace="~{sidebar :: sidebar}"></nav>
-  <main>
-    <nav th:replace="~{header :: header}"></nav>
-    <hr>
-    <nav class="sub-header">STRAND & DEGREE</nav>
-    <hr>
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Dashboard</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/strandegree-list.css}" />
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">STRAND & DEGREE</nav>
+         <hr>
+         <div class="content">
+<div class="strand-degree-controls">
+  <div class="filter-btn">
+    <i class="fa-solid fa-filter"></i>
+  </div>
 
-    <div class="content">
-      <div class="strand-degree-list">
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="SEARCH STRAND OR DEGREE"
+    />
+  </div>
+</div>
 
-        <!-- Strand Card -->
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon strand">
-              <i class="fa-solid fa-school-flag"></i>
+<div class="strand-degree-list"></div>
+
+         </div>
+         <nav class="footer">
+            <div><span>All rights reserved by FuturePath</span></div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
             </div>
-            <h3>Academic Track</h3>
-          </div>
-          <p class="subtitle">Senior High Strand</p>
-          <div class="details">
-            <p>Provides strong academic foundations for college readiness.</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-
-        <!-- Strand Card -->
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon strand">
-              <i class="fa-solid fa-briefcase"></i>
-            </div>
-            <h3>Technical-Vocational Track</h3>
-          </div>
-          <p class="subtitle">Senior High Strand</p>
-          <div class="details">
-            <p>Offers hands-on technical and vocational training for immediate employment.</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-
-        <!-- Degree Card -->
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <h3>Bachelor of Science in Computer Science</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Focuses on algorithms, software design, and data-driven systems.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-
-        <!-- Degree Card -->
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-pen-nib"></i>
-            </div>
-            <h3>Bachelor of Arts in Communication</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Develops expertise in public speaking, media writing, and journalism.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-
-        <!-- New Degree Card (BSIT) -->
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-computer"></i>
-            </div>
-            <h3>Bachelor of Science in Information Technology (BSIT)</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Prepares students for careers in IT systems, networking, and web development.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-computer"></i>
-            </div>
-            <h3>Bachelor of Science in Information Technology (BSIT)</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Prepares students for careers in IT systems, networking, and web development.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-computer"></i>
-            </div>
-            <h3>Bachelor of Science in Information Technology (BSIT)</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Prepares students for careers in IT systems, networking, and web development.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-computer"></i>
-            </div>
-            <h3>Bachelor of Science in Information Technology (BSIT)</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Prepares students for careers in IT systems, networking, and web development.Prepares students for careers in IT systems, networking, and web development.Prepares students for careers in IT systems, networking, and web development.Prepares students for careers in IT systems, networking, and web development.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-        <div class="strand-degree-card">
-          <div class="card-header">
-            <div class="icon degree">
-              <i class="fa-solid fa-computer"></i>
-            </div>
-            <h3>Bachelor of Science in Information Technology (BSIT)</h3>
-          </div>
-          <p class="subtitle">College Degree</p>
-          <div class="details">
-            <p>Prepares students for careers in IT systems, networking, and web development.</p>
-            <p><strong>Duration:</strong> 4 Years</p>
-          </div>
-          <button class="view-btn"><i class="fa-solid fa-circle-info"></i> View Details</button>
-        </div>
-
-      </div>
-    </div>
-
-    <nav class="footer">
-      <div><span>All rights reserved by FuturePath</span></div>
-      <div class="terms">
-        <span>Terms of Use</span>
-        <span>Privacy Policy</span>
-        <span>Contact us</span>
-      </div>
-    </nav>
-  </main>
-<script>
-(function () {
-  const CHAR_LIMIT = 50; // <- 50 characters
-  const SELECTOR = ".details p:first-child";
-  let debounceTimer = null;
-
-  function truncateByChars(pEl, limit) {
-    if (!pEl) return;
-    // Save original if not already saved
-    if (!pEl.dataset.fulltext) {
-      pEl.dataset.fulltext = pEl.textContent.trim();
-    }
-    const original = pEl.dataset.fulltext;
-
-    // Skip if already truncated and no change
-    if (pEl.dataset.truncated === "true" && pEl.textContent.endsWith("...")) {
-      return;
-    }
-
-    if (original.length > limit) {
-      pEl.textContent = original.slice(0, limit).trim() + "...";
-      pEl.dataset.truncated = "true";
-    } else {
-      pEl.textContent = original; // keep original if below limit
-      pEl.dataset.truncated = "false";
-    }
-  }
-
-  function applyTruncation() {
-    document.querySelectorAll(SELECTOR).forEach(p => truncateByChars(p, CHAR_LIMIT));
-  }
-
-  // Run initially when DOM is ready
-  document.addEventListener("DOMContentLoaded", applyTruncation);
-
-  // Observe for dynamic content; debounce so it doesn't run too often
-  const observer = new MutationObserver(() => {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(applyTruncation, 80);
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-})();
-</script>
-	
-  
-</body>
+         </nav>
+      </main>
+      <script>
+         function applyTruncation() {
+           const CHAR_LIMIT = 50;
+           const SELECTOR = ".details p:first-child";
+           document.querySelectorAll(SELECTOR).forEach((pEl) => {
+             if (!pEl.dataset.fulltext) {
+               pEl.dataset.fulltext = pEl.textContent.trim();
+             }
+             const original = pEl.dataset.fulltext;
+             if (original.length > CHAR_LIMIT) {
+               pEl.textContent = original.slice(0, CHAR_LIMIT).trim() + "...";
+             } else {
+               pEl.textContent = original;
+             }
+           });
+         }
+      </script>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/strandegree-list-api.js}"></script>
+   </body>
 </html>
