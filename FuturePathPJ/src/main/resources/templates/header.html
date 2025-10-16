@@ -1,111 +1,167 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<nav th:fragment="header" class="header">
-  <!-- Left -->
-  <div class="header-left">
-    <button class="menu-btn"><i class="fas fa-bars"></i></button>
-    <div class="search-bar">
-      <input type="text" placeholder="SEARCH..." />
-      <button><i class="fas fa-search"></i></button>
-    </div>
-  </div>
-
-  <!-- Right -->
-  <div class="header-right">
-    <!-- Flag -->
-    <img src="https://flagcdn.com/w20/ph.png" alt="PH" class="flag-icon" />
-
-    <!-- Notification + Mail buttons -->
-    <button><i class="fas fa-bell"></i></button>
-    <button><i class="fas fa-envelope"></i></button>
-
-    <!-- Profile -->
-    <div class="profile" id="profileBtn" sec:authorize="hasAuthority('ADMIN')">
-      <img th:src="@{/images/letter-a.png}" alt="User" />
-      <div class="profile-text">
-        <small>Welcome,</small>
-        <span>ADMIN</span>
-      </div>
-      <button class="dropdown-btn">
-        <i class="fas fa-chevron-down"></i>
-      </button>
-      
-      <div class="profile-dropdown" id="profileDropdown">
-        <div class="header">
-          <img th:src="@{/images/letter-a.png}" alt="User" />
-        </div>
-        <br>
-        <span class="name">ADMIN</span>
-        <br>
-        <hr>
-        <div class="profile-menu">
-        	<form>
-        		<button>SETTINGS</button>
-        	</form>
-        	<hr>
-        	<form th:action="@{/logout}" method="POST">
-        		<button>LOGOUT</button>
-        	</form>
-        </div>
-      </div>
-    </div>
-    
-    <div class="profile" id="profileBtn" sec:authorize="hasAuthority('USER')">
-      <img th:src="@{/images/letter-a.png}" alt="User" />
-      <div class="profile-text">
-        <small>Welcome,</small>
-        <span th:text="${session.fullname}">name</span>
-      </div>
-      <button class="dropdown-btn">
-        <i class="fas fa-chevron-down"></i>
-      </button>
-      
-      <div class="profile-dropdown" id="profileDropdown">
-        <div class="header">
-          <img th:src="@{/images/letter-a.png}" alt="User" />
-        </div>
-        <br>
-        <span class="name" th:text="${session.fullname}">name</span>
-        <br>
-        <hr>
-        <div class="profile-menu">
-        	<form>
-        		<button>SETTINGS</button>
-        	</form>
-        	<hr>
-        	<form th:action="@{/logout}" method="POST">
-        		<button>LOGOUT</button>
-        	</form>
-        </div>
-      </div>
-    </div>
-    
-  </div>
-  <script>
-  	const profile = document.getElementById('profile');
-	const profileBtn = document.getElementById('profileBtn');
-	const profileDropdown = document.getElementById('profileDropdown');
-	
-	profileBtn.addEventListener('click', () => {
-	  profileDropdown.classList.toggle('active');
-	  profileBtn.classList.toggle('active');
-	});
-	
-	// Close dropdown when clicking outside
-	document.addEventListener('click', function(event) {
-	  if (!profileBtn.contains(event.target)) {
-	    profileDropdown.classList.remove('active');
-	    profileBtn.classList.remove('active')
-	  }
-	});
-	</script>
-</nav>
-
-</body>
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8">
+      <title>Insert title here</title>
+   </head>
+   <body>
+      <nav th:fragment="header" class="header">
+         <!-- Left -->
+         <div class="header-left">
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="search-bar">
+               <input type="text" placeholder="SEARCH..." />
+               <button><i class="fas fa-search"></i></button>
+            </div>
+         </div>
+         <!-- Right -->
+         <div class="header-right">
+            <!-- Flag -->
+            <img src="https://flagcdn.com/w20/ph.png" alt="PH" class="flag-icon" />
+            <!-- Notification + Mail buttons -->
+            <button><i class="fas fa-bell"></i></button>
+            <button><i class="fas fa-envelope"></i></button>
+            <!-- Profile -->
+            <div class="profile" id="profileBtn" sec:authorize="hasAuthority('ADMIN')">
+               <img class="single-pic" th:src="@{/images/letter-a.png}" alt="User" />
+               <div class="profile-text">
+                  <small>Welcome,</small>
+                  <span>ADMIN</span>
+               </div>
+               <button class="dropdown-btn">
+               <i class="fas fa-chevron-down"></i>
+               </button>
+               <div id="profileDropdown" class="profile-dropdown">
+                  <div class="profile-header">
+                     <div class="background-image">
+                        <img th:src="@{/images/background-part.png}" alt="background" />
+                     </div>
+                     <figure class="avatar-wrap">
+                        <img class="avatar" th:src="@{/images/letter-a.png}" alt="User" />
+                     </figure>
+                     <div class="profile-meta">
+                        <h5 class="name" th:text="${session.fullname}">User</h5>
+                        <p class="role">User</p>
+                     </div>
+                  </div>
+                  <nav class="profile-list">
+                     <a class="profile-row" href="#">
+                        <span class="icon"><i class="fa-solid fa-user"></i></span>
+                        <div class="row-text">
+                           <span class="row-title">My Profile</span>
+                           <span class="row-sub">Update details and information</span>
+                        </div>
+                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                     </a>
+                     <a class="profile-row" href="#">
+                        <span class="icon"><i class="fa-solid fa-wallet"></i></span>
+                        <div class="row-text">
+                           <span class="row-title">My Wallet</span>
+                           <span class="row-sub">Add Money or withdraw</span>
+                        </div>
+                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                     </a>
+                     <a class="profile-row" href="#">
+                        <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
+                        <div class="row-text">
+                           <span class="row-title">My Schedule</span>
+                           <span class="row-sub">Appointments and schedules</span>
+                        </div>
+                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                     </a>
+                     <!-- LOGOUT FORM -->
+                     <form th:action="@{/logout}" method="post" class="profile-row logout-form">
+                        <button type="submit" class="logout-btn">
+                           <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                           <div class="row-text">
+                              <span class="row-title">Logout</span>
+                           </div>
+                           <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                        </button>
+                     </form>
+                  </nav>
+               </div>
+            </div>
+            <div class="profile" id="profileBtn" sec:authorize="hasAuthority('USER')">
+               <img class="single-pic" th:src="@{/images/letter-u.png}" alt="User" />
+               <div class="profile-text">
+                  <small>Welcome,</small>
+                  <span th:text="${session.fullname}">name</span>
+               </div>
+               <button class="dropdown-btn">
+               <i class="fas fa-chevron-down"></i>
+               </button>
+               <div id="profileDropdown" class="profile-dropdown">
+                  <div class="profile-header">
+                     <div class="background-image">
+                        <img th:src="@{/images/background-part.png}" alt="background" />
+                     </div>
+                     <figure class="avatar-wrap">
+                        <img class="avatar" th:src="@{/images/letter-u.png}" alt="User" />
+                     </figure>
+                     <div class="profile-meta">
+                        <h5 class="name" th:text="${session.fullname}">User</h5>
+                        <p class="role">User</p>
+                     </div>
+                  </div>
+                  <nav class="profile-list">
+                     <a class="profile-row" href="#">
+                        <span class="icon"><i class="fa-solid fa-user"></i></span>
+                        <div class="row-text">
+                           <span class="row-title">My Profile</span>
+                           <span class="row-sub">Update details and information</span>
+                        </div>
+                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                     </a>
+                     <a class="profile-row" href="#">
+                        <span class="icon"><i class="fa-solid fa-wallet"></i></span>
+                        <div class="row-text">
+                           <span class="row-title">My Wallet</span>
+                           <span class="row-sub">Add Money or withdraw</span>
+                        </div>
+                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                     </a>
+                     <a class="profile-row" href="#">
+                        <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
+                        <div class="row-text">
+                           <span class="row-title">My Schedule</span>
+                           <span class="row-sub">Appointments and schedules</span>
+                        </div>
+                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                     </a>
+                     <!-- LOGOUT FORM -->
+                     <form th:action="@{/logout}" method="post" class="profile-row logout-form">
+                        <button type="submit" class="logout-btn">
+                           <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                           <div class="row-text">
+                              <span class="row-title">Logout</span>
+                           </div>
+                           <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
+                        </button>
+                     </form>
+                  </nav>
+               </div>
+            </div>
+         </div>
+         <script>
+            const profile = document.getElementById('profile');
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+            
+            profileBtn.addEventListener('click', () => {
+            profileDropdown.classList.toggle('active');
+            profileBtn.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+            if (!profileBtn.contains(event.target)) {
+              profileDropdown.classList.remove('active');
+              profileBtn.classList.remove('active')
+            }
+            });
+         </script>
+      </nav>
+   </body>
 </html>

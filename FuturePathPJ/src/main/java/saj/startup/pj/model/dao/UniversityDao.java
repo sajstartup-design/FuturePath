@@ -1,5 +1,7 @@
 package saj.startup.pj.model.dao;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,4 +70,13 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 	@Query(GET_ALL_UNIVERSITIES)
 	public Page<UniversityData> getAllUniversities(Pageable pageable,
 			@Param("search") String search) throws DataAccessException;
+	
+	public final String GET_ALL_UNIVERSITIES_NO_PAGEABLE = 
+		    """
+				SELECT e FROM UniversityEntity e
+				WHERE e.isDeleted = false
+			""";
+
+	@Query(GET_ALL_UNIVERSITIES_NO_PAGEABLE)
+	public List<UniversityEntity> getAllUniversitiesNoPageable() throws DataAccessException;
 }

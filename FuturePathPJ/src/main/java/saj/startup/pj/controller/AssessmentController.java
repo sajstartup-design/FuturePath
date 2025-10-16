@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class QuizController {
+public class AssessmentController {
 
-	@GetMapping("/quiz")
+	@GetMapping("/assessment")
 	public String showQuizHome() {
 		
 		return "quiz/quiz-home";
 	}
 	
-	@PostMapping(value="/quiz", params="degree")
+	@PostMapping(value="/assessment", params="degree")
 	public String showQuizDegree(@RequestParam String degree) {
 	    System.out.println("Selected: " + degree);
 	    if ("college".equals(degree)) {

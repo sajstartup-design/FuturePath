@@ -1,87 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="UTF-8">
-<title>Sidebar</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body>
-	
-	<th:block>
-		<nav th:fragment="sidebar" class="sidebar" sec:authorize="hasAuthority('ADMIN')">
-		  <div class="sidebar-header">
-		    <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
-		    <div class="brand">
-		      FuturePath
-		      <small>ADMIN DASHBOARD</small>
-		    </div>
-		  </div>
-		
-		  <div class="sidebar-menu">
-		    <p class="menu-title">MAIN</p>
-		    <a th:href="@{/admin/dashboard}" 
-		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
-		    </a>
-		
-		    <p class="menu-title">UNIVERSITY</p>
-		    <a th:href="@{/admin/universities}" 
-		       th:classappend="${page == 'universities'} ? ' active'">
-		       <i class="fas fa-university icon-btn"></i> UNIVERSITY
-		    </a>
-		    
-		    <p class="menu-title">QUIZ</p>
-		    <a th:href="@{/admin/questions}" 
-		       th:classappend="${page == 'questions'} ? ' active'">
-		       <i class="fas fa-question-circle icon-btn"></i> QUESTION
-		    </a>
-		    <a href="#"
-		       th:classappend="${page == 'quiz-config'} ? ' active'">
-		       <i class="fas fa-cogs icon-btn"></i> QUIZ CONFIG
-		    </a>
-		    
-		    <p class="menu-title">STRAND & DEGREE</p>
-		    <a th:href="@{/admin/strandegrees}" 
-		       th:classappend="${page == 'strandegrees'} ? ' active'">
-		       <i class="fas fa-graduation-cap icon-btn"></i> STRAND & DEGREE
-		    </a>
-		
-		    <p class="menu-title">USER</p>
-		    <a th:href="@{/admin/user}" 
-		       th:classappend="${page == 'user'} ? ' active'">
-		       <i class="fas fa-user icon-btn"></i> USER
-		    </a>
-		
-		  </div>
-		</nav>
-	</th:block>
-	<th:block>
-		<nav th:fragment="sidebar" class="sidebar" sec:authorize="hasAuthority('USER')">
-		  <div class="sidebar-header">
-		    <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
-		    <div class="brand">
-		      FuturePath
-		      <small>USER DASHBOARD</small>
-		    </div>
-		  </div>
-		
-		  <div class="sidebar-menu">
-		    <p class="menu-title">MAIN</p>
-		    <a th:href="@{/dashboard}" 
-		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
-		    </a>
-		    <a th:href="@{/quiz}" 
-		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> QUIZ
-		    </a>
-		    <a th:href="@{/history}" 
-		       th:classappend="${page == 'dashboard'} ? ' active'">
-		       <i class="fas fa-tachometer-alt icon-btn"></i> HISTORY
-		    </a>
-		  </div>
-		</nav>
-	</th:block>
-</body>
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8">
+      <title>Sidebar</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   </head>
+   <body>
+      <th:block>
+         <nav th:fragment="sidebar" class="sidebar" sec:authorize="hasAuthority('ADMIN')">
+            <div class="sidebar-header">
+               <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
+               <div class="brand">
+                  FuturePath
+                  <small>ADMIN DASHBOARD</small>
+               </div>
+            </div>
+            <div class="sidebar-menu">
+               <p class="menu-title">MAIN</p>
+               <a th:href="@{/admin/dashboard}" 
+                  th:classappend="${page == 'dashboard'} ? ' active'">
+               <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
+               </a>
+               <p class="menu-title">UNIVERSITY</p>
+               <a th:href="@{/admin/universities}" 
+                  th:classappend="${page == 'universities'} ? ' active'">
+               <i class="fas fa-university icon-btn"></i> UNIVERSITY
+               </a>
+               <p class="menu-title">ASSESSMENT</p>
+               <a th:href="@{/admin/questions}" 
+                  th:classappend="${page == 'questions'} ? ' active'">
+               <i class="fas fa-question-circle icon-btn"></i> QUESTION
+               </a>
+               <a href="#"
+                  th:classappend="${page == 'quiz-config'} ? ' active'">
+               <i class="fas fa-cogs icon-btn"></i> ASSESSMENT CONFIG
+               </a>
+               <p class="menu-title">STRAND & DEGREE</p>
+               <a th:href="@{/admin/strandegrees}" 
+                  th:classappend="${page == 'strandegrees'} ? ' active'">
+               <i class="fas fa-graduation-cap icon-btn"></i> STRAND & DEGREE
+               </a>
+               <p class="menu-title">USER</p>
+               <a th:href="@{/admin/user}" 
+                  th:classappend="${page == 'user'} ? ' active'">
+               <i class="fas fa-user icon-btn"></i> USER
+               </a>
+               <p class="menu-title">NOTIFICATION</p>
+               <a th:href="@{/admin/user}" 
+                  th:classappend="${page == 'user'} ? ' active'">
+               <i class="fas fa-user icon-btn"></i> PUSH NOTIFICATION
+               </a>
+            </div>
+         </nav>
+      </th:block>
+      <th:block>
+         <nav th:fragment="sidebar" class="sidebar" sec:authorize="hasAuthority('USER')">
+            <div class="sidebar-header">
+               <img th:src="@{/images/logo.png}" alt="Logo" class="logo" />
+               <div class="brand">
+                  FuturePath
+                  <small>USER DASHBOARD</small>
+               </div>
+            </div>
+            <div class="sidebar-menu">
+               <p class="menu-title">MAIN</p>
+               <a th:href="@{/dashboard}" 
+                  th:classappend="${page == 'dashboard'} ? ' active'">
+               <i class="fas fa-tachometer-alt icon-btn"></i> DASHBOARD
+               </a>
+               <a th:href="@{/assessment}" 
+                  th:classappend="${page == 'assessment'} ? ' active'">
+               <i class="fas fa-clipboard-check icon-btn"></i> ASSESSMENT
+               </a>
+               <a th:href="@{/history}" 
+                  th:classappend="${page == 'history'} ? ' active'">
+               <i class="fas fa-history icon-btn"></i> HISTORY
+               </a>
+               <a th:href="@{/strandegrees}" 
+                  th:classappend="${page == 'strandegrees'} ? ' active'">
+               <i class="fas fa-book-open icon-btn"></i> STRAND & DEGREE
+               </a>
+               <a th:href="@{/universities}" 
+                  th:classappend="${page == 'universities'} ? ' active'">
+               <i class="fas fa-university icon-btn"></i> UNIVERSITIES
+               </a>
+            </div>
+            <!-- Chatbot Floating Button -->
+            <div id="chatbotLauncher" class="chatbot-launcher">
+               <i class="fas fa-comments"></i>
+            </div>
+            <!-- Chatbot Popup -->
+            <div id="chatbotPopup" class="chatbot-popup hidden">
+               <div class="chatbot-header">
+                  <span>Quick Chat</span>
+                  <button id="chatbotClose">&times;</button>
+               </div>
+               <div id="chatbotMessages" class="chatbot-body">
+                  <div class="bot-msg">
+                     <p>Hi! 👋 How can I assist you today?</p>
+                     <span class="time">8:00 pm</span>
+                  </div>
+               </div>
+               <div class="chatbot-footer">
+                  <input type="text" id="chatbotInput" placeholder="Type Message..." />
+                  <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+               </div>
+            </div>
+            <script>
+               document.addEventListener("DOMContentLoaded", () => {
+                 const launcher = document.getElementById("chatbotLauncher");
+                 const popup = document.getElementById("chatbotPopup");
+                 const closeBtn = document.getElementById("chatbotClose");
+                 const input = document.getElementById("chatbotInput");
+                 const sendBtn = document.getElementById("chatbotSend");
+                 const messages = document.getElementById("chatbotMessages");
+               
+                 launcher.addEventListener("click", () => popup.classList.toggle("hidden"));
+                 closeBtn.addEventListener("click", () => popup.classList.add("hidden"));
+               
+                 function addMessage(text, sender = "user") {
+                   const msg = document.createElement("div");
+                   msg.className = sender === "user" ? "user-msg" : "bot-msg";
+                   msg.innerHTML = `<p>${text}</p><span class="time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
+                   messages.appendChild(msg);
+                   messages.scrollTop = messages.scrollHeight;
+                 }
+               
+                 function sendMessage() {
+                   const text = input.value.trim();
+                   if (!text) return;
+                   addMessage(text, "user");
+                   input.value = "";
+               
+                   setTimeout(() => {
+                     addMessage("AdminuxPRO is HTML template can be used in various business domains like Manufacturing, IT, etc.", "bot");
+                   }, 600);
+                 }
+               
+                 sendBtn.addEventListener("click", sendMessage);
+                 input.addEventListener("keypress", (e) => {
+                   if (e.key === "Enter") sendMessage();
+                 });
+               });
+            </script>
+         </nav>
+      </th:block>
+   </body>
 </html>

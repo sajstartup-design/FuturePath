@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Dashboard</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/strandegree-list.css}" />
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">STRAND & DEGREE</nav>
+         <hr>
+         <div class="content">
+<div class="strand-degree-controls">
+  <div class="filter-btn">
+    <i class="fa-solid fa-filter"></i>
+  </div>
+
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="SEARCH STRAND OR DEGREE"
+    />
+  </div>
+</div>
+
+<div class="strand-degree-list"></div>
+
+         </div>
+         <nav class="footer">
+            <div><span>All rights reserved by FuturePath</span></div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script>
+         function applyTruncation() {
+           const CHAR_LIMIT = 50;
+           const SELECTOR = ".details p:first-child";
+           document.querySelectorAll(SELECTOR).forEach((pEl) => {
+             if (!pEl.dataset.fulltext) {
+               pEl.dataset.fulltext = pEl.textContent.trim();
+             }
+             const original = pEl.dataset.fulltext;
+             if (original.length > CHAR_LIMIT) {
+               pEl.textContent = original.slice(0, CHAR_LIMIT).trim() + "...";
+             } else {
+               pEl.textContent = original;
+             }
+           });
+         }
+      </script>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/strandegree-list-api.js}"></script>
+   </body>
+</html>

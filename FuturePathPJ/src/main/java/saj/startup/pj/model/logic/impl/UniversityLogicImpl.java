@@ -49,4 +49,10 @@ public class UniversityLogicImpl implements UniversityLogic{
 		return universityDao.getAllUniversities(pageable, search);
 	}
 
+	@Override
+	public List<UniversityEntity> getAllUniversitiesNoPageable() {
+	
+		return universityDao.getAllUniversitiesNoPageable();
+	}
+
 }

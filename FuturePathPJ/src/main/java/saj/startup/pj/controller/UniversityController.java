@@ -78,5 +78,18 @@ public class UniversityController {
 	   
 	    return "redirect:/admin/universities";
 	}
+	
+	
+	/*
+	 * USER
+	 * 
+	 */
+	@GetMapping("/universities")
+	public String showUniversities() {
+		
+		
+		
+		return "university/university-list";
+	}
 
 }
