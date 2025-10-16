@@ -246,7 +246,7 @@ i{
 .profile {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 0.3rem 0.5rem;
   box-sizing: border-box;
 }
@@ -257,7 +257,7 @@ i{
 }
 
 
-.profile img {
+.profile .single-pic {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
@@ -302,58 +302,195 @@ i{
 .profile-dropdown {
   display: none;
   position: absolute;
-  top: 5.5rem;
+  top: 4.5rem;
   right: 1.5rem;
+  width: 25rem;
   background: #fff;
-  color: #000;
-  width: 15rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  z-index: 100;
+  color: #222;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(20, 25, 40, 0.15);
+  z-index: 1000;
   overflow: hidden;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
 .profile-dropdown.active {
   display: block;
 }
 
-.profile-dropdown .header {
-  background: #1a234f;
-  color: white;
-  padding: 1rem;
+.profile-header {
+  position: relative;
   text-align: center;
+}
+
+.profile-header .background-image {
+  width: 100%;
+  height: 6.875rem; /* 110px */
+  overflow: hidden;
+}
+
+.profile-header .background-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* AVATAR */
+.avatar-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 3rem;
+  width: 6rem; /* 96px */
+  height: 6rem; /* 96px */
+  margin: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0.5rem 1.125rem rgba(20, 20, 40, 0.12);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* META TEXT */
+.profile-meta {
+  margin-top: 3rem;
+}
+
+.profile-meta .name {
+  margin: 0;
+  font-size: 1rem; /* 16px → smaller */
+  font-weight: 700;
+  color: #172033;
+}
+
+.profile-meta .role {
+  font-size: 0.8125rem; /* 13px */
+  color: #555;
+  margin: 0;
+}
+
+.profile-meta .location {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem; /* 12px */
+  color: #9aa0a6;
+}
+
+/* MENU LIST */
+.profile-list {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem; /* 14px 16px */
+  text-decoration: none;
+  color: inherit;
+  border-top: 1px solid rgba(18, 24, 40, 0.04);
+  transition: background 0.12s ease;
+}
+
+.profile-row:hover {
+  background: rgba(10, 14, 22, 0.03);
+}
+
+/* ICONS */
+.icon {
+  min-width: 2.5rem; /* 40px */
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem; /* 8px */
+  background: rgba(20, 50, 90, 0.04);
+  font-size: 1rem; /* 16px */
+  color: #1f4bd6;
+}
+
+/* TEXT */
+.row-text {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  border-radius: 0rem;
 }
 
-.profile-dropdown .header img {
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 50%;
-  margin-bottom: 0.5rem;
+.row-title {
+  font-size: 0.875rem; /* 14px → slightly smaller */
+  font-weight: 600;
+  color: #1f2937;
 }
 
-.profile-dropdown .header h3 {
-  margin: 0.2rem 0;
+.row-sub {
+  font-size: 0.75rem; /* 12px */
+  color: #8b949e;
+  margin-top: 0.25rem;
 }
 
-.profile-dropdown .header p {
-  font-size: 0.8rem;
-  color: #ccc;
+/* CHEVRON */
+.chev {
+  font-size: 0.875rem; /* 14px */
+  color: #c2c8cf;
+}
+
+/* LOGOUT STYLE */
+/* Make the logout form look identical to other rows */
+.logout-form {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(18, 24, 40, 0.04);
+  box-sizing: border-box;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: -webkit-fill-available !important;
+  padding: 0.875rem 1rem;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  height: auto !important;
+  transition: background 0.12s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(10, 14, 22, 0.03);
+}
+
+/* Keep same color as the logout row */
+.logout-btn .row-title {
+  color: #e14b6b;
+}
+
+.logout-btn .icon {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: rgba(225, 75, 107, 0.06);
+  font-size: 1rem;
+  color: #e14b6b;
 }
 
 
-.profile-dropdown button{
-	color: #9bb0ff;
-	font-size: 0.8rem;
-	width: -webkit-fill-available;
-}
 
-.profile-dropdown button:hover {
-  background: linear-gradient(90deg, rgba(80, 100, 180, 0.3), rgba(40, 60, 120, 0.1));
-  color: #fff;
-}
 
 
 /*Header Design*/
