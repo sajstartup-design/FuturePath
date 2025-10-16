@@ -84,7 +84,7 @@
                </div>
             </div>
             <div class="profile" id="profileBtn" sec:authorize="hasAuthority('USER')">
-               <img class="single-pic" th:src="@{/images/letter-a.png}" alt="User" />
+               <img class="single-pic" th:src="@{/images/letter-u.png}" alt="User" />
                <div class="profile-text">
                   <small>Welcome,</small>
                   <span th:text="${session.fullname}">name</span>
@@ -98,7 +98,7 @@
                         <img th:src="@{/images/background-part.png}" alt="background" />
                      </div>
                      <figure class="avatar-wrap">
-                        <img class="avatar" src="../assets/img/user1.png" alt="User" />
+                        <img class="avatar" th:src="@{/images/letter-u.png}" alt="User" />
                      </figure>
                      <div class="profile-meta">
                         <h5 class="name" th:text="${session.fullname}">User</h5>
