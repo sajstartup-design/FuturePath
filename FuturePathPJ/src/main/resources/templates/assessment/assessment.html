@@ -1,47 +1,136 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="UTF-8">
-<title>FuturePath | Assessment</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}" />
-<link rel="stylesheet" th:href="@{/css/assessment.css}" />
-</head>
-<body>
-	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
-		<nav th:replace="~{header :: header}"></nav>
-		<hr>
-		<nav class="sub-header">
-			ASSESSMENT
-			<div class="btn-group">
-				<button>CANCEL</button>
-			</div>
-		</nav>
-		<hr>
-		<div class="content">
-			<form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}" class="assessment-form">
-    <input type="hidden" name="mode" th:value="${mode}" />
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Assessment</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/assessment.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            ASSESSMENT
+            <div class="btn-group">
+            	
+            </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <div class="assessment-container">
+               <!-- Question Navigation -->
+               <div class="question-nav">
+                  <h3>Questions</h3>
+                  <div class="question-list" id="questionList">
+                     <button th:each="question, iterStat : ${questionDto.questions}"
+                        type="button"
+                        th:text="${iterStat.index + 1}"
+                        th:attr="data-question=${iterStat.index + 1}">
+                     </button>
+                  </div>
+               </div>
+               <!-- Assessment Form -->
+               <form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}" class="assessment-form">
+                  <input type="hidden" name="mode" th:value="${mode}" />                
+                  <div class="question-card" th:each="question, iterStat : ${questionDto.questions}">
+                     <div class="message">
+                        <strong th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question text</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" name="q1" th:each="answer : ${question.answers}" th:text="${answer.answer}" th:data-answer-id="${answer.answerIdPk}">
+                        Mathematics
+                        </button>
+                     </div>
+                  </div>
+               </form>
+               <button id="backToTopBtn" title="Back to Top">
+               <i class="fa-solid fa-chevron-up"></i>
+               </button>
+            </div>
+         </div>
+      </main>
+      <script th:inline="javascript">
+         document.addEventListener("DOMContentLoaded", () => {
+        	 const webDto = /*[[${questionDto}]]*/ {};
+       	    const questionCards = document.querySelectorAll(".question-card");
+       	    const questionNavBtns = document.querySelectorAll(".question-list button");
+       	    const backToTopBtn = document.getElementById("backToTopBtn");
 
-    <!-- Questions -->
-    <div class="question-card" th:each="question, iterStat : ${questionDto.questions}">
-        <div class="message">
-            <strong th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question text</strong><br>
-            <span>Select the most appropriate answer.</span>
-        </div>
+       	    // Object to store questionIdPk -> answerIdPk mappings
+       	    const questionAnswers = {};
 
-        <div class="choices">
-            <button type="submit" name="q1" value="math" th:each="answer : ${question.answers}" th:text="${answer.answer}">Mathematics</button>
-        </div>
-    </div>
-</form>
-	
-		</div>
-	</main>
-	<script th:inline="javascript">
-		console.log(/*[[${questionDto}]]*/'')
-	</script>
-</body>
+       	    // Loop through each question
+       	    questionCards.forEach((card, index) => {
+       	        const choices = card.querySelectorAll(".choices button");
+       	        const questionIdPk = webDto.questions[index]?.idPk;
+
+       	        // Initialize the object key with null (no answer yet)
+       	        questionAnswers[questionIdPk] = null;
+
+       	        choices.forEach(choice => {
+       	            choice.addEventListener("click", () => {
+       	                // Remove previous selection style
+       	                choices.forEach(btn => btn.classList.remove("selected"));
+       	                choice.classList.add("selected");
+
+       	                // Get selected answerIdPk (you can embed this via th:value)
+       	                const answerIdPk = choice.getAttribute("data-answer-id");
+
+       	                // Save mapping
+       	                questionAnswers[questionIdPk] = parseInt(answerIdPk);
+
+       	                // Mark nav button as answered
+       	                questionNavBtns[index].classList.add("answered");
+
+       	                console.log("Selected:", {
+       	                    questionIdPk: questionIdPk,
+       	                    answerIdPk: answerIdPk
+       	                });
+       	                
+       	          // Optional: View all answers in console
+       	           	    console.log("Question Answers:", questionAnswers);
+       	            });
+       	        });
+       	        
+           	    
+       	    });
+
+
+  
+             window.addEventListener("scroll", () => {
+                 if (window.scrollY > 300) {
+                     backToTopBtn.style.display = "block";
+                 } else {
+                     backToTopBtn.style.display = "none";
+                 }
+             });
+             
+             // Scroll to question when nav number clicked
+             questionNavBtns.forEach((btn, index) => {
+                 btn.addEventListener("click", () => {
+                     const questionCard = questionCards[index];
+                     if (questionCard) {
+                         questionCard.scrollIntoView({ behavior: "smooth", block: "center" });
+                     }
+                 });
+             });
+             
+             // Smooth scroll to top
+             backToTopBtn.addEventListener("click", () => {
+                 window.scrollTo({
+                     top: 0,
+                     behavior: "smooth"
+                 });
+             });
+             
+             
+         });
+      </script>
+   </body>
 </html>

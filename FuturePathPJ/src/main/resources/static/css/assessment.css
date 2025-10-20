@@ -1,15 +1,25 @@
+
+
+.assessment-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
 .assessment-form {
     display: flex;
     flex-direction: column;
     align-items: center;      /* centers question cards horizontally */
     justify-content: center;  /* optional: center vertically if you want */
     gap: 2rem;                /* spacing between question cards */
-    padding: 2rem;
 }
 
 .content {
     margin: 3rem auto;
     text-align: center;
+    position: relative !important;
 }
 
 .question-card {
@@ -61,6 +71,7 @@
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    text-align: left;
 }
 
 .question-card button:hover {
@@ -73,3 +84,88 @@
 .question-card button:active {
     transform: scale(0.98);
 }
+
+.question-nav {
+    background: rgba(31, 43, 89, 0.95);
+    border: 1px solid #3d4b8a;
+    border-radius: 0.8rem;
+    padding: 1.2rem 1.5rem;
+    width: 120px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+.question-nav h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.4rem;
+}
+
+.question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.question-list button {
+    background: transparent;
+    border: 2px solid #5673ff;
+    color: white;
+    border-radius: 0.5rem;
+    width: 40px;
+    height: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.question-list button:hover {
+    background: #46a1ff;
+    border-color: #46a1ff;
+    box-shadow: 0 0 10px rgba(68, 161, 255, 0.4);
+}
+
+.question-list button.answered {
+    background: #29d98c;
+    border-color: #29d98c;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(41, 217, 140, 0.6);
+}
+
+.question-card button.selected {
+    background: #46a1ff;
+    border-color: #46a1ff;
+    box-shadow: 0 0 15px rgba(70, 161, 255, 0.6);
+    color: #fff;
+}
+
+/* Back to Top Button */
+#backToTopBtn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #4461ff;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(68, 161, 255, 0.4);
+    transition: all 0.3s ease;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+}
+
+#backToTopBtn:hover {
+    background: #46a1ff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(68, 161, 255, 0.6);
+}
+
+
