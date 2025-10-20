@@ -1,6 +1,7 @@
 package saj.startup.pj.model.dao.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 
@@ -33,5 +34,5 @@ public class QuestionData {
 	
 	private Timestamp createdAt;
 	
-	private AnswerData answerData = null;
+	private List<AnswerData> answers = null;
 }

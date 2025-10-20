@@ -7,71 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" th:href="@{/css/common.css}" />
-<link rel="stylesheet" th:href="@{/css/quiz.css}" />
-<style>
-.content {
-    margin: 3rem auto;
-    text-align: center;
-}
-.question-card {
-    background: linear-gradient(145deg, #273777, #1f2b59);
-    padding: 2.5rem 2.5rem 3rem;
-    border-radius: 1rem;
-    display: inline-block;
-    color: white;
-    max-width: 700px;
-    width: 100%;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    border: 1px solid #3d4b8a;
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left;
-}
-.question-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-.question-card .message {
-    font-size: 1.1rem;
-    color: #d8defa;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 1rem 1.2rem;
-    border-radius: 0.6rem;
-    border-left: 3px solid #5673ff;
-}
-.question-card .choices {
-    display: flex;
-    flex-direction: column;
-}
-.question-card button {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-    padding: 0.8rem 1.5rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #ffffff;
-    background: transparent;       /* transparent background */
-    border: 2px solid #4461ff;    /* add border */
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
-}
-.question-card button:hover {
-    background: #46a1ff;           /* sky-blue background on hover */
-    box-shadow: 0 6px 18px rgba(68, 161, 255, 0.4);
-    transform: translateY(-2px);
-    border-color: #46a1ff;        /* match border to hover background */
-}
-.question-card button:active {
-    transform: scale(0.98);
-}
-</style>
-
+<link rel="stylesheet" th:href="@{/css/assessment.css}" />
 </head>
 <body>
 	<nav th:replace="~{sidebar :: sidebar}"></nav>
@@ -86,24 +22,26 @@
 		</nav>
 		<hr>
 		<div class="content">
-			<form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}">
-				<input type="hidden" name="mode" th:value="${mode}" />
+			<form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}" class="assessment-form">
+    <input type="hidden" name="mode" th:value="${mode}" />
 
-				<!-- Question 1 -->
-				<div class="question-card" th:each="question : ${questionDto.questions}">
-					<div class="message">
-						<strong>1. Which subject do you enjoy the most?</strong><br>
-						Select the subject that excites you and motivates you to learn more.
-					</div>
-					<div class="choices">
-						<button type="submit" name="q1" value="math">Mathematics</button>
-						<button type="submit" name="q1" value="science">Science</button>
-						<button type="submit" name="q1" value="arts">Arts</button>
-						<button type="submit" name="q1" value="languages">Languages</button>
-					</div>
-				</div>
-			</form>
+    <!-- Questions -->
+    <div class="question-card" th:each="question, iterStat : ${questionDto.questions}">
+        <div class="message">
+            <strong th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question text</strong><br>
+            <span>Select the most appropriate answer.</span>
+        </div>
+
+        <div class="choices">
+            <button type="submit" name="q1" value="math" th:each="answer : ${question.answers}" th:text="${answer.answer}">Mathematics</button>
+        </div>
+    </div>
+</form>
+	
 		</div>
 	</main>
+	<script th:inline="javascript">
+		console.log(/*[[${questionDto}]]*/'')
+	</script>
 </body>
 </html>

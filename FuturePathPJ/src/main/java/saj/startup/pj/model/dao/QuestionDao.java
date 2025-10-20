@@ -69,4 +69,5 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 
 	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery=true)
 	List<QuestionData> getQuestionsForAssessment() throws DataAccessException;
+	
 }

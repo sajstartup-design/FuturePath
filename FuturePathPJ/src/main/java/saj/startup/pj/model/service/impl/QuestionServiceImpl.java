@@ -139,6 +139,7 @@ public class QuestionServiceImpl implements QuestionService{
 				obj.setCategory(question.getCategory());
 				obj.setQuestion(question.getQuestion());
 				obj.setStrandegree(question.getStrandegree());
+				obj.setAnswers(question.getAnswers());
 				
 				questions.add(obj);
 				

@@ -44,8 +44,6 @@ public class AssessmentController {
 	    	
 	    	model.addAttribute("questionDto", outDto);
 	    	
-	    	System.out.println("AW");
-	    	
 	    }catch(Exception e) {
 	    	e.printStackTrace();
 	    	

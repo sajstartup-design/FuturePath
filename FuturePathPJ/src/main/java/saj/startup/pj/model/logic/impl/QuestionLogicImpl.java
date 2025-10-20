@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.AnswerDao;
 import saj.startup.pj.model.dao.QuestionDao;
+import saj.startup.pj.model.dao.entity.AnswerData;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
@@ -52,10 +53,20 @@ public class QuestionLogicImpl implements QuestionLogic{
 	@Override
 	public List<QuestionData> getQuestionsForAssessment() {
 		
-		List<QuestionData> list = questionDao.getQuestionsForAssessment();
-		System.out.println("Fetched: " + list.size());
-		list.forEach(question -> { System.out.println(question.getQuestion()); });
-		return list;
+		/*
+		 * This right here can still be improved
+		 */
+		
+		List<QuestionData> questions = questionDao.getQuestionsForAssessment();
+		
+		for(QuestionData question : questions) {
+			
+			List<AnswerData> answers = answerDao.getAnswersByQuestionIdPk(question.getQuestionIdPk());
+			
+			question.setAnswers(answers);
+		}
+		
+		return questions;
 	}
 
 }
