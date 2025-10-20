@@ -49,4 +49,13 @@ public class QuestionLogicImpl implements QuestionLogic{
 		return questionDao.getAllQuestions(pageable, search);
 	}
 
+	@Override
+	public List<QuestionData> getQuestionsForAssessment() {
+		
+		List<QuestionData> list = questionDao.getQuestionsForAssessment();
+		System.out.println("Fetched: " + list.size());
+		list.forEach(question -> { System.out.println(question.getQuestion()); });
+		return list;
+	}
+
 }

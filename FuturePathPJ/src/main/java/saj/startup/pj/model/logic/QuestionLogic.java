@@ -21,4 +21,6 @@ public interface QuestionLogic {
 	public QuestionOverviewData getQuestionOverview();
 	
 	public Page<QuestionData> getAllQuestions(Pageable pageable, String search);
+	
+	public List<QuestionData> getQuestionsForAssessment();
 }

@@ -11,6 +11,15 @@ import lombok.Data;
 @AllArgsConstructor
 @Scope("prototype")
 public class QuestionData {
+	
+	public QuestionData(int questionIdPk, String category, String question, String strandegree, Boolean isActive, Timestamp createdAt) {
+        this.questionIdPk = questionIdPk;
+        this.category = category;
+        this.question = question;
+        this.strandegree = strandegree;
+        this.isActive = isActive;
+        this.createdAt = createdAt;
+    }
 
 	private int questionIdPk;
 	
@@ -23,4 +32,6 @@ public class QuestionData {
 	private Boolean isActive;
 	
 	private Timestamp createdAt;
+	
+	private AnswerData answerData = null;
 }

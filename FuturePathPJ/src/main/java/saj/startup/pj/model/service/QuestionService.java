@@ -13,4 +13,6 @@ public interface QuestionService {
 	public void saveQuestion(QuestionDto inDto) throws Exception;
 	
 	public QuestionDto getAllQuestions(QuestionDto inDto) throws Exception;
+	
+	public QuestionDto getQuestionsForAssessment(QuestionDto inDto) throws Exception;
 }

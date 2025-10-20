@@ -27,4 +27,10 @@ public class QuestionDto {
 	
 	private FilterAndSearchObj filter;
 	
+	private String mode;
+	
+	private List<String> strands;
+	
+	private List<String> degrees;
+	
 }

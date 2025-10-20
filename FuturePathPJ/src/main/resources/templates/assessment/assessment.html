@@ -86,10 +86,11 @@
 		</nav>
 		<hr>
 		<div class="content">
-			<form th:action="@{/assessment}" method="POST">
+			<form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}">
+				<input type="hidden" name="mode" th:value="${mode}" />
 
 				<!-- Question 1 -->
-				<div class="question-card">
+				<div class="question-card" th:each="question : ${questionDto.questions}">
 					<div class="message">
 						<strong>1. Which subject do you enjoy the most?</strong><br>
 						Select the subject that excites you and motivates you to learn more.
@@ -101,49 +102,6 @@
 						<button type="submit" name="q1" value="languages">Languages</button>
 					</div>
 				</div>
-
-				<!-- Question 2 -->
-				<div class="question-card">
-					<div class="message">
-						<strong>2. What kind of activities do you prefer?</strong><br>
-						Choose the type of activity that best fits your personality and interests.
-					</div>
-					<div class="choices">
-						<button type="submit" name="q2" value="creative">Creative / Arts</button>
-						<button type="submit" name="q2" value="analytical">Analytical / Math</button>
-						<button type="submit" name="q2" value="physical">Physical / Sports</button>
-						<button type="submit" name="q2" value="social">Social / Teamwork</button>
-					</div>
-				</div>
-
-				<!-- Question 3 -->
-				<div class="question-card">
-					<div class="message">
-						<strong>3. Which environment helps you learn best?</strong><br>
-						Select the environment where you feel most productive and focused.
-					</div>
-					<div class="choices">
-						<button type="submit" name="q3" value="classroom">Structured Classroom</button>
-						<button type="submit" name="q3" value="project">Hands-on Projects</button>
-						<button type="submit" name="q3" value="online">Online / Self-paced</button>
-						<button type="submit" name="q3" value="group">Group Work / Collaboration</button>
-					</div>
-				</div>
-
-				<!-- Question 4 -->
-				<div class="question-card">
-					<div class="message">
-						<strong>4. Which field would you like to explore in the future?</strong><br>
-						Pick the area you are curious about for your career or studies.
-					</div>
-					<div class="choices">
-						<button type="submit" name="q4" value="tech">Technology / IT</button>
-						<button type="submit" name="q4" value="business">Business / Management</button>
-						<button type="submit" name="q4" value="health">Health / Medicine</button>
-						<button type="submit" name="q4" value="arts">Arts / Design</button>
-					</div>
-				</div>
-
 			</form>
 		</div>
 	</main>
