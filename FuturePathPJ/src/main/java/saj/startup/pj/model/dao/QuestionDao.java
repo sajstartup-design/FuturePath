@@ -64,7 +64,7 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    INNER JOIN strandegrees s ON s.id_pk = e.strandegree_id_pk
 		    WHERE e.is_deleted = false AND s.category = 'DEGREE'
 		    ORDER BY RANDOM()
-		    LIMIT 10
+		    LIMIT 3
 		    """;
 
 	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery=true)

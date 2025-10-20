@@ -142,6 +142,25 @@
     color: #fff;
 }
 
+ .submit-btn {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #4461ff, #273777);
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, #5673ff, #3149a0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(68, 97, 255, 0.4);
+}
+
 /* Back to Top Button */
 #backToTopBtn {
     position: fixed;

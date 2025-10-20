@@ -1,12 +1,18 @@
 package saj.startup.pj.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.AssessmentDto;
@@ -58,9 +64,21 @@ public class AssessmentController {
 	    return "assessment/assessment";
 	}
 	
-	@GetMapping("/assessment-result")
-	public String showAssessmentResult() {
+	@PostMapping("/assessment/result")
+	public String submitAssessment(@ModelAttribute AssessmentDto assessmentDto,
+            @RequestParam("answeredJson") String answeredJson) {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			HashMap<Integer, Integer> answeredMap = mapper.readValue(answeredJson, new TypeReference<>() {});
+			assessmentDto.setAnswered(answeredMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Mode: " + assessmentDto.getMode());
+		System.out.println("Answered: " + assessmentDto.getAnswered());
 		
-		return "assessment/assessment-result";
+		// Then process normally (compute result, save, etc.)
+		return "redirect:/assessment-result";
 	}
 }

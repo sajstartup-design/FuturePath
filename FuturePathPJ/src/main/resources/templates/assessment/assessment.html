@@ -35,8 +35,9 @@
                   </div>
                </div>
                <!-- Assessment Form -->
-               <form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}" class="assessment-form">
+               <form th:action="@{/assessment/result}" method="POST" th:object="${assessmentDto}" class="assessment-form">
                   <input type="hidden" name="mode" th:value="${mode}" />                
+                   <input type="hidden" name="answeredJson" id="answeredJson" />
                   <div class="question-card" th:each="question, iterStat : ${questionDto.questions}">
                      <div class="message">
                         <strong th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question text</strong><br>
@@ -48,6 +49,9 @@
                         </button>
                      </div>
                   </div>
+                  <button type="submit" class="submit-btn" id="submitAssessmentBtn">
+                    <i class="fa-solid fa-paper-plane"></i> Submit Assessment
+                  </button>
                </form>
                <button id="backToTopBtn" title="Back to Top">
                <i class="fa-solid fa-chevron-up"></i>
@@ -56,81 +60,59 @@
          </div>
       </main>
       <script th:inline="javascript">
-         document.addEventListener("DOMContentLoaded", () => {
-        	 const webDto = /*[[${questionDto}]]*/ {};
-       	    const questionCards = document.querySelectorAll(".question-card");
-       	    const questionNavBtns = document.querySelectorAll(".question-list button");
-       	    const backToTopBtn = document.getElementById("backToTopBtn");
+      document.addEventListener("DOMContentLoaded", () => {
+    	    const webDto = /*[[${questionDto}]]*/ {};
+    	    const questionCards = document.querySelectorAll(".question-card");
+    	    const questionNavBtns = document.querySelectorAll(".question-list button");
+    	    const backToTopBtn = document.getElementById("backToTopBtn");
+    	    const answeredInput = document.getElementById("answeredJson"); // 🔥 hidden input reference
 
-       	    // Object to store questionIdPk -> answerIdPk mappings
-       	    const questionAnswers = {};
+    	    const questionAnswers = {};
 
-       	    // Loop through each question
-       	    questionCards.forEach((card, index) => {
-       	        const choices = card.querySelectorAll(".choices button");
-       	        const questionIdPk = webDto.questions[index]?.idPk;
+    	    questionCards.forEach((card, index) => {
+    	        const choices = card.querySelectorAll(".choices button");
+    	        const questionIdPk = webDto.questions[index]?.idPk;
 
-       	        // Initialize the object key with null (no answer yet)
-       	        questionAnswers[questionIdPk] = null;
+    	        questionAnswers[questionIdPk] = null;
 
-       	        choices.forEach(choice => {
-       	            choice.addEventListener("click", () => {
-       	                // Remove previous selection style
-       	                choices.forEach(btn => btn.classList.remove("selected"));
-       	                choice.classList.add("selected");
+    	        choices.forEach(choice => {
+    	            choice.addEventListener("click", () => {
+    	                choices.forEach(btn => btn.classList.remove("selected"));
+    	                choice.classList.add("selected");
 
-       	                // Get selected answerIdPk (you can embed this via th:value)
-       	                const answerIdPk = choice.getAttribute("data-answer-id");
+    	                const answerIdPk = choice.getAttribute("data-answer-id");
+    	                questionAnswers[questionIdPk] = parseInt(answerIdPk);
 
-       	                // Save mapping
-       	                questionAnswers[questionIdPk] = parseInt(answerIdPk);
+    	                questionNavBtns[index].classList.add("answered");
 
-       	                // Mark nav button as answered
-       	                questionNavBtns[index].classList.add("answered");
+    	                // 🔥 Update the hidden input field every time the user picks an answer
+    	                answeredInput.value = JSON.stringify(questionAnswers);
 
-       	                console.log("Selected:", {
-       	                    questionIdPk: questionIdPk,
-       	                    answerIdPk: answerIdPk
-       	                });
-       	                
-       	          // Optional: View all answers in console
-       	           	    console.log("Question Answers:", questionAnswers);
-       	            });
-       	        });
-       	        
-           	    
-       	    });
+    	                console.log("Selected:", { questionIdPk, answerIdPk });
+    	                console.log("Question Answers:", questionAnswers);
+    	            });
+    	        });
+    	    });
 
+    	    // Scroll button logic (unchanged)
+    	    window.addEventListener("scroll", () => {
+    	        backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+    	    });
 
-  
-             window.addEventListener("scroll", () => {
-                 if (window.scrollY > 300) {
-                     backToTopBtn.style.display = "block";
-                 } else {
-                     backToTopBtn.style.display = "none";
-                 }
-             });
-             
-             // Scroll to question when nav number clicked
-             questionNavBtns.forEach((btn, index) => {
-                 btn.addEventListener("click", () => {
-                     const questionCard = questionCards[index];
-                     if (questionCard) {
-                         questionCard.scrollIntoView({ behavior: "smooth", block: "center" });
-                     }
-                 });
-             });
-             
-             // Smooth scroll to top
-             backToTopBtn.addEventListener("click", () => {
-                 window.scrollTo({
-                     top: 0,
-                     behavior: "smooth"
-                 });
-             });
-             
-             
-         });
+    	    questionNavBtns.forEach((btn, index) => {
+    	        btn.addEventListener("click", () => {
+    	            const questionCard = questionCards[index];
+    	            if (questionCard) {
+    	                questionCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    	            }
+    	        });
+    	    });
+
+    	    backToTopBtn.addEventListener("click", () => {
+    	        window.scrollTo({ top: 0, behavior: "smooth" });
+    	    });
+    	});
+
       </script>
    </body>
 </html>
