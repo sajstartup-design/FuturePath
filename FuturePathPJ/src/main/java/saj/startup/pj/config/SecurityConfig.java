@@ -68,7 +68,7 @@ public class SecurityConfig {
 						.requestMatchers("/dashboard/**").hasAuthority(CommonConstant.ROLE_USER)
 						.requestMatchers("/quiz/**").hasAuthority(CommonConstant.ROLE_USER)
 						
-						.anyRequest().permitAll()
+						.anyRequest().authenticated()
 						
 						)
 				.formLogin((form) -> form

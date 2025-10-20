@@ -57,4 +57,10 @@ public class AssessmentController {
 	    
 	    return "assessment/assessment";
 	}
+	
+	@GetMapping("/assessment-result")
+	public String showAssessmentResult() {
+		
+		return "assessment/assessment-result";
+	}
 }
