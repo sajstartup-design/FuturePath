@@ -34,23 +34,27 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    ObjectMapper mapper = new ObjectMapper();
 	    HashMap<Integer, Integer> answeredMap = mapper.readValue(
 	        inDto.getAnsweredJson(), 
-	        new TypeReference<>() {}
+	        new TypeReference<HashMap<Integer, Integer>>() {}
 	    );
-
-	    List<Integer> keysList = new ArrayList<>(answeredMap.keySet());
-	    List<Integer> valuesList = new ArrayList<>(answeredMap.values());
 
 	    int totalCorrect = 0;
 	    int totalIncorrect = 0;
-	    List<String> recommended = new ArrayList<>();
 
-	    List<AssessmentCheckerData> checkers = questionLogic.getQuestionAssessmentChecker(keysList, valuesList);
-
-	    // New map: key = code, value = number of correct answers
+	    // key = code, value = number of correct answers
 	    HashMap<String, Integer> correctCountMap = new HashMap<>();
 
-	    for(AssessmentCheckerData checker : checkers) {
-	        String code = checker.getCode(); // assuming getCode() gives the question code
+	    // Loop through each answered question
+	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
+	        Integer questionId = entry.getKey();
+	        Integer answerId = entry.getValue();
+
+	        // Call the checker for this question-answer pair
+	        AssessmentCheckerData checker = questionLogic.getQuestionAssessmentChecker(
+	            questionId, 
+	            answerId
+	        );
+
+	        String code = checker.getCode();
 	        boolean isCorrect = Boolean.TRUE.equals(checker.getIsCorrect());
 
 	        if (isCorrect) {
@@ -70,8 +74,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    outDto.setTotalQuestion(totalQuestions);
 	    outDto.setPercentage(percentage);
 	    outDto.setResult(result);
-	    
-	 // ---- PRINT RESULTS ----
+
+	    // ---- PRINT RESULTS ----
 	    System.out.println("Total Questions: " + totalQuestions);
 	    System.out.println("Total Correct: " + totalCorrect);
 	    System.out.println("Total Incorrect: " + totalIncorrect);
@@ -79,17 +83,13 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    System.out.println("Result: " + result);
 
 	    System.out.println("Correct Count Map (code -> correct count):");
-	    for (Map.Entry<String, Integer> entry : correctCountMap.entrySet()) {
-	        String code = entry.getKey();
-	        int correctCount = entry.getValue();
-	        double codePercentage = ((double) correctCount / 1) * 100; // if only 1 attempt per code
-	        System.out.println("Code: " + code + ", Correct Count: " + correctCount + ", Percentage: " + codePercentage + "%");
+	    for (Map.Entry<String, Integer> e : correctCountMap.entrySet()) {
+	        System.out.println("Code: " + e.getKey() + ", Correct Count: " + e.getValue());
 	    }
-	    
-
 
 	    return outDto;
 	}
+
 
 
 

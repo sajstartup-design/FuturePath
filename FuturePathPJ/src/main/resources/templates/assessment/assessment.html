@@ -23,40 +23,52 @@
          <hr>
          <div class="content">
             <div class="assessment-container">
-               <!-- Question Navigation -->
-               <div class="question-nav">
-                  <h3>Questions</h3>
-                  <div class="question-list" id="questionList">
-                     <button th:each="question, iterStat : ${questionDto.questions}"
+    <div th:if="${questionDto.questions != null and !#lists.isEmpty(questionDto.questions)}">
+        <!-- Question Navigation -->
+        <div class="question-nav">
+            <h3>Questions</h3>
+            <div class="question-list" id="questionList">
+                <button th:each="question, iterStat : ${questionDto.questions}"
                         type="button"
                         th:text="${iterStat.index + 1}"
                         th:attr="data-question=${iterStat.index + 1}">
-                     </button>
-                  </div>
-               </div>
-               <!-- Assessment Form -->
-               <form th:action="@{/assessment/result}" method="POST" th:object="${assessmentDto}" class="assessment-form">
-                  <input type="hidden" name="mode" th:value="${mode}" />                
-                   <input type="hidden" name="answeredJson" id="answeredJson" />
-                  <div class="question-card" th:each="question, iterStat : ${questionDto.questions}">
-                     <div class="message">
-                        <strong th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question text</strong><br>
-                        <span>Select the most appropriate answer.</span>
-                     </div>
-                     <div class="choices">
-                        <button type="button" name="q1" th:each="answer : ${question.answers}" th:text="${answer.answer}" th:data-answer-id="${answer.answerIdPk}">
-                        Mathematics
-                        </button>
-                     </div>
-                  </div>
-                  <button type="submit" class="submit-btn" id="submitAssessmentBtn">
-                    <i class="fa-solid fa-paper-plane"></i> Submit Assessment
-                  </button>
-               </form>
-               <button id="backToTopBtn" title="Back to Top">
-               <i class="fa-solid fa-chevron-up"></i>
-               </button>
+                </button>
             </div>
+        </div>
+        <!-- Assessment Form -->
+        <form th:action="@{/assessment/result}" method="POST" th:object="${assessmentDto}" class="assessment-form">
+            <input type="hidden" name="mode" th:value="${mode}" />                
+            <input type="hidden" name="answeredJson" id="answeredJson" />
+            
+            <div class="question-card" th:each="question, iterStat : ${questionDto.questions}">
+                <div class="message">
+                    <strong th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question text</strong><br>
+                    <span>Select the most appropriate answer.</span>
+                </div>
+                <div class="choices">
+                    <button type="button" name="q1" th:each="answer : ${question.answers}" 
+                            th:text="${answer.answer}" th:data-answer-id="${answer.answerIdPk}">
+                        Choice
+                    </button>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitAssessmentBtn">
+                <i class="fa-solid fa-paper-plane"></i> Submit Assessment
+            </button>
+        </form>
+        <button id="backToTopBtn" title="Back to Top">
+            <i class="fa-solid fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <!-- Empty state -->
+    <div th:if="${questionDto.questions == null or #lists.isEmpty(questionDto.questions)}" class="no-questions">
+        <p>No Questions Right Now.</p>
+        <a th:href="@{/dashboard}" class="btn-back-dashboard">Back to Dashboard</a>
+    </div>
+</div>
+
          </div>
       </main>
       <script th:inline="javascript">

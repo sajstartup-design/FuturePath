@@ -71,10 +71,10 @@ public class QuestionLogicImpl implements QuestionLogic{
 	}
 
 	@Override
-	public List<AssessmentCheckerData> getQuestionAssessmentChecker(List<Integer> questionIdPks,
-			List<Integer> answerIdPks) {
+	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
+			int answerIdPk) {
 		
-		return questionDao.getQuestionAssessmentChecker(questionIdPks, answerIdPks);
+		return questionDao.getQuestionAssessmentChecker(questionIdPk, answerIdPk);
 	}
 
 }

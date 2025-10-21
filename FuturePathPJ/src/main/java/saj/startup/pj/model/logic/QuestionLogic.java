@@ -25,7 +25,7 @@ public interface QuestionLogic {
 	
 	public List<QuestionData> getQuestionsForAssessment();
 	
-	public List<AssessmentCheckerData> getQuestionAssessmentChecker(List<Integer> questionIdPks,
-			List<Integer> answerIdPks);
+	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
+			int answerIdPk);
 	
 }

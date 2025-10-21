@@ -173,7 +173,7 @@
         <div class="result-stats">
           <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
           <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
-          <div class="stat-box"><strong>📊 Score: </strong><span th:text=" *{percentage}">0%</span></div>
+          <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div>
           <div class="stat-box"><strong>🏁 Status: </strong><span th:text=" *{result}">-</span></div>
         </div>
 

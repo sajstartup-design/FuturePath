@@ -72,37 +72,23 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 	public List<QuestionData> getQuestionsForAssessment() throws DataAccessException;
 	
 	public final String QUESTION_ASSESSMENT_CHECKER = """
-WITH question_array AS (
-    SELECT unnest(CAST(:questionIdPks AS integer[])) AS question_id,
-           row_number() OVER () AS rn
-),
-answer_array AS (
-    SELECT unnest(CAST(:answerIdPks AS integer[])) AS answer_id,
-           row_number() OVER () AS rn
-),
-pairs AS (
-    SELECT q.question_id, a.answer_id
-    FROM question_array q
-    JOIN answer_array a ON q.rn = a.rn
-)
-SELECT
-    CAST(s.id_pk AS INTEGER) AS strandegreeId,
-    s.code,
-    s.name,
-    q.id_pk AS questionId,
-    a.id_pk AS answerId,
-    a.is_correct AS isCorrect
-FROM pairs p
-LEFT JOIN question q ON q.id_pk = p.question_id
-LEFT JOIN answer a ON a.id_pk = p.answer_id
-LEFT JOIN strandegrees s ON s.id_pk = q.strandegree_id_pk;
-
-
-
+				
+				SELECT 
+					s.idPk,
+					s.code,
+					s.name,
+					q.idPk,
+					a.idPk,
+					a.isCorrect
+				FROM QuestionEntity q 
+				LEFT JOIN AnswerEntity a ON a.questionIdPk = q.idPk AND a.idPk = :answerIdPk
+				LEFT JOIN StrandegreeEntity s ON s.idPk = q.strandegreeIdPk
+				WHERE q.idPk = :questionIdPk
+				
 			""";
 	
-	@Query(value=QUESTION_ASSESSMENT_CHECKER, nativeQuery=true)
-	public List<AssessmentCheckerData> getQuestionAssessmentChecker(@Param("questionIdPks") List<Integer> questionIdPks,
-			@Param("answerIdPks") List<Integer> answerIdPks) throws DataAccessException;
+	@Query(QUESTION_ASSESSMENT_CHECKER)
+	public AssessmentCheckerData getQuestionAssessmentChecker(@Param("questionIdPk") int questionIdPk,
+			@Param("answerIdPk") int answerIdPk) throws DataAccessException;
 	
 }
