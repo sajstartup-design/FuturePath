@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Bounce Battle Arena</title>
+      <style>
+         body {
+         background: radial-gradient(circle at center, #000 0%, #111 100%);
+         color: white;
+         display: flex;
+         justify-content: center;
+         align-items: flex-start;
+         gap: 20px;
+         padding: 20px;
+         font-family: 'Segoe UI', sans-serif;
+         }
+         #controls {
+         width: 250px;
+         background: rgba(20, 20, 40, 0.9);
+         padding: 15px;
+         border-radius: 12px;
+         box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+         border: 1px solid rgba(0, 255, 255, 0.2);
+         }
+         #controls h2 {
+         text-align: center;
+         margin-bottom: 10px;
+         color: #00eaff;
+         text-shadow: 0 0 8px #00eaff;
+         }
+         #controls label {
+         display: block;
+         margin: 8px 0 4px;
+         }
+         #controls input[type="number"],
+         #controls input[type="file"] {
+         width: 100%;
+         padding: 6px;
+         border-radius: 5px;
+         border: none;
+         background: rgba(0, 0, 0, 0.5);
+         color: #fff;
+         box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
+         }
+         #controls button {
+         width: 100%;
+         margin-top: 10px;
+         padding: 10px;
+         font-size: 1rem;
+         border: none;
+         border-radius: 6px;
+         cursor: pointer;
+         color: white;
+         background: linear-gradient(135deg, #00c6ff, #0072ff);
+         box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+         transition: 0.3s;
+         }
+         #controls button:hover {
+         transform: scale(1.05);
+         box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+         }
+         #arena {
+         position: relative;
+         width: 600px;
+         height: 600px;
+         background: radial-gradient(circle at center, #2a2a72 0%, #009ffd 40%, #1b1b2f 100%);
+         border: 4px solid rgba(0, 255, 255, 0.6);
+         border-radius: 14px;
+         box-shadow:
+         0 0 20px rgba(0, 255, 255, 0.3),
+         inset 0 0 30px rgba(0, 255, 255, 0.2);
+         overflow: hidden;
+         }
+         .player {
+         position: absolute;
+         width: 50px;
+         height: 50px;
+         border-radius: 10px;
+         background-size: cover;
+         background-position: center;
+         box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+         }
+         .player[style*="border: 3px solid yellow"] {
+         box-shadow: 0 0 20px 5px #ffee58;
+         }
+         .weapon {
+         position: absolute;
+         width: 50px;
+         height: 50px;
+         background-size: contain;
+         background-repeat: no-repeat;
+         background-position: center;
+         filter: drop-shadow(0 0 10px #ffeb3b);
+         }
+#winner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #00eaff;
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 0 0 15px #00eaff, 0 0 30px #0072ff;
+  display: none; /* hidden by default */
+  line-height: 1.4;
+  white-space: normal;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 16px 28px;
+  border-radius: 14px;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 220px;
+}
+
+         
+      </style>
+   </head>
+   <body>
+      <div id="controls">
+               <button id="startBtn">Start</button>
+         <button id="restartBtn">Restart</button>
+         <h2>Game Setup</h2>
+         <label>Number of Players</label>
+         <input type="number" id="playerCount" min="2" max="8" value="4">
+         <div id="playerUploads"></div>
+         <label>Weapon Image</label>
+         <input type="file" id="weaponImage" accept="image/*">
+         <label>Speed</label>
+         <input type="number" id="speedInput" min="1" max="10" value="3">
+      </div>
+      <div id="arena">
+         <div id="weapon" class="weapon"></div>
+         <div id="winner"></div>
+      </div>
+      <script>
+         const arena = document.getElementById("arena");
+         const weaponEl = document.getElementById("weapon");
+         const winnerEl = document.getElementById("winner");
+         const playerUploads = document.getElementById("playerUploads");
+         const playerCountInput = document.getElementById("playerCount");
+         const speedInput = document.getElementById("speedInput");
+         const weaponImageInput = document.getElementById("weaponImage");
+         
+         let loopId;
+         let players = [];
+         let weapon = { x: 0, y: 0, heldBy: null, image: "" };
+         let weaponRespawnTimer = null;
+         
+         const arenaSize = 600;
+         const playerSize = 50;
+         const weaponSize = 50;
+         const weaponTime = 3000;
+         
+         // Predefined spawn positions (for up to 8 players)
+         const spawnPoints = [
+           { x: 50, y: 50 },
+           { x: 490, y: 50 },
+           { x: 50, y: 490 },
+           { x: 490, y: 490 },
+           { x: 275, y: 50 },
+           { x: 275, y: 490 },
+           { x: 50, y: 275 },
+           { x: 490, y: 275 },
+         ];
+         
+         playerCountInput.addEventListener("input", createPlayerUploads);
+         function createPlayerUploads() {
+        	  const count = playerCountInput.value;
+        	  playerUploads.innerHTML = "";
+        	  for (let i = 1; i <= count; i++) {
+        	    playerUploads.innerHTML += `
+        	      <label>Player ${i} Name</label>
+        	      <input type="text" id="player${i}Name" placeholder="Enter name..." 
+        	        style="width:100%;padding:6px;border-radius:5px;margin-bottom:6px;
+        	        background:rgba(0,0,0,0.5);color:white;border:none;">
+        	      <label>Player ${i} Image</label>
+        	      <input type="file" id="player${i}Image" accept="image/*">
+        	    `;
+        	  }
+        	  addPreviewListeners();
+        	}
+
+         createPlayerUploads();
+         
+         function addPreviewListeners() {
+           const count = parseInt(playerCountInput.value);
+           for (let i = 1; i <= count; i++) {
+             const input = document.getElementById(`player${i}Image`);
+             input.addEventListener("change", () => showPlayerPreview(i));
+           }
+         }
+         
+         function showPlayerPreview(i) {
+           const fileInput = document.getElementById(`player${i}Image`);
+           const existing = document.getElementById(`p${i}`);
+           if (existing) existing.remove();
+         
+           const spawn = spawnPoints[i - 1];
+           const playerEl = document.createElement("div");
+           playerEl.className = "player";
+           playerEl.id = `p${i}`;
+         
+           const img = fileInput.files.length
+             ? URL.createObjectURL(fileInput.files[0])
+             : `https://via.placeholder.com/60x60.png?text=P${i}`;
+         
+           playerEl.style.backgroundImage = `url('${img}')`;
+           playerEl.style.left = `${spawn.x}px`;
+           playerEl.style.top = `${spawn.y}px`;
+         
+           const label = document.createElement("div");
+           label.textContent = `P${i}`;
+           label.style.position = "absolute";
+           label.style.top = "-18px";
+           label.style.left = "50%";
+           label.style.transform = "translateX(-50%)";
+           label.style.fontSize = "14px";
+           label.style.fontWeight = "bold";
+           label.style.color = "#00eaff";
+           label.style.textShadow = "0 0 5px #00eaff";
+           playerEl.appendChild(label);
+         
+           arena.appendChild(playerEl);
+         }
+         
+         document.getElementById("startBtn").addEventListener("click", startGame);
+         document.getElementById("restartBtn").addEventListener("click", restartGame);
+         
+         function startGame() {
+           const count = parseInt(playerCountInput.value);
+           const speed = parseFloat(speedInput.value);
+           players = [];
+           winnerEl.style.display = "none";
+         
+           for (let i = 1; i <= count; i++) {
+             const spawn = spawnPoints[i - 1];
+             const playerEl = document.getElementById(`p${i}`);
+             if (!playerEl) continue;
+
+             // Get the entered player name (or fallback to "Player i")
+             const playerNameInput = document.getElementById(`player${i}Name`);
+             const playerName = playerNameInput && playerNameInput.value.trim() !== "" 
+               ? playerNameInput.value.trim()
+               : `Player ${i}`;
+
+             players.push({
+               el: playerEl,
+               x: spawn.x,
+               y: spawn.y,
+               vx: (Math.random() * 2 - 1) * speed,
+               vy: (Math.random() * 2 - 1) * speed,
+               alive: true,
+               armed: false,
+               name: playerName
+             });
+
+           }
+         
+           if (weaponImageInput.files.length > 0) {
+             weapon.image = URL.createObjectURL(weaponImageInput.files[0]);
+           } else {
+             weapon.image = "https://cdn-icons-png.flaticon.com/512/3132/3132095.png";
+           }
+         
+           weaponEl.style.backgroundImage = `url('${weapon.image}')`;
+           spawnWeapon();
+         
+           cancelAnimationFrame(loopId);
+           loop();
+         }
+         
+         function restartGame() {
+           cancelAnimationFrame(loopId);
+           clearTimeout(weaponRespawnTimer);
+           players = [];
+           weaponEl.style.display = "none";
+           winnerEl.style.display = "none";
+           arena.querySelectorAll(".player").forEach(el => el.remove());
+           createPlayerUploads();
+         }
+         
+         function spawnWeapon() {
+           weapon.x = Math.random() * (arenaSize - weaponSize);
+           weapon.y = Math.random() * (arenaSize - weaponSize);
+           weapon.heldBy = null;
+           weaponEl.style.display = "block";
+           weaponEl.style.left = weapon.x + "px";
+           weaponEl.style.top = weapon.y + "px";
+         
+           // reset old timer if exists
+           clearTimeout(weaponRespawnTimer);
+           // start a new timer to respawn after 10s
+           weaponRespawnTimer = setTimeout(() => {
+             if (!weapon.heldBy) {
+               spawnWeapon();
+             }
+           }, weaponTime);
+         }
+         
+         function collide(a, b, sizeA, sizeB) {
+           return !(a.x + sizeA < b.x || a.x > b.x + sizeB || a.y + sizeA < b.y || a.y > b.y + sizeB);
+         }
+         
+         function checkWinner() {
+        	  const alive = players.filter(p => p.alive);
+        	  if (alive.length === 1) {
+        	    const winnerName = alive[0].name || alive[0].el.id.toUpperCase();
+        	    winnerEl.innerHTML = `
+        	    	  <div style="font-size:2rem;">${winnerName}</div>
+        	    	  <div style="font-size:1.6rem;margin-top:6px;">Win! 🏆</div>
+        	    	`;
+        	    winnerEl.style.display = "flex";
+        	    cancelAnimationFrame(loopId);
+        	  }
+        	}
+
+
+         
+         function loop() {
+           const baseSpeed = parseFloat(speedInput.value);
+         
+           players.forEach(p => {
+             if (!p.alive) return;
+         
+             p.x += p.vx;
+             p.y += p.vy;
+         
+             const leftBound = 0;
+             const topBound = 0;
+             const rightBound = arenaSize - playerSize;
+             const bottomBound = arenaSize - playerSize;
+         
+             if (p.x < leftBound) { p.x = leftBound; p.vx = Math.abs(p.vx); }
+             else if (p.x > rightBound) { p.x = rightBound; p.vx = -Math.abs(p.vx); }
+         
+             if (p.y < topBound) { p.y = topBound; p.vy = Math.abs(p.vy); }
+             else if (p.y > bottomBound) { p.y = bottomBound; p.vy = -Math.abs(p.vy); }
+         
+             p.el.style.left = `${p.x}px`;
+             p.el.style.top = `${p.y}px`;
+         
+             if (!weapon.heldBy && collide(p, weapon, playerSize, weaponSize)) {
+               weapon.heldBy = p;
+               p.armed = true;
+               p.el.style.border = "3px solid yellow";
+               weaponEl.style.display = "none";
+               clearTimeout(weaponRespawnTimer); // cancel timer when picked up
+             }
+         
+             players.forEach(o => {
+               if (p === o || !o.alive) return;
+               if (collide(p, o, playerSize, playerSize)) {
+                 const dx = p.x - o.x;
+                 const dy = p.y - o.y;
+                 const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                 const nx = dx / dist;
+                 const ny = dy / dist;
+                 p.vx = nx * baseSpeed;
+                 p.vy = ny * baseSpeed;
+                 o.vx = -nx * baseSpeed;
+                 o.vy = -ny * baseSpeed;
+         
+                 if (p.armed && !o.armed) {
+                   o.alive = false;
+                   o.el.style.display = "none";
+                   p.armed = false;
+                   p.el.style.border = "none";
+                   weapon.heldBy = null;
+                   spawnWeapon();
+                   checkWinner();
+                 } else if (o.armed && !p.armed) {
+                   p.alive = false;
+                   p.el.style.display = "none";
+                   o.armed = false;
+                   o.el.style.border = "none";
+                   weapon.heldBy = null;
+                   spawnWeapon();
+                   checkWinner();
+                 }
+               }
+             });
+           });
+         
+           loopId = requestAnimationFrame(loop);
+         }
+      </script>
+   </body>
+</html>
