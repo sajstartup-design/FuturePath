@@ -11,6 +11,7 @@ import saj.startup.pj.model.dao.AnswerDao;
 import saj.startup.pj.model.dao.QuestionDao;
 import saj.startup.pj.model.dao.entity.AnswerData;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
@@ -67,6 +68,13 @@ public class QuestionLogicImpl implements QuestionLogic{
 		}
 		
 		return questions;
+	}
+
+	@Override
+	public List<AssessmentCheckerData> getQuestionAssessmentChecker(List<Integer> questionIdPks,
+			List<Integer> answerIdPks) {
+		
+		return questionDao.getQuestionAssessmentChecker(questionIdPks, answerIdPks);
 	}
 
 }

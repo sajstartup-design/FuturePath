@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
@@ -68,6 +69,40 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    """;
 
 	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery=true)
-	List<QuestionData> getQuestionsForAssessment() throws DataAccessException;
+	public List<QuestionData> getQuestionsForAssessment() throws DataAccessException;
+	
+	public final String QUESTION_ASSESSMENT_CHECKER = """
+WITH question_array AS (
+    SELECT unnest(CAST(:questionIdPks AS integer[])) AS question_id,
+           row_number() OVER () AS rn
+),
+answer_array AS (
+    SELECT unnest(CAST(:answerIdPks AS integer[])) AS answer_id,
+           row_number() OVER () AS rn
+),
+pairs AS (
+    SELECT q.question_id, a.answer_id
+    FROM question_array q
+    JOIN answer_array a ON q.rn = a.rn
+)
+SELECT
+    CAST(s.id_pk AS INTEGER) AS strandegreeId,
+    s.code,
+    s.name,
+    q.id_pk AS questionId,
+    a.id_pk AS answerId,
+    a.is_correct AS isCorrect
+FROM pairs p
+LEFT JOIN question q ON q.id_pk = p.question_id
+LEFT JOIN answer a ON a.id_pk = p.answer_id
+LEFT JOIN strandegrees s ON s.id_pk = q.strandegree_id_pk;
+
+
+
+			""";
+	
+	@Query(value=QUESTION_ASSESSMENT_CHECKER, nativeQuery=true)
+	public List<AssessmentCheckerData> getQuestionAssessmentChecker(@Param("questionIdPks") List<Integer> questionIdPks,
+			@Param("answerIdPks") List<Integer> answerIdPks) throws DataAccessException;
 	
 }
