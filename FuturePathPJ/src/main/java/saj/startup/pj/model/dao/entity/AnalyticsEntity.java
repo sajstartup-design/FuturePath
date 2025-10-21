@@ -1,7 +1,5 @@
 package saj.startup.pj.model.dao.entity;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,8 +9,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "answer")
-public class AnalyticEntity {
+@Table(name = "analytics")
+public class AnalyticsEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
