@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>FuturePath | Assessment Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/common.css}" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #0b1025; /* darker navy background */
+      color: #e2e5f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .content {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 2rem;
+    }
+
+    .result-summary {
+      background: rgba(25, 35, 70, 0.8);
+      padding: 2rem 3rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(86, 115, 255, 0.25);
+      backdrop-filter: blur(6px);
+    }
+
+    .result-summary h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      color: #ffffff;
+    }
+
+    .result-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1.2rem 2rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1.1rem;
+      min-width: 200px;
+      box-shadow: inset 0 0 10px rgba(68, 97, 255, 0.15);
+    }
+
+    .top-recommendations {
+      margin-top: 2rem;
+    }
+
+    .top-recommendations h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #aab6ff;
+    }
+
+    .top-list {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .top-item {
+      background: rgba(68, 97, 255, 0.15);
+      border: 1px solid rgba(68, 97, 255, 0.3);
+      border-radius: 0.6rem;
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 0 8px rgba(68, 97, 255, 0.15);
+      color: #dbe1ff;
+    }
+
+    .question-results {
+      margin-top: 3rem;
+    }
+
+    .question-card {
+      background: rgba(25, 35, 70, 0.7);
+      padding: 1.8rem 2rem;
+      border-radius: 0.8rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(68, 97, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .question-card h4 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: #d3daff;
+    }
+
+    .answer {
+      margin: 0.5rem 0;
+      padding: 0.6rem 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .answer.correct {
+      background: rgba(60, 255, 130, 0.15);
+      border-color: rgba(60, 255, 130, 0.5);
+      color: #9effb3;
+    }
+
+    .answer.incorrect {
+      background: rgba(255, 68, 68, 0.15);
+      border-color: rgba(255, 68, 68, 0.4);
+      color: #ffaaaa;
+    }
+
+    .correct-answer {
+      font-size: 0.95rem;
+      color: #91d9ff;
+      margin-top: 0.5rem;
+    }
+
+    .next-steps {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .next-steps h3 {
+      margin-bottom: 1rem;
+      color: #aab6ff;
+    }
+
+    .next-steps button {
+      background: rgba(68, 97, 255, 0.25);
+      border: 1px solid rgba(68, 97, 255, 0.4);
+      color: #ffffff;
+      padding: 0.8rem 1.8rem;
+      margin: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .next-steps button:hover {
+      background: rgba(86, 115, 255, 0.4);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+  <nav th:replace="~{sidebar :: sidebar}"></nav>
+  <main th:object="${assessmentDto}">
+    <nav th:replace="~{header :: header}"></nav>
+    <hr>
+    <nav class="sub-header">ASSESSMENT RESULT</nav>
+    <hr>
+
+    <div class="content">
+
+      <!-- Result Summary -->
+      <div class="result-summary">
+        <h2>Assessment Completed 🎉</h2>
+
+        <div class="result-stats">
+          <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
+          <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
+          <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div>
+          <div class="stat-box"><strong>🏁 Status: </strong><span th:text=" *{result}">-</span></div>
+        </div>
+
+        <div class="top-recommendations">
+          <h3>Top 3 Recommended Degrees</h3>
+          <div class="top-list">
+            <div class="top-item">BS Computer Science</div>
+            <div class="top-item">BS Information Technology</div>
+            <div class="top-item">BS Electronics Engineering</div>
+          </div>
+        </div>
+
+        <div class="top-recommendations">
+          <h3>Top 3 Recommended Strands</h3>
+          <div class="top-list">
+            <div class="top-item">STEM</div>
+            <div class="top-item">ICT</div>
+            <div class="top-item">ABM</div>
+          </div>
+        </div>
+
+        <div class="top-recommendations">
+          <h3>Top Universities for Your Recommended Degrees</h3>
+          <div class="top-list">
+            <div class="top-item">
+              <strong>BS Computer Science</strong><br>
+              University of the Philippines<br>
+              De La Salle University<br>
+              Ateneo de Manila University
+            </div>
+            <div class="top-item">
+              <strong>BS Information Technology</strong><br>
+              Mapúa University<br>
+              University of Santo Tomas<br>
+              FEU Institute of Technology
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+            <div class="next-steps">
+        <h3>Next Steps</h3>
+        <button>View Matching Universities</button>
+        <button>Retake Assessment</button>
+        <button>Download Result (PDF)</button>
+      </div>
+
+      <!-- Question Results -->
+      <div class="question-results">
+        <h3>Question Breakdown</h3>
+
+        <div class="question-card">
+          <h4>1. What is the main function of a CPU?</h4>
+          <div class="answer correct">Your Answer: Executes program instructions</div>
+        </div>
+
+        <div class="question-card">
+          <h4>2. Which of the following is a database language?</h4>
+          <div class="answer incorrect">Your Answer: Java</div>
+          <div class="correct-answer">✔ Correct Answer: SQL</div>
+        </div>
+
+        <div class="question-card">
+          <h4>3. Which HTML tag is used to define an internal style sheet?</h4>
+          <div class="answer correct">Your Answer: &lt;style&gt;</div>
+        </div>
+
+        <div class="question-card">
+          <h4>4. What does CSS stand for?</h4>
+          <div class="answer correct">Your Answer: Cascading Style Sheets</div>
+        </div>
+
+        <div class="question-card">
+          <h4>5. Which of the following is NOT a programming language?</h4>
+          <div class="answer incorrect">Your Answer: HTML</div>
+          <div class="correct-answer">✔ Correct Answer: HTML is a markup language</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

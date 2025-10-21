@@ -16,4 +16,9 @@ public class CommonConstant {
 	
 	public static final String ROLE_USER = "USER";
 	public static final String ROLE_ADMIN = "ADMIN";
+	
+	public static final String DEGREE_DEFAULT_MODE = "DEGREE-DEFAULT-MODE";
+	public static final String DEGREE_CUSTOM_MODE = "DEGREE-CUSTOM-MODE";
+	public static final String STRAND_DEFAULT_MODE = "STRAND-DEFAULT-MODE";
+	public static final String STRAND_CUSTOM_MODE = "STRAND-DEFAULT-MODE";
 }

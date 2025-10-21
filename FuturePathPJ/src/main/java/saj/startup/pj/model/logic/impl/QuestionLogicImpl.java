@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.AnswerDao;
 import saj.startup.pj.model.dao.QuestionDao;
+import saj.startup.pj.model.dao.entity.AnswerData;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
@@ -47,6 +49,32 @@ public class QuestionLogicImpl implements QuestionLogic{
 	public Page<QuestionData> getAllQuestions(Pageable pageable, String search) {
 		
 		return questionDao.getAllQuestions(pageable, search);
+	}
+
+	@Override
+	public List<QuestionData> getQuestionsForAssessment() {
+		
+		/*
+		 * This right here can still be improved
+		 */
+		
+		List<QuestionData> questions = questionDao.getQuestionsForAssessment();
+		
+		for(QuestionData question : questions) {
+			
+			List<AnswerData> answers = answerDao.getAnswersByQuestionIdPk(question.getQuestionIdPk());
+			
+			question.setAnswers(answers);
+		}
+		
+		return questions;
+	}
+
+	@Override
+	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
+			int answerIdPk) {
+		
+		return questionDao.getQuestionAssessmentChecker(questionIdPk, answerIdPk);
 	}
 
 }

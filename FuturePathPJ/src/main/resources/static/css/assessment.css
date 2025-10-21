@@ -1,0 +1,190 @@
+
+
+.assessment-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.assessment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* centers question cards horizontally */
+    justify-content: center;  /* optional: center vertically if you want */
+    gap: 2rem;                /* spacing between question cards */
+}
+
+.content {
+    margin: 3rem auto;
+    text-align: center;
+    position: relative !important;
+}
+
+.question-card {
+    background: linear-gradient(145deg, #273777, #1f2b59);
+    padding: 2.5rem 2.5rem 3rem;
+    border-radius: 1rem;
+    color: white;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #3d4b8a;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.question-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.question-card .message {
+    font-size: 1.1rem;
+    color: #d8defa;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.2rem;
+    border-radius: 0.6rem;
+    border-left: 3px solid #5673ff;
+}
+
+.question-card .choices {
+    display: flex;
+    flex-direction: column;
+}
+
+.question-card button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: transparent;
+    border: 2px solid #4461ff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.question-card button:hover {
+    background: #46a1ff;
+    box-shadow: 0 6px 18px rgba(68, 161, 255, 0.4);
+    transform: translateY(-2px);
+    border-color: #46a1ff;
+}
+
+.question-card button:active {
+    transform: scale(0.98);
+}
+
+.question-nav {
+    background: rgba(31, 43, 89, 0.95);
+    border: 1px solid #3d4b8a;
+    border-radius: 0.8rem;
+    padding: 1.2rem 1.5rem;
+    width: 120px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+.question-nav h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.4rem;
+}
+
+.question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.question-list button {
+    background: transparent;
+    border: 2px solid #5673ff;
+    color: white;
+    border-radius: 0.5rem;
+    width: 40px;
+    height: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.question-list button:hover {
+    background: #46a1ff;
+    border-color: #46a1ff;
+    box-shadow: 0 0 10px rgba(68, 161, 255, 0.4);
+}
+
+.question-list button.answered {
+    background: #29d98c;
+    border-color: #29d98c;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(41, 217, 140, 0.6);
+}
+
+.question-card button.selected {
+    background: #46a1ff;
+    border-color: #46a1ff;
+    box-shadow: 0 0 15px rgba(70, 161, 255, 0.6);
+    color: #fff;
+}
+
+ .submit-btn {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #4461ff, #273777);
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, #5673ff, #3149a0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(68, 97, 255, 0.4);
+}
+
+/* Back to Top Button */
+#backToTopBtn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #4461ff;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(68, 161, 255, 0.4);
+    transition: all 0.3s ease;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+}
+
+#backToTopBtn:hover {
+    background: #46a1ff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(68, 161, 255, 0.6);
+}
+
+

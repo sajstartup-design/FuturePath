@@ -113,4 +113,40 @@ public class QuestionServiceImpl implements QuestionService{
 
 		return outDto;
 	}
+
+	@Override
+	public QuestionDto getQuestionsForAssessment(QuestionDto inDto) throws Exception {
+		
+		QuestionDto outDto = new QuestionDto();
+		
+		String mode = inDto.getMode();
+		
+		List<QuestionData> allQuestions = new ArrayList<>();
+		
+		if(CommonConstant.DEGREE_DEFAULT_MODE.equals(mode)) {
+			allQuestions = questionLogic.getQuestionsForAssessment();
+		}
+		
+		List<QuestionObj> questions = new ArrayList<>();
+		
+		if(!allQuestions.isEmpty()) {
+			
+			for(QuestionData question : allQuestions) {
+				
+				QuestionObj obj = new QuestionObj();
+				
+				obj.setIdPk(question.getQuestionIdPk());
+				obj.setCategory(question.getCategory());
+				obj.setQuestion(question.getQuestion());
+				obj.setStrandegree(question.getStrandegree());
+				obj.setAnswers(question.getAnswers());
+				
+				questions.add(obj);
+				
+			}
+		}
+		
+		outDto.setQuestions(questions);		
+		return outDto;
+	}
 }

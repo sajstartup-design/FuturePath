@@ -671,6 +671,10 @@ i{
   font-size: 1.3rem;   /* was 1.5rem */
 }
 
+.stat-card .icon i{
+	color: #9bb0f9;
+}
+
 .stat-card .label {
   font-size: 0.75rem;  /* smaller */
   color: #aeb8ff;
