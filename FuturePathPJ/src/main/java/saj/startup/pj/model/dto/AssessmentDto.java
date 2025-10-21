@@ -2,8 +2,11 @@ package saj.startup.pj.model.dto;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.Data;
+import saj.startup.pj.model.object.RecommendationObj;
 
 @Data
 public class AssessmentDto {
@@ -27,4 +30,14 @@ public class AssessmentDto {
 	private double percentage;
 	
 	private String result;
+	
+	Map<String, RecommendationObj> recommendationMap;
+	
+	public List<RecommendationObj> getTop3Recommendations() {
+	    return recommendationMap.values().stream()
+	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
+	        .limit(3)
+	        .collect(Collectors.toList());
+	}
+
 }

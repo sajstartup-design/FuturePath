@@ -15,6 +15,7 @@ import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
 import saj.startup.pj.model.logic.QuestionLogic;
+import saj.startup.pj.model.object.RecommendationObj;
 import saj.startup.pj.model.service.AssessmentService;
 
 @Service
@@ -33,40 +34,58 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    ObjectMapper mapper = new ObjectMapper();
 	    HashMap<Integer, Integer> answeredMap = mapper.readValue(
-	        inDto.getAnsweredJson(), 
+	        inDto.getAnsweredJson(),
 	        new TypeReference<HashMap<Integer, Integer>>() {}
 	    );
 
 	    int totalCorrect = 0;
 	    int totalIncorrect = 0;
 
-	    // key = code, value = number of correct answers
-	    HashMap<String, Integer> correctCountMap = new HashMap<>();
+	    // Main map: code → RecommendationObj
+	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
+	    // Helper map: code → totalQuestions under that code
+	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
 
-	    // Loop through each answered question
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
 	        Integer questionId = entry.getKey();
 	        Integer answerId = entry.getValue();
 
-	        // Call the checker for this question-answer pair
 	        AssessmentCheckerData checker = questionLogic.getQuestionAssessmentChecker(
-	            questionId, 
-	            answerId
+	            questionId, answerId
 	        );
 
 	        String code = checker.getCode();
+	        String name = checker.getName();
 	        boolean isCorrect = Boolean.TRUE.equals(checker.getIsCorrect());
+
+	        // Initialize if absent
+	        correctCountMap.putIfAbsent(code, new RecommendationObj(code, name, 0, 0.0));
+	        totalQuestionPerCode.put(code, totalQuestionPerCode.getOrDefault(code, 0) + 1);
+
+	        RecommendationObj rec = correctCountMap.get(code);
 
 	        if (isCorrect) {
 	            totalCorrect++;
-	            correctCountMap.put(code, correctCountMap.getOrDefault(code, 0) + 1);
+	            rec.setCorrectCount(rec.getCorrectCount() + 1);
 	        } else {
 	            totalIncorrect++;
 	        }
 	    }
 
+	    // ✅ Compute per-code percentages only once
+	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
+	        String code = e.getKey();
+	        RecommendationObj rec = e.getValue();
+	        int totalPerCode = totalQuestionPerCode.getOrDefault(code, 0);
+	        double percentagePerCode = totalPerCode > 0
+	            ? (double) rec.getCorrectCount() / totalPerCode * 100
+	            : 0.0;
+	        rec.setPercentage(percentagePerCode);
+	    }
+
 	    int totalQuestions = answeredMap.size();
 	    double percentage = totalQuestions > 0 ? ((double) totalCorrect / totalQuestions) * 100 : 0.0;
+	    percentage = Math.round(percentage * 10.0) / 10.0; // round to 1 decimal
 	    String result = percentage >= 75.0 ? "PASSED" : "FAILED";
 
 	    outDto.setTotalCorrect(totalCorrect);
@@ -74,21 +93,31 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    outDto.setTotalQuestion(totalQuestions);
 	    outDto.setPercentage(percentage);
 	    outDto.setResult(result);
+	    outDto.setRecommendationMap(correctCountMap);
 
-	    // ---- PRINT RESULTS ----
+	    // ---- Debug Output ----
 	    System.out.println("Total Questions: " + totalQuestions);
 	    System.out.println("Total Correct: " + totalCorrect);
 	    System.out.println("Total Incorrect: " + totalIncorrect);
 	    System.out.println("Percentage: " + percentage + "%");
 	    System.out.println("Result: " + result);
 
-	    System.out.println("Correct Count Map (code -> correct count):");
-	    for (Map.Entry<String, Integer> e : correctCountMap.entrySet()) {
-	        System.out.println("Code: " + e.getKey() + ", Correct Count: " + e.getValue());
+	    System.out.println("\nCorrect Count Map (code -> RecommendationObj):");
+	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
+	        RecommendationObj rec = e.getValue();
+	        System.out.printf(
+	            "Code: %s | Correct: %d | %.2f%%\n",
+	            rec.getCode(),
+	            rec.getCorrectCount(),
+	            rec.getPercentage()
+	        );
 	    }
 
 	    return outDto;
 	}
+
+
+
 
 
 
