@@ -72,15 +72,17 @@
          inset 0 0 30px rgba(0, 255, 255, 0.2);
          overflow: hidden;
          }
-         .player {
-         position: absolute;
-         width: 50px;
-         height: 50px;
-         border-radius: 10px;
-         background-size: cover;
-         background-position: center;
-         box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-         }
+		.player {
+		    position: absolute;
+		    width: 50px;
+		    height: 50px;
+		    border-radius: 10px;
+		    background-size: cover;
+		    background-position: center;
+		    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+		    padding: 5px; /* optional if you add inner content */
+		    background-origin: content-box; /* makes background respect padding */
+		}
          .player[style*="border: 3px solid yellow"] {
          box-shadow: 0 0 20px 5px #ffee58;
          }
@@ -210,6 +212,11 @@
            playerEl.style.backgroundImage = `url('${img}')`;
            playerEl.style.left = `${spawn.x}px`;
            playerEl.style.top = `${spawn.y}px`;
+           playerEl.style.padding = '5px';
+           playerEl.style.boxSizing = 'border-box';
+           playerEl.style.backgroundSize = 'contain';
+           playerEl.style.backgroundPosition = 'center';
+           playerEl.style.backgroundRepeat = 'no-repeat';
          
            const label = document.createElement("div");
            label.textContent = `P${i}`;
@@ -219,8 +226,8 @@
            label.style.transform = "translateX(-50%)";
            label.style.fontSize = "14px";
            label.style.fontWeight = "bold";
-           label.style.color = "#00eaff";
-           label.style.textShadow = "0 0 5px #00eaff";
+           label.style.color = "#0095cc";          // darker blue/cyan
+           label.style.textShadow = "0 0 8px #0072a0"; // darker subtle glow
            playerEl.appendChild(label);
          
            arena.appendChild(playerEl);
