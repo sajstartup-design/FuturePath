@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.dto.QuestionDto;
+import saj.startup.pj.model.service.AssessmentService;
 import saj.startup.pj.model.service.QuestionService;
 
 @Controller
@@ -24,6 +25,9 @@ public class AssessmentController {
 	
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private AssessmentService assessmentService;
 
 	@GetMapping("/assessment")
 	public String showQuizHome() {
@@ -65,20 +69,28 @@ public class AssessmentController {
 	}
 	
 	@PostMapping("/assessment/result")
-	public String submitAssessment(@ModelAttribute AssessmentDto assessmentDto,
-            @RequestParam("answeredJson") String answeredJson) {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			HashMap<Integer, Integer> answeredMap = mapper.readValue(answeredJson, new TypeReference<>() {});
-			assessmentDto.setAnswered(answeredMap);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String submitAssessment(Model model, 
+			@ModelAttribute AssessmentDto assessmentDto,
+            @RequestParam("answeredJson") String answeredJson,
+            RedirectAttributes ra) {
 
-		System.out.println("Mode: " + assessmentDto.getMode());
-		System.out.println("Answered: " + assessmentDto.getAnswered());
+		try {
+			AssessmentDto outDto = assessmentService.getAssessmentResult(assessmentDto);
+			
+			model.addAttribute("assessmentDto", outDto);
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/dashobard";
+			
+		}
 		
-		// Then process normally (compute result, save, etc.)
-		return "redirect:/assessment-result";
+
+		return "assessment/assessment-result";
 	}
 }

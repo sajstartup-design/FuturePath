@@ -158,7 +158,7 @@
 
 <body>
   <nav th:replace="~{sidebar :: sidebar}"></nav>
-  <main>
+  <main th:object="${assessmentDto}">
     <nav th:replace="~{header :: header}"></nav>
     <hr>
     <nav class="sub-header">ASSESSMENT RESULT</nav>
@@ -171,10 +171,10 @@
         <h2>Assessment Completed 🎉</h2>
 
         <div class="result-stats">
-          <div class="stat-box"><strong>✅ Correct:</strong> 8</div>
-          <div class="stat-box"><strong>❌ Incorrect:</strong> 2</div>
-          <div class="stat-box"><strong>📊 Score:</strong> 80%</div>
-          <div class="stat-box"><strong>🏁 Status:</strong> Passed</div>
+          <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
+          <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
+          <div class="stat-box"><strong>📊 Score: </strong><span th:text=" *{percentage}">0%</span></div>
+          <div class="stat-box"><strong>🏁 Status: </strong><span th:text=" *{result}">-</span></div>
         </div>
 
         <div class="top-recommendations">

@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class AssessmentDto {
 	
+	private String answeredJson;
+	
 	private String mode;
 	
 	private List<String> degrees;
@@ -15,4 +17,14 @@ public class AssessmentDto {
 	private List<String> strands;
 	
 	private HashMap<Integer, Integer> answered;
+	
+	private int totalCorrect;
+	
+	private int totalIncorrect;
+	
+	private int totalQuestion;
+	
+	private double percentage;
+	
+	private String result;
 }

@@ -21,4 +21,15 @@ public interface AnswerDao extends JpaRepository<AnswerEntity, Integer>{
 	
 	@Query(GET_ANSWERS_BY_QUESTION_ID_PK)
 	public List<AnswerData> getAnswersByQuestionIdPk(@Param("questionIdPk") int questionIdPk) throws DataAccessException;
+	
+	
+	public static final String IS_ANSWER_CORRECT = """
+			SELECT e.isCorrect
+			     FROM AnswerEntity e
+			     WHERE e.idPk = :answerIdPk
+			     AND e.isDeleted = false
+			""";
+	
+	@Query(IS_ANSWER_CORRECT)
+	public  Boolean isAnswerCorrect(@Param("answerIdPk") int answerIdPk); 
 }
