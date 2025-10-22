@@ -57,6 +57,7 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests((requests) -> requests
 						
+						.requestMatchers("/game/**").permitAll()
 						.requestMatchers("/images/**").permitAll()
 						.requestMatchers("/css/**").permitAll()
 						.requestMatchers("/script/**").permitAll()
@@ -68,7 +69,7 @@ public class SecurityConfig {
 						.requestMatchers("/dashboard/**").hasAuthority(CommonConstant.ROLE_USER)
 						.requestMatchers("/quiz/**").hasAuthority(CommonConstant.ROLE_USER)
 						
-						.anyRequest().authenticated()
+						
 						
 						)
 				.formLogin((form) -> form
