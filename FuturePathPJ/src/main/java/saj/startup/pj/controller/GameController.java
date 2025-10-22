@@ -17,4 +17,10 @@ public class GameController {
 		
 		return "game-two";
 	}
+	
+	@GetMapping("/game/three")
+	public String showGameThree() {
+		
+		return "game-three";
+	}
 }
