@@ -5,34 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bounce Battle Arena</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
   body {
-    background: radial-gradient(circle at center, #000 0%, #111 100%);
+    background: #7EC850;
     color: white;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
     padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Press Start 2P', cursive;
   }
+
   #controls {
     width: 350px;
-    background: rgba(20, 20, 40, 0.9);
+    background: #8B4513;
     padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    border: 4px solid #654321; 
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
   }
+
   #controls h2 {
     text-align: center;
     margin-bottom: 10px;
     color: #00eaff;
     text-shadow: 0 0 8px #00eaff;
   }
+
   #controls label {
     display: block;
     margin: 8px 0 4px;
   }
+
   #controls input[type="number"] {
     width: 100%;
     padding: 6px;
@@ -42,66 +48,80 @@
     color: #fff;
     box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
   }
+
   #controls button {
     width: 100%;
     margin-top: 10px;
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.7rem;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     color: white;
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
-    transition: 0.3s;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    box-shadow: 0 0 5px #000 inset;
+    transition: 0.2s;
+    font-family: 'Press Start 2P', cursive;
   }
+
   #controls button:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 10px #000 inset;
   }
+
   #playerGallery, #weaponGallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 6px;
     justify-content: center;
     margin-bottom: 10px;
   }
+
   .gallery-player, .gallery-weapon {
     width: 35px;
     height: 35px;
-    border-radius: 10px;
+    border-radius: 4px;
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    border: 2px solid #00eaff;
+    border: 2px solid #000;
     transition: 0.2s;
+    image-rendering: pixelated;
   }
+
+  .gallery-player.selected, .gallery-weapon.selected {
+    border: 3px solid yellow;
+  }
+
   #arena {
-    position: relative;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle at center, #2a2a72 0%, #009ffd 40%, #1b1b2f 100%);
-    border: 4px solid rgba(0, 255, 255, 0.6);
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.2);
-    overflow: hidden;
+    position: relative;
+    background-image: url('/images/backgroundd.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 4px solid #654321;
+    box-shadow: inset 0 0 20px #000;
   }
+
   .player {
     position: absolute;
     width: 50px;
     height: 50px;
-    border-radius: 10px;
+    border: none;
+    border-radius: 4px;
     background-size: cover;
     background-position: center;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 5px #000 inset;
+    image-rendering: pixelated;
     z-index: 2;
-/*     padding: 5px;
-    background-origin: content-box;
-    box-sizing: border-box; */
   }
+
   .player[style*="border: 3px solid yellow"] {
-    box-shadow: 0 0 20px 5px #ffee58;
+    box-shadow: 0 0 10px 2px #FFFF00 inset;
   }
+
   .weapon {
     position: absolute;
     width: 50px;
@@ -109,24 +129,25 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    filter: drop-shadow(0 0 10px #ffeb3b);
     z-index: 3;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 4px #FFF);
   }
+
   #winner {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #00eaff;
-    font-size: 2rem;
+    color: #FFD700;
+    font-size: 1rem;
     text-align: center;
-    text-shadow: 0 0 15px #00eaff, 0 0 30px #0072ff;
+    text-shadow: 0 0 3px #000;
     display: none;
-    line-height: 1.4;
-    white-space: normal;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 16px 28px;
-    border-radius: 14px;
+    background: rgba(0,0,0,0.5);
+    padding: 12px 20px;
+    border: 3px solid #654321;
+    border-radius: 6px;
     font-weight: bold;
     flex-direction: column;
     justify-content: center;
@@ -146,6 +167,8 @@
   <div id="weapon" class="weapon"></div>
   <div id="winner"></div>
 </div>
+
+
 
 <div id="controls">
   <button id="startBtn">Start</button>
@@ -169,17 +192,21 @@ let weaponRespawnTimer = null;
 let selectedPlayers = [];
 let selectedWeapon = null;
 
+const bounceSound = new Audio('/images/slime-sound.ogg');
+bounceSound.volume = 0.5; 
+
 const arenaSize = 600;
 const playerSize = 50;
 const weaponSize = 50;
 const weaponTime = 5000;
+const playerHP = 3;
 
 const spawnPoints = [
   {x:50,y:50},{x:490,y:50},{x:50,y:490},{x:490,y:490},
   {x:275,y:50},{x:275,y:490},{x:50,y:275},{x:490,y:275}
 ];
 
-// Players
+//Players
 const availablePlayers = [
   { name: "Allay", img: "https://i.ibb.co/PfFDc6f/Allay-Face.png" },
   { name: "Armadillo", img: "https://i.ibb.co/7JrGWqJ3/Armadillo-Face.png" },
@@ -277,7 +304,6 @@ const availableWeapons = [
   {name:"Spear", img:"https://i.ibb.co/9kPRbcJH/Netherite-Spear-JE1-BE1.png"},
 ];
 
-
 //🎮 Spawn player in arena instantly when selected
 function spawnPlayer(i) {
   const spawn = spawnPoints[selectedPlayers.length - 1];
@@ -292,35 +318,39 @@ function spawnPlayer(i) {
   playerEl.style.backgroundRepeat = "no-repeat";
 
   const label = document.createElement("div");
-  label.textContent = pData.name;
+  label.textContent = `HP: ${playerHP}`; // initial HP
   label.style.position = "absolute";
-  label.style.top = "-18px";
-  label.style.left = "50%";
-  label.style.transform = "translateX(-50%)";
-  label.style.fontSize = "14px";
+  label.style.top = "-14px";
+  label.style.left = "0";               // start at left edge
+  label.style.width = "100%";           // full width of player
+  label.style.textAlign = "center";     // center text
+  label.style.whiteSpace = "nowrap";    // prevent line breaks
+  label.style.fontSize = "8px";
   label.style.fontWeight = "bold";
-  label.style.color = "#0095cc";
-  label.style.textShadow = "0 0 8px #0072a0";
+  label.style.color = "#00ff00";
+  label.style.textShadow = "0 0 8px #007200";
   playerEl.appendChild(label);
+
 
   arena.appendChild(playerEl);
 
   players.push({
     el: playerEl,
+    label: label,
     x: spawn.x,
     y: spawn.y,
     vx: 0,
     vy: 0,
     alive: true,
     armed: false,
-    name: pData.name
+    hp: playerHP // initial HP
   });
 }
 
-// 💥 Remove player from arena when deselected
+// Remove player
 function removePlayer(i) {
   const pData = availablePlayers[i];
-  const index = players.findIndex(p => p.name === pData.name);
+  const index = players.findIndex(p => p.el.style.backgroundImage.includes(pData.img));
   if (index !== -1) {
     players[index].el.remove();
     players.splice(index, 1);
@@ -352,13 +382,11 @@ function renderGallery() {
     playerGallery.appendChild(div);
   });
 
-  // Weapon gallery
   weaponGallery.innerHTML = "";
   availableWeapons.forEach((w, i) => {
     const div = document.createElement("div");
     div.className = "gallery-weapon";
-    div.style.border =
-      selectedWeapon === i ? "3px solid yellow" : "2px solid #00eaff";
+    div.style.border = selectedWeapon === i ? "3px solid yellow" : "2px solid #00eaff";
     div.style.backgroundImage = `url('${w.img}')`;
     div.title = w.name;
     div.addEventListener("click", () => {
@@ -380,10 +408,8 @@ renderGallery();
 
 // Start battle
 document.getElementById("startBtn").addEventListener("click", () => {
-  if (selectedPlayers.length < 2)
-    return alert("Select at least 2 players!");
-  if (selectedWeapon === null)
-    return alert("Select a weapon!");
+  if (selectedPlayers.length < 2) return alert("Select at least 2 players!");
+  if (selectedWeapon === null) return alert("Select a weapon!");
 
   const speed = parseFloat(speedInput.value);
   players.forEach(p => {
@@ -395,7 +421,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
   loop();
 });
 
-// Restart everything
+// Restart
 document.getElementById("restartBtn").addEventListener("click", () => {
   cancelAnimationFrame(loopId);
   clearTimeout(weaponRespawnTimer);
@@ -423,108 +449,99 @@ function spawnWeapon() {
 }
 
 function collide(a, b, sizeA, sizeB) {
-  return !(
-    a.x + sizeA < b.x ||
-    a.x > b.x + sizeB ||
-    a.y + sizeA < b.y ||
-    a.y > b.y + sizeB
-  );
+  return !(a.x + sizeA < b.x || a.x > b.x + sizeB || a.y + sizeA < b.y || a.y > b.y + sizeB);
 }
 
 function checkWinner() {
   const alive = players.filter(p => p.alive);
   if (alive.length === 1) {
-    const winnerName = alive[0].name;
-    winnerEl.innerHTML = `<div style="font-size:2rem;">${winnerName}</div><div style="font-size:1.6rem;margin-top:6px;">Win! 🏆</div>`;
+    winnerEl.innerHTML = `<div style="font-size:2rem;">Winner</div><div style="font-size:1.6rem;margin-top:6px;">🏆</div>`;
     winnerEl.style.display = "flex";
     cancelAnimationFrame(loopId);
   }
 }
 
 function loop() {
-  const baseSpeed = parseFloat(speedInput.value);
+	  const baseSpeed = parseFloat(speedInput.value);
 
-  players.forEach(p => {
-    if (!p.alive) return;
+	  players.forEach(p => {
+	    if (!p.alive) return;
 
-    p.x += p.vx;
-    p.y += p.vy;
-    const left = 0,
-      top = 0,
-      right = arenaSize - playerSize,
-      bottom = arenaSize - playerSize;
-    if (p.x < left) {
-      p.x = left;
-      p.vx = Math.abs(p.vx);
-    } else if (p.x > right) {
-      p.x = right;
-      p.vx = -Math.abs(p.vx);
-    }
-    if (p.y < top) {
-      p.y = top;
-      p.vy = Math.abs(p.vy);
-    } else if (p.y > bottom) {
-      p.y = bottom;
-      p.vy = -Math.abs(p.vy);
-    }
-    p.el.style.left = `${p.x}px`;
-    p.el.style.top = `${p.y}px`;
-    
-    if (weapon.heldBy === p) {
-    	  weapon.x = p.x + playerSize / 2 - weaponSize / 4;
-    	  weapon.y = p.y - weaponSize / 2;
-    	  weaponEl.style.display = "block";
-    	  weaponEl.style.left = `${weapon.x}px`;
-    	  weaponEl.style.top = `${weapon.y}px`;
-    	}
+	    p.x += p.vx;
+	    p.y += p.vy;
+	    const left = 0, top = 0, right = arenaSize - playerSize, bottom = arenaSize - playerSize;
 
+	    // Wall collision with sound
+	    if (p.x < left) { 
+	      p.x = left; 
+	      p.vx = Math.abs(p.vx); 
+	      bounceSound.cloneNode().play(); 
+	    }
+	    if (p.x > right) { 
+	      p.x = right; 
+	      p.vx = -Math.abs(p.vx); 
+	      bounceSound.cloneNode().play(); 
+	    }
+	    if (p.y < top) { 
+	      p.y = top; 
+	      p.vy = Math.abs(p.vy); 
+	      bounceSound.cloneNode().play(); 
+	    }
+	    if (p.y > bottom) { 
+	      p.y = bottom; 
+	      p.vy = -Math.abs(p.vy); 
+	      bounceSound.cloneNode().play(); 
+	    }
 
-    if (!weapon.heldBy && collide(p, weapon, playerSize, weaponSize)) {
-    	  weapon.heldBy = p;
-    	  p.armed = true;
-    	  p.el.style.border = "3px solid yellow";
-    	  clearTimeout(weaponRespawnTimer);
-    	}
+	    p.el.style.left = `${p.x}px`;
+	    p.el.style.top = `${p.y}px`;
 
+	    if (weapon.heldBy === p) {
+	      weapon.x = p.x + playerSize/2 - weaponSize/4;
+	      weapon.y = p.y - weaponSize/2;
+	      weaponEl.style.left = `${weapon.x}px`;
+	      weaponEl.style.top = `${weapon.y}px`;
+	    }
 
-    players.forEach(o => {
-      if (p === o || !o.alive) return;
-      if (collide(p, o, playerSize, playerSize)) {
-        const dx = p.x - o.x,
-          dy = p.y - o.y,
-          dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        const nx = dx / dist,
-          ny = dy / dist;
-        p.vx = nx * baseSpeed;
-        p.vy = ny * baseSpeed;
-        o.vx = -nx * baseSpeed;
-        o.vy = -ny * baseSpeed;
+	    if (!weapon.heldBy && collide(p, weapon, playerSize, weaponSize)) {
+	      weapon.heldBy = p;
+	      p.armed = true;
+	      clearTimeout(weaponRespawnTimer);
+	    }
 
-        if (p.armed && !o.armed) {
-          o.alive = false;
-          o.el.style.display = "none";
-          p.armed = false;
-          p.el.style.border = "none";
-          weapon.heldBy = null;
-          spawnWeapon();
-          checkWinner();
-        } else if (o.armed && !p.armed) {
-          p.alive = false;
-          p.el.style.display = "none";
-          o.armed = false;
-          o.el.style.border = "none";
-          weapon.heldBy = null;
-          spawnWeapon();
-          checkWinner();
-        }
-      }
-    });
-  });
+	    players.forEach(o => {
+	      if (p === o || !o.alive) return;
 
-  loopId = requestAnimationFrame(loop);
-}
+	      if (collide(p, o, playerSize, playerSize)) {
+	        // Play bounce sound on player collision
+	        bounceSound.cloneNode().play();
+
+	        const dx = p.x - o.x, dy = p.y - o.y, dist = Math.sqrt(dx*dx + dy*dy) || 1;
+	        const nx = dx/dist, ny = dy/dist;
+	        p.vx = nx*baseSpeed;
+	        p.vy = ny*baseSpeed;
+	        o.vx = -nx*baseSpeed;
+	        o.vy = -ny*baseSpeed;
+
+	        // Attack reduces HP by 1
+	        if (p.armed && !o.armed) {
+	          o.hp -= 1;
+	          o.label.textContent = `HP: ${o.hp}`;
+	          if (o.hp <= 0) { o.alive = false; o.el.style.display = "none"; checkWinner(); }
+	          p.armed = false; p.el.style.border = "none"; weapon.heldBy = null; spawnWeapon();
+	        } else if (o.armed && !p.armed) {
+	          p.hp -= 1;
+	          p.label.textContent = `HP: ${p.hp}`;
+	          if (p.hp <= 0) { p.alive = false; p.el.style.display = "none"; checkWinner(); }
+	          o.armed = false; o.el.style.border = "none"; weapon.heldBy = null; spawnWeapon();
+	        }
+	      }
+	    });
+	  });
+
+	  loopId = requestAnimationFrame(loop);
+	}
 </script>
-
 
 </body>
 </html>

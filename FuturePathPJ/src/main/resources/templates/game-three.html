@@ -30,25 +30,22 @@
   #controls h2 {
     text-align: center;
     margin-bottom: 10px;
-    color: #FFD700; /* gold Minecraft text */
-    text-shadow: 0 0 3px #000;
+    color: #00eaff;
+    text-shadow: 0 0 8px #00eaff;
   }
-
   #controls label {
     display: block;
     margin: 8px 0 4px;
-    color: #FFF8DC;
   }
 
   #controls input[type="number"] {
     width: 100%;
     padding: 6px;
-    border-radius: 4px;
-    border: 2px solid #654321;
-    background: #C2B280;
-    color: #000;
-    font-family: 'Press Start 2P', cursive;
-    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
   }
 
   #controls button {
@@ -194,6 +191,9 @@ let weapon = { x:0, y:0, heldBy:null, image:"" };
 let weaponRespawnTimer = null;
 let selectedPlayers = [];
 let selectedWeapon = null;
+
+const bounceSound = new Audio('/images/slime-sound.ogg');
+bounceSound.volume = 0.5; 
 
 const arenaSize = 600;
 const playerSize = 50;
@@ -371,9 +371,6 @@ function spawnPlayer(i, team) {
 
 	  playerEl.appendChild(hpBar);
 
-
-
-
 	  arena.appendChild(playerEl);
 
 	  players.push({
@@ -542,8 +539,14 @@ function spawnPlayer(i, team) {
 	    p.y += p.vy;
 
 	    const left = 0, top = 0, right = arenaSize - playerSize, bottom = arenaSize - playerSize;
-	    if (p.x < left || p.x > right) p.vx *= -1;
-	    if (p.y < top || p.y > bottom) p.vy *= -1;
+	    if (p.x < left || p.x > right) {
+	    	p.vx *= -1;
+	    	bounceSound.cloneNode().play(); 
+	    }
+	    if (p.y < top || p.y > bottom){
+	    	p.vy *= -1;
+	    	bounceSound.cloneNode().play(); 
+	    }
 
 	    p.x = Math.max(left, Math.min(p.x, right));
 	    p.y = Math.max(top, Math.min(p.y, bottom));
@@ -574,7 +577,7 @@ function spawnPlayer(i, team) {
 	        const nx = dx / dist, ny = dy / dist;
 	        p.vx = nx * baseSpeed; p.vy = ny * baseSpeed;
 	        o.vx = -nx * baseSpeed; o.vy = -ny * baseSpeed;
-
+	        bounceSound.cloneNode().play(); 
 	        // Only hit enemy team
 	        if (p.armed && p.team !== o.team) {
 	          hitPlayer(o, p);
@@ -586,7 +589,7 @@ function spawnPlayer(i, team) {
 	    
 	    if (weapon.heldBy && weapon.pickupTime) {
 	        const now = Date.now();
-	        if (now - weapon.pickupTime >= 3000) {
+	        if (now - weapon.pickupTime >= weaponTime) {
 	            const holder = weapon.heldBy;
 	            holder.armed = false;
 	            holder.el.style.border = `3px solid ${holder.team === 'A' ? 'cyan' : 'red'}`;
@@ -602,6 +605,6 @@ function spawnPlayer(i, team) {
 	  loopId = requestAnimationFrame(loop);
 	}
 	</script>
-
+	<!-- minecraft funny,minecraft meme,minecraft trolling,minecraft fails,minecraft pranks,minecraft brainrot,minecraft edits,minecraft animation,minecraft short,minecraft skit,minecraft adventure,minecraft survival challenge,minecraft hardcore mode,minecraft pvp,minecraft battle,minecraft boss fight,minecraft nether,minecraft ender dragon,minecraft speedrun,minecraft survival world -->
 </body>
 </html>
