@@ -276,23 +276,31 @@ body {
                <!-- Top Degrees -->
                <section class="top-recommendations">
 				  <h3>🏆 Top 3 Recommended Fields</h3>
-				  <div class="top-list">
+				
+				  <!-- ✅ Show if there are recommendations -->
+				  <div class="top-list" th:if="*{top3Recommendations != null and !top3Recommendations.isEmpty()}">
 				    <div class="top-item" th:each="rec, stat : *{top3Recommendations}">
 				      <span class="rank" th:text="${stat.count} + '.'"></span>
 				      <span class="rec-name" th:text="${rec.name}">Sample Degree</span>
 				      <span class="rec-percent" th:text="|(${#numbers.formatDecimal(rec.percentage, 1, 1)}%)|">90.0%</span>
 				    </div>
 				  </div>
+				
+				  <!-- ❌ Show this if list is empty -->
+				  <p th:unless="*{top3Recommendations != null and !top3Recommendations.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
+				    I'm sorry, you currently have no recommendations based on your answers.
+				  </p>
 				</section>
+
                <!-- Top Strands -->
-               <section class="top-recommendations">
+<!--                <section class="top-recommendations">
                   <h3>Top 3 Recommended Strands</h3>
                   <div class="top-list">
                      <div class="top-item">STEM</div>
                      <div class="top-item">ICT</div>
                      <div class="top-item">ABM</div>
                   </div>
-               </section>
+               </section> -->
                <!-- Top Universities -->
                <section class="top-recommendations">
                   <h3>Top Universities for Your Recommended Degrees</h3>

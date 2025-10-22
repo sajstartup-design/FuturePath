@@ -62,15 +62,18 @@ public class SecurityConfig {
 						.requestMatchers("/css/**").permitAll()
 						.requestMatchers("/script/**").permitAll()
 						.requestMatchers("/fonts/**").permitAll()
+						.requestMatchers("/gif/**").permitAll()
 						
 						.requestMatchers("/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
 						.requestMatchers("/api/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
 						
 						.requestMatchers("/dashboard/**").hasAuthority(CommonConstant.ROLE_USER)
 						.requestMatchers("/quiz/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/assessment/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/universities/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/strandegrees/**").hasAuthority(CommonConstant.ROLE_USER)
 						
-						
-						
+						.requestMatchers("/api/**").hasAnyAuthority(CommonConstant.ROLE_USER)
 						)
 				.formLogin((form) -> form
 						.loginPage("/login")

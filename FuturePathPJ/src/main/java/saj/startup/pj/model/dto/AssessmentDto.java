@@ -35,9 +35,11 @@ public class AssessmentDto {
 	
 	public List<RecommendationObj> getTop3Recommendations() {
 	    return recommendationMap.values().stream()
+	        .filter(rec -> rec.getPercentage() > 0) // ✅ only include non-zero percentages
 	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
 	        .limit(3)
 	        .collect(Collectors.toList());
 	}
+
 
 }
