@@ -1,6 +1,8 @@
 package saj.startup.pj.model.logic.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import saj.startup.pj.model.dao.entity.UniversityData;
 import saj.startup.pj.model.dao.entity.UniversityEntity;
 import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
+import saj.startup.pj.model.dao.projection.StrandegreeAvailabilityProjection;
 import saj.startup.pj.model.logic.UniversityLogic;
 
 @Service
@@ -54,5 +57,36 @@ public class UniversityLogicImpl implements UniversityLogic{
 	
 		return universityDao.getAllUniversitiesNoPageable();
 	}
+
+	@Override
+	public UniversityEntity getUniversityIdPk(int idPk) {
+		
+		return universityDao.getUniversityByIdPk(idPk);
+	}
+
+	@Override
+	public HashMap<Integer, Boolean> getAvailableStrandegree(int universityIdPk) {
+	    List<StrandegreeAvailabilityProjection> results =
+	        universityStrandegreeAvailabilityDao.getAvailableStrandegree(universityIdPk);
+	    
+	    System.out.println(results);
+	    
+	    return results.stream()
+	        .filter(r -> r.getIdStrandegreeIdPk() != null && r.getAvailability() != null) // prevent NPE
+	        .collect(Collectors.toMap(
+	            StrandegreeAvailabilityProjection::getIdStrandegreeIdPk,
+	            StrandegreeAvailabilityProjection::getAvailability,
+	            (a, b) -> b, 
+	            HashMap::new
+	        ));
+	}
+
+	@Override
+	public Boolean findStrandegreeAvailability(int strandegreeIdPk, int unviversityIdPk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

@@ -2,7 +2,9 @@ package saj.startup.pj.model.service.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -145,5 +147,94 @@ public class UniversityServiceImpl implements UniversityService {
 		
 		return outDto;
 	}
+
+	@Override
+	public UniversityDto getUniversity(UniversityDto inDto) throws Exception {
+		
+		UniversityDto outDto = new UniversityDto();
+		
+		UniversityEntity entity = universityLogic.getUniversityIdPk(inDto.getIdPk());
+		
+		UniversityObj obj = new UniversityObj();
+		
+		obj.setUniversityName(entity.getUniversityName());
+		obj.setCategory(entity.getCategory());
+		obj.setContact(entity.getContact());
+		obj.setFounded(entity.getFounded());
+		obj.setStudents(entity.getStudents());
+		obj.setStreet(entity.getStreet());
+		obj.setCity(entity.getCity());
+		obj.setProvince(entity.getProvince());
+		obj.setPostalCode(entity.getPostalCode());
+		obj.setMotto(entity.getMotto());
+		
+		outDto.setUniversity(obj);
+		
+		HashMap<Integer, Boolean> strandegreesAvailability = universityLogic.getAvailableStrandegree(inDto.getIdPk());
+		
+		outDto.setStrandegreesAvailability(strandegreesAvailability);
+		
+		return outDto;
+	}
+	
+	
+	@Override
+	public void updateUniversity(UniversityDto inDto) throws Exception {
+
+	    // 🔹 Get existing university
+	    UniversityEntity existingUniversity = universityLogic.getUniversityIdPk(inDto.getIdPk());
+	    if (existingUniversity == null) {
+	        throw new Exception("University not found with ID: " + inDto.getIdPk());
+	    }
+
+	    // 🔹 Update fields
+	    existingUniversity.setUniversityName(inDto.getUniversityName());
+	    existingUniversity.setCategory(inDto.getCategory());
+	    existingUniversity.setContact(inDto.getContact());
+	    existingUniversity.setStreet(inDto.getStreet());
+	    existingUniversity.setCity(inDto.getCity());
+	    existingUniversity.setProvince(inDto.getProvince());
+	    existingUniversity.setPostalCode(inDto.getPostalCode());
+	    existingUniversity.setFounded(inDto.getFounded());
+	    existingUniversity.setStudents(inDto.getStudents());
+	    existingUniversity.setMotto(inDto.getMotto());
+	    existingUniversity.setIsActive(true);
+	    existingUniversity.setIsDeleted(false);
+
+	    universityLogic.saveUniversity(existingUniversity);
+
+	    // 🔹 Get current availability map
+	    Map<Integer, Boolean> existingMap = universityLogic.getAvailableStrandegree(inDto.getIdPk());
+
+	    // 🔹 Build list of updates (only changes)
+	    List<UniversityStrandegreeAvailabilityEntity> updates = new ArrayList<>();
+
+	    if (inDto.getStrandegreesAvailability() != null) {
+	        for (Map.Entry<Integer, Boolean> entry : inDto.getStrandegreesAvailability().entrySet()) {
+	            Integer strandegreeIdPk = entry.getKey();
+	            Boolean newAvailability = entry.getValue();
+	            Boolean currentAvailability = existingMap.get(strandegreeIdPk);
+
+	            // Only process if value changed or doesn’t exist yet
+	            if (currentAvailability == null || !currentAvailability.equals(newAvailability)) {
+	                UniversityStrandegreeAvailabilityId id = new UniversityStrandegreeAvailabilityId();
+	                id.setUniversityIdPk(inDto.getIdPk());
+	                id.setStrandegreeIdPk(strandegreeIdPk);
+
+	                UniversityStrandegreeAvailabilityEntity entity = new UniversityStrandegreeAvailabilityEntity();
+	                entity.setId(id);
+	                entity.setAvailability(newAvailability);
+
+	                updates.add(entity);
+	            }
+	        }
+
+	        if (!updates.isEmpty()) {
+	            universityLogic.saveAllStrandegreeAvailability(updates);
+	        }
+	    }
+	}
+
+
 
 }

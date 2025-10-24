@@ -113,7 +113,7 @@ async function loadUniversities(page = 0,
 				<td>${formattedDate}</td>
 				<td><span class="status-label ${university.isActive ? 'active' : 'inactive'}">${university.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
-		            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
+		            <a href="/admin/universities/edit?idPk=${university.universityIdPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
 		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
 	            </td>
             `;

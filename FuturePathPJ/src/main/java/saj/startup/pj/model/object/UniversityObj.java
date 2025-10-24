@@ -26,5 +26,7 @@ public class UniversityObj {
 	private String students;
 	
 	private int courses;
+	
+	private String motto;
 
 }

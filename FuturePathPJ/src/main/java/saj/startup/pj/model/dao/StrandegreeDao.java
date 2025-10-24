@@ -51,7 +51,8 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	
 	public final String GET_ALL_STRANDEGREES_NO_PAGEABLE = "SELECT e "
 			+ "FROM StrandegreeEntity e "
-			+ "WHERE isDeleted = false ";
+			+ "WHERE isDeleted = false "
+			+ "ORDER BY e.idPk ASC  ";
 	
 	@Query(GET_ALL_STRANDEGREES_NO_PAGEABLE)
 	public List<StrandegreeEntity> getAllStrandegreesNoPageable() throws DataAccessException;
@@ -61,7 +62,9 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 		    + "e.category, e.code, e.name, CAST(COUNT(q.idPk) AS INTEGER) ) "
 		    + "FROM StrandegreeEntity e "
 		    + "LEFT JOIN QuestionEntity q ON q.strandegreeIdPk = e.idPk AND q.isDeleted = false "
-		    + "GROUP BY e.category, e.code, e.name";
+		    + "GROUP BY e.idPk, e.category, e.code, e.name "
+		    + "ORDER BY e.idPk";
+
 	
 	
 	@Query(GET_ALL_STRANDEGREE_WITH_TOTAL_QUESTIONS)

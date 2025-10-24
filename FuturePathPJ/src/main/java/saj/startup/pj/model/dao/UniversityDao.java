@@ -100,4 +100,11 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 
 	@Query(GET_ALL_UNIVERSITIES_NO_PAGEABLE)
 	public List<UniversityData> getAllUniversitiesNoPageable() throws DataAccessException;
+	
+	public final String GET_UNIVERSITY_BY_ID_PK = """
+				SELECT u FROM UniversityEntity u WHERE u.idPk = :idPk
+			""";
+	
+	@Query()
+	public UniversityEntity getUniversityByIdPk(@Param("idPk") int idPk) throws DataAccessException;
 }

@@ -79,6 +79,52 @@ public class UniversityController {
 	    return "redirect:/admin/universities";
 	}
 	
+	@GetMapping("/admin/universities/edit")
+	public String showUniversitiesEdit(Model model, @ModelAttribute UniversityDto webDto) {
+		
+		try {
+			UniversityDto outDto = universityService.getUniversity(webDto);
+			
+			System.out.println(outDto);
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("universityDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("page", "universities");
+		
+		return "university/university-edit";
+	}
+	
+	@PostMapping("/admin/universities/edit")
+	public String postUniversitiesEdit(@ModelAttribute UniversityDto webDto,
+			RedirectAttributes ra) {
+	      
+	    try {
+		    universityService.updateUniversity(webDto);
+		    
+		    ra.addFlashAttribute("isSuccess", true);
+		    ra.addFlashAttribute("successMsg", MessageConstant.UNIVERSITY_EDITED);
+		    
+	    } catch(Exception e) {
+	    	
+	    	e.printStackTrace();
+	    	
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+	    }
+	   
+	    return "redirect:/admin/universities";
+	}
+	
 	
 	/*
 	 * USER

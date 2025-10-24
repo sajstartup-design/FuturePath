@@ -1,5 +1,6 @@
 package saj.startup.pj.model.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -23,4 +24,10 @@ public interface UniversityLogic {
 	public Page<UniversityData> getAllUniversities(Pageable pageable, String search);
 	
 	public List<UniversityData> getAllUniversitiesNoPageable();
+	
+	public UniversityEntity getUniversityIdPk(int idPk);
+	
+	public HashMap<Integer, Boolean> getAvailableStrandegree(int universityIdPk);
+	
+	public Boolean findStrandegreeAvailability(int strandegreeIdPk, int unviversityIdPk);
 }
