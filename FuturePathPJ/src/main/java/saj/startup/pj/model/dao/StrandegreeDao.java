@@ -16,16 +16,17 @@ import saj.startup.pj.model.dao.entity.StrandegreeQuestionData;
 public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer> {
 
 	public final String GET_STRANDEGREE_OVERVIEW =
-	        "SELECT new saj.startup.pj.model.dao.entity.StrandegreeOverviewData( " +
-	        "CAST(SUM(CASE WHEN e.category = 'STRAND' THEN 1 ELSE 0 END) AS INTEGER), " + // totalStrand
-	        "CAST(SUM(CASE WHEN e.category = 'STRAND' AND e.isActive = true THEN 1 ELSE 0 END) AS INTEGER), " + // activeStrand
-	        "CAST(SUM(CASE WHEN e.category = 'STRAND' AND e.isActive = false THEN 1 ELSE 0 END) AS INTEGER), " + // inactiveStrand
-	        "CAST(SUM(CASE WHEN e.category = 'DEGREE' THEN 1 ELSE 0 END) AS INTEGER), " + // totalDegree
-	        "CAST(SUM(CASE WHEN e.category = 'DEGREE' AND e.isActive = true THEN 1 ELSE 0 END) AS INTEGER), " + // activeDegree
-	        "CAST(SUM(CASE WHEN e.category = 'DEGREE' AND e.isActive = false THEN 1 ELSE 0 END) AS INTEGER) " + // inactiveDegree
-	        ") " +
-	        "FROM StrandegreeEntity e " +
-	        "WHERE e.isDeleted = false";
+		    "SELECT new saj.startup.pj.model.dao.entity.StrandegreeOverviewData( " +
+		    "CAST(COALESCE(SUM(CASE WHEN e.category = 'STRAND' THEN 1 ELSE 0 END), 0) AS INTEGER), " + // totalStrand
+		    "CAST(COALESCE(SUM(CASE WHEN e.category = 'STRAND' AND e.isActive = true THEN 1 ELSE 0 END), 0) AS INTEGER), " + // activeStrand
+		    "CAST(COALESCE(SUM(CASE WHEN e.category = 'STRAND' AND e.isActive = false THEN 1 ELSE 0 END), 0) AS INTEGER), " + // inactiveStrand
+		    "CAST(COALESCE(SUM(CASE WHEN e.category = 'DEGREE' THEN 1 ELSE 0 END), 0) AS INTEGER), " + // totalDegree
+		    "CAST(COALESCE(SUM(CASE WHEN e.category = 'DEGREE' AND e.isActive = true THEN 1 ELSE 0 END), 0) AS INTEGER), " + // activeDegree
+		    "CAST(COALESCE(SUM(CASE WHEN e.category = 'DEGREE' AND e.isActive = false THEN 1 ELSE 0 END), 0) AS INTEGER) " + // inactiveDegree
+		    ") " +
+		    "FROM StrandegreeEntity e " +
+		    "WHERE e.isDeleted = false";
+
 	
 	@Query(GET_STRANDEGREE_OVERVIEW)
 	public StrandegreeOverviewData getStrandegreeOverview() throws DataAccessException;
