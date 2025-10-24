@@ -46,6 +46,9 @@ public class UniversityServiceImpl implements UniversityService {
 		newUniversity.setIsActive(true);
 		newUniversity.setIsDeleted(false);
 		newUniversity.setCreatedAt(timeNow);
+		newUniversity.setFounded(inDto.getFounded());
+		newUniversity.setStudents(inDto.getStudents());
+		newUniversity.setMotto(inDto.getMotto());
 		
 		int universityIdPk = universityLogic.saveUniversity(newUniversity);
 		
@@ -112,15 +115,15 @@ public class UniversityServiceImpl implements UniversityService {
 		
 		UniversityDto outDto = new UniversityDto();
 		
-		List<UniversityEntity> allUniversities = universityLogic.getAllUniversitiesNoPageable();
+		List<UniversityData> allUniversities = universityLogic.getAllUniversitiesNoPageable();
 		
 		List<UniversityObj> universities = new ArrayList<>();
 		
-		for(UniversityEntity university : allUniversities) {
+		for(UniversityData university : allUniversities) {
 			
 			UniversityObj obj = new UniversityObj();
 			
-			obj.setUniversityIdPk(university.getIdPk());
+			obj.setUniversityIdPk(university.getUniversityIdPk());
 			obj.setUniversityName(university.getUniversityName());
 			obj.setCategory(university.getCategory());
 			obj.setContact(university.getContact());
@@ -128,8 +131,9 @@ public class UniversityServiceImpl implements UniversityService {
 			obj.setCity(university.getCity());
 			obj.setProvince(university.getProvince());
 			obj.setPostalCode(university.getPostalCode());		
-			
-			
+			obj.setFounded(university.getFounded());
+			obj.setStudents(university.getStudents());
+			obj.setCourses(university.getCoursesOffered());		
 			
 			
 			

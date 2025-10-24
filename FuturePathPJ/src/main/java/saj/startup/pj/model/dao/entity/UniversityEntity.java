@@ -37,4 +37,10 @@ public class UniversityEntity {
 	private Boolean isDeleted;
 	
 	private Timestamp createdAt;
+	
+	private String founded;
+	
+	private String students;
+	
+	private String motto;
 }

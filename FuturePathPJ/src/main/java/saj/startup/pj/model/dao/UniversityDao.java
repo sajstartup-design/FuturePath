@@ -63,7 +63,8 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 		  + "       CAST(SUM(CASE WHEN s.availability = true THEN 1 ELSE 0 END) AS string) LIKE CONCAT('%', :search, '%') "
 		  + "   )) " 
 		  + "   OR (:search IS NULL OR :search = '') "
-		  + ")";
+		  + ") "
+		  + "ORDER BY e.idPk ASC ";
 
 
 
@@ -73,11 +74,30 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 			@Param("search") String search) throws DataAccessException;
 	
 	public final String GET_ALL_UNIVERSITIES_NO_PAGEABLE = 
-		    """
-				SELECT e FROM UniversityEntity e
-				WHERE e.isDeleted = false
-			""";
+		    "SELECT new saj.startup.pj.model.dao.entity.UniversityData( "
+		  + " e.idPk, "
+		  + " e.universityName, "
+		  + " e.category, "  // mapped to 'type'
+		  + " CAST(SUM(CASE WHEN s.availability = true THEN 1 ELSE 0 END) AS INTEGER), " // coursesOffered
+		  + " e.contact, "
+		  + " e.street, "
+		  + " e.city, "
+		  + " e.province, "
+		  + " e.postalCode, "
+		  + " e.isActive, "
+		  + " e.createdAt, "
+		  + " e.category, "
+		  + " e.founded, "
+		  + " e.students "
+		  + ") "
+		  + "FROM UniversityEntity e "
+		  + "LEFT JOIN UniversityStrandegreeAvailabilityEntity s "
+		  + "ON s.id.universityIdPk = e.idPk "
+		  + "WHERE e.isDeleted = false "
+		  + "GROUP BY e.idPk, e.universityName, e.category, e.contact, "
+		  + " e.street, e.city, e.province, e.postalCode, e.isActive, e.createdAt " 
+		  + "ORDER BY e.idPk ASC ";
 
 	@Query(GET_ALL_UNIVERSITIES_NO_PAGEABLE)
-	public List<UniversityEntity> getAllUniversitiesNoPageable() throws DataAccessException;
+	public List<UniversityData> getAllUniversitiesNoPageable() throws DataAccessException;
 }

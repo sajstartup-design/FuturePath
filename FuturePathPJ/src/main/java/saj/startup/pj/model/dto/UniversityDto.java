@@ -38,4 +38,10 @@ public class UniversityDto {
 	private List<UniversityObj> allUniversities;
 	
 	private UniversityOverviewData overview;
+	
+	private String founded;
+	
+	private String students;
+	
+	private String motto;
 }

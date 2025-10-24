@@ -50,7 +50,7 @@ public class UniversityLogicImpl implements UniversityLogic{
 	}
 
 	@Override
-	public List<UniversityEntity> getAllUniversitiesNoPageable() {
+	public List<UniversityData> getAllUniversitiesNoPageable() {
 	
 		return universityDao.getAllUniversitiesNoPageable();
 	}

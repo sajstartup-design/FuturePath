@@ -21,10 +21,11 @@ async function loadUniversities() {
       const iconClass = getUniversityIcon(uni.category);
 
       // Fallback values
-      const founded = uni.foundedYear || "N/A";
-      const students = uni.studentCount ? `${uni.studentCount}+` : "N/A";
+      const founded = uni.founded || "N/A";
+      const students = uni.students ? `${uni.students}+` : "N/A";
       const category = uni.category || "N/A";
-      const courses = uni.coursesOffered || "N/A";
+	  const courses = uni.courses ? `${uni.courses} Programs Available` : "No programs listed";
+
       const location = [uni.street, uni.city, uni.province, uni.postalCode]
         .filter(Boolean)
         .join(", ");

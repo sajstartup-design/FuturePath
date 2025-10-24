@@ -20,5 +20,11 @@ public class UniversityObj {
 	private String province;
 	
 	private String postalCode;
+	
+	private String founded;
+	
+	private String students;
+	
+	private int courses;
 
 }
