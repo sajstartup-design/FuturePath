@@ -20,4 +20,6 @@ public class StrandegreeObj {
 	private Boolean isActive;
 	
 	private Timestamp createdAt;
+	
+	private int duration;
 }

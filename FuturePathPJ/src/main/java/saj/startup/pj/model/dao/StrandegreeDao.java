@@ -42,7 +42,8 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 		    + "       LOWER(CAST(e.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
 		    + "   )) " 
 		    + "   OR (:search IS NULL OR :search = '') " 
-		    + ")";
+		    + ") "
+		    + "ORDER BY e.idPk ASC " ;
 	
 	@Query(GET_ALL_STRANDEGREES)
 	public Page<StrandegreeEntity> getAllStrandegrees(Pageable pageable,
@@ -65,4 +66,11 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	
 	@Query(GET_ALL_STRANDEGREE_WITH_TOTAL_QUESTIONS)
 	public List<StrandegreeQuestionData> getAllStrandegreeQuestion() throws DataAccessException;
+	
+	public final String GET_STRANDEGREE_BY_ID_PK = """
+				SELECT e FROM StrandegreeEntity e WHERE e.idPk = :idPk
+			""";
+	
+	@Query(GET_STRANDEGREE_BY_ID_PK)
+	public StrandegreeEntity getStrandegreeByIdPk(@Param("idPk") int idPk) throws DataAccessException;
 }

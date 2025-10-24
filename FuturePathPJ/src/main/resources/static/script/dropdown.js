@@ -25,7 +25,8 @@ function createCustomDropdown(dropdown){
 	   // Create Element for Selected Option
 	   const selected = document.createElement("div");
 	   selected.classList.add("dropdown-select");
-	   selected.textContent = optionsArr[0].textContent;
+	   const selectedOption = optionsArr.find(opt => opt.selected) || optionsArr[0];
+	   selected.textContent = selectedOption.textContent;
 	   customDropdown.appendChild(selected); 
 
 	   // Create Element for Dropdown Menu

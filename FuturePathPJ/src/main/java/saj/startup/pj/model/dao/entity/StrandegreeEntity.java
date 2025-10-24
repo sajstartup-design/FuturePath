@@ -26,6 +26,8 @@ public class StrandegreeEntity {
 	
 	private String details;
 	
+	private int duration;
+	
 	private Boolean isActive;
 	
 	private Boolean isDeleted;

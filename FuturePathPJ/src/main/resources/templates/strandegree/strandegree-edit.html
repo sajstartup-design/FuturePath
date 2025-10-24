@@ -15,19 +15,19 @@
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">
-			STRAND & DEGREE > ADD
+			STRAND & DEGREE > EDIT
 		</nav>
 		<hr>
 		<div class="content">
-			<form th:action="@{/admin/strandegrees/add}" method="POST" th:object="${strandegreeDto}">
-				
+			<form th:action="@{/admin/strandegrees/edit}" method="POST" th:object="${strandegreeDto}">
+				<input type="hidden" name="idPk" th:value="*{idPk}" />
 				<!-- Program Name -->
 				<div class="field-group">
 					<div class="field">
 					    <label>NAME</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-graduation-cap"></i>
-					      <input type="text" placeholder="Enter program name" name="name"/>
+					      <input type="text" placeholder="Enter program name" name="name" th:value="*{strandegree.name}"/>
 					    </div>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 					    <label>CODE (Ex. BSIT)</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-code"></i>
-					      <input type="text" placeholder="Enter program code" name="code"/>
+					      <input type="text" placeholder="Enter program code" name="code" th:value="*{strandegree.code}"/>
 					    </div>
 					</div>
 					<div class="field">
@@ -47,8 +47,8 @@
 					      <i class="fas fa-layer-group"></i>
 					      <select name="category" class="dropdown">
 					      	<option>Select Category...</option>
-					      	<option>STRAND</option>
-					      	<option>DEGREE</option>
+					      	<option th:selected="*{strandegree.category == 'STRAND'} ">STRAND</option>
+					      	<option th:selected="*{strandegree.category == 'DEGREE'} ">DEGREE</option>
 					      </select>
 					    </div>
 					</div>
@@ -56,7 +56,7 @@
 					    <label>DURATION (1 year)</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-stopwatch"></i>
-					      <input type="number" placeholder="Enter program duration" name="duration"/>
+					      <input type="number" placeholder="Enter program duration" name="duration" th:value="*{strandegree.duration}"/>
 					    </div>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 					    <label>DETAILS</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-info-circle"></i>
-					      <textarea type="text" placeholder="Enter program details" name="details"/></textarea>
+					      <textarea type="text" placeholder="Enter program details" name="details" th:text="*{strandegree.details}"/></textarea>
 					    </div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 						<i class="fas fa-times"></i> CANCEL
 					</a>
 					<button type="submit" class="btn btn-primary transitioning">
-						<i class="fas fa-save"></i> SAVE
+						<i class="fas fa-save"></i> UPDATE
 					</button>
 				</div>
 			</form>			

@@ -74,6 +74,62 @@ public class StrandegreeController {
 		return "redirect:/admin/strandegrees";
 	}
 	
+	@GetMapping("/admin/strandegrees/edit")
+	public String showStrandegreeEdit(@ModelAttribute StrandegreeDto webDto,
+			Model model,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			StrandegreeDto outDto = strandegreeService.getStrandegree(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("strandegreeDto", outDto);
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/strandegrees";
+		}
+			
+		model.addAttribute("page", "strandegrees");
+		
+		return "strandegree/strandegree-edit";
+	}
+	
+	@PostMapping("/admin/strandegrees/edit")
+	public String postStrandegreeEdit(@ModelAttribute StrandegreeDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			strandegreeService.updateStrandegree(webDto);
+			
+			ra.addFlashAttribute("isSuccess", true);
+			
+			if(CommonConstant.DEGREE.equals(webDto.getCategory())) {
+				
+				ra.addFlashAttribute("successMsg", MessageConstant.DEGREE_EDITED);
+			}else {
+				ra.addFlashAttribute("successMsg", MessageConstant.STRAND_EDITED);
+			}
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+					
+		}	
+		
+		return "redirect:/admin/strandegrees";
+	}
+	
 	/*
 	 * USER
 	 * 
