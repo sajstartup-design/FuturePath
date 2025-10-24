@@ -79,6 +79,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		    obj.setCode(strandegree.getCode());
 		    obj.setCategory(strandegree.getCategory());
 		    obj.setDetails(strandegree.getDetails());
+		    obj.setDuration(strandegree.getDuration());
 		    obj.setIsActive(strandegree.getIsActive());
 		    obj.setCreatedAt(strandegree.getCreatedAt());
 		    
@@ -116,6 +117,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		    obj.setCode(strandegree.getCode());
 		    obj.setCategory(strandegree.getCategory());
 		    obj.setDetails(strandegree.getDetails());
+		    obj.setDuration(strandegree.getDuration());
 		    obj.setIsActive(strandegree.getIsActive());
 		    obj.setCreatedAt(strandegree.getCreatedAt());
 		    
