@@ -91,6 +91,19 @@
   .gallery-player.selected, .gallery-weapon.selected {
     border: 3px solid yellow;
   }
+  
+    #arenaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#playerHUD {
+  width: 600px;       /* same as arena */
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
 
   #arena {
     width: 600px;
@@ -165,9 +178,12 @@
   <div id="weaponGallery"></div>
 </div>
 
-<div id="arena">
-  <div id="weapon" class="weapon"></div>
-  <div id="winner"></div>
+<div id="arenaContainer" style="display:flex; flex-direction:column; align-items:center;">
+  <div id="arena">
+    <div id="weapon" class="weapon"></div>
+    <div id="winner"></div>
+  </div>
+  <div id="playerHUD" style="width:600px; display:flex; justify-content:space-around; margin-top:10px;"></div>
 </div>
 
 <div id="controls">
@@ -387,6 +403,80 @@ function spawnPlayer(i, team) {
 	    hpBar: hpBar
 	  });
 	}
+	
+const playerHUD = document.getElementById("playerHUD");
+
+function updateHUD() {
+	  playerHUD.innerHTML = "";
+
+	  players.forEach(p => {
+	    const hudItem = document.createElement("div");
+	    hudItem.style.display = "flex";
+	    hudItem.style.flexDirection = "column";
+	    hudItem.style.alignItems = "center";
+	    hudItem.style.margin = "0 5px";
+
+	    // Player image or X if dead
+	    const img = document.createElement("div");
+	    img.style.width = "40px";
+	    img.style.height = "40px";
+	    img.style.border = "2px solid #000";
+	    img.style.borderRadius = "4px";
+	    img.style.display = "flex";
+	    img.style.alignItems = "center";
+	    img.style.justifyContent = "center";
+	    img.style.fontWeight = "bold";
+	    img.style.fontSize = "20px";
+	    img.style.color = "#ff0000";
+	    img.style.textShadow = "0 0 4px #000";
+	    img.style.backgroundSize = "contain";
+	    img.style.backgroundPosition = "center";
+	    img.style.backgroundRepeat = "no-repeat";
+
+	    if (p.alive) {
+	      img.style.backgroundImage = p.el.style.backgroundImage;
+	      img.textContent = "";
+	    } else {
+	      img.style.backgroundImage = "";
+	      img.textContent = "X";
+	    }
+
+	    hudItem.appendChild(img);
+
+	    // HP bar container
+	    const hpContainer = document.createElement("div");
+	    hpContainer.style.width = "40px";
+	    hpContainer.style.height = "8px";
+	    hpContainer.style.background = "#222";
+	    hpContainer.style.border = "1px solid #000";
+	    hpContainer.style.borderRadius = "3px";
+	    hpContainer.style.marginTop = "4px";
+	    hudItem.appendChild(hpContainer);
+
+	    // HP fill
+	    const hpFill = document.createElement("div");
+	    hpFill.style.height = "100%";
+	    hpFill.style.width = p.alive ? `${(p.hp / teamHP[p.team]) * 100}%` : "100%";
+	    hpFill.style.background = p.alive
+	      ? (p.hp > 0 ? "#00ff00" : "#ff0000")
+	      : "#555"; // grey if dead
+	    hpFill.style.borderRadius = "3px";
+	    hpContainer.appendChild(hpFill);
+
+	    // Numeric HP text
+	    const hpText = document.createElement("div");
+	    hpText.textContent = p.alive ? p.hp : "";
+	    hpText.style.fontSize = "10px";
+	    hpText.style.fontWeight = "bold";
+	    hpText.style.color = "#fff";
+	    hpText.style.textShadow = "0 0 3px #000";
+	    hpText.style.marginTop = "2px";
+	    hudItem.appendChild(hpText);
+
+	    playerHUD.appendChild(hudItem);
+	  });
+	}
+
 
 	function removePlayer(i) {
 	  const pData = availablePlayers[i];
@@ -603,6 +693,8 @@ function spawnPlayer(i, team) {
 	  });
 
 	  loopId = requestAnimationFrame(loop);
+	  
+	  updateHUD();
 	}
 	</script>
 	<!-- minecraft funny,minecraft meme,minecraft trolling,minecraft fails,minecraft pranks,minecraft brainrot,minecraft edits,minecraft animation,minecraft short,minecraft skit,minecraft adventure,minecraft survival challenge,minecraft hardcore mode,minecraft pvp,minecraft battle,minecraft boss fight,minecraft nether,minecraft ender dragon,minecraft speedrun,minecraft survival world -->
