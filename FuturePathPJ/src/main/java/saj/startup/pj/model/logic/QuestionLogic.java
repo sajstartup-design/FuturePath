@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import saj.startup.pj.model.dao.entity.AnswerData;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.QuestionData;
@@ -27,5 +28,9 @@ public interface QuestionLogic {
 	
 	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
 			int answerIdPk);
+	
+	public QuestionEntity getQuestionByIdPk(int idPk);
+	
+	public List<AnswerData> getAnswersByQuestionIdPk(int questionIdPk);
 	
 }

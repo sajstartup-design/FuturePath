@@ -10,6 +10,8 @@ import saj.startup.pj.model.object.QuestionObj;
 
 @Data
 public class QuestionDto {
+	
+	private int idPk;
 
 	public String category;
 	
@@ -32,5 +34,7 @@ public class QuestionDto {
 	private List<String> strands;
 	
 	private List<String> degrees;
+	
+	private QuestionObj questionObj;
 	
 }

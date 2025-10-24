@@ -77,4 +77,16 @@ public class QuestionLogicImpl implements QuestionLogic{
 		return questionDao.getQuestionAssessmentChecker(questionIdPk, answerIdPk);
 	}
 
+	@Override
+	public QuestionEntity getQuestionByIdPk(int idPk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AnswerData> getAnswersByQuestionIdPk(int questionIdPk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
