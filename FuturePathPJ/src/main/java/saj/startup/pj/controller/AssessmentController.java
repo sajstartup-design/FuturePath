@@ -35,6 +35,12 @@ public class AssessmentController {
 		return "assessment/assessment-home";
 	}
 	
+	@GetMapping("/assessment/riasec")
+	public String showAssessmentRiasec() {
+		
+		return "assessment/assessment-riasec";
+	}
+	
 	@PostMapping(value="/assessment", params="mode")
 	public String showQuizDegree(Model model, @ModelAttribute AssessmentDto webDto,
 			RedirectAttributes ra) {

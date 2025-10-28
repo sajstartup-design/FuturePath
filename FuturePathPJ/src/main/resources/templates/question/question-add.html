@@ -29,12 +29,26 @@
 					    <div class="input-wrapper">
 					      <i class="fas fa-list-alt"></i>
 					      <select name="category" class="dropdown">
-					      	<option>Select Type...</option>
+					      	<option>Select Category...</option>
 					      	<option>STRAND</option>
 					      	<option>DEGREE</option>
 					      </select>
 					    </div>
 					</div>
+					<div class="field">
+					    <label>TYPE</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-list-alt"></i>
+					      <select name="category" class="dropdown">
+					      	<option>Select Type...</option>
+					      	<option>RIASEC</option>
+					      	<option>LIKERT</option>
+					      </select>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="field-group">
 					<div class="field">
 					    <label>STRAND/DEGREE</label>  
 					    <div class="input-wrapper">
@@ -45,6 +59,24 @@
 					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
 					      		th:value="${strandegree.idPk}"
 					      	>STRAND</option>
+					      </select>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="field-group">
+					<div class="field">
+					    <label>RIASEC TYPE</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-graduation-cap"></i>
+					      <select name="strandegreeIdPk" class="dropdown">
+					      	<option>Select RIASEC Type...</option>
+					      	<option>REALISTIC</option>
+					      	<option>INVESTIGATIVE</option>
+					      	<option>ARTISTIC</option>
+					      	<option>SOCIAL</option>
+					      	<option>ENTERPRISING</option>
+					      	<option>CONVENTIONAL</option>
 					      </select>
 					    </div>
 					</div>
