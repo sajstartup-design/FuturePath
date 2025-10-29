@@ -56,7 +56,7 @@ public class AssessmentController {
 		return "assessment/assessment-home";
 	}
 	
-	@GetMapping("/assessment/riasec")
+	@GetMapping("/assessment/riasec/degree")
 	public String showAssessmentRiasec() {
 		
 		return "assessment/assessment-riasec";
@@ -96,38 +96,60 @@ public class AssessmentController {
 
 
 	
-	@PostMapping(value="/assessment", params="mode")
-	public String showQuizDegree(Model model, @ModelAttribute AssessmentDto webDto,
-			RedirectAttributes ra) {
-		
-	    System.out.println("Selected: " + webDto.getMode());
+	@PostMapping(value = "/assessment", params = "mode")
+	public String showQuizDegree(
+	        Model model,
+	        @ModelAttribute AssessmentDto webDto,
+	        RedirectAttributes ra) {
+
+	    System.out.println("Selected mode: " + webDto.getMode());
 
 	    QuestionDto inDto = new QuestionDto();
-	    
 	    inDto.setMode(webDto.getMode());
-	    
 	    inDto.setDegrees(webDto.getDegrees());
-	    
 	    inDto.setStrands(webDto.getStrands());
+	    System.out.println(webDto.getDegrees());
 	    
 	    try {
-	    	QuestionDto outDto = questionService.getQuestionsForAssessment(inDto);
-	    	
-	    	model.addAttribute("questionDto", outDto);
-	    	
-	    }catch(Exception e) {
-	    	e.printStackTrace();
-	    	
-	    	ra.addFlashAttribute("isError", true);
-	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
-	    	
-	    	return "redirect:/dashboard";
+	        switch (webDto.getMode()) {
+
+	            case CommonConstant.DEGREE_DEFAULT_MODE:
+	                // Default degree assessment redirects directly
+	                return "redirect:/assessment/riasec/degree";
+
+	            case CommonConstant.DEGREE_CUSTOM_MODE:
+	                // Custom degree assessment: fetch questions
+	                QuestionDto outDto = questionService.getQuestionsForAssessment(inDto);
+	                model.addAttribute("questionDto", outDto);
+	                break;
+
+	            case CommonConstant.STRAND_DEFAULT_MODE:
+	                System.out.println("UNDER CONSTRUCTION");
+	                break;
+
+	            case CommonConstant.STRAND_CUSTOM_MODE:
+	            	System.out.println("UNDER CONSTRUCTION");
+	                break;
+
+	            default:
+	                // Invalid mode
+	                ra.addFlashAttribute("isError", true);
+	                ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+	                return "redirect:/dashboard";
+	        }
+
+	        model.addAttribute("mode", webDto.getMode());
+
+	        return "assessment/assessment";
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        ra.addFlashAttribute("isError", true);
+	        ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+	        return "redirect:/dashboard";
 	    }
-	    
-	    model.addAttribute("mode", webDto.getMode());
-	    
-	    return "assessment/assessment";
 	}
+
 	
 	@PostMapping("/assessment/result")
 	public String submitAssessment(Model model, 
@@ -147,7 +169,7 @@ public class AssessmentController {
 			ra.addFlashAttribute("isError", true);
 			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 			
-			return "redirect:/dashobard";
+			return "redirect:/assessment";
 			
 		}
 		

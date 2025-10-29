@@ -52,13 +52,13 @@ public class QuestionLogicImpl implements QuestionLogic{
 	}
 
 	@Override
-	public List<QuestionData> getQuestionsForAssessment() {
+	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees) {
 		
 		/*
 		 * This right here can still be improved
 		 */
 		
-		List<QuestionData> questions = questionDao.getQuestionsForAssessment();
+		List<QuestionData> questions = questionDao.getQuestionsForAssessment(degrees);
 		
 		for(QuestionData question : questions) {
 			

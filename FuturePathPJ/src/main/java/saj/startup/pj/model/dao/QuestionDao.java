@@ -64,13 +64,16 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		        e.created_at AS createdAt
 		    FROM question e
 		    INNER JOIN strandegrees s ON s.id_pk = e.strandegree_id_pk
-		    WHERE e.is_deleted = false AND s.category = 'DEGREE'
+		    WHERE e.is_deleted = false 
+		      AND s.category = 'DEGREE'
+		      AND s.code IN :degrees
 		    ORDER BY RANDOM()
 		    LIMIT 3
 		    """;
 
-	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery=true)
-	public List<QuestionData> getQuestionsForAssessment() throws DataAccessException;
+	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery = true)
+	public List<QuestionData> getQuestionsForAssessment(@Param("degrees") List<String> degrees) throws DataAccessException;
+
 	
 	public final String QUESTION_ASSESSMENT_CHECKER = """
 				

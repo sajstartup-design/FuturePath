@@ -8,13 +8,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
       <link rel="stylesheet" th:href="@{/css/common.css}" />
       <style>
-body {
-  font-family: "Poppins", sans-serif;
-  background: #0b1025; /* darker navy background */
-  color: #e2e5f4;
-  margin: 0;
-  padding: 0;
-}
+
 
 .content {
   max-width: 1000px;
@@ -76,8 +70,8 @@ body {
 }
 
 .top-item {
-  background: linear-gradient(90deg, rgba(25, 28, 50, 0.9), rgba(18, 20, 40, 0.9));
-  border-left: 0.25rem solid #00d4ff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #5673ff;
   padding: 0.5rem 1rem;
   border-radius: 0.6rem;
   font-weight: 500;
@@ -189,11 +183,6 @@ body {
 
 .recommendation-list {
   margin-top: 1rem;
-  background: rgba(25, 35, 70, 0.7);
-  padding: 1.5rem 2rem;
-  border-radius: 1rem;
-  box-shadow: inset 0 0 2rem rgba(68, 97, 255, 0.1);
-  border: 1px solid rgba(86, 115, 255, 0.2);
 }
 
 .recommendation-item {
@@ -237,21 +226,54 @@ body {
   transition: width 0.5s ease;
 }
 
-.scores-breakdown {
-  margin-top: 2rem;
+/* Make each score row horizontal */
+/* Horizontal score row */
+.score-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;       /* spacing between icon, name, and bar */
+    margin-bottom: 1rem;
 }
 
-.scores-breakdown h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: #aab6ff;
-  text-align: center;
+/* Icon */
+.score-icon {
+    color: #ffd700;
+    font-size: 1.2rem;
+    width: 1.5rem;     /* uniform space for all icons */
+    text-align: center;
 }
 
-.recommendation-list {
-  margin: 0 auto;
-  max-width: 70rem;
+/* Program name */
+.score-name {
+    width: 6rem;        /* fixed width for alignment */
+    font-weight: 600;
+    color: #dbe1ff;
 }
+
+/* Progress bar */
+.score-bar {
+    flex-grow: 1;       /* bar fills remaining space */
+    height: 1.2rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+/* Bar fill with percentage text inside */
+.score-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #586aff, #00eaff);
+    text-align: right;
+    padding-right: 0.5rem;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    transition: width 0.5s ease;
+}
+
+
 
          
       </style>
@@ -271,7 +293,6 @@ body {
                   <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
                   <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
                   <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div>
-                  <div class="stat-box"><strong>🏁 Status: </strong><span th:text=" *{result}">-</span></div>
                </div>
                <!-- Top Degrees -->
                <section class="top-recommendations">
@@ -291,52 +312,49 @@ body {
 				    I'm sorry, you currently have no recommendations based on your answers.
 				  </p>
 				</section>
-
-               <!-- Top Strands -->
-<!--                <section class="top-recommendations">
-                  <h3>Top 3 Recommended Strands</h3>
-                  <div class="top-list">
-                     <div class="top-item">STEM</div>
-                     <div class="top-item">ICT</div>
-                     <div class="top-item">ABM</div>
-                  </div>
-               </section> -->
-               <!-- Top Universities -->
                <section class="top-recommendations">
-                  <h3>Top Universities for Your Recommended Degrees</h3>
-                  <div class="top-list">
-                     <div class="top-item">
-                        <strong>BS Computer Science</strong><br>
-                        University of the Philippines<br>
-                        De La Salle University<br>
-                        Ateneo de Manila University
-                     </div>
-                     <div class="top-item">
-                        <strong>BS Information Technology</strong><br>
-                        Mapúa University<br>
-                        University of Santo Tomas<br>
-                        FEU Institute of Technology
-                     </div>
-                  </div>
-               </section>
+    <h3>🎓 All Universities Offering Programs</h3>
+    
+    <div class="top-list">
+        <div class="top-item">
+            <span class="rec-name">University of the Philippines</span>
+            <span class="rec-percent">BS Computer Science, BS Information Technology</span>
+        </div>
+        <div class="top-item">
+            <span class="rec-name">De La Salle University</span>
+            <span class="rec-percent">BS Computer Science, BS Information Technology</span>
+        </div>
+        <div class="top-item">
+            <span class="rec-name">Ateneo de Manila University</span>
+            <span class="rec-percent">BS Computer Science</span>
+        </div>
+        <!-- Add more universities here -->
+    </div>
+
+    <p style="text-align:center; color:#aab6ff; margin-top:1rem;">
+        No universities available at the moment.
+    </p>
+</section>
+
                <!-- Scores Breakdown -->
-               <section class="scores-breakdown">
-                  <h3>Scores Breakdown</h3>
-                  <div class="recommendation-list">
-                     <div th:each="rec, iterStat : *{recommendationMap.values()}">
-                        <div class="recommendation-item">
-                           <div class="rec-header">
-                              <span class="rec-rank" th:text="${iterStat.count} + '.'">1.</span>
-                              <span class="rec-code" th:text="${rec.code}">BSCS</span>
-                              <span class="rec-percentage" th:text="|${#numbers.formatDecimal(rec.percentage, 1, 1)}%|">75%</span>
-                           </div>
-                           <div class="rec-bar-container">
-                              <div class="rec-bar" th:style="'width:' + ${rec.percentage} + '%'"></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </section>
+<section class="scores-breakdown">
+    <h3>🎯 Scores Breakdown</h3>
+    <div class="recommendation-list">
+        <div th:each="rec, iterStat : *{recommendationMap.values()}" class="score-row">
+            <div class="score-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="score-name" th:text="${rec.code}">BSCS</div>
+            <div class="score-bar">
+                <div class="score-bar-fill" 
+                     th:style="'width:' + ${rec.percentage} + '%;'" 
+                     th:text="${#numbers.formatDecimal(rec.percentage, 1, 1)} + '%'">0%</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
             </div>
             <div class="next-steps">
                <h3>Next Steps</h3>

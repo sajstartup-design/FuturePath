@@ -24,7 +24,7 @@ public interface QuestionLogic {
 	
 	public Page<QuestionData> getAllQuestions(Pageable pageable, String search);
 	
-	public List<QuestionData> getQuestionsForAssessment();
+	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees);
 	
 	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
 			int answerIdPk);

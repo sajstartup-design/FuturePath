@@ -21,7 +21,7 @@ public class CommonConstant {
 	public static final String DEGREE_DEFAULT_MODE = "DEGREE-DEFAULT-MODE";
 	public static final String DEGREE_CUSTOM_MODE = "DEGREE-CUSTOM-MODE";
 	public static final String STRAND_DEFAULT_MODE = "STRAND-DEFAULT-MODE";
-	public static final String STRAND_CUSTOM_MODE = "STRAND-DEFAULT-MODE";
+	public static final String STRAND_CUSTOM_MODE = "STRAND-CUSTOM-MODE";
 
 	public static final Map<Integer, String> RIASEC_CODE_MAP = Map.ofEntries(
 	        Map.entry(1, "R-I-C"),
