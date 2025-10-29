@@ -3,8 +3,11 @@ package saj.startup.pj.model.service.impl;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,12 +164,25 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    );
 	    message.append("<br>").append(summary);
 
-	    String exampleFields = CommonConstant.RIASEC_CODE_MAP.containsValue(topCombo)
-	        ? CommonConstant.RIASEC_DETAIL_MAP.entrySet().stream()
-	              .filter(e -> CommonConstant.RIASEC_CODE_MAP.get(e.getKey()).equals(topCombo))
-	              .map(Map.Entry::getValue)
-	              .collect(Collectors.joining(", "))
-	        : "Various career paths that align with your skills and interests.";
+	 // top3Letters = ["E", "I", "S"]
+	    Set<String> exampleFieldsSet = new LinkedHashSet<>(); // preserves order & removes duplicates
+
+	    for (String letter : top3Letters) {
+	        // Collect all keys where RIASEC_CODE_MAP contains this letter
+	        Set<Integer> keys = CommonConstant.RIASEC_CODE_MAP.entrySet().stream()
+	                .filter(e -> e.getValue().contains(letter))
+	                .map(Map.Entry::getKey)
+	                .collect(Collectors.toSet());
+
+	        // Collect all corresponding fields from RIASEC_DETAIL_MAP
+	        keys.stream()
+	            .map(CommonConstant.RIASEC_DETAIL_MAP::get)
+	            .filter(Objects::nonNull)
+	            .forEach(exampleFieldsSet::add); // add to set, automatically removes duplicates
+	    }
+
+	    // Join into a single string
+	    String exampleFields = String.join(", ", exampleFieldsSet);
 
 	    DecimalFormat df = new DecimalFormat("0.00");
 
