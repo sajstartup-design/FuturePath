@@ -43,6 +43,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        inDto.getAnsweredJson(),
 	        new TypeReference<HashMap<Integer, Integer>>() {}
 	    );
+	    
+	    System.out.println(getTopMatches("E-I-S"));
 
 	    int totalCorrect = 0;
 	    int totalIncorrect = 0;
@@ -201,6 +203,45 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    return dto;
 	}
+	
+	public static List<String> getTopMatches(String inputCode) {
+	    List<Map.Entry<Integer, String>> allEntries = new ArrayList<>(CommonConstant.RIASEC_CODE_MAP.entrySet());
+
+	    allEntries.sort((a, b) -> Integer.compare(
+	            calculateScore(inputCode, b.getValue()),
+	            calculateScore(inputCode, a.getValue())
+	    ));
+
+	    return allEntries.stream()
+	            .map(e -> CommonConstant.RIASEC_DETAIL_MAP.get(e.getKey()))
+	            .distinct()
+	            .limit(5)
+	            .collect(Collectors.toList());
+	}
+
+	private static int calculateScore(String inputCode, String testCode) {
+	    String[] inp = inputCode.split("-");
+	    String[] tst = testCode.split("-");
+
+	    int score = 0;
+
+	    // Rule 1: Exact match = high priority
+	    if (inputCode.equals(testCode)) score += 100;
+
+	    // Rule 2: Contains all letters bonus
+	    for (String c : inp) {
+	        if (testCode.contains(c)) score += 10;
+	    }
+
+	    // Rule 3: Position match bonus
+	    for (int i = 0; i < 3; i++) {
+	        if (inp[i].equals(tst[i])) score += 5;
+	    }
+
+	    return score;
+	}
+
+
 
 }
 
