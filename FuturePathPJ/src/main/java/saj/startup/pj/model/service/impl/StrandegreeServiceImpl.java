@@ -39,6 +39,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		newStrandegree.setCategory(inDto.getCategory());
 		newStrandegree.setDetails(inDto.getDetails());
 		newStrandegree.setDuration(inDto.getDuration());
+		newStrandegree.setRiasecCode(inDto.getRiasecCode());
 		newStrandegree.setIsActive(true);
 		newStrandegree.setIsDeleted(false);
 		newStrandegree.setCreatedAt(timeNow);
@@ -157,6 +158,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		 obj.setCategory(entity.getCategory());
 		 obj.setDetails(entity.getDetails());
 		 obj.setDuration(entity.getDuration());
+		 obj.setRiasecCode(entity.getRiasecCode());
 		 
 		 outDto.setStrandegree(obj);
 		
@@ -177,6 +179,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 	    existing.setCategory(inDto.getCategory());
 	    existing.setDetails(inDto.getDetails());
 	    existing.setDuration(inDto.getDuration());
+	    existing.setRiasecCode(inDto.getRiasecCode());
 	    
 	    strandegreeLogic.saveStrandegree(existing);
 	}

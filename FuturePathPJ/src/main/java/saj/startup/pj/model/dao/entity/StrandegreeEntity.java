@@ -25,7 +25,7 @@ public class StrandegreeEntity {
 	private String category; 
 	
 	private String details;
-	
+	 
 	private int duration;
 	
 	private Boolean isActive;
@@ -33,4 +33,6 @@ public class StrandegreeEntity {
 	private Boolean isDeleted;
 	
 	private Timestamp createdAt;
+	
+	private int riasecCode = 0;
 }

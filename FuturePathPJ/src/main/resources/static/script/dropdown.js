@@ -50,17 +50,29 @@ function createCustomDropdown(dropdown){
 
 	   // Loop All Options and Create Custom Option for Each Option
 	   // And Append it to Inner Wrapper Element
+	   let lastCodeGroup = null;
 	   optionsArr.forEach((option) => {
-	      const item = document.createElement("div");
-	      item.classList.add("dropdown-menu-item");
-	      item.dataset.value = option.value;
-	      item.innerHTML = `<i class="fas fa-circle"></i>  ${option.textContent}`;
-	      menuInnerWrapper.appendChild(item);
+	     const text = option.textContent.trim();
+	     const match = text.match(/^([A-Z]-[A-Z]-[A-Z])/); // detect RIASEC code at start
+	     const codeGroup = match ? match[1] : null;
 
-	      item.addEventListener(
-	         "click",
-	         setSelected.bind(item,selected, dropdown, menu)
-	      );
+	     // Only create group headers if dropdown contains codes (like R-I-C)
+	     if (codeGroup && codeGroup !== lastCodeGroup && option.value) {
+	       const groupHeader = document.createElement("div");
+	       groupHeader.classList.add("dropdown-group-header");
+	       groupHeader.textContent = codeGroup;
+	       menuInnerWrapper.appendChild(groupHeader);
+	       lastCodeGroup = codeGroup;
+	     }
+
+	     // Create normal item
+	     const item = document.createElement("div");
+	     item.classList.add("dropdown-menu-item");
+	     item.dataset.value = option.value;
+	     item.innerHTML = `<i class="fas fa-circle"></i> ${text}`;
+	     menuInnerWrapper.appendChild(item);
+
+	     item.addEventListener("click", setSelected.bind(item, selected, dropdown, menu));
 	   });
 
 	   // Add Selected Class to First Custom Select Option

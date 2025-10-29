@@ -24,6 +24,8 @@ public class StrandegreeDto {
 	
 	private int duration;
 	
+	private int riasecCode;
+	
 	private StrandegreeOverviewData overview;
 	
 	private List<StrandegreeObj> strandegrees;
