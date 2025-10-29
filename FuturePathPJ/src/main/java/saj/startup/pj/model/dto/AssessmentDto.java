@@ -31,6 +31,8 @@ public class AssessmentDto {
 	
 	private String result;
 	
+	private int resultIdPk;
+	
 	Map<String, RecommendationObj> recommendationMap;
 	
 	public List<RecommendationObj> getTop3Recommendations() {

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -106,5 +109,29 @@ public class UserServiceImpl implements UserService{
 
 		return outDto;
 	}
+
+	@Override
+	public UserEntity getUserActive() throws Exception {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+	    if (authentication == null || !authentication.isAuthenticated()) {
+	        throw new Exception("No user is currently logged in");
+	    }
+
+	    Object principal = authentication.getPrincipal();
+
+	    if (principal instanceof UserDetails userDetails) {
+	        UserEntity user = userLogic.getUserByUsername(userDetails.getUsername());
+	        if (user == null) {
+	            throw new Exception("User not found");
+	        }
+	        return user;
+	    } else {
+	        throw new Exception("Unknown principal type");
+	    }
+	}
+
+	
+	
 
 }

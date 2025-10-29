@@ -18,11 +18,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
+import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
+import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
+import saj.startup.pj.model.dao.entity.UserEntity;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
+import saj.startup.pj.model.logic.HistoryLogic;
 import saj.startup.pj.model.logic.QuestionLogic;
 import saj.startup.pj.model.object.RecommendationObj;
 import saj.startup.pj.model.service.AssessmentService;
+import saj.startup.pj.model.service.UserService;
 
 @Service
 public class AssessmentServiceImpl implements AssessmentService{
@@ -32,11 +37,19 @@ public class AssessmentServiceImpl implements AssessmentService{
 	
 	@Autowired
 	private QuestionLogic questionLogic;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private HistoryLogic historyLogic;
 
 	@Override
 	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception {
 
 	    AssessmentDto outDto = new AssessmentDto();
+	    
+	    UserEntity user = userService.getUserActive();
 
 	    ObjectMapper mapper = new ObjectMapper();
 	    HashMap<Integer, Integer> answeredMap = mapper.readValue(
@@ -49,10 +62,16 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    int totalCorrect = 0;
 	    int totalIncorrect = 0;
 
-	    // Main map: code → RecommendationObj
 	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
-	    // Helper map: code → totalQuestions under that code
+
 	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
+	    
+	    List<HistoryQuestionEntity> historyQuestions = new ArrayList<>();
+	    
+	    AssessmentResultEntity resultEntity = new AssessmentResultEntity();
+	    resultEntity.setUserIdPk(user.getIdPk());
+	    
+	    int resultIdPk = historyLogic.saveAssessmentResult(resultEntity);
 
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
 	        Integer questionId = entry.getKey();
@@ -78,7 +97,19 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        } else {
 	            totalIncorrect++;
 	        }
+	        
+	        HistoryQuestionEntity history = new HistoryQuestionEntity();
+	        history.setResultIdPk(resultIdPk);
+	        history.setUserIdPk(user.getIdPk());
+	        history.setQuestionIdPk(questionId);	     
+	        history.setAnswerIdPk(answerId);
+	        history.setIsCorrect(isCorrect);
+	         
+	        historyQuestions.add(history);
+	        
 	    }
+	    
+	    historyLogic.saveHistoryQuestions(historyQuestions);
 
 	    // ✅ Compute per-code percentages only once
 	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
@@ -93,33 +124,37 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    int totalQuestions = answeredMap.size();
 	    double percentage = totalQuestions > 0 ? ((double) totalCorrect / totalQuestions) * 100 : 0.0;
-	    percentage = Math.round(percentage * 10.0) / 10.0; // round to 1 decimal
-	    String result = percentage >= 75.0 ? "PASSED" : "FAILED";
+	    percentage = Math.round(percentage * 10.0) / 10.0;
+	    
+	    resultEntity.setCorrect(totalCorrect);
+	    resultEntity.setIncorrect(totalIncorrect);
+	    resultEntity.setScore(percentage);
+	    resultEntity.setTotalQuestion(totalQuestions);
 
+	    outDto.setResultIdPk(resultIdPk);
 	    outDto.setTotalCorrect(totalCorrect);
 	    outDto.setTotalIncorrect(totalIncorrect);
 	    outDto.setTotalQuestion(totalQuestions);
 	    outDto.setPercentage(percentage);
-	    outDto.setResult(result);
 	    outDto.setRecommendationMap(correctCountMap);
 
 	    // ---- Debug Output ----
-	    System.out.println("Total Questions: " + totalQuestions);
-	    System.out.println("Total Correct: " + totalCorrect);
-	    System.out.println("Total Incorrect: " + totalIncorrect);
-	    System.out.println("Percentage: " + percentage + "%");
-	    System.out.println("Result: " + result);
-
-	    System.out.println("\nCorrect Count Map (code -> RecommendationObj):");
-	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
-	        RecommendationObj rec = e.getValue();
-	        System.out.printf(
-	            "Code: %s | Correct: %d | %.2f%%\n",
-	            rec.getCode(),
-	            rec.getCorrectCount(),
-	            rec.getPercentage()
-	        );
-	    }
+//	    System.out.println("Total Questions: " + totalQuestions);
+//	    System.out.println("Total Correct: " + totalCorrect);
+//	    System.out.println("Total Incorrect: " + totalIncorrect);
+//	    System.out.println("Percentage: " + percentage + "%");
+//	    System.out.println("Result: " + result);
+//
+//	    System.out.println("\nCorrect Count Map (code -> RecommendationObj):");
+//	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
+//	        RecommendationObj rec = e.getValue();
+//	        System.out.printf(
+//	            "Code: %s | Correct: %d | %.2f%%\n",
+//	            rec.getCode(),
+//	            rec.getCorrectCount(),
+//	            rec.getPercentage()
+//	        );
+//	    }
 
 	    return outDto;
 	}
@@ -166,24 +201,23 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    );
 	    message.append("<br>").append(summary);
 
-	 // top3Letters = ["E", "I", "S"]
-	    Set<String> exampleFieldsSet = new LinkedHashSet<>(); // preserves order & removes duplicates
+	
+	    Set<String> exampleFieldsSet = new LinkedHashSet<>(); 
 
 	    for (String letter : top3Letters) {
-	        // Collect all keys where RIASEC_CODE_MAP contains this letter
+	
 	        Set<Integer> keys = CommonConstant.RIASEC_CODE_MAP.entrySet().stream()
 	                .filter(e -> e.getValue().contains(letter))
 	                .map(Map.Entry::getKey)
 	                .collect(Collectors.toSet());
 
-	        // Collect all corresponding fields from RIASEC_DETAIL_MAP
+
 	        keys.stream()
 	            .map(CommonConstant.RIASEC_DETAIL_MAP::get)
 	            .filter(Objects::nonNull)
-	            .forEach(exampleFieldsSet::add); // add to set, automatically removes duplicates
+	            .forEach(exampleFieldsSet::add); 
 	    }
 
-	    // Join into a single string
 	    String exampleFields = String.join(", ", exampleFieldsSet);
 
 	    DecimalFormat df = new DecimalFormat("0.00");
@@ -193,7 +227,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    dto.setMessage(message.toString());
 	    dto.setExampleFields(exampleFields);
 
-	    System.out.println("COMBINATION: " + topCombo);
 	    dto.setRealisticPercentageStr(df.format((double) inDto.getRealistic() / (questionCount.get("R") * 4) * 100));
 	    dto.setInvestigativePercentageStr(df.format((double) inDto.getInvestigative() / (questionCount.get("I") * 4) * 100));
 	    dto.setArtisticPercentageStr(df.format((double) inDto.getArtistic() / (questionCount.get("A") * 4) * 100));
