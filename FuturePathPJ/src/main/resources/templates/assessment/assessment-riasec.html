@@ -22,94 +22,622 @@
          <hr>
          <div class="content">
             <div class="assessment-container">
+             <div class="question-nav">
+                  <h3>Questions</h3>
+                  <div class="question-list" id="questionList">
+                    
+                  </div>
+               </div>
                <!-- Assessment Form -->
                <form th:action="@{/assessment/result}" method="POST" class="assessment-form">
+                  <div class="intro-note">
+                     <h2>🧭 Interest Assessment</h2>
+                     <p>
+                        This short assessment is designed to help understand what types of activities and work you enjoy most.  
+                        It uses the <strong>RIASEC Method</strong> (Realistic, Investigative, Artistic, Social, Enterprising, and Conventional)  
+                        to identify your interests and guide which types of data, careers, or paths best match your personality.
+                     </p>
+                     <p>
+                        Please answer honestly — there are no right or wrong answers.  
+                        Simply choose how much you <strong>enjoy or dislike</strong> each activity listed below.
+                     </p>
+                  </div>
                   <input type="hidden" name="mode" th:value="${mode}" />                
                   <input type="hidden" name="answeredJson" id="answeredJson" />
-                 <div class="question-card">
-    <div class="message">
-        <strong>1. I like to work on cars</strong><br>
-        <span>Select the most appropriate answer.</span>
-    </div>
-    <div class="choices">
-        <label class="choice-option"><input type="radio" name="q1" value="0" required><i class="fa-solid fa-thumbs-down"></i><span>Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q1" value="1"><i class="fa-regular fa-face-frown"></i><span>Slightly Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q1" value="2"><i class="fa-regular fa-face-meh"></i><span>Neutral</span></label>
-        <label class="choice-option"><input type="radio" name="q1" value="3"><i class="fa-regular fa-face-smile"></i><span>Slightly Enjoy</span></label>
-        <label class="choice-option"><input type="radio" name="q1" value="4"><i class="fa-solid fa-heart"></i><span>Enjoy</span></label>
-    </div>
-</div>
-
-<div class="question-card">
-    <div class="message">
-        <strong>2. I like to build things</strong><br>
-        <span>Select the most appropriate answer.</span>
-    </div>
-    <div class="choices">
-        <label class="choice-option"><input type="radio" name="q2" value="1" required><span>Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q2" value="2"><span>Slightly Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q2" value="3"><span>Neutral</span></label>
-        <label class="choice-option"><input type="radio" name="q2" value="4"><span>Slightly Enjoy</span></label>
-        <label class="choice-option"><input type="radio" name="q2" value="5"><span>Enjoy</span></label>
-    </div>
-</div>
-<div class="question-card">
-    <div class="message">
-        <strong>3. I like to take care of animals</strong><br>
-        <span>Select the most appropriate answer.</span>
-    </div>
-    <div class="choices">
-        <label class="choice-option"><input type="radio" name="q3" value="0" required><span>Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q3" value="1"><span>Slightly Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q3" value="2"><span>Neutral</span></label>
-        <label class="choice-option"><input type="radio" name="q3" value="3"><span>Slightly Enjoy</span></label>
-        <label class="choice-option"><input type="radio" name="q3" value="4"><span>Enjoy</span></label>
-    </div>
-</div>
-
-<div class="question-card">
-    <div class="message">
-        <strong>4. I like to put things together or assemble models</strong><br>
-        <span>Select the most appropriate answer.</span>
-    </div>
-    <div class="choices">
-        <label class="choice-option"><input type="radio" name="q4" value="0" required><span>Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q4" value="1"><span>Slightly Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q4" value="2"><span>Neutral</span></label>
-        <label class="choice-option"><input type="radio" name="q4" value="3"><span>Slightly Enjoy</span></label>
-        <label class="choice-option"><input type="radio" name="q4" value="4"><span>Enjoy</span></label>
-    </div>
-</div>
-
-<div class="question-card">
-    <div class="message">
-        <strong>5. I like to cook</strong><br>
-        <span>Select the most appropriate answer.</span>
-    </div>
-    <div class="choices">
-        <label class="choice-option"><input type="radio" name="q5" value="0" required><span>Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q5" value="1"><span>Slightly Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q5" value="2"><span>Neutral</span></label>
-        <label class="choice-option"><input type="radio" name="q5" value="3"><span>Slightly Enjoy</span></label>
-        <label class="choice-option"><input type="radio" name="q5" value="4"><span>Enjoy</span></label>
-    </div>
-</div>
-
-<div class="question-card">
-    <div class="message">
-        <strong>6. I like to work outdoors</strong><br>
-        <span>Select the most appropriate answer.</span>
-    </div>
-    <div class="choices">
-        <label class="choice-option"><input type="radio" name="q6" value="0" required><span>Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q6" value="1"><span>Slightly Dislike</span></label>
-        <label class="choice-option"><input type="radio" name="q6" value="2"><span>Neutral</span></label>
-        <label class="choice-option"><input type="radio" name="q6" value="3"><span>Slightly Enjoy</span></label>
-        <label class="choice-option"><input type="radio" name="q6" value="4"><span>Enjoy</span></label>
-    </div>
-</div>
-
-
+                  <!-- 🔧 Realistic (R) - The Doers -->
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>1. I like to work on cars</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q1" id="q1-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>2. I like to build things</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q2" id="q2-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>3. I like to take care of animals</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q3" id="q3-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>4. I like to put things together or assemble models</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q4" id="q4-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>5. I like to cook</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q5" id="q5-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>6. I like to work outdoors</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q6" id="q6-value" required>
+                  </div>
+                  <!-- 🧠 Investigative (I) - The Thinkers -->
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>7. I like to do puzzles</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q7" id="q7-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>8. I like to do experiments</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q8" id="q8-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>9. I like to work on science projects</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q9" id="q9-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>10. I like to figure out how things work</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q10" id="q10-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>11. I like to learn about other cultures</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q11" id="q11-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>12. I like to analyze things like problems, situations, or trends</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q12" id="q12-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>13. I like to think things through before making decisions</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q13" id="q13-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>14. I like to work on math problems</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q14" id="q14-value" required>
+                  </div>
+                  <!-- 🎨 Artistic (A) - The Creators -->
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>15. I like to attend concerts, theaters, or art exhibits</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q15" id="q15-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>16. I like to read fiction, poetry, or plays</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q16" id="q16-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>17. I like to do creative writing</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q17" id="q17-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>18. I like to be creative</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q18" id="q18-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>19. I like to play instruments or sing</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q19" id="q19-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>20. I like to act in plays</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q20" id="q20-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>21. I like to draw</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q21" id="q21-value" required>
+                  </div>
+                  <!-- SOCIAL (S) - The Helpers -->
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>22. I like to work in teams</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q22" id="q22-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>23. I like to teach or train people</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q23" id="q23-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>24. I like to help people solve their problems</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q24" id="q24-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>25. I like to heal people</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q25" id="q25-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>26. I like to have discussions about politics or current events</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q26" id="q26-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>27. I like to help people in need</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q27" id="q27-value" required>
+                  </div>
+                  <!-- ENTERPRISING (E) - The Persuaders -->
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>28. I like to set goals for myself</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q28" id="q28-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>29. I like to influence or persuade people</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q29" id="q29-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>30. I like to sell things</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q30" id="q30-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>31. I like to take on new responsibilities</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q31" id="q31-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>32. I like to dream about starting my own business</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q32" id="q32-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>33. I like to be a leader</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q33" id="q33-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>34. I like to give speeches</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q34" id="q34-value" required>
+                  </div>
+                  <!-- CONVENTIONAL (C) - The Organizers -->
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>35. I like to organize things like files, offices or activities</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q35" id="q35-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>36. I like to have clear instructions to follow</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q36" id="q36-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>37. I like to have my day structured</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q37" id="q37-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>38. I like to pay attention to details</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q38" id="q38-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>39. I like to do filing or typing</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q39" id="q39-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>40. I like to work with numbers or charts</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q40" id="q40-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>41. I like to keep records of my work</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q41" id="q41-value" required>
+                  </div>
+                  <div class="question-card">
+                     <div class="message">
+                        <strong>42. I like to work in an office</strong><br>
+                        <span>Select the most appropriate answer.</span>
+                     </div>
+                     <div class="choices">
+                        <button type="button" class="choice-btn" data-value="0"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
+                        <button type="button" class="choice-btn" data-value="1"><i class="fa-regular fa-face-frown"></i> Slightly Dislike</button>
+                        <button type="button" class="choice-btn" data-value="2"><i class="fa-regular fa-face-meh"></i> Neutral</button>
+                        <button type="button" class="choice-btn" data-value="3"><i class="fa-regular fa-face-smile"></i> Slightly Enjoy</button>
+                        <button type="button" class="choice-btn" data-value="4"><i class="fa-solid fa-heart"></i> Enjoy</button>
+                     </div>
+                     <input type="hidden" name="q42" id="q42-value" required>
+                  </div>
                   <button type="submit" class="submit-btn" id="submitAssessmentBtn">
                   <i class="fa-solid fa-paper-plane"></i> Submit Assessment
                   </button>
@@ -120,6 +648,135 @@
             </div>
          </div>
       </main>
-      
    </body>
+<script th:inline="javascript">
+document.addEventListener("DOMContentLoaded", () => {
+  const questionCards = Array.from(document.querySelectorAll(".question-card"));
+  const backToTopBtn = document.getElementById("backToTopBtn");
+  const questionList = document.getElementById("questionList");
+  const answeredInput = document.getElementById("answeredJson");
+  const questionAnswers = {};
+
+  // if no question cards, nothing to do
+  if (!questionCards.length) return;
+
+  // 🔹 Dynamically generate nav buttons (one per question) if the container exists
+  if (questionList) {
+    questionCards.forEach((_, index) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = index + 1;
+      btn.classList.add("question-nav-btn");
+      btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+      btn.dataset.question = index + 1;
+      questionList.appendChild(btn);
+    });
+  }
+
+  // Re-select nav buttons after creation (may be empty)
+  const questionNavBtns = Array.from(document.querySelectorAll(".question-list button"));
+
+  // 🔹 Main logic for choices
+  questionCards.forEach((card, index) => {
+    const choices = Array.from(card.querySelectorAll(".choice-btn"));
+    const hiddenInput = card.querySelector("input[type='hidden']");
+    const questionNumber = index + 1;
+    questionAnswers[`q${questionNumber}`] = null;
+
+    // if no choices or no hidden input, skip this card (defensive)
+    if (!choices.length || !hiddenInput) return;
+
+    choices.forEach(choice => {
+      choice.addEventListener("click", () => {
+        // Remove previous selection in this card
+        choices.forEach(btn => btn.classList.remove("selected"));
+        choice.classList.add("selected");
+
+        const raw = choice.getAttribute("data-value");
+        const value = raw !== null ? parseInt(raw, 10) : null;
+
+        // Guard against NaN
+        questionAnswers[`q${questionNumber}`] = Number.isFinite(value) ? value : null;
+
+        // Update hidden input (string or empty)
+        hiddenInput.value = questionAnswers[`q${questionNumber}`] ?? "";
+
+        // Mark navigation button as answered (if exists)
+        const navBtn = questionNavBtns[index];
+        if (navBtn) navBtn.classList.add("answered");
+
+        // Update overall answers JSON hidden field
+        if (answeredInput) {
+          answeredInput.value = JSON.stringify(questionAnswers);
+        }
+
+        // Log individual answer and totals
+        console.log(`Question ${questionNumber}:`, questionAnswers[`q${questionNumber}`]);
+        const totals = calculateRIASECTotals(questionAnswers);
+        try { console.clear(); } catch(e) {}
+        console.log("🔎 Current RIASEC Totals:");
+        console.table(totals);
+      });
+    });
+  });
+
+  // 🔹 Smooth scroll to question when nav button clicked
+  if (questionNavBtns.length) {
+    questionNavBtns.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        const targetCard = questionCards[index];
+        if (targetCard) {
+          targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+          // also focus the first interactive element in the card for accessibility
+          const firstChoice = targetCard.querySelector(".choice-btn");
+          if (firstChoice) firstChoice.focus({ preventScroll: true });
+        }
+      });
+    });
+  }
+
+  // 🔹 Back-to-top visibility / handler (only if button exists)
+  if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
+      backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+    });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+});
+
+// Function to calculate RIASEC totals
+function calculateRIASECTotals(answers) {
+  const categories = {
+    R: [1, 2, 3, 4, 5, 6],
+    I: [7, 8, 9, 10, 11, 12, 13, 14],
+    A: [15, 16, 17, 18, 19, 20, 21],
+    S: [22, 23, 24, 25, 26, 27],
+    E: [28, 29, 30, 31, 32, 33, 34],
+    C: [35, 36, 37, 38, 39, 40, 41, 42],
+  };
+
+  const totals = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+
+  for (const [key, val] of Object.entries(answers)) {
+    const value = typeof val === "number" ? val : (val !== null && val !== "" ? Number(val) : NaN);
+    if (!Number.isFinite(value)) continue;
+    const qNum = parseInt(key.replace(/^q/, ""), 10);
+    if (!Number.isFinite(qNum)) continue;
+
+    for (const [category, range] of Object.entries(categories)) {
+      if (range.includes(qNum)) {
+        totals[category] += value;
+        break;
+      }
+    }
+  }
+
+  return totals;
+}
+</script>
+
+
+   
 </html>
