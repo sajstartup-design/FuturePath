@@ -44,18 +44,33 @@ public class AssessmentController {
 		return "assessment/assessment-riasec";
 	}
 	
-	@GetMapping("/assessment/riasec/result")
-	public String showAssessmentRiasecResult(Model model) throws Exception {
+	@PostMapping("/assessment/riasec/result")
+	public String showAssessmentRiasecResult(Model model, AssessmentDto webDto) throws Exception {
 
-	    // Create an empty DTO or pass any needed input
+	    // 🔹 Create input DTO and copy all RIASEC totals from the web form
 	    AssessmentDto inDto = new AssessmentDto();
-	    // Optionally, set combination if you already have it
-	    // inDto.setCombination("E-R-C");
+	    inDto.setAnsweredJson(webDto.getAnsweredJson());
+	    inDto.setMode(webDto.getMode());
+	    inDto.setRealistic(webDto.getRealistic());
+	    inDto.setInvestigative(webDto.getInvestigative());
+	    inDto.setArtistic(webDto.getArtistic());
+	    inDto.setSocial(webDto.getSocial());
+	    inDto.setEnterprising(webDto.getEnterprising());
+	    inDto.setConventional(webDto.getConventional());
 
-	    // Call the service
+	    inDto.setCombination(webDto.getCombination());
+
+	    // 🔹 Debug: log totals
+	    System.out.println("RIASEC totals from form:");
+	    System.out.println("R: " + inDto.getRealistic());
+	    System.out.println("I: " + inDto.getInvestigative());
+	    System.out.println("A: " + inDto.getArtistic());
+	    System.out.println("S: " + inDto.getSocial());
+	    System.out.println("E: " + inDto.getEnterprising());
+	    System.out.println("C: " + inDto.getConventional());
+
 	    AssessmentDto dto = assessmentService.getAssessmentRIASECResult(inDto);
 
-	    // Add the result to the model
 	    model.addAttribute("assessmentDto", dto);
 
 	    return "assessment/assessment-riasec-result";

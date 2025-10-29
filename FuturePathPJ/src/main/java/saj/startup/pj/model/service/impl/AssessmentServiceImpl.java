@@ -1,5 +1,6 @@
 package saj.startup.pj.model.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -121,25 +122,45 @@ public class AssessmentServiceImpl implements AssessmentService{
 	@Override
 	public AssessmentDto getAssessmentRIASECResult(AssessmentDto inDto) throws Exception {
 
-	    final String topCombo = (inDto.getCombination() == null || inDto.getCombination().isEmpty())
-	    	    ? "R-I-C"
-	    	    : inDto.getCombination();
+	    Map<String, Integer> questionCount = Map.of(
+	        "R", 6,
+	        "I", 8,
+	        "A", 7,
+	        "S", 6,
+	        "E", 7,
+	        "C", 8
+	    );
+
+	    Map<String, Integer> totals = Map.of(
+	        "R", inDto.getRealistic(),
+	        "I", inDto.getInvestigative(),
+	        "A", inDto.getArtistic(),
+	        "S", inDto.getSocial(),
+	        "E", inDto.getEnterprising(),
+	        "C", inDto.getConventional()
+	    );
+	    
+	    List<String> top3Letters = totals.entrySet().stream()
+	    	    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()) // highest first
+	    	    .limit(3)
+	    	    .map(Map.Entry::getKey)
+	    	    .collect(Collectors.toList());
 
 
-	    String[] letters = topCombo.split("-");
+	    String topCombo = String.join("-", top3Letters);
 
 	    StringBuilder message = new StringBuilder("Based on your interests and strengths:<br><br>");
-	    for (String letter : letters) {
-	        message.append("• ").append(CommonConstant.TRAIT_DESCRIPTIONS.getOrDefault(letter, "")).append(".<br>");
+	    for (String letter : top3Letters) {
+	        message.append("• ")
+	               .append(CommonConstant.TRAIT_DESCRIPTIONS.getOrDefault(letter, ""))
+	               .append(".<br>");
 	    }
-
 	    String summary = CommonConstant.RIASEC_SUMMARY_MAP.getOrDefault(
-	        letters[0],
+	        top3Letters.get(0),
 	        "You have a mix of interests that can lead to many exciting paths."
 	    );
 	    message.append("<br>").append(summary);
 
-	    // Example fields from RIASEC_CODE_MAP and RIASEC_DETAIL_MAP
 	    String exampleFields = CommonConstant.RIASEC_CODE_MAP.containsValue(topCombo)
 	        ? CommonConstant.RIASEC_DETAIL_MAP.entrySet().stream()
 	              .filter(e -> CommonConstant.RIASEC_CODE_MAP.get(e.getKey()).equals(topCombo))
@@ -147,19 +168,27 @@ public class AssessmentServiceImpl implements AssessmentService{
 	              .collect(Collectors.joining(", "))
 	        : "Various career paths that align with your skills and interests.";
 
-	    // Build DTO
+	    DecimalFormat df = new DecimalFormat("0.00");
+
 	    AssessmentDto dto = new AssessmentDto();
 	    dto.setCombination(topCombo);
 	    dto.setMessage(message.toString());
 	    dto.setExampleFields(exampleFields);
 
+	    System.out.println("COMBINATION: " + topCombo);
+	    dto.setRealisticPercentageStr(df.format((double) inDto.getRealistic() / (questionCount.get("R") * 4) * 100));
+	    dto.setInvestigativePercentageStr(df.format((double) inDto.getInvestigative() / (questionCount.get("I") * 4) * 100));
+	    dto.setArtisticPercentageStr(df.format((double) inDto.getArtistic() / (questionCount.get("A") * 4) * 100));
+	    dto.setSocialPercentageStr(df.format((double) inDto.getSocial() / (questionCount.get("S") * 4) * 100));
+	    dto.setEnterprisingPercentageStr(df.format((double) inDto.getEnterprising() / (questionCount.get("E") * 4) * 100));
+	    dto.setConventionalPercentageStr(df.format((double) inDto.getConventional() / (questionCount.get("C") * 4) * 100));
+
 	    return dto;
 	}
 
-
-
-
-
-
-
 }
+
+
+
+
+

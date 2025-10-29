@@ -29,7 +29,14 @@
                   </div>
                </div>
                <!-- Assessment Form -->
-               <form th:action="@{/assessment/result}" method="POST" class="assessment-form">
+               <form th:action="@{/assessment/riasec/result}" method="POST" class="assessment-form">
+               <input type="hidden" name="realistic" id="realistic" value="0" />
+				<input type="hidden" name="investigative" id="investigative" value="0" />
+				<input type="hidden" name="artistic" id="artistic" value="0" />
+				<input type="hidden" name="social" id="social" value="0" />
+				<input type="hidden" name="enterprising" id="enterprising" value="0" />
+				<input type="hidden" name="conventional" id="conventional" value="0" />
+               
                   <div class="intro-note">
                      <h2>🧭 Interest Assessment</h2>
                      <p>
@@ -716,6 +723,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try { console.clear(); } catch(e) {}
         console.log("🔎 Current RIASEC Totals:");
         console.table(totals);
+        updateHiddenInputs(totals);
       });
     });
   });
@@ -774,6 +782,15 @@ function calculateRIASECTotals(answers) {
   }
 
   return totals;
+}
+
+function updateHiddenInputs(totals) {
+    document.getElementById("realistic").value = totals.R;
+    document.getElementById("investigative").value = totals.I;
+    document.getElementById("artistic").value = totals.A;
+    document.getElementById("social").value = totals.S;
+    document.getElementById("enterprising").value = totals.E;
+    document.getElementById("conventional").value = totals.C;
 }
 </script>
 

@@ -153,43 +153,56 @@
                </span>
             </p>
             <div class="strength-scores">
-               <div class="score">
-                  <div class="score-name">Realistic</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" style="width:10%;">10%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Investigative</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" style="width:30%;">30%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Artistic</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" style="width:20%;">20%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Social</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" style="width:25%;">25%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Enterprising</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" style="width:40%;">40%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Conventional</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" style="width:15%;">15%</div>
-                  </div>
-               </div>
-            </div>
+    <div class="score">
+        <div class="score-name">Realistic</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{realisticPercentageStr} + '%;'" 
+                 th:text="*{realisticPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Investigative</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{investigativePercentageStr} + '%;'" 
+                 th:text="*{investigativePercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Artistic</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{artisticPercentageStr} + '%;'" 
+                 th:text="*{artisticPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Social</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{socialPercentageStr} + '%;'" 
+                 th:text="*{socialPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Enterprising</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{enterprisingPercentageStr} + '%;'" 
+                 th:text="*{enterprisingPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Conventional</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{conventionalPercentageStr} + '%;'" 
+                 th:text="*{conventionalPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+</div>
+
             <a th:href="@{/assessment/next}" class="next-step">Proceed to Next Assessment →</a>
          </div>
       </main>
