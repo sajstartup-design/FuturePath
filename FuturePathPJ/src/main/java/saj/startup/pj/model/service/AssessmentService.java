@@ -8,4 +8,6 @@ import saj.startup.pj.model.dto.AssessmentDto;
 public interface AssessmentService {
 
 	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception;
+	
+	public AssessmentDto getAssessmentRIASECResult(AssessmentDto inDto) throws Exception;
 }

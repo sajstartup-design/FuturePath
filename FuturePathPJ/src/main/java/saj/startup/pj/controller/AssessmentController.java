@@ -1,6 +1,8 @@
 package saj.startup.pj.controller;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.dto.QuestionDto;
@@ -40,6 +43,25 @@ public class AssessmentController {
 		
 		return "assessment/assessment-riasec";
 	}
+	
+	@GetMapping("/assessment/riasec/result")
+	public String showAssessmentRiasecResult(Model model) throws Exception {
+
+	    // Create an empty DTO or pass any needed input
+	    AssessmentDto inDto = new AssessmentDto();
+	    // Optionally, set combination if you already have it
+	    // inDto.setCombination("E-R-C");
+
+	    // Call the service
+	    AssessmentDto dto = assessmentService.getAssessmentRIASECResult(inDto);
+
+	    // Add the result to the model
+	    model.addAttribute("assessmentDto", dto);
+
+	    return "assessment/assessment-riasec-result";
+	}
+
+
 	
 	@PostMapping(value="/assessment", params="mode")
 	public String showQuizDegree(Model model, @ModelAttribute AssessmentDto webDto,

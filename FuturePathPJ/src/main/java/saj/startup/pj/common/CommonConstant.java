@@ -102,4 +102,32 @@ public class CommonConstant {
 	        Map.entry(36, "Finance (Compliance / Recording focus)"),
 	        Map.entry(37, "Paralegal Studies")
 	    );
+	    
+	    public static final Map<String, String> RIASEC_TRAIT_MEANINGS = Map.ofEntries(
+	    	    Map.entry("R", "You are practical and hands-on — you enjoy working with tools, machinery, or physical systems."),
+	    	    Map.entry("I", "You are analytical and curious — you enjoy research, problem-solving, and understanding how things work."),
+	    	    Map.entry("A", "You are creative and expressive — you love design, imagination, and artistic freedom."),
+	    	    Map.entry("S", "You are empathetic and people-oriented — you find fulfillment in helping, teaching, or supporting others."),
+	    	    Map.entry("E", "You are confident and persuasive — you excel at leading, motivating, and managing others."),
+	    	    Map.entry("C", "You are detail-oriented and organized — you value structure, precision, and efficiency.")
+	    	);
+	    
+	    public static final Map<String, String> TRAIT_DESCRIPTIONS = Map.of(
+	            "R", "You enjoy working with your hands, building, or creating tangible solutions",
+	            "I", "You love understanding how things work and exploring ideas",
+	            "A", "You are imaginative and enjoy expressing your creativity",
+	            "S", "You feel fulfilled when helping, guiding, or supporting others",
+	            "E", "You enjoy leading, influencing, and taking initiative",
+	            "C", "You prefer structure, organization, and working with clear systems"
+	        );
+	    
+	    public static final Map<String, String> RIASEC_SUMMARY_MAP = Map.of(
+	    	    "R", "Careers involving building, hands-on problem solving, or technical design may be a great fit.",
+	    	    "I", "Exploring science, research, or technical fields could be exciting for you.",
+	    	    "A", "Creative fields like art, design, or storytelling might inspire you.",
+	    	    "S", "Roles where you help, teach, or support people may be fulfilling.",
+	    	    "E", "Positions involving leadership, motivation, and teamwork could suit you.",
+	    	    "C", "Fields requiring organization, planning, and data management may be ideal."
+	    	);
+
 }
