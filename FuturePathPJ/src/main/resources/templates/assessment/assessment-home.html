@@ -192,12 +192,13 @@
                   randomized questions based on your input degree and question count.
                </div>
                <div class="degree-buttons">
-                  <div class="degree-btn" data-degree="BSIT">BSIT</div>
-                  <div class="degree-btn" data-degree="BSCS">BSCS</div>
-                  <div class="degree-btn" data-degree="BSECE">BSECE</div>
-                  <div class="degree-btn" data-degree="BSBA">BSBA</div>
-                  <div class="degree-btn" data-degree="BSED">BSED</div>
-                  <div class="degree-btn" data-degree="BSHM">BSHM</div>
+			    <div class="degree-btn"
+			         th:each="degree : ${strandegreeDto.strandegreesQuestions}"
+			         th:if="${degree.category == 'DEGREE'}"
+			         th:text="${degree.code}"
+			         th:data-degree="${degree.code}">
+			    </div>
+
                </div>
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">
@@ -220,11 +221,12 @@
                   based on your chosen strands and question limit.
                </div>
                <div class="degree-buttons">
-                  <div class="degree-btn" data-degree="STEM">STEM</div>
-                  <div class="degree-btn" data-degree="HUMSS">HUMSS</div>
-                  <div class="degree-btn" data-degree="ABM">ABM</div>
-                  <div class="degree-btn" data-degree="GAS">GAS</div>
-                  <div class="degree-btn" data-degree="TVL">TVL</div>
+			    <div class="degree-btn"
+			         th:each="strand : ${strandegreeDto.strandegreesQuestions}"
+			         th:if="${strand.category == 'STRAND'}"
+			         th:text="${strand.code}"
+			         th:data-degree="${strand.code}">
+			    </div>
                </div>
                <div id="selectedStrands" class="selected-items"></div>
                <input type="hidden" name="strands" id="strandInput">
@@ -232,6 +234,9 @@
             </div>
          </div>
       </main>
+      <script th:inline="javascript">
+      	console.log(/*[]*/'');
+      </script>
       <script>
          const collegeBtn = document.getElementById('collegeBtn');
          const strandBtn = document.getElementById('strandBtn');

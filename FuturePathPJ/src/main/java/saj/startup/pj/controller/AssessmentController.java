@@ -20,8 +20,10 @@ import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.dto.QuestionDto;
+import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.service.AssessmentService;
 import saj.startup.pj.model.service.QuestionService;
+import saj.startup.pj.model.service.StrandegreeService;
 
 @Controller
 public class AssessmentController {
@@ -31,9 +33,25 @@ public class AssessmentController {
 	
 	@Autowired
 	private AssessmentService assessmentService;
+	
+	@Autowired
+	private StrandegreeService strandegreeService;
 
 	@GetMapping("/assessment")
-	public String showQuizHome() {
+	public String showQuizHome(Model model) {
+		
+		try {
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreesQuestionsOverview();
+			
+			System.out.println(strandegreeOutDto);
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		return "assessment/assessment-home";
 	}
