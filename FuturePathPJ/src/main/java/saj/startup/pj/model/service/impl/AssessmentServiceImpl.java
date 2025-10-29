@@ -43,6 +43,13 @@ public class AssessmentServiceImpl implements AssessmentService{
 	
 	@Autowired
 	private HistoryLogic historyLogic;
+	
+	@Override
+	public void saveAssessmentResult(AssessmentDto inDto) throws Exception {
+		
+		
+	}
+
 
 	@Override
 	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception {
@@ -258,7 +265,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    int score = 0;
 
-	    // Rule 1: Exact match = high priority
 	    if (inputCode.equals(testCode)) score += 100;
 
 	    // Rule 2: Contains all letters bonus
@@ -273,6 +279,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    return score;
 	}
+
 
 
 
