@@ -45,18 +45,11 @@ public class AssessmentServiceImpl implements AssessmentService{
 	private HistoryLogic historyLogic;
 	
 	@Override
-	public void saveAssessmentResult(AssessmentDto inDto) throws Exception {
+	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception {
 		
+		AssessmentDto outDto = new AssessmentDto();
 		
-	}
-
-
-	@Override
-	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception {
-
-	    AssessmentDto outDto = new AssessmentDto();
-	    
-	    UserEntity user = userService.getUserActive();
+		UserEntity user = userService.getUserActive();
 
 	    ObjectMapper mapper = new ObjectMapper();
 	    HashMap<Integer, Integer> answeredMap = mapper.readValue(
@@ -64,8 +57,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        new TypeReference<HashMap<Integer, Integer>>() {}
 	    );
 	    
-	    System.out.println(getTopMatches("E-I-S"));
-
 	    int totalCorrect = 0;
 	    int totalIncorrect = 0;
 
@@ -79,7 +70,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    resultEntity.setUserIdPk(user.getIdPk());
 	    
 	    int resultIdPk = historyLogic.saveAssessmentResult(resultEntity);
-
+	    
+	    System.out.println(answeredMap);
+	    
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
 	        Integer questionId = entry.getKey();
 	        Integer answerId = entry.getValue();
@@ -99,7 +92,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        RecommendationObj rec = correctCountMap.get(code);
 
 	        if (isCorrect) {
-	            totalCorrect++;
+	            totalCorrect++; 
 	            rec.setCorrectCount(rec.getCorrectCount() + 1);
 	        } else {
 	            totalIncorrect++;
@@ -117,8 +110,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    }
 	    
 	    historyLogic.saveHistoryQuestions(historyQuestions);
-
-	    // ✅ Compute per-code percentages only once
+	    
 	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
 	        String code = e.getKey();
 	        RecommendationObj rec = e.getValue();
@@ -128,7 +120,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 	            : 0.0;
 	        rec.setPercentage(percentagePerCode);
 	    }
-
+	    
 	    int totalQuestions = answeredMap.size();
 	    double percentage = totalQuestions > 0 ? ((double) totalCorrect / totalQuestions) * 100 : 0.0;
 	    percentage = Math.round(percentage * 10.0) / 10.0;
@@ -137,31 +129,29 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    resultEntity.setIncorrect(totalIncorrect);
 	    resultEntity.setScore(percentage);
 	    resultEntity.setTotalQuestion(totalQuestions);
-
+	    
+	    historyLogic.saveAssessmentResult(resultEntity);
+	    
 	    outDto.setResultIdPk(resultIdPk);
-	    outDto.setTotalCorrect(totalCorrect);
-	    outDto.setTotalIncorrect(totalIncorrect);
-	    outDto.setTotalQuestion(totalQuestions);
-	    outDto.setPercentage(percentage);
-	    outDto.setRecommendationMap(correctCountMap);
+	    
+	    return outDto;
+	}
 
-	    // ---- Debug Output ----
-//	    System.out.println("Total Questions: " + totalQuestions);
-//	    System.out.println("Total Correct: " + totalCorrect);
-//	    System.out.println("Total Incorrect: " + totalIncorrect);
-//	    System.out.println("Percentage: " + percentage + "%");
-//	    System.out.println("Result: " + result);
-//
-//	    System.out.println("\nCorrect Count Map (code -> RecommendationObj):");
-//	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
-//	        RecommendationObj rec = e.getValue();
-//	        System.out.printf(
-//	            "Code: %s | Correct: %d | %.2f%%\n",
-//	            rec.getCode(),
-//	            rec.getCorrectCount(),
-//	            rec.getPercentage()
-//	        );
-//	    }
+
+	@Override
+	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception {
+
+	    AssessmentDto outDto = new AssessmentDto();
+
+	    
+	   
+
+//	    outDto.setResultIdPk(resultIdPk);
+//	    outDto.setTotalCorrect(totalCorrect);
+//	    outDto.setTotalIncorrect(totalIncorrect);
+//	    outDto.setTotalQuestion(totalQuestions);
+//	    outDto.setPercentage(percentage);
+//	    outDto.setRecommendationMap(correctCountMap);
 
 	    return outDto;
 	}

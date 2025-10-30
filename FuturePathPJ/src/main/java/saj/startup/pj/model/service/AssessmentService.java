@@ -7,7 +7,7 @@ import saj.startup.pj.model.dto.AssessmentDto;
 @Service
 public interface AssessmentService {
 	
-	public void saveAssessmentResult(AssessmentDto inDto) throws Exception;
+	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception;
 
 	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception;
 	

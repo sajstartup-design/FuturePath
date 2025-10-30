@@ -12,7 +12,6 @@ import saj.startup.pj.model.dao.entity.key.HistoryQuestionKey;
 @Table(name = "history_question")
 public class HistoryQuestionEntity {
 	
-	@Id
 	private int resultIdPk;
 
 	private int userIdPk;

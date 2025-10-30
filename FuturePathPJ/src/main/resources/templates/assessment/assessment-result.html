@@ -252,25 +252,25 @@
             <div class="result-summary">
                <h2>Assessment Completed 🎉</h2>
                <div class="result-stats">
-                  <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
+                 <!--  <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
                   <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
-                  <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div>
+                  <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div> -->
                </div>
                <!-- Top Degrees -->
                <section class="top-recommendations">
                   <h3>🏆 Top 3 Recommended Fields</h3>
                   <!-- ✅ Show if there are recommendations -->
-                  <div class="top-list" th:if="*{top3Recommendations != null and !top3Recommendations.isEmpty()}">
+                  <!-- <div class="top-list" th:if="*{top3Recommendations != null and !top3Recommendations.isEmpty()}">
                      <div class="top-item" th:each="rec, stat : *{top3Recommendations}">
                         <span class="rank" th:text="${stat.count} + '.'"></span>
                         <span class="rec-name" th:text="${rec.name}">Sample Degree</span>
                         <span class="rec-percent" th:text="|(${#numbers.formatDecimal(rec.percentage, 1, 1)}%)|">90.0%</span>
                      </div>
-                  </div>
+                  </div> -->
                   <!-- ❌ Show this if list is empty -->
-                  <p th:unless="*{top3Recommendations != null and !top3Recommendations.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
+                 <!--  <p th:unless="*{top3Recommendations != null and !top3Recommendations.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
                      I'm sorry, you currently have no recommendations based on your answers.
-                  </p>
+                  </p> -->
                </section>
                <section class="top-recommendations">
                   <h3>🎓 All Universities Offering Programs</h3>
@@ -294,7 +294,7 @@
                      </p> -->
                </section>
                <!-- Scores Breakdown -->
-               <section class="scores-breakdown">
+               <!-- <section class="scores-breakdown">
                   <h3>🎯 Scores Breakdown</h3>
                   <div class="recommendation-list">
                      <div th:each="rec, iterStat : *{recommendationMap.values()}" class="score-row">
@@ -309,7 +309,7 @@
                         </div>
                      </div>
                   </div>
-               </section>
+               </section> -->
             </div>
             <div class="next-steps">
                <h3>Next Steps</h3>

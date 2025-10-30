@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.common.MessageConstant;
 import saj.startup.pj.model.dto.AssessmentDto;
@@ -84,17 +83,9 @@ public class AssessmentController {
 
 	    ra.addAttribute("assessmentDto", outDto);
 
-	    return "redirect:/assessment/riasec/result?idPk=" + outDto.getResultIdPk();
-	}
-	
-	@GetMapping("/assessment/riasec/result")
-	public String showAssessmentRiasecResult(Model model, AssessmentDto webDto) throws Exception {
-
 	    return "assessment/assessment-riasec-result";
 	}
-
-
-	
+		
 	@PostMapping(value = "/assessment", params = "mode")
 	public String showQuizDegree(
 	        Model model,
@@ -153,13 +144,14 @@ public class AssessmentController {
 	@PostMapping("/assessment/result")
 	public String submitAssessment(Model model, 
 			@ModelAttribute AssessmentDto assessmentDto,
-            @RequestParam("answeredJson") String answeredJson,
             RedirectAttributes ra) {
 
 		try {
-			AssessmentDto outDto = assessmentService.getAssessmentResult(assessmentDto);
+			AssessmentDto outDto = assessmentService.saveAssessmentResult(assessmentDto);
 			
 			model.addAttribute("assessmentDto", outDto);
+			
+			return "redirect:/assessment/result/view?idPk=" + outDto.getResultIdPk();
 			
 		} catch(Exception e) {
 			
@@ -171,8 +163,16 @@ public class AssessmentController {
 			return "redirect:/assessment";
 			
 		}
-		
-
-		return "assessment/assessment-result";
 	}
+	
+	@GetMapping("/assessment/result/view")
+	public String showAssessmentRiasecResult(Model model, AssessmentDto assessmentDto) throws Exception {
+		
+		AssessmentDto outDto = assessmentService.getAssessmentResult(assessmentDto);
+		
+		model.addAttribute("assessmentDto", outDto);
+
+	    return "assessment/assessment-result";
+	}
+	
 }
