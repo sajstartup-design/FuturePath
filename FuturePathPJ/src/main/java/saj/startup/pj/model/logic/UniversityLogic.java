@@ -11,6 +11,7 @@ import saj.startup.pj.model.dao.entity.UniversityData;
 import saj.startup.pj.model.dao.entity.UniversityEntity;
 import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
+import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 
 @Service
 public interface UniversityLogic {
@@ -30,4 +31,6 @@ public interface UniversityLogic {
 	public HashMap<Integer, Boolean> getAvailableStrandegree(int universityIdPk);
 	
 	public Boolean findStrandegreeAvailability(int strandegreeIdPk, int unviversityIdPk);
+	
+	public List<UniversityRecommendationData> getUniversityRecommendation(List<String> programs);
 }

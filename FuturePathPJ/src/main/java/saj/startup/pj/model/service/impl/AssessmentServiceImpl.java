@@ -19,12 +19,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
+import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
+import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
 import saj.startup.pj.model.logic.HistoryLogic;
 import saj.startup.pj.model.logic.QuestionLogic;
+import saj.startup.pj.model.logic.UniversityLogic;
 import saj.startup.pj.model.object.RecommendationObj;
 import saj.startup.pj.model.service.AssessmentService;
 import saj.startup.pj.model.service.UserService;
@@ -44,98 +47,77 @@ public class AssessmentServiceImpl implements AssessmentService{
 	@Autowired
 	private HistoryLogic historyLogic;
 	
+	@Autowired
+	private UniversityLogic universityLogic;
+	
 	@Override
 	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception {
-		
-		AssessmentDto outDto = new AssessmentDto();
-		
-		UserEntity user = userService.getUserActive();
+
+	    AssessmentDto outDto = new AssessmentDto();
+
+	    UserEntity user = userService.getUserActive();
 
 	    ObjectMapper mapper = new ObjectMapper();
 	    HashMap<Integer, Integer> answeredMap = mapper.readValue(
 	        inDto.getAnsweredJson(),
 	        new TypeReference<HashMap<Integer, Integer>>() {}
 	    );
-	    
+
 	    int totalCorrect = 0;
 	    int totalIncorrect = 0;
 
-	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
-
-	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
-	    
 	    List<HistoryQuestionEntity> historyQuestions = new ArrayList<>();
-	    
+
+	    // Create and save initial result record
 	    AssessmentResultEntity resultEntity = new AssessmentResultEntity();
 	    resultEntity.setUserIdPk(user.getIdPk());
-	    
 	    int resultIdPk = historyLogic.saveAssessmentResult(resultEntity);
-	    
-	    System.out.println(answeredMap);
-	    
+
+	    // Loop through each answered question
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
 	        Integer questionId = entry.getKey();
 	        Integer answerId = entry.getValue();
 
-	        AssessmentCheckerData checker = questionLogic.getQuestionAssessmentChecker(
-	            questionId, answerId
-	        );
-
-	        String code = checker.getCode();
-	        String name = checker.getName();
+	        AssessmentCheckerData checker = questionLogic.getQuestionAssessmentChecker(questionId, answerId);
 	        boolean isCorrect = Boolean.TRUE.equals(checker.getIsCorrect());
 
-	        // Initialize if absent
-	        correctCountMap.putIfAbsent(code, new RecommendationObj(code, name, 0, 0.0));
-	        totalQuestionPerCode.put(code, totalQuestionPerCode.getOrDefault(code, 0) + 1);
-
-	        RecommendationObj rec = correctCountMap.get(code);
-
 	        if (isCorrect) {
-	            totalCorrect++; 
-	            rec.setCorrectCount(rec.getCorrectCount() + 1);
+	            totalCorrect++;
 	        } else {
 	            totalIncorrect++;
 	        }
-	        
+
 	        HistoryQuestionEntity history = new HistoryQuestionEntity();
 	        history.setResultIdPk(resultIdPk);
 	        history.setUserIdPk(user.getIdPk());
-	        history.setQuestionIdPk(questionId);	     
+	        history.setQuestionIdPk(questionId);
 	        history.setAnswerIdPk(answerId);
 	        history.setIsCorrect(isCorrect);
-	         
+
 	        historyQuestions.add(history);
-	        
 	    }
-	    
+
+	    // Save all question histories
 	    historyLogic.saveHistoryQuestions(historyQuestions);
-	    
-	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
-	        String code = e.getKey();
-	        RecommendationObj rec = e.getValue();
-	        int totalPerCode = totalQuestionPerCode.getOrDefault(code, 0);
-	        double percentagePerCode = totalPerCode > 0
-	            ? (double) rec.getCorrectCount() / totalPerCode * 100
-	            : 0.0;
-	        rec.setPercentage(percentagePerCode);
-	    }
-	    
+
+	    // Calculate final score
 	    int totalQuestions = answeredMap.size();
 	    double percentage = totalQuestions > 0 ? ((double) totalCorrect / totalQuestions) * 100 : 0.0;
 	    percentage = Math.round(percentage * 10.0) / 10.0;
-	    
+
+	    // Update final result
 	    resultEntity.setCorrect(totalCorrect);
 	    resultEntity.setIncorrect(totalIncorrect);
 	    resultEntity.setScore(percentage);
 	    resultEntity.setTotalQuestion(totalQuestions);
-	    
+
 	    historyLogic.saveAssessmentResult(resultEntity);
-	    
+
 	    outDto.setResultIdPk(resultIdPk);
-	    
+
 	    return outDto;
 	}
+
 
 
 	@Override
@@ -143,18 +125,72 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    AssessmentDto outDto = new AssessmentDto();
 
-	    
-	   
+	    System.out.println("Result Id: " + inDto.getResultIdPk());
 
-//	    outDto.setResultIdPk(resultIdPk);
-//	    outDto.setTotalCorrect(totalCorrect);
-//	    outDto.setTotalIncorrect(totalIncorrect);
-//	    outDto.setTotalQuestion(totalQuestions);
-//	    outDto.setPercentage(percentage);
-//	    outDto.setRecommendationMap(correctCountMap);
+	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
+	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
+
+	    AssessmentResultEntity result = historyLogic.getAssessmentResult(inDto.getResultIdPk());
+	    List<HistoryQuestionData> questions = historyLogic.getHistoryQuestionsByResultIdPk(inDto.getResultIdPk());
+	    outDto.setQuestions(questions);
+
+	    // 🔹 Build correctCountMap and totalQuestionPerCode from history
+	    for (HistoryQuestionData q : questions) {
+	        String code = q.getCode();
+	        String name = q.getName();
+	        boolean isCorrect = Boolean.TRUE.equals(q.getIsCorrect());
+
+	        correctCountMap.putIfAbsent(code, new RecommendationObj(code, name, 0, 0.0));
+	        totalQuestionPerCode.put(code, totalQuestionPerCode.getOrDefault(code, 0) + 1);
+
+	        if (isCorrect) {
+	            correctCountMap.get(code).setCorrectCount(
+	                correctCountMap.get(code).getCorrectCount() + 1
+	            );
+	        }
+	    }
+
+	    // 🔹 Compute percentage per code
+	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
+	        String code = e.getKey();
+	        RecommendationObj rec = e.getValue();
+	        int totalPerCode = totalQuestionPerCode.getOrDefault(code, 0);
+	        double percentagePerCode = totalPerCode > 0
+	            ? ((double) rec.getCorrectCount() / totalPerCode) * 100
+	            : 0.0;
+	        rec.setPercentage(percentagePerCode);
+	    }
+
+	    // 🔹 Get top 3 recommendations
+	    List<RecommendationObj> top3 = correctCountMap.values().stream()
+	        .filter(rec -> rec.getPercentage() > 0)
+	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
+	        .limit(3)
+	        .collect(Collectors.toList());
+
+	    // (Optional) Example: pass top3 codes to universityLogic
+	    List<String> top3Codes = top3.stream()
+	        .map(RecommendationObj::getCode)
+	        .collect(Collectors.toList());
+
+	    System.out.println("Top 3 codes: " + top3Codes);
+	    List<UniversityRecommendationData> universities = universityLogic.getUniversityRecommendation(top3Codes);
+	    
+	    outDto.setUniversities(universities);
+	    
+	    // 🔹 Set results
+	    outDto.setResultIdPk(inDto.getResultIdPk());
+	    outDto.setTotalCorrect(result.getCorrect());
+	    outDto.setTotalIncorrect(result.getIncorrect());
+	    outDto.setTotalQuestion(result.getTotalQuestion());
+	    outDto.setPercentage(result.getScore());
+	    outDto.setRecommendationMap(correctCountMap);
+	    outDto.setTop3Recommendations(top3);
 
 	    return outDto;
 	}
+
+
 
 	@Override
 	public AssessmentDto getAssessmentRIASECResult(AssessmentDto inDto) throws Exception {

@@ -151,7 +151,7 @@ public class AssessmentController {
 			
 			model.addAttribute("assessmentDto", outDto);
 			
-			return "redirect:/assessment/result/view?idPk=" + outDto.getResultIdPk();
+			return "redirect:/assessment/result/view?resultIdPk=" + outDto.getResultIdPk();
 			
 		} catch(Exception e) {
 			

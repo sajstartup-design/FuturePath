@@ -10,6 +10,7 @@ public class HistoryQuestionKey implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int resultIdPk;
 	private int userIdPk;
     private int questionIdPk;
     private int answerIdPk;

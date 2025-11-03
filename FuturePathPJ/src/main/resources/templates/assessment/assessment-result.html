@@ -7,238 +7,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
       <link rel="stylesheet" th:href="@{/css/common.css}" />
-      <style>
-         .content {
-         max-width: 1000px;
-         margin: 3rem auto;
-         padding: 2rem;
-         }
-         .result-summary {
-         background: rgba(25, 35, 70, 0.8);
-         padding: 2rem 3rem;
-         border-radius: 1rem;
-         text-align: center;
-         box-shadow: 0 0.8rem 2.5rem rgba(0, 0, 0, 0.4);
-         border: 1px solid rgba(86, 115, 255, 0.25);
-         backdrop-filter: blur(0.6rem);
-         }
-         .result-summary h2 {
-         margin-bottom: 1rem;
-         font-size: 1.8rem;
-         color: #ffffff;
-         }
-         .result-stats {
-         display: flex;
-         justify-content: center;
-         flex-wrap: wrap;
-         gap: 1.2rem;
-         margin-bottom: 1.5rem;
-         }
-         .stat-box {
-         background: rgba(255, 255, 255, 0.03);
-         padding: 1.2rem 2rem;
-         border-radius: 0.8rem;
-         border: 1px solid rgba(255, 255, 255, 0.1);
-         font-size: 1.1rem;
-         min-width: 20rem;
-         box-shadow: inset 0 0 1rem rgba(68, 97, 255, 0.15);
-         }
-         .top-recommendations {
-         margin-top: 2rem;
-         }
-         .top-recommendations h3 {
-         font-size: 1.3rem;
-         margin-bottom: 1rem;
-         color: #aab6ff;
-         }
-         /* ✅ Updated top-list integrated here */
-         .top-list {
-         display: flex;
-         justify-content: center;
-         flex-wrap: wrap;
-         gap: 0.6rem;
-         margin-top: 0.8rem;
-         }
-         .top-item {
-         background-color: rgba(255, 255, 255, 0.05);
-         border-left: 3px solid #5673ff;
-         padding: 0.5rem 1rem;
-         border-radius: 0.6rem;
-         font-weight: 500;
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         color: #dbe1ff;
-         box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.25);
-         transition: transform 0.15s ease, background 0.25s ease;
-         font-size: 0.9rem;
-         width: fit-content;
-         min-width: 50rem;
-         max-width: 50rem;
-         }
-         .top-item:hover {
-         background: linear-gradient(90deg, rgba(35, 40, 70, 0.9), rgba(20, 24, 50, 0.9));
-         transform: translateY(-0.05rem);
-         }
-         .rank {
-         color: #ffd700;
-         font-weight: 600;
-         margin-right: 0.6rem;
-         }
-         .rec-name {
-         flex-grow: 1;
-         text-align: left;
-         }
-         .rec-percent {
-         color: #91d9ff;
-         font-size: 0.85rem;
-         font-weight: 500;
-         }
-         /* ✅ End of integrated section */
-         .question-results {
-         margin-top: 3rem;
-         }
-         .question-card {
-         background: rgba(25, 35, 70, 0.7);
-         padding: 1.8rem 2rem;
-         border-radius: 0.8rem;
-         margin-bottom: 1.5rem;
-         border: 1px solid rgba(68, 97, 255, 0.2);
-         box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
-         }
-         .question-card h4 {
-         margin-bottom: 1rem;
-         font-size: 1.1rem;
-         color: #d3daff;
-         }
-         .answer {
-         margin: 0.5rem 0;
-         padding: 0.6rem 1rem;
-         border-radius: 0.5rem;
-         border: 1px solid rgba(255, 255, 255, 0.1);
-         }
-         .answer.correct {
-         background: rgba(60, 255, 130, 0.15);
-         border-color: rgba(60, 255, 130, 0.5);
-         color: #9effb3;
-         }
-         .answer.incorrect {
-         background: rgba(255, 68, 68, 0.15);
-         border-color: rgba(255, 68, 68, 0.4);
-         color: #ffaaaa;
-         }
-         .correct-answer {
-         font-size: 0.95rem;
-         color: #91d9ff;
-         margin-top: 0.5rem;
-         }
-         .next-steps {
-         text-align: center;
-         margin-top: 3rem;
-         }
-         .next-steps h3 {
-         margin-bottom: 1rem;
-         color: #aab6ff;
-         }
-         .next-steps button {
-         background: rgba(68, 97, 255, 0.25);
-         border: 1px solid rgba(68, 97, 255, 0.4);
-         color: #ffffff;
-         padding: 0.8rem 1.8rem;
-         margin: 0.5rem;
-         border-radius: 0.5rem;
-         cursor: pointer;
-         font-weight: 600;
-         transition: background 0.3s ease, transform 0.2s ease;
-         }
-         .next-steps button:hover {
-         background: rgba(86, 115, 255, 0.4);
-         transform: translateY(-0.2rem);
-         }
-         .recommendation-list {
-         margin-top: 1rem;
-         }
-         .recommendation-item {
-         margin-bottom: 1rem;
-         }
-         .rec-header {
-         display: flex;
-         justify-content: space-between;
-         font-weight: 600;
-         color: #dbe1ff;
-         margin-bottom: 0.5rem;
-         }
-         .rec-rank {
-         color: #9daaff;
-         }
-         .rec-code {
-         flex-grow: 1;
-         text-align: center;
-         font-weight: 700;
-         color: #ffffff;
-         }
-         .rec-percentage {
-         color: #91d9ff;
-         }
-         .rec-bar-container {
-         height: 1rem;
-         background: rgba(255, 255, 255, 0.08);
-         border-radius: 0.5rem;
-         overflow: hidden;
-         }
-         .rec-bar {
-         height: 100%;
-         background: linear-gradient(90deg, #586aff, #00eaff);
-         border-radius: 0.5rem;
-         transition: width 0.5s ease;
-         }
-         /* Make each score row horizontal */
-         /* Horizontal score row */
-         .score-row {
-         display: flex;
-         align-items: center;
-         gap: 0.8rem;       /* spacing between icon, name, and bar */
-         margin-bottom: 1rem;
-         }
-         /* Icon */
-         .score-icon {
-         color: #ffd700;
-         font-size: 1.2rem;
-         width: 1.5rem;     /* uniform space for all icons */
-         text-align: center;
-         }
-         /* Program name */
-         .score-name {
-         width: 6rem;        /* fixed width for alignment */
-         font-weight: 600;
-         color: #dbe1ff;
-         }
-         /* Progress bar */
-         .score-bar {
-         flex-grow: 1;       /* bar fills remaining space */
-         height: 1.2rem;
-         background: rgba(255, 255, 255, 0.08);
-         border-radius: 0.5rem;
-         overflow: hidden;
-         }
-         /* Bar fill with percentage text inside */
-         .score-bar-fill {
-         height: 100%;
-         background: linear-gradient(90deg, #586aff, #00eaff);
-         text-align: right;
-         padding-right: 0.5rem;
-         color: #ffffff;
-         font-size: 0.85rem;
-         font-weight: 600;
-         line-height: 1.2rem;
-         border-radius: 0.5rem 0 0 0.5rem;
-         transition: width 0.5s ease;
-         }
-         
-         .scores-breakdown{
-         margin-top: 3rem;
-         }
-      </style>
+      <link rel="stylesheet" th:href="@{/css/assessment-result.css}" />
    </head>
    <body>
       <nav th:replace="~{sidebar :: sidebar}"></nav>
@@ -252,49 +21,56 @@
             <div class="result-summary">
                <h2>Assessment Completed 🎉</h2>
                <div class="result-stats">
-                 <!--  <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
+                  <div class="stat-box"><strong>✅ Correct: </strong><span th:text=" *{totalCorrect}">0</span></div>
                   <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
-                  <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div> -->
+                  <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div>
                </div>
                <!-- Top Degrees -->
                <section class="top-recommendations">
                   <h3>🏆 Top 3 Recommended Fields</h3>
                   <!-- ✅ Show if there are recommendations -->
-                  <!-- <div class="top-list" th:if="*{top3Recommendations != null and !top3Recommendations.isEmpty()}">
+                  <div class="top-list" th:if="*{top3Recommendations != null and !top3Recommendations.isEmpty()}">
                      <div class="top-item" th:each="rec, stat : *{top3Recommendations}">
                         <span class="rank" th:text="${stat.count} + '.'"></span>
                         <span class="rec-name" th:text="${rec.name}">Sample Degree</span>
                         <span class="rec-percent" th:text="|(${#numbers.formatDecimal(rec.percentage, 1, 1)}%)|">90.0%</span>
                      </div>
-                  </div> -->
-                  <!-- ❌ Show this if list is empty -->
-                 <!--  <p th:unless="*{top3Recommendations != null and !top3Recommendations.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
-                     I'm sorry, you currently have no recommendations based on your answers.
-                  </p> -->
-               </section>
-               <section class="top-recommendations">
-                  <h3>🎓 All Universities Offering Programs</h3>
-                  <div class="top-list">
-                     <div class="top-item">
-                        <span class="rec-name">University of the Philippines</span>
-                        <span class="rec-percent">BS Computer Science, BS Information Technology</span>
-                     </div>
-                     <div class="top-item">
-                        <span class="rec-name">De La Salle University</span>
-                        <span class="rec-percent">BS Computer Science, BS Information Technology</span>
-                     </div>
-                     <div class="top-item">
-                        <span class="rec-name">Ateneo de Manila University</span>
-                        <span class="rec-percent">BS Computer Science</span>
-                     </div>
-                     <!-- Add more universities here -->
                   </div>
-                  <!--     <p style="text-align:center; color:#aab6ff; margin-top:1rem;">
-                     No universities available at the moment.
-                     </p> -->
+                  <!-- ❌ Show this if list is empty -->
+                  <p th:unless="*{top3Recommendations != null and !top3Recommendations.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
+                     I'm sorry, you currently have no recommendations based on your answers.
+                  </p>
                </section>
-               <!-- Scores Breakdown -->
-               <!-- <section class="scores-breakdown">
+               <section class="university-programs">
+				  <h3>🎓 All Universities Offering Programs</h3>
+				
+				  <div class="university-list" id="universityList">
+				    <div class="university-item" 
+				         th:each="university, iterStat : *{universities}" 
+				         th:classappend="${iterStat.index >= 3} ? 'hidden' : ''">
+				      <span class="uni-name" th:text="${university.universityName}">Sample University</span>
+				      <ul class="degree-list">
+				        <li th:each="program : ${university.offeredPrograms}" th:text="${program}">Bachelor of Science in IT</li>
+				      </ul>
+				    </div>
+				  </div>
+				
+				  <!-- Show More button -->
+				  <button id="showMoreBtn" 
+				          th:if="*{universities != null and universities.size() > 3}" 
+				          type="button" 
+				          class="show-more-btn">
+				    Show More
+				  </button>
+				
+				  <!-- Optional message if no universities -->
+				  <p th:unless="*{universities != null and !universities.isEmpty()}" 
+				     class="no-universities">
+				    No universities available at the moment.
+				  </p>
+				</section>
+				               <!-- Scores Breakdown -->
+               <section class="scores-breakdown">
                   <h3>🎯 Scores Breakdown</h3>
                   <div class="recommendation-list">
                      <div th:each="rec, iterStat : *{recommendationMap.values()}" class="score-row">
@@ -309,7 +85,7 @@
                         </div>
                      </div>
                   </div>
-               </section> -->
+               </section>
             </div>
             <div class="next-steps">
                <h3>Next Steps</h3>
@@ -320,30 +96,34 @@
             <!-- Question Results -->
             <div class="question-results">
                <h3>Question Breakdown</h3>
-               <div class="question-card">
-                  <h4>1. What is the main function of a CPU?</h4>
-                  <div class="answer correct">Your Answer: Executes program instructions</div>
-               </div>
-               <div class="question-card">
-                  <h4>2. Which of the following is a database language?</h4>
-                  <div class="answer incorrect">Your Answer: Java</div>
-                  <div class="correct-answer">✔ Correct Answer: SQL</div>
-               </div>
-               <div class="question-card">
-                  <h4>3. Which HTML tag is used to define an internal style sheet?</h4>
-                  <div class="answer correct">Your Answer: &lt;style&gt;</div>
-               </div>
-               <div class="question-card">
-                  <h4>4. What does CSS stand for?</h4>
-                  <div class="answer correct">Your Answer: Cascading Style Sheets</div>
-               </div>
-               <div class="question-card">
-                  <h4>5. Which of the following is NOT a programming language?</h4>
-                  <div class="answer incorrect">Your Answer: HTML</div>
-                  <div class="correct-answer">✔ Correct Answer: HTML is a markup language</div>
+               <div class="question-card" th:each="question, iterStat : *{questions}">
+                  <h4 th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question</h4>
+                  <!-- user's answer with dynamic class -->
+                  <div class="answer"
+                     th:classappend="${question.isCorrect} ? ' correct' : ' incorrect'">
+                     Your Answer: <span th:text="${question.userAnswer}">Sample Answer</span>
+                  </div>
+                  <!-- show correct answer only if user's answer is incorrect -->
+                  <div class="correct-answer"
+                     th:if="${!question.isCorrect}">
+                     ✔ Correct Answer: <span th:text="${question.correctAnswer}">Correct Answer</span>
+                  </div>
                </div>
             </div>
          </div>
+         <script th:inline="javascript">
+         	console.clear();
+         	console.log(/*[[${assessmentDto}]]*/'');
+         	document.addEventListener("DOMContentLoaded", function () {
+         	    const showMoreBtn = document.getElementById("showMoreBtn");
+         	    if (!showMoreBtn) return;
+
+         	    showMoreBtn.addEventListener("click", () => {
+         	      document.querySelectorAll("#universityList .hidden").forEach(el => el.classList.remove("hidden"));
+         	      showMoreBtn.style.display = "none";
+         	    });
+         	  });
+         </script>
       </main>
    </body>
 </html>

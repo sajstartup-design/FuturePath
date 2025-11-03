@@ -10,16 +10,21 @@ import saj.startup.pj.model.dao.entity.key.HistoryQuestionKey;
 @Data
 @Entity
 @Table(name = "history_question")
+@IdClass(HistoryQuestionKey.class)
 public class HistoryQuestionEntity {
 	
 	@Id
 	private int resultIdPk;
 
-	private int userIdPk;
+	@Id
+	private int userIdPk; 
 
+	@Id
 	private int questionIdPk;
 
+	@Id
 	private int answerIdPk;
 	
 	private Boolean isCorrect;
+	
 }

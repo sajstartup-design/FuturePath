@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.model.dao.AssessmentResultDao;
 import saj.startup.pj.model.dao.HistoryQuestionDao;
 import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
+import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.logic.HistoryLogic;
 
@@ -32,5 +33,16 @@ public class HistoryLogicImpl implements HistoryLogic {
 		historyQuestionDao.saveAll(histories);
 	}
 
+	@Override
+	public AssessmentResultEntity getAssessmentResult(int resultIdPk) {
+		
+		return assessmentResultDao.getAssessmentResult(resultIdPk);
+	}
+
+	@Override
+	public List<HistoryQuestionData> getHistoryQuestionsByResultIdPk(int resultIdPk) {
+		
+		return historyQuestionDao.getHistoryQuestionsByResultIdPk(resultIdPk);
+	}
 
 }

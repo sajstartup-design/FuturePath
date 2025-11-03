@@ -16,6 +16,7 @@ import saj.startup.pj.model.dao.entity.UniversityEntity;
 import saj.startup.pj.model.dao.entity.UniversityOverviewData;
 import saj.startup.pj.model.dao.entity.UniversityStrandegreeAvailabilityEntity;
 import saj.startup.pj.model.dao.projection.StrandegreeAvailabilityProjection;
+import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.logic.UniversityLogic;
 
 @Service
@@ -85,6 +86,12 @@ public class UniversityLogicImpl implements UniversityLogic{
 	public Boolean findStrandegreeAvailability(int strandegreeIdPk, int unviversityIdPk) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<UniversityRecommendationData> getUniversityRecommendation(List<String> programs) {
+		
+		return universityDao.getUniversityRecommendation(programs);
 	}
 
 

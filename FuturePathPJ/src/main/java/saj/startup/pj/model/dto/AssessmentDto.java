@@ -6,10 +6,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.Data;
+import saj.startup.pj.model.dao.entity.HistoryQuestionData;
+import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.object.RecommendationObj;
 
 @Data
 public class AssessmentDto {
+	
+	private int idPk;
 	
 	private String answeredJson;
 	
@@ -33,15 +37,9 @@ public class AssessmentDto {
 	
 	private int resultIdPk;
 	
-	Map<String, RecommendationObj> recommendationMap;
+	private Map<String, RecommendationObj> recommendationMap;
 	
-	public List<RecommendationObj> getTop3Recommendations() {
-	    return recommendationMap.values().stream()
-	        .filter(rec -> rec.getPercentage() > 0) // ✅ only include non-zero percentages
-	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
-	        .limit(3)
-	        .collect(Collectors.toList());
-	}
+	private List<RecommendationObj> top3Recommendations;
 	
 	// The top 3-letter combination, e.g. "E-R-C"
     private String combination;
@@ -74,6 +72,7 @@ public class AssessmentDto {
     private String enterprisingPercentageStr;
     private String conventionalPercentageStr;
 
-
+    private List<HistoryQuestionData> questions;
+    private List<UniversityRecommendationData> universities;
 
 }
