@@ -11,6 +11,22 @@ import lombok.Data;
 @AllArgsConstructor
 @Scope("prototype")
 public class UniversityData {
+	
+	public UniversityData(int universityIdPk, String universityName, String type, int coursesOffered,
+            String contact, String street, String city, String province,
+            String postalCode, Boolean isActive, Timestamp createdAt) {
+		this.universityIdPk = universityIdPk;
+		this.universityName = universityName;
+		this.type = type;
+		this.coursesOffered = coursesOffered;
+		this.contact = contact;
+		this.street = street;
+		this.city = city;
+		this.province = province;
+		this.postalCode = postalCode;
+		this.isActive = isActive;
+		this.createdAt = createdAt;
+	}
 
 	private int universityIdPk;
 	
@@ -33,4 +49,10 @@ public class UniversityData {
 	private Boolean isActive;
 	
 	private Timestamp createdAt;
+	
+	private String category;
+	
+	private String founded;
+	
+	private String students;
 }

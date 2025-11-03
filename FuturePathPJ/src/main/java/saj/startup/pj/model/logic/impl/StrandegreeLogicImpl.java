@@ -49,4 +49,10 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 		return strandegreeDao.getAllStrandegreeQuestion();
 	}
 
+	@Override
+	public StrandegreeEntity getStrandegree(int idPk) {
+		
+		return strandegreeDao.getStrandegreeByIdPk(idPk);
+	}
+
 }

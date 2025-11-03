@@ -11,6 +11,8 @@ import saj.startup.pj.model.object.StrandegreeObj;
 
 @Data
 public class StrandegreeDto {
+	
+	private int idPk;
 
 	private String name;
 	
@@ -19,6 +21,10 @@ public class StrandegreeDto {
 	private String category;
 	
 	private String details;
+	
+	private int duration;
+	
+	private int riasecCode;
 	
 	private StrandegreeOverviewData overview;
 	
@@ -29,4 +35,6 @@ public class StrandegreeDto {
 	private PaginationObj pagination;
 	
 	private FilterAndSearchObj filter;
+	
+	private StrandegreeObj strandegree;
 }

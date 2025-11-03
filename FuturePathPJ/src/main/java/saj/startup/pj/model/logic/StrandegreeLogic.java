@@ -22,4 +22,6 @@ public interface StrandegreeLogic {
 	public List<StrandegreeEntity> getAllStrandegreesNoPageable();
 	
 	public List<StrandegreeQuestionData> getStrandegreeQuestionOverview();
+	
+	public StrandegreeEntity getStrandegree(int idPk);
 }

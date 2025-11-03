@@ -17,7 +17,11 @@ public class StrandegreeObj {
 	
 	private String details;
 	
+	private int riasecCode;
+	
 	private Boolean isActive;
 	
 	private Timestamp createdAt;
+	
+	private int duration;
 }

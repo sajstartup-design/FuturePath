@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.common.CommonConstant;
+import saj.startup.pj.model.dao.entity.AnswerData;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
@@ -123,8 +124,8 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		List<QuestionData> allQuestions = new ArrayList<>();
 		
-		if(CommonConstant.DEGREE_DEFAULT_MODE.equals(mode)) {
-			allQuestions = questionLogic.getQuestionsForAssessment();
+		if(CommonConstant.DEGREE_CUSTOM_MODE.equals(mode)) {
+			allQuestions = questionLogic.getDegreesQuestionsForAssessment(inDto.getDegrees());
 		}
 		
 		List<QuestionObj> questions = new ArrayList<>();
@@ -147,6 +148,24 @@ public class QuestionServiceImpl implements QuestionService{
 		}
 		
 		outDto.setQuestions(questions);		
+		return outDto;
+	}
+
+	@Override
+	public QuestionDto getQuestionByIdPk(QuestionDto inDto) throws Exception {
+		
+		QuestionDto outDto = new QuestionDto();
+		
+		QuestionEntity questionEntity = questionLogic.getQuestionByIdPk(inDto.getIdPk());
+		
+		QuestionObj questionObj = new QuestionObj();
+		
+		questionObj.setQuestion(questionEntity.getQuestion());
+		
+		List<AnswerData> answers = questionLogic.getAnswersByQuestionIdPk(inDto.getIdPk());
+		
+		questionObj.setAnswers(answers);
+		
 		return outDto;
 	}
 }

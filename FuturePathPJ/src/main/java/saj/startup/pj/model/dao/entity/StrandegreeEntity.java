@@ -25,10 +25,14 @@ public class StrandegreeEntity {
 	private String category; 
 	
 	private String details;
+	 
+	private int duration;
 	
 	private Boolean isActive;
 	
 	private Boolean isDeleted;
 	
 	private Timestamp createdAt;
+	
+	private int riasecCode = 0;
 }

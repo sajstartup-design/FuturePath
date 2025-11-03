@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bounce Battle Arena</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  body {
+    background: #7EC850;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    font-family: 'Press Start 2P', cursive;
+  }
+
+  #controls {
+    width: 350px;
+    background: #8B4513;
+    padding: 15px;
+    border: 4px solid #654321; 
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  }
+
+  #controls h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #00eaff;
+    text-shadow: 0 0 8px #00eaff;
+  }
+
+  #controls label {
+    display: block;
+    margin: 8px 0 4px;
+  }
+
+  #controls input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+
+  #controls button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 0.7rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    box-shadow: 0 0 5px #000 inset;
+    transition: 0.2s;
+    font-family: 'Press Start 2P', cursive;
+  }
+
+  #controls button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #000 inset;
+  }
+
+  #playerGallery, #weaponGallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .gallery-player, .gallery-weapon {
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    border: 2px solid #000;
+    transition: 0.2s;
+    image-rendering: pixelated;
+  }
+
+  .gallery-player.selected, .gallery-weapon.selected {
+    border: 3px solid yellow;
+  }
+  
+  #arenaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#playerHUD {
+  width: 600px;       /* same as arena */
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+  
+
+  #arena {
+    width: 600px;
+    height: 600px;
+    position: relative;
+    background-image: url('/images/backgroundd.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 4px solid #654321;
+    box-shadow: inset 0 0 20px #000;
+  }
+
+  .player {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 5px #000 inset;
+    image-rendering: pixelated;
+    z-index: 2;
+  }
+
+  .player[style*="border: 3px solid yellow"] {
+    box-shadow: 0 0 10px 2px #FFFF00 inset;
+  }
+
+  .weapon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 4px #FFF);
+  }
+
+  #winner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFD700;
+    font-size: 1rem;
+    text-align: center;
+    text-shadow: 0 0 3px #000;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    padding: 12px 20px;
+    border: 3px solid #654321;
+    border-radius: 6px;
+    font-weight: bold;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 220px;
+  }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <div id="playerGallery"></div>
+  <div id="weaponGallery"></div>
+</div>
+
+<div id="arenaContainer" style="display:flex; flex-direction:column; align-items:center;">
+  <div id="arena">
+    <div id="weapon" class="weapon"></div>
+    <div id="winner"></div>
+  </div>
+  <div id="playerHUD" style="width:600px; display:flex; justify-content:space-around; margin-top:10px;"></div>
+</div>
+
+
+
+<div id="controls">
+  <button id="startBtn">Start</button>
+  <button id="restartBtn">Restart</button>
+  <label>Speed</label>
+  <input type="number" id="speedInput" min="1" max="10" value="3">
+</div>
+
+<script>
+const arena = document.getElementById("arena");
+const weaponEl = document.getElementById("weapon");
+const winnerEl = document.getElementById("winner");
+const playerGallery = document.getElementById("playerGallery");
+const weaponGallery = document.getElementById("weaponGallery");
+const speedInput = document.getElementById("speedInput");
+
+let loopId;
+let players = [];
+let weapon = { x:0, y:0, heldBy:null, image:"" };
+let weaponRespawnTimer = null;
+let selectedPlayers = [];
+let selectedWeapon = null;
+
+const bounceSound = new Audio('/images/slime-sound.ogg');
+bounceSound.volume = 0.5; 
+
+const arenaSize = 600;
+const playerSize = 50;
+const weaponSize = 50;
+const weaponTime = 5000;
+const playerHP = 3;
+
+const spawnPoints = [
+  {x:50,y:50},{x:490,y:50},{x:50,y:490},{x:490,y:490},
+  {x:275,y:50},{x:275,y:490},{x:50,y:275},{x:490,y:275}
+];
+
+//Players
+const availablePlayers = [
+  { name: "Allay", img: "https://i.ibb.co/PfFDc6f/Allay-Face.png" },
+  { name: "Armadillo", img: "https://i.ibb.co/7JrGWqJ3/Armadillo-Face.png" },
+  { name: "Axolotl", img: "https://i.ibb.co/TBxG1q0k/Axolotl-Face.png" },
+  { name: "Bat", img: "https://i.ibb.co/DfgQb5h7/BatFace.png" },
+  { name: "Bee", img: "https://i.ibb.co/Kch1gvHD/BeeFace.png" },
+  { name: "Blaze", img: "https://i.ibb.co/75HjNmj/Blaze-Face.webp" },
+  { name: "Bogged", img: "https://i.ibb.co/j9vjMzBH/Bogged-Face.png" },
+  { name: "Breeze", img: "https://i.ibb.co/YBgZg6xb/Breeze-Face.png" },
+  { name: "Camel", img: "https://i.ibb.co/hxXfJZrf/Camel-Face.png" },
+  { name: "Cat", img: "https://i.ibb.co/fGBk7fgc/CatFace.png" },
+  { name: "Cave Spider", img: "https://i.ibb.co/cXDLYvcn/Cave-Spider-Face.png" },
+  { name: "Chicken", img: "https://i.ibb.co/zW74h0Pm/Chicken-Face.png" },
+  { name: "Cow", img: "https://i.ibb.co/VdxQKhq/CowFace.png" },
+  { name: "Creeper", img: "https://i.ibb.co/ZRppgTDx/Creeper-Face.png" },
+  { name: "Copper Golem", img: "https://i.ibb.co/s9Hkb8Dg/Copper-Golem-Face.png" },
+  { name: "Cod", img: "https://i.ibb.co/7JfV30ZJ/CodBody.png" },
+  { name: "Dolphin", img: "https://i.ibb.co/7xJfgvWr/Dolphin-Face.png" },
+  { name: "Donkey", img: "https://i.ibb.co/p6VmJxBD/Donkey-Face.png" },
+  { name: "Drowned", img: "https://i.ibb.co/hxXbqLZv/Drowned-Face.png" },
+  { name: "Elder Guardian", img: "https://i.ibb.co/KjcV11k6/Elder-Guardian-face.png" },
+  { name: "Ender Dragon", img: "https://i.ibb.co/MFRx24b/Ender-Dragon-Face.png" },
+  { name: "Enderman", img: "https://i.ibb.co/hFjBNVc9/Enderman-Face.png" },
+  { name: "Endermite", img: "https://i.ibb.co/ds4mN9GR/Endermite-Face.png" },
+  { name: "Evoker", img: "https://i.ibb.co/cXtZfkCx/Evoker-Face.png" },
+  { name: "Fox", img: "https://i.ibb.co/DHjHpMPc/FoxFace.png" },
+  { name: "Frog", img: "https://i.ibb.co/SwxpVc7J/FrogFace.png" },
+  { name: "Ghast", img: "https://i.ibb.co/23hXCQ8V/Ghast-Face.png" },
+  { name: "Glow Squid", img: "https://i.ibb.co/pjB63wLg/Glow-Squid-Face.png" },
+  { name: "Goat", img: "https://i.ibb.co/4nBL4tBM/GoatFace.png" },
+  { name: "Guardian", img: "https://i.ibb.co/cP45TXW/Guardian-Face.png" },
+  { name: "Glow Squid", img: "https://i.ibb.co/pjB63wLg/Glow-Squid-Face.png" },
+  { name: "Hoglin", img: "https://i.ibb.co/hFdfV5Wt/Hoglin-Face.webp" },
+  { name: "Horse", img: "https://i.ibb.co/Ld9xwnJW/Horse-Face.png" },
+  { name: "Husk", img: "https://i.ibb.co/mCp6PjxP/HuskFace.png" },
+  { name: "Happy Ghast", img: "https://i.ibb.co/pvtZPsgj/Happy-Ghast-Face.png" },
+  { name: "Iron Golem", img: "https://i.ibb.co/MDR1kQzr/Iron-Golem-Face.png" },
+  { name: "Llama", img: "https://i.ibb.co/wFvdsvh9/Llama-Face.png" },
+  { name: "Magma Cube", img: "https://i.ibb.co/7tkdMNTX/Magma-Cube-Face.png" },
+  { name: "Mooshroom", img: "https://i.ibb.co/0R5NbJzh/Mooshroom-Face.png" },
+  { name: "Mule", img: "https://i.ibb.co/qF9PyG8v/MuleFace.png" },
+  { name: "Ocelot", img: "https://i.ibb.co/qFLd8vD9/Ocelot-Face.png" },
+  { name: "Panda", img: "https://i.ibb.co/1JBnW8Cf/Panda-Face.png" },
+  { name: "Phantom", img: "https://i.ibb.co/Z1NkMZzW/Phantom-Face.png" },
+  { name: "Pig", img: "https://i.ibb.co/jP6xv2mq/PigFace.png" },
+  { name: "Piglin", img: "https://i.ibb.co/tpJBPBsp/Piglin-Face.png" },
+  { name: "Piglin Brute", img: "https://i.ibb.co/TV2VJqL/Piglin-Brute-Face.png" },
+  { name: "Pillager", img: "https://i.ibb.co/F401Sm0Y/Pillager-Face.png" },
+  { name: "Polar Bear", img: "https://i.ibb.co/20GBr37h/Polar-Bear-Face.png" },
+  { name: "Pufferfish", img: "https://i.ibb.co/ynTm8jJZ/Pufferfish-Face.png" },
+  { name: "Parrot", img: "https://i.ibb.co/4Z4fYyrk/Parrot-Face.png" },
+  { name: "Ravager", img: "https://i.ibb.co/B5mQvCRd/Ravager-Face.png" },
+  { name: "Rabbit", img: "https://i.ibb.co/MDGPjGhF/Rabbit-Face.png" },
+  { name: "Sheep", img: "https://i.ibb.co/PJ2Tgvs/Sheep-Face.png" },
+  { name: "Shulker", img: "https://i.ibb.co/GvvGtrPh/Shulker-Face.png" },
+  { name: "Silverfish", img: "https://i.ibb.co/qFjDmjVK/Silverfish-Face.png" },
+  { name: "Skeleton", img: "https://i.ibb.co/cKGkTxN5/Skeleton-Face.png" },
+  { name: "Slime", img: "https://i.ibb.co/hxBYXGpv/Slime-Face.png" },
+  { name: "Sniffer", img: "https://i.ibb.co/VYDqSBhn/Sniffer-Face.png" },
+  { name: "Spider", img: "https://i.ibb.co/ZRxGk9bx/Spider-Face.png" },
+  { name: "Squid", img: "https://i.ibb.co/5WJQjGn6/Squid-Face.png" },
+  { name: "Stray", img: "https://i.ibb.co/GQ9z5Bv8/Stray-Face.png" },
+  { name: "Strider", img: "https://i.ibb.co/nNk93vDn/Strider-Face.png" },
+  { name: "Snow Golem", img: "https://i.ibb.co/SG5XZMW/Snow-Golem-face.png" },
+  { name: "Skeleton Horse", img: "https://i.ibb.co/qMMvHY9q/Skeleton-Horse-face.png" },
+  { name: "Salmon", img: "https://i.ibb.co/mrLXrYhw/Salmon-Body.png" },
+  { name: "Trader Llama", img: "https://i.ibb.co/R4s9F7fq/Trader-Llama-Face.png" },
+  { name: "Turtle", img: "https://i.ibb.co/MxB9xTW9/Turtle-Face.png" },
+  { name: "Vex", img: "https://i.ibb.co/DD8jy04Y/VexFace.png" },
+  { name: "Villager", img: "https://i.ibb.co/v4Cq2s8b/Villager-Face.png" },
+  { name: "Vindicator", img: "https://i.ibb.co/d0wp7SKf/Vindicator-Face.png" },
+  { name: "Wandering Trader", img: "https://i.ibb.co/GQqHTytk/Wandering-Trader-Face.png" },
+  { name: "Warden", img: "https://i.ibb.co/C3zsWhCT/Warden-Face.png" },
+  { name: "Witch", img: "https://i.ibb.co/JRh1g4Vv/Witch-Face.png" },
+  { name: "Wither", img: "https://i.ibb.co/PsgntXxk/Wither-Face.png" },
+  { name: "Wither Skeleton", img: "https://i.ibb.co/5fSHVMm/Wither-Skeleton-face.png" },
+  { name: "Wolf", img: "https://i.ibb.co/TMrn1Wh0/WolfFace.png" },
+  { name: "Zoglin", img: "https://i.ibb.co/JwdMcXyS/Zoglin-Face.png" },
+  { name: "Zombie", img: "https://i.ibb.co/7fWqn1y/Zombie-Face.png" },
+  { name: "Zombie Villager", img: "https://i.ibb.co/Z6DdHf9v/Zombie-Villager-Face.png" },
+  { name: "Zombified Piglin", img: "https://i.ibb.co/Xrkk7nmn/Zombified-Piglin-Face.png" },
+  { name: "Creaking", img: "https://i.ibb.co/3YR5rmg2/87px-Creaking-Face.png" }
+];
+
+
+// Weapons
+const availableWeapons = [
+  {name:"NetheriteSword", img:"https://i.ibb.co/Z1knVF8P/93737ad896c68f5d01b593f503982a8e.png"},
+  {name:"DiamondSword", img:"https://i.ibb.co/1fQr7vmj/Diamond-Sword-JE3-BE3.webp"},
+  {name:"GoldSword", img:"https://i.ibb.co/Kzjwj3wh/Golden-Sword-JE3-BE2.webp"},
+  {name:"Hammer", img:"https://i.ibb.co/mC0KCbqD/Iron-Sword-JE2-BE2.webp"},
+  {name:"IronSword", img:"https://i.ibb.co/Kzjwj3wh/Golden-Sword-JE3-BE2.webp"},
+  {name:"Mace", img:"https://i.ibb.co/7d5TPnsD/120px-Mace-JE1-BE1.png"},
+  {name:"Trident", img:"https://i.ibb.co/ch73xN1n/120px-Trident-item.png"},
+  {name:"Spear", img:"https://i.ibb.co/9kPRbcJH/Netherite-Spear-JE1-BE1.png"},
+];
+
+//🎮 Spawn player in arena instantly when selected
+function spawnPlayer(i) {
+  const spawn = spawnPoints[selectedPlayers.length - 1];
+  const pData = availablePlayers[i];
+  const playerEl = document.createElement("div");
+  playerEl.className = "player";
+  playerEl.style.left = `${spawn.x}px`;
+  playerEl.style.top = `${spawn.y}px`;
+  playerEl.style.backgroundImage = `url('${pData.img}')`;
+  playerEl.style.backgroundSize = "contain";
+  playerEl.style.backgroundPosition = "center";
+  playerEl.style.backgroundRepeat = "no-repeat";
+
+  const label = document.createElement("div");
+  label.textContent = `HP: ${playerHP}`; // initial HP
+  label.style.position = "absolute";
+  label.style.top = "-14px";
+  label.style.left = "0";               // start at left edge
+  label.style.width = "100%";           // full width of player
+  label.style.textAlign = "center";     // center text
+  label.style.whiteSpace = "nowrap";    // prevent line breaks
+  label.style.fontSize = "8px";
+  label.style.fontWeight = "bold";
+  label.style.color = "#00ff00";
+  label.style.textShadow = "0 0 8px #007200";
+  playerEl.appendChild(label);
+
+
+  arena.appendChild(playerEl);
+
+  players.push({
+    el: playerEl,
+    label: label,
+    x: spawn.x,
+    y: spawn.y,
+    vx: 0,
+    vy: 0,
+    alive: true,
+    armed: false,
+    hp: playerHP // initial HP
+  });
+}
+
+const playerHUD = document.getElementById("playerHUD");
+
+function updateHUD() {
+	  playerHUD.innerHTML = "";
+
+	  players.forEach(p => {
+	    const hudItem = document.createElement("div");
+	    hudItem.style.display = "flex";
+	    hudItem.style.flexDirection = "column";
+	    hudItem.style.alignItems = "center";
+	    hudItem.style.margin = "0 5px";
+
+	    // Player image
+	    const img = document.createElement("div");
+	    img.style.width = "40px";
+	    img.style.height = "40px";
+	    img.style.border = "2px solid #000";
+	    img.style.borderRadius = "4px";
+	    img.style.display = "flex";
+	    img.style.alignItems = "center";
+	    img.style.justifyContent = "center";
+	    img.style.fontWeight = "bold";
+	    img.style.fontSize = "20px";
+	    img.style.color = "#ff0000";
+	    img.style.textShadow = "0 0 4px #000";
+	    img.style.backgroundSize = "contain";
+	    img.style.backgroundPosition = "center";
+	    img.style.backgroundRepeat = "no-repeat";
+
+	    if (p.alive) {
+	      img.style.backgroundImage = p.el.style.backgroundImage; // normal player image
+	      img.textContent = ""; // no text
+	    } else {
+	      img.style.backgroundImage = ""; // remove image
+	      img.textContent = "X"; // show X
+	    }
+
+	    hudItem.appendChild(img);
+
+	    // HP bar container
+	    const hpContainer = document.createElement("div");
+	    hpContainer.style.width = "40px";
+	    hpContainer.style.height = "8px";
+	    hpContainer.style.background = "#222";
+	    hpContainer.style.border = "1px solid #000";
+	    hpContainer.style.borderRadius = "3px";
+	    hpContainer.style.marginTop = "4px";
+	    hudItem.appendChild(hpContainer);
+
+	    // HP fill
+	    const hpFill = document.createElement("div");
+	    hpFill.style.height = "100%";
+	    hpFill.style.width = p.alive ? `${(p.hp / playerHP) * 100}%` : "100%";
+	    hpFill.style.background = p.alive
+	      ? (p.hp > 1 ? "#00ff00" : "#ff0000")
+	      : "#555"; // grey if dead
+	    hpFill.style.borderRadius = "3px";
+	    hpContainer.appendChild(hpFill);
+
+	    // Optional numeric HP on top
+	    const hpText = document.createElement("div");
+	    hpText.textContent = p.alive ? p.hp : "";
+	    hpText.style.fontSize = "10px";
+	    hpText.style.fontWeight = "bold";
+	    hpText.style.color = "#fff";
+	    hpText.style.textShadow = "0 0 3px #000";
+	    hpText.style.marginTop = "2px";
+	    hudItem.appendChild(hpText);
+
+	    playerHUD.appendChild(hudItem);
+	  });
+	}
+
+
+
+// Remove player
+function removePlayer(i) {
+  const pData = availablePlayers[i];
+  const index = players.findIndex(p => p.el.style.backgroundImage.includes(pData.img));
+  if (index !== -1) {
+    players[index].el.remove();
+    players.splice(index, 1);
+  }
+}
+
+function renderGallery() {
+  playerGallery.innerHTML = "";
+  availablePlayers.forEach((p, i) => {
+    const div = document.createElement("div");
+    div.className = "gallery-player";
+    div.style.border = selectedPlayers.includes(i)
+      ? "3px solid yellow"
+      : "2px solid #00eaff";
+    div.style.backgroundImage = `url('${p.img}')`;
+    div.title = p.name;
+    div.addEventListener("click", () => {
+      if (selectedPlayers.includes(i)) {
+        selectedPlayers = selectedPlayers.filter(idx => idx !== i);
+        removePlayer(i);
+      } else if (selectedPlayers.length < 8) {
+        selectedPlayers.push(i);
+        spawnPlayer(i);
+      } else {
+        alert("Maximum 8 players only!");
+      }
+      renderGallery();
+    });
+    playerGallery.appendChild(div);
+  });
+
+  weaponGallery.innerHTML = "";
+  availableWeapons.forEach((w, i) => {
+    const div = document.createElement("div");
+    div.className = "gallery-weapon";
+    div.style.border = selectedWeapon === i ? "3px solid yellow" : "2px solid #00eaff";
+    div.style.backgroundImage = `url('${w.img}')`;
+    div.title = w.name;
+    div.addEventListener("click", () => {
+      selectedWeapon = selectedWeapon === i ? null : i;
+      renderGallery();
+      if (selectedWeapon !== null) {
+        weapon.image = availableWeapons[selectedWeapon].img;
+        weaponEl.style.backgroundImage = `url('${weapon.image}')`;
+        spawnWeapon();
+      } else {
+        weaponEl.style.display = "none";
+      }
+    });
+    weaponGallery.appendChild(div);
+  });
+}
+
+renderGallery();
+
+// Start battle
+document.getElementById("startBtn").addEventListener("click", () => {
+  if (selectedPlayers.length < 2) return alert("Select at least 2 players!");
+  if (selectedWeapon === null) return alert("Select a weapon!");
+
+  const speed = parseFloat(speedInput.value);
+  players.forEach(p => {
+    p.vx = (Math.random() * 2 - 1) * speed;
+    p.vy = (Math.random() * 2 - 1) * speed;
+  });
+  winnerEl.style.display = "none";
+  cancelAnimationFrame(loopId);
+  loop();
+});
+
+// Restart
+document.getElementById("restartBtn").addEventListener("click", () => {
+  cancelAnimationFrame(loopId);
+  clearTimeout(weaponRespawnTimer);
+  players = [];
+  weaponEl.style.display = "none";
+  winnerEl.style.display = "none";
+  arena.querySelectorAll(".player").forEach(el => el.remove());
+  selectedPlayers = [];
+  selectedWeapon = null;
+  renderGallery();
+});
+
+// Weapon spawn
+function spawnWeapon() {
+  weapon.x = Math.random() * (arenaSize - weaponSize);
+  weapon.y = Math.random() * (arenaSize - weaponSize);
+  weapon.heldBy = null;
+  weaponEl.style.display = "block";
+  weaponEl.style.left = weapon.x + "px";
+  weaponEl.style.top = weapon.y + "px";
+  clearTimeout(weaponRespawnTimer);
+  weaponRespawnTimer = setTimeout(() => {
+    if (!weapon.heldBy) spawnWeapon();
+  }, weaponTime);
+}
+
+function collide(a, b, sizeA, sizeB) {
+  return !(a.x + sizeA < b.x || a.x > b.x + sizeB || a.y + sizeA < b.y || a.y > b.y + sizeB);
+}
+
+function checkWinner() {
+  const alive = players.filter(p => p.alive);
+  if (alive.length === 1) {
+    winnerEl.innerHTML = `<div style="font-size:2rem;">Winner</div><div style="font-size:1.6rem;margin-top:6px;">🏆</div>`;
+    winnerEl.style.display = "flex";
+    cancelAnimationFrame(loopId);
+  }
+}
+
+function loop() {
+	  const baseSpeed = parseFloat(speedInput.value);
+
+	  players.forEach(p => {
+	    if (!p.alive) return;
+
+	    p.x += p.vx;
+	    p.y += p.vy;
+	    const left = 0, top = 0, right = arenaSize - playerSize, bottom = arenaSize - playerSize;
+
+	    // Wall collision with sound
+	    if (p.x < left) { 
+	      p.x = left; 
+	      p.vx = Math.abs(p.vx); 
+	      bounceSound.cloneNode().play(); 
+	    }
+	    if (p.x > right) { 
+	      p.x = right; 
+	      p.vx = -Math.abs(p.vx); 
+	      bounceSound.cloneNode().play(); 
+	    }
+	    if (p.y < top) { 
+	      p.y = top; 
+	      p.vy = Math.abs(p.vy); 
+	      bounceSound.cloneNode().play(); 
+	    }
+	    if (p.y > bottom) { 
+	      p.y = bottom; 
+	      p.vy = -Math.abs(p.vy); 
+	      bounceSound.cloneNode().play(); 
+	    }
+
+	    p.el.style.left = `${p.x}px`;
+	    p.el.style.top = `${p.y}px`;
+
+	    if (weapon.heldBy === p) {
+	      weapon.x = p.x + playerSize/2 - weaponSize/4;
+	      weapon.y = p.y - weaponSize/2;
+	      weaponEl.style.left = `${weapon.x}px`;
+	      weaponEl.style.top = `${weapon.y}px`;
+	    }
+
+	    if (!weapon.heldBy && collide(p, weapon, playerSize, weaponSize)) {
+	      weapon.heldBy = p;
+	      p.armed = true;
+	      clearTimeout(weaponRespawnTimer);
+	    }
+
+	    players.forEach(o => {
+	      if (p === o || !o.alive) return;
+
+	      if (collide(p, o, playerSize, playerSize)) {
+	        // Play bounce sound on player collision
+	        bounceSound.cloneNode().play();
+
+	        const dx = p.x - o.x, dy = p.y - o.y, dist = Math.sqrt(dx*dx + dy*dy) || 1;
+	        const nx = dx/dist, ny = dy/dist;
+	        p.vx = nx*baseSpeed;
+	        p.vy = ny*baseSpeed;
+	        o.vx = -nx*baseSpeed;
+	        o.vy = -ny*baseSpeed;
+
+	        // Attack reduces HP by 1
+	        if (p.armed && !o.armed) {
+	          o.hp -= 1;
+	          o.label.textContent = `HP: ${o.hp}`;
+	          if (o.hp <= 0) { o.alive = false; o.el.style.display = "none"; checkWinner(); }
+	          p.armed = false; p.el.style.border = "none"; weapon.heldBy = null; spawnWeapon();
+	        } else if (o.armed && !p.armed) {
+	          p.hp -= 1;
+	          p.label.textContent = `HP: ${p.hp}`;
+	          if (p.hp <= 0) { p.alive = false; p.el.style.display = "none"; checkWinner(); }
+	          o.armed = false; o.el.style.border = "none"; weapon.heldBy = null; spawnWeapon();
+	        }
+	      }
+	    });
+	  });
+
+	  loopId = requestAnimationFrame(loop);
+	  
+	  updateHUD();
+
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+.assessment-card {
+	background: linear-gradient(145deg, #273777, #1f2b59);
+	padding: 2.5rem 3rem;
+	border-radius: 1rem;
+	color: white;
+	max-width: 700px;
+	width: 100%;
+	margin: 2rem auto;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+	border: 1px solid #3d4b8a;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.assessment-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Titles & Text */
+.assessment-card h3,
+.assessment-card h4 {
+	font-size: 1.4rem;
+	font-weight: 700;
+	margin-bottom: 0.6rem;
+}
+
+.assessment-card p {
+	color: #d8defa;
+	font-size: 0.95rem;
+	margin-bottom: 1.8rem;
+	line-height: 1.6;
+}
+
+.assessment-card label {
+	display: block;
+	color: #ffffff;
+	font-size: 1.5rem;
+	margin-bottom: 1.8rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}
+
+/* Message Box */
+.assessment-card .message {
+	font-size: 1rem;
+	color: #d8defa;
+	margin-bottom: 2.2rem;
+	line-height: 1.7;
+	background-color: rgba(255, 255, 255, 0.05);
+	padding: 1.2rem 1.3rem;
+	border-radius: 0.6rem;
+	border-left: 3px solid #5673ff;
+	text-align: left;
+}
+
+/* Buttons (Transparent with border only) */
+.assessment-card button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	margin: 0.5rem 1rem;
+	padding: 0.9rem 2rem;
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: #ffffff;
+	background: transparent;
+	border: 2px solid #5673ff;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+	box-shadow: none;
+}
+
+.assessment-card button:hover {
+	background: #5673ff;
+	transform: translateY(-3px);
+	box-shadow: 0 6px 18px rgba(68, 97, 255, 0.4);
+}
+
+.assessment-card button:active {
+	transform: scale(0.98);
+}
+
+/* Degree Buttons */
+.degree-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.degree-btn {
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.4);
+	border-radius: 0.5rem;
+	padding: 0.8rem 1.2rem;
+	color: white;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.degree-btn:hover {
+	background: #5673ff;
+	border-color: #5673ff;
+}
+
+.degree-btn.selected {
+	background: #4461ff;
+	border-color: #4461ff;
+	color: #fff;
+	box-shadow: 0 0 10px rgba(68, 97, 255, 0.4);
+}
+
+.degree-btn.disabled {
+	background: rgba(255, 255, 255, 0.15);
+	border-color: rgba(255, 255, 255, 0.15);
+	color: rgba(255, 255, 255, 0.4);
+	cursor: not-allowed;
+	pointer-events: none;
+	/* THIS disables clicking */
+	opacity: 0.6;
+}
+
+.degree-btn.disabled:hover {
+	cursor: not-allowed;
+}
+
+
+/* Selected Degree/Strand Chips */
+.selected-items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.4rem;
+	margin-bottom: 1rem;
+}
+
+.selected-items span {
+	background-color: rgba(255, 255, 255, 0.15);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	padding: 0.3rem 0.7rem;
+	border-radius: 0.4rem;
+	color: #fff;
+	font-size: 0.9rem;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+}
+
+.selected-items span i {
+	font-size: 0.8rem;
+	cursor: pointer;
+	color: #ff6b6b;
+}
+
+#collegeOptions,
+#strandOptions {
+	display: none;
+}
+
+.assessment-card hr {
+	border: none;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.15);
+	margin: 2rem 0;
+}

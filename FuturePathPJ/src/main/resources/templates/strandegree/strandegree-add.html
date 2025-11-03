@@ -31,6 +31,80 @@
 					    </div>
 					</div>
 				</div>
+				<div class="field-group">
+					<div class="field">
+  <label>RIASEC CODE</label>  
+  <div class="input-wrapper">
+    <i class="fas fa-layer-group"></i>
+<select name="riasecCode" class="dropdown">
+  <option selected disabled>Select Code...</option>
+
+  <!-- 🧰 Realistic (R) -->
+  <optgroup label="Realistic (R) — Hands-on, working with tools/things">
+    <option value="1">R-I-C | Civil Engineering</option>
+    <option value="2">R-I-C | Mechanical Engineering</option>
+    <option value="3">R-I-C | Aerospace Engineering</option>
+    <option value="4">R-A-I | Architecture (Design focus)</option>
+    <option value="5">R-S-I | Physical Therapy / Kinesiology</option>
+    <option value="6">R-S-I | Nursing (Practical focus)</option>
+    <option value="7">R-I-E | Agriculture / Crop Science</option>
+  </optgroup>
+
+  <!-- 🔬 Investigative (I) -->
+  <optgroup label="Investigative (I) — Scientific, analytical, problem-solving">
+    <option value="8">I-R-C | Computer Science</option>
+    <option value="9">I-R-S | Biology / Pre-Med</option>
+    <option value="10">I-R-C | Chemistry / Biochemistry</option>
+    <option value="11">I-C-R | Mathematics / Statistics</option>
+    <option value="12">I-R-C | Physics</option>
+    <option value="13">I-S-A | Psychology (Research focus)</option>
+    <option value="14">I-C-E | Economics (Theoretical focus)</option>
+  </optgroup>
+
+  <!-- 🎨 Artistic (A) -->
+  <optgroup label="Artistic (A) — Creative, expressive, unstructured work">
+    <option value="15">A-R-I | Graphic Design / Digital Media</option>
+    <option value="16">A-S-I | English Literature</option>
+    <option value="17">A-R-I | Fine Arts / Studio Art</option>
+    <option value="18">A-S-E | Music / Theater Arts</option>
+    <option value="19">A-I-R | Architecture (Aesthetics focus)</option>
+    <option value="20">A-E-S | Journalism / Creative Writing</option>
+  </optgroup>
+
+  <!-- 🤝 Social (S) -->
+  <optgroup label="Social (S) — Helping, teaching, healing, informing">
+    <option value="21">S-A-E | Elementary / Secondary Education</option>
+    <option value="22">S-E-A | Social Work / Counseling</option>
+    <option value="23">S-I-R | Nursing (Caring / Interpersonal focus)</option>
+    <option value="24">S-E-A | Communication Studies</option>
+    <option value="25">S-I-E | Public Health</option>
+    <option value="26">S-I-A | History (Teaching / Human focus)</option>
+  </optgroup>
+
+  <!-- 💼 Enterprising (E) -->
+  <optgroup label="Enterprising (E) — Leading, persuading, managing for profit">
+    <option value="27">E-C-S | Business Management</option>
+    <option value="28">E-A-S | Marketing / Advertising</option>
+    <option value="29">E-S-I | Pre-Law / Political Science</option>
+    <option value="30">E-C-I | Finance (Sales / Client focus)</option>
+    <option value="31">E-S-C | Hospitality / Tourism</option>
+    <option value="32">E-A-I | Entrepreneurship</option>
+  </optgroup>
+
+  <!-- 🗂️ Conventional (C) -->
+  <optgroup label="Conventional (C) — Organizing, data, detail-oriented">
+    <option value="33">C-E-I | Accounting</option>
+    <option value="34">C-I-E | Information Systems (MIS)</option>
+    <option value="35">C-I-R | Data Analytics (Entry-level)</option>
+    <option value="36">C-E-I | Finance (Compliance / Recording focus)</option>
+    <option value="37">C-E-S | Paralegal Studies</option>
+  </optgroup>
+</select>
+
+  </div>
+</div>
+
+				</div>
 
 				<!-- Code & Category -->
 				<div class="field-group">
@@ -52,6 +126,13 @@
 					      </select>
 					    </div>
 					</div>
+					<div class="field">
+					    <label>DURATION (1 year)</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-stopwatch"></i>
+					      <input type="number" placeholder="Enter program duration" name="duration"/>
+					    </div>
+					</div>
 				</div>
 
 				<!-- Details -->
@@ -68,7 +149,7 @@
 				<hr>
 				<!-- Buttons -->
 				<div class="btn-group">
-					<a th:href="@{/admin/user}" class="btn btn-secondary transitioning">
+					<a th:href="@{/admin/strandegrees}" class="btn btn-secondary transitioning">
 						<i class="fas fa-times"></i> CANCEL
 					</a>
 					<button type="submit" class="btn btn-primary transitioning">

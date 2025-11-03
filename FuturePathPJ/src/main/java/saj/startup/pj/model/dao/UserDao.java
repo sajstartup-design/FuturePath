@@ -14,12 +14,13 @@ public interface UserDao extends JpaRepository<UserEntity, Integer>{
 	
 	public final String GET_USERS_OVERVIEW =
 		    "SELECT new saj.startup.pj.model.dao.entity.UserOverviewData( " +
-		    "CAST(COUNT(e) AS INTEGER), " +
-		    "CAST(SUM(CASE WHEN e.isActive = true THEN 1 ELSE 0 END) AS INTEGER), " +
-		    "CAST(SUM(CASE WHEN e.isActive = false THEN 1 ELSE 0 END) AS INTEGER) " +
+		    "CAST(COALESCE(COUNT(e), 0) AS INTEGER), " +
+		    "CAST(COALESCE(SUM(CASE WHEN e.isActive = true THEN 1 ELSE 0 END), 0) AS INTEGER), " +
+		    "CAST(COALESCE(SUM(CASE WHEN e.isActive = false THEN 1 ELSE 0 END), 0) AS INTEGER) " +
 		    ") " +
-		    "FROM UserEntity e "
-		    + "WHERE e.isDeleted = false ";
+		    "FROM UserEntity e " +
+		    "WHERE e.isDeleted = false";
+
 	
 	@Query(GET_USERS_OVERVIEW)
 	public UserOverviewData getUserOverview() throws DataAccessException;

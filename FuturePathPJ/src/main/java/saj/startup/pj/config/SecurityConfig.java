@@ -57,19 +57,24 @@ public class SecurityConfig {
 		http
 				.authorizeHttpRequests((requests) -> requests
 						
+						.requestMatchers("/game/**").permitAll()
 						.requestMatchers("/images/**").permitAll()
 						.requestMatchers("/css/**").permitAll()
 						.requestMatchers("/script/**").permitAll()
 						.requestMatchers("/fonts/**").permitAll()
+						.requestMatchers("/gif/**").permitAll()
+						.requestMatchers("/register").permitAll()
 						
 						.requestMatchers("/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
 						.requestMatchers("/api/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
 						
 						.requestMatchers("/dashboard/**").hasAuthority(CommonConstant.ROLE_USER)
 						.requestMatchers("/quiz/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/assessment/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/universities/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/strandegrees/**").hasAuthority(CommonConstant.ROLE_USER)
 						
-						.anyRequest().authenticated()
-						
+						.requestMatchers("/api/**").hasAnyAuthority(CommonConstant.ROLE_USER)
 						)
 				.formLogin((form) -> form
 						.loginPage("/login")

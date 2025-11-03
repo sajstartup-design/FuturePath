@@ -6,9 +6,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class GameController {
 	
-	@GetMapping("/game")
-	public String showGame() {
+	@GetMapping("/game/one")
+	public String showGameOne() {
 		
-		return "game";
+		return "game-one";
+	}
+	
+	@GetMapping("/game/two")
+	public String showGameTwo() {
+		
+		return "game-two";
+	}
+	
+	@GetMapping("/game/three")
+	public String showGameThree() {
+		
+		return "game-three";
 	}
 }

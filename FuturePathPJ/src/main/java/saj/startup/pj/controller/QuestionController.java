@@ -95,5 +95,25 @@ public class QuestionController {
 
 	    return "redirect:/admin/questions";
 	}
+	
+	@GetMapping("/admin/questions/edit")
+	public String showQuestionsEdit(Model model,
+			@ModelAttribute QuestionDto webDto) {
+		
+		try {
+			
+			QuestionDto outDto = questionService.getQuestionByIdPk(webDto);
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("questionDto", outDto);
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return "question/question-edit";
+	}
 
 }

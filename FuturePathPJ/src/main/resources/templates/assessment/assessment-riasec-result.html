@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | RIASEC Result</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <style>
+         .content {
+         background: linear-gradient(145deg, #273777, #1f2b59);
+         padding: 2.5rem 3rem;
+         border-radius: 1rem;
+         color: white;
+         max-width: 700px;
+         width: 100%;
+         margin: 2rem auto;
+         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+         border: 1px solid #3d4b8a;
+         text-align: center;
+         box-sizing: border-box;
+         transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+         .content:hover {
+         transform: translateY(-3px);
+         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+         }
+         /* Heading */
+         .content h1 {
+         font-size: 2rem;
+         font-weight: 700;
+         margin-bottom: 1rem;
+         color: #ffffff;
+         }
+         /* Combination Box */
+         .content .combination {
+         background: linear-gradient(90deg, #586aff, #00eaff);
+         color: #fff;
+         padding: 0.6rem 1.2rem;
+         border-radius: 0.5rem;
+         display: inline-block;
+         font-weight: 700;
+         margin: 1rem 0 1.5rem 0;
+         font-size: 1.1rem;
+         }
+         /* Result Message */
+         .content .result-message {
+         font-size: 1rem;
+         color: #d8defa;
+         margin-bottom: 2rem;
+         line-height: 1.7;
+         background-color: rgba(255, 255, 255, 0.05);
+         padding: 1.2rem 1.3rem;
+         border-radius: 0.6rem;
+         border-left: 3px solid #5673ff;
+         text-align: left;
+         }
+         /* Example Fields */
+         .content .example-fields {
+         margin-top: 1.5rem;
+         font-size: 0.95rem;
+         color: #aab6ff;
+         line-height: 1.5;
+         }
+         .content .example-fields strong {
+         color: #ffffff;
+         }
+         /* Next-step Button */
+         .content .next-step {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.5rem;
+         margin: 1.5rem 0 0 0;
+         padding: 0.9rem 2rem;
+         font-size: 1.05rem;
+         font-weight: 600;
+         color: #ffffff;
+         background: transparent;
+         border: 2px solid #5673ff;
+         border-radius: 0.5rem;
+         cursor: pointer;
+         transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+         text-decoration: none;
+         box-shadow: none;
+         }
+         .content .next-step:hover {
+         background: #5673ff;
+         transform: translateY(-3px);
+         box-shadow: 0 6px 18px rgba(68, 97, 255, 0.4);
+         }
+         .content .next-step:active {
+         transform: scale(0.98);
+         }
+         /* Strength Scores */
+         .content .strength-scores {
+         margin-bottom: 2rem;
+         text-align: left;
+         }
+         .content .strength-scores .score {
+         margin: 0.6rem 0;
+         }
+         .content .strength-scores .score-name {
+         font-weight: 600;
+         color: #ffffff;
+         margin-bottom: 0.3rem;
+         font-size: 0.95rem;
+         }
+         .content .strength-scores .score-bar {
+         background: rgba(86, 115, 255, 0.15);
+         border-radius: 1rem;
+         height: 1rem;
+         width: 100%;
+         overflow: hidden;
+         box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+         }
+         .content .strength-scores .score-bar-fill {
+         height: 100%;
+         border-radius: 1rem;
+         background: linear-gradient(90deg, #586aff, #00eaff);
+         text-align: right;
+         padding-right: 0.5rem;
+         font-size: 0.75rem;
+         font-weight: 600;
+         color: #ffffff;
+         line-height: 1rem;
+         transition: width 0.5s ease;
+         }
+      </style>
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            ASSESSMENT > CAREER INSIGHT > RESULT
+         </nav>
+         <hr>
+         <div class="content" th:object="${assessmentDto}">
+            <h1>🎯 Your Career Insights</h1>
+            <!-- Motivational subtitle -->
+            <h3 style="color: #ffffff; font-weight: 600; margin-bottom: 1.5rem;">
+               Discover the paths that suit your strengths and passions
+            </h3>
+            <!-- Result Message -->
+            <p class="result-message" th:utext="*{message}">
+               You enjoy working with your hands, building, and creating things.
+            </p>
+            <p class="example-fields">
+               <strong style="color:#ffffff; font-weight:700;">Potential Fields:</strong>
+               <span style="color:#00eaff; font-weight:600;" th:text="*{exampleFields}">
+               Engineering, Architecture, Mechanics
+               </span>
+            </p>
+            <div class="strength-scores">
+    <div class="score">
+        <div class="score-name">Realistic</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{realisticPercentageStr} + '%;'" 
+                 th:text="*{realisticPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Investigative</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{investigativePercentageStr} + '%;'" 
+                 th:text="*{investigativePercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Artistic</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{artisticPercentageStr} + '%;'" 
+                 th:text="*{artisticPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Social</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{socialPercentageStr} + '%;'" 
+                 th:text="*{socialPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Enterprising</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{enterprisingPercentageStr} + '%;'" 
+                 th:text="*{enterprisingPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+    <div class="score">
+        <div class="score-name">Conventional</div>
+        <div class="score-bar">
+            <div class="score-bar-fill" 
+                 th:style="'width:' + *{conventionalPercentageStr} + '%;'" 
+                 th:text="*{conventionalPercentageStr} + '%'">0%</div>
+        </div>
+    </div>
+</div>
+
+            <a th:href="@{/assessment/next}" class="next-step">Proceed to Next Assessment →</a>
+         </div>
+      </main>
+   </body>
+</html>

@@ -13,6 +13,8 @@ import saj.startup.pj.model.object.UniversityObj;
 @Data
 public class UniversityDto {
 	
+	private int idPk;
+	
 	private String universityName;
 	
 	private String category;
@@ -38,4 +40,12 @@ public class UniversityDto {
 	private List<UniversityObj> allUniversities;
 	
 	private UniversityOverviewData overview;
+	
+	private String founded;
+	
+	private String students;
+	
+	private String motto;
+	
+	private UniversityObj university;
 }

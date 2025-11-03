@@ -13,45 +13,55 @@ VALUES
 (3, 'What is the primary purpose of database normalization?', TRUE, FALSE, NOW());
 
 
--- BSIS (Additional 10 Questions) — answers for question_id_pk 21-30
-INSERT INTO answer (question_id_pk, answer, is_active, is_deleted, created_at)
+-- 🧠 Answers for BS Information Systems (BSIS)
+INSERT INTO answer (question_id_pk, answer, is_correct, is_active, is_deleted, created_at)
 VALUES
-(21, 'Business Intelligence', true, false, NOW()),
-(21, 'Data Warehousing', true, false, NOW()),
-(21, 'Data Mining', true, false, NOW()),
+-- Q21: What is the main goal of a Management Information System (MIS)?
+(21, 'Business Intelligence', FALSE, TRUE, FALSE, NOW()),
+(21, 'Data Warehousing', FALSE, TRUE, FALSE, NOW()),
+(21, 'To provide information for decision-making and management control', TRUE, TRUE, FALSE, NOW()),
 
-(22, 'Systems Integration', true, false, NOW()),
-(22, 'IT Infrastructure', true, false, NOW()),
-(22, 'Cloud Computing', true, false, NOW()),
+-- Q22: Which component of an Information System handles data storage and retrieval?
+(22, 'Systems Integration', FALSE, TRUE, FALSE, NOW()),
+(22, 'IT Infrastructure', FALSE, TRUE, FALSE, NOW()),
+(22, 'Database Management System (DBMS)', TRUE, TRUE, FALSE, NOW()),
 
-(23, 'E-Commerce Systems', true, false, NOW()),
-(23, 'Digital Marketing Tools', true, false, NOW()),
-(23, 'Customer Relationship Management', true, false, NOW()),
+-- Q23: What is the role of a Systems Analyst in an organization?
+(23, 'To analyze and design information systems that meet business needs', TRUE, TRUE, FALSE, NOW()),
+(23, 'To perform digital marketing', FALSE, TRUE, FALSE, NOW()),
+(23, 'To manage financial transactions', FALSE, TRUE, FALSE, NOW()),
 
-(24, 'IT Governance', true, false, NOW()),
-(24, 'Risk Management', true, false, NOW()),
-(24, 'Compliance Standards', true, false, NOW()),
+-- Q24: Which of the following best describes a Decision Support System (DSS)?
+(24, 'A system that supports management decisions using data analysis models', TRUE, TRUE, FALSE, NOW()),
+(24, 'A system that manages employee payroll', FALSE, TRUE, FALSE, NOW()),
+(24, 'A system that handles customer orders', FALSE, TRUE, FALSE, NOW()),
 
-(25, 'Enterprise Resource Planning', true, false, NOW()),
-(25, 'Supply Chain Systems', true, false, NOW()),
-(25, 'Financial Information Systems', true, false, NOW()),
+-- Q25: What is the main difference between data and information?
+(25, 'Data are raw facts; information is processed data with meaning', TRUE, TRUE, FALSE, NOW()),
+(25, 'Data and information mean the same thing', FALSE, TRUE, FALSE, NOW()),
+(25, 'Information is less valuable than data', FALSE, TRUE, FALSE, NOW()),
 
-(26, 'Network Administration', true, false, NOW()),
-(26, 'System Security', true, false, NOW()),
-(26, 'Server Management', true, false, NOW()),
+-- Q26: Which process ensures that system requirements meet business needs?
+(26, 'System Analysis and Design', TRUE, TRUE, FALSE, NOW()),
+(26, 'Network Administration', FALSE, TRUE, FALSE, NOW()),
+(26, 'Server Management', FALSE, TRUE, FALSE, NOW()),
 
-(27, 'Software Quality Assurance', true, false, NOW()),
-(27, 'Testing Methodologies', true, false, NOW()),
-(27, 'Version Control Systems', true, false, NOW()),
+-- Q27: What type of system integrates various business functions like finance and HR?
+(27, 'Enterprise Resource Planning (ERP)', TRUE, TRUE, FALSE, NOW()),
+(27, 'Testing Methodologies', FALSE, TRUE, FALSE, NOW()),
+(27, 'Version Control Systems', FALSE, TRUE, FALSE, NOW()),
 
-(28, 'Mobile Application Systems', true, false, NOW()),
-(28, 'Cross-platform Tools', true, false, NOW()),
-(28, 'App Deployment', true, false, NOW()),
+-- Q28: What is the purpose of business process modeling?
+(28, 'To analyze and improve organizational processes for efficiency', TRUE, TRUE, FALSE, NOW()),
+(28, 'To develop mobile apps', FALSE, TRUE, FALSE, NOW()),
+(28, 'To deploy databases', FALSE, TRUE, FALSE, NOW()),
 
-(29, 'Knowledge Management Systems', true, false, NOW()),
-(29, 'Information Retrieval', true, false, NOW()),
-(29, 'Document Management', true, false, NOW()),
+-- Q29: Which of the following tools is commonly used for data visualization in business intelligence?
+(29, 'Power BI', TRUE, TRUE, FALSE, NOW()),
+(29, 'Information Retrieval', FALSE, TRUE, FALSE, NOW()),
+(29, 'Document Management', FALSE, TRUE, FALSE, NOW()),
 
-(30, 'Emerging Technologies', true, false, NOW()),
-(30, 'Artificial Intelligence in Business', true, false, NOW()),
-(30, 'Blockchain Applications', true, false, NOW());
+-- Q30: What is the primary purpose of database normalization?
+(30, 'To reduce data redundancy and improve data integrity', TRUE, TRUE, FALSE, NOW()),
+(30, 'To increase database size', FALSE, TRUE, FALSE, NOW()),
+(30, 'To store unstructured data', FALSE, TRUE, FALSE, NOW());

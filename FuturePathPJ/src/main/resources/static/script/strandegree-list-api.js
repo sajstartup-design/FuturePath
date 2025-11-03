@@ -47,7 +47,7 @@ function renderStrandegrees(list) {
         <p>${item.details || "No description available."}</p>
         ${
           isDegree
-            ? `<p><strong>Duration:</strong> ${item.duration || "N/A"}</p>`
+            ? `<p><strong>Duration:</strong> ${item.duration + ' years' || "N/A"}</p>`
             : ""
         }
       </div>

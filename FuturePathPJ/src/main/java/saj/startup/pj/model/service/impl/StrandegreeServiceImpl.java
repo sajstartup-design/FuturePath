@@ -38,6 +38,8 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		newStrandegree.setCode(inDto.getCode());
 		newStrandegree.setCategory(inDto.getCategory());
 		newStrandegree.setDetails(inDto.getDetails());
+		newStrandegree.setDuration(inDto.getDuration());
+		newStrandegree.setRiasecCode(inDto.getRiasecCode());
 		newStrandegree.setIsActive(true);
 		newStrandegree.setIsDeleted(false);
 		newStrandegree.setCreatedAt(timeNow);
@@ -78,6 +80,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		    obj.setCode(strandegree.getCode());
 		    obj.setCategory(strandegree.getCategory());
 		    obj.setDetails(strandegree.getDetails());
+		    obj.setDuration(strandegree.getDuration());
 		    obj.setIsActive(strandegree.getIsActive());
 		    obj.setCreatedAt(strandegree.getCreatedAt());
 		    
@@ -115,6 +118,7 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		    obj.setCode(strandegree.getCode());
 		    obj.setCategory(strandegree.getCategory());
 		    obj.setDetails(strandegree.getDetails());
+		    obj.setDuration(strandegree.getDuration());
 		    obj.setIsActive(strandegree.getIsActive());
 		    obj.setCreatedAt(strandegree.getCreatedAt());
 		    
@@ -138,6 +142,46 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		outDto.setStrandegreesQuestions(strandegreesQuestions);
 		
 		return outDto;
+	}
+
+	@Override
+	public StrandegreeDto getStrandegree(StrandegreeDto inDto) throws Exception {
+		
+		StrandegreeDto outDto = new StrandegreeDto();
+		
+		StrandegreeEntity entity = strandegreeLogic.getStrandegree(inDto.getIdPk());
+		
+		StrandegreeObj obj = new StrandegreeObj();
+		
+		 obj.setName(entity.getName());
+		 obj.setCode(entity.getCode());
+		 obj.setCategory(entity.getCategory());
+		 obj.setDetails(entity.getDetails());
+		 obj.setDuration(entity.getDuration());
+		 obj.setRiasecCode(entity.getRiasecCode());
+		 
+		 outDto.setStrandegree(obj);
+		
+		return outDto;
+	}
+	
+	@Override
+	public void updateStrandegree(StrandegreeDto inDto) throws Exception {
+		
+	    StrandegreeEntity existing = strandegreeLogic.getStrandegree(inDto.getIdPk());
+	    
+	    if (existing == null) {
+	        throw new Exception("Strandegree not found with ID: " + inDto.getIdPk());
+	    }
+
+	    existing.setName(inDto.getName());
+	    existing.setCode(inDto.getCode());
+	    existing.setCategory(inDto.getCategory());
+	    existing.setDetails(inDto.getDetails());
+	    existing.setDuration(inDto.getDuration());
+	    existing.setRiasecCode(inDto.getRiasecCode());
+	    
+	    strandegreeLogic.saveStrandegree(existing);
 	}
 
 }

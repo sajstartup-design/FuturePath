@@ -101,7 +101,7 @@ async function loadQuestions(page = 0,
 				<td>${question.createdAt}</td>
 				<td><span class="status-label ${question.isActive ? 'active' : 'inactive'}">${question.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
-		            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
+		            <a href="/admin/questions/edit?idPk=${question.idPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
 		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
 	            </td>
             `;
