@@ -21,7 +21,7 @@
 		<hr>
 		<div class="content">
 
-			<form th:action="@{/admin/questions/edit}" method="POST" th:object="${questionDto}">
+			<form class="form" th:action="@{/admin/questions/edit}" method="POST" th:object="${questionDto}">
 				<input type="hidden" name="idPk" th:value="*{idPk}" />
 				<div class="field-group">
 					<div class="field">
