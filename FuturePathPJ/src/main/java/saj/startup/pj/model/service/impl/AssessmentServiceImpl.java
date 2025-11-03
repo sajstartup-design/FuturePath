@@ -1,5 +1,6 @@
 package saj.startup.pj.model.service.impl;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception {
 
 	    AssessmentDto outDto = new AssessmentDto();
+	    
+	    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
 	    UserEntity user = userService.getUserActive();
 
@@ -68,12 +71,11 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    List<HistoryQuestionEntity> historyQuestions = new ArrayList<>();
 
-	    // Create and save initial result record
 	    AssessmentResultEntity resultEntity = new AssessmentResultEntity();
 	    resultEntity.setUserIdPk(user.getIdPk());
+	    resultEntity.setDateTaken(timestamp);
 	    int resultIdPk = historyLogic.saveAssessmentResult(resultEntity);
 
-	    // Loop through each answered question
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
 	        Integer questionId = entry.getKey();
 	        Integer answerId = entry.getValue();
@@ -97,15 +99,12 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        historyQuestions.add(history);
 	    }
 
-	    // Save all question histories
 	    historyLogic.saveHistoryQuestions(historyQuestions);
 
-	    // Calculate final score
 	    int totalQuestions = answeredMap.size();
 	    double percentage = totalQuestions > 0 ? ((double) totalCorrect / totalQuestions) * 100 : 0.0;
 	    percentage = Math.round(percentage * 10.0) / 10.0;
 
-	    // Update final result
 	    resultEntity.setCorrect(totalCorrect);
 	    resultEntity.setIncorrect(totalIncorrect);
 	    resultEntity.setScore(percentage);
