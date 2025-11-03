@@ -73,6 +73,7 @@ public class SecurityConfig {
 						.requestMatchers("/assessment/**").hasAuthority(CommonConstant.ROLE_USER)
 						.requestMatchers("/universities/**").hasAuthority(CommonConstant.ROLE_USER)
 						.requestMatchers("/strandegrees/**").hasAuthority(CommonConstant.ROLE_USER)
+						.requestMatchers("/history/**").hasAuthority(CommonConstant.ROLE_USER) 
 						
 						.requestMatchers("/api/**").hasAnyAuthority(CommonConstant.ROLE_USER)
 						)

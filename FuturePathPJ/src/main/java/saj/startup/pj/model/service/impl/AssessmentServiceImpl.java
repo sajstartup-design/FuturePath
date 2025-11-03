@@ -134,7 +134,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    List<HistoryQuestionData> questions = historyLogic.getHistoryQuestionsByResultIdPk(inDto.getResultIdPk());
 	    outDto.setQuestions(questions);
 
-	    // 🔹 Build correctCountMap and totalQuestionPerCode from history
 	    for (HistoryQuestionData q : questions) {
 	        String code = q.getCode();
 	        String name = q.getName();
@@ -150,7 +149,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        }
 	    }
 
-	    // 🔹 Compute percentage per code
 	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
 	        String code = e.getKey();
 	        RecommendationObj rec = e.getValue();
@@ -161,24 +159,20 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        rec.setPercentage(percentagePerCode);
 	    }
 
-	    // 🔹 Get top 3 recommendations
 	    List<RecommendationObj> top3 = correctCountMap.values().stream()
 	        .filter(rec -> rec.getPercentage() > 0)
 	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
 	        .limit(3)
 	        .collect(Collectors.toList());
 
-	    // (Optional) Example: pass top3 codes to universityLogic
 	    List<String> top3Codes = top3.stream()
 	        .map(RecommendationObj::getCode)
 	        .collect(Collectors.toList());
 
-	    System.out.println("Top 3 codes: " + top3Codes);
 	    List<UniversityRecommendationData> universities = universityLogic.getUniversityRecommendation(top3Codes);
 	    
 	    outDto.setUniversities(universities);
-	    
-	    // 🔹 Set results
+
 	    outDto.setResultIdPk(inDto.getResultIdPk());
 	    outDto.setTotalCorrect(result.getCorrect());
 	    outDto.setTotalIncorrect(result.getIncorrect());
