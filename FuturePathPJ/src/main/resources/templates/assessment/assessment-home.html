@@ -54,14 +54,16 @@
                </div>
                <div class="degree-buttons">
                   <div class="degree-buttons">
-                     <div class="degree-btn"
-                        th:each="degree : ${strandegreeDto.strandegreesQuestions}"
-                        th:if="${degree.category == 'DEGREE'}"
-                        th:text="${degree.code}"
-                        th:data-degree="${degree.code}"
-                        th:title="${degree.name}">
-                     </div>
-                  </div>
+    <div class="degree-btn"
+         th:each="degree : ${strandegreeDto.strandegreesQuestions}"
+         th:if="${degree.category == 'DEGREE'}"
+         th:text="${degree.code}"
+         th:data-degree="${degree.code}"
+         th:title="${degree.name}"
+         th:classappend="${degree.totalQuestions == 0} ? ' disabled' : ''">
+    </div>
+</div>
+
                </div>
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">
@@ -90,7 +92,8 @@
                         th:if="${strand.category == 'STRAND'}"
                         th:text="${strand.code}"
                         th:data-degree="${strand.code}"
-                        th:title="${strand.name}">
+                        th:title="${strand.name}"
+                        th:classappend="${strand.totalQuestions == 0} ? ' disabled' : ''">
                      </div>
                   </div>
                </div>
@@ -101,7 +104,7 @@
          </div>
       </main>
       <script th:inline="javascript">
-         console.log(/*[]*/'');
+         console.log(/*[[${strandegreeDto}]]*/'');
       </script>
       <script>
          const collegeBtn = document.getElementById('collegeBtn');
