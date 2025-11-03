@@ -6,6 +6,8 @@
       <title>FuturePath | Assessment Result</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>    
       <link rel="stylesheet" th:href="@{/css/common.css}" />
       <link rel="stylesheet" th:href="@{/css/assessment-result.css}" />
    </head>
@@ -25,63 +27,49 @@
                   <div class="stat-box"><strong>❌ Incorrect: </strong><span th:text=" *{totalIncorrect}">0</span></div>
                   <div class="stat-box"><strong>📊 Score: </strong><span th:text="|*{percentage}%|">0%</span></div>
                </div>
-               <!-- Top Degrees -->
                <section class="top-recommendations">
                   <h3>🏆 Top 3 Recommended Fields</h3>
-                  <!-- ✅ Show if there are recommendations -->
                   <div class="top-list" th:if="*{top3Recommendations != null and !top3Recommendations.isEmpty()}">
                      <div class="top-item" th:each="rec, stat : *{top3Recommendations}">
                         <span class="rank" th:text="${stat.count} + '.'"></span>
-                        <span class="rec-name" th:text="${rec.name}">Sample Degree</span>
-                        <span class="rec-percent" th:text="|(${#numbers.formatDecimal(rec.percentage, 1, 1)}%)|">90.0%</span>
+                        <span class="rec-name" th:text="${rec.name}"></span>
+                        <span class="rec-percent" th:text="|(${#numbers.formatDecimal(rec.percentage, 1, 1)}%)|"></span>
                      </div>
                   </div>
-                  <!-- ❌ Show this if list is empty -->
                   <p th:unless="*{top3Recommendations != null and !top3Recommendations.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
                      I'm sorry, you currently have no recommendations based on your answers.
                   </p>
                </section>
                <section class="university-programs">
-				  <h3>🎓 All Universities Offering Programs</h3>
-				
-				  <div class="university-list" id="universityList">
-				    <div class="university-item"
-				         th:each="university, iterStat : *{universities}"
-				         th:classappend="${iterStat.index >= 3} ? 'hidden' : ''">
-				
-				      <div class="uni-header">
-				        <span class="uni-name" th:text="${university.universityName}">Sample University</span>
-				        <button class="view-btn"
-				                type="button"
-				                th:onclick="'window.location.href=\'/universities/' + ${university.universityIdPk} + '\''">
-				          View
-				        </button>
-				      </div>
-				
-				      <ul class="degree-list">
-				        <li th:each="program : ${university.offeredPrograms}" th:text="${program}">
-				          Bachelor of Science in IT
-				        </li>
-				      </ul>
-				    </div>
-				  </div>
-				
-				  <!-- Show More button -->
-				  <button id="showMoreBtn"
-				          th:if="*{universities != null and universities.size() > 3}"
-				          type="button"
-				          class="show-more-btn">
-				    Show More
-				  </button>
-				
-				  <!-- Optional message if no universities -->
-				  <p th:unless="*{universities != null and !universities.isEmpty()}"
-				     class="no-universities">
-				    No universities available at the moment.
-				  </p>
-				</section>
-
-				               <!-- Scores Breakdown -->
+                  <h3>🎓 All Universities Offering Programs</h3>
+                  <div class="university-list" id="universityList">
+                     <div class="university-item"
+                        th:each="university, iterStat : *{universities}"
+                        th:classappend="${iterStat.index >= 3} ? 'hidden' : ''">
+                        <div class="uni-header">
+                           <span class="uni-name" th:text="${university.universityName}"></span>
+                           <button class="view-btn"
+                              type="button"
+                              th:onclick="'window.location.href=\'/universities/' + ${university.universityIdPk} + '\''">
+                           View
+                           </button>
+                        </div>
+                        <ul class="degree-list">
+                           <li th:each="program : ${university.offeredPrograms}" th:text="${program}"></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <button id="showMoreBtn"
+                     th:if="*{universities != null and universities.size() > 3}"
+                     type="button"
+                     class="show-more-btn">
+                  Show More
+                  </button>
+                  <p th:unless="*{universities != null and !universities.isEmpty()}"
+                     class="no-universities">
+                     No universities available at the moment.
+                  </p>
+               </section>
                <section class="scores-breakdown">
                   <h3>🎯 Scores Breakdown</h3>
                   <div class="recommendation-list">
@@ -89,11 +77,11 @@
                         <div class="score-icon">
                            <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <div class="score-name" th:text="${rec.code}">BSCS</div>
+                        <div class="score-name" th:text="${rec.code}"></div>
                         <div class="score-bar">
                            <div class="score-bar-fill" 
                               th:style="'width:' + ${rec.percentage} + '%;'" 
-                              th:text="${#numbers.formatDecimal(rec.percentage, 1, 1)} + '%'">0%</div>
+                              th:text="${#numbers.formatDecimal(rec.percentage, 1, 1)} + '%'"></div>
                         </div>
                      </div>
                   </div>
@@ -101,40 +89,74 @@
             </div>
             <div class="next-steps">
                <h3>Next Steps</h3>
-               <button>View Matching Universities</button>
-               <button>Retake Assessment</button>
-               <button>Download Result (PDF)</button>
+               <button onclick="window.location.href='/assessment'">Retake Assessment</button>
+               <button id="downloadSummaryBtn" type="button">Download Result (PDF)</button>
+               <button onclick="window.location.href='/dashboard'">Go to Dashboard</button>
             </div>
-            <!-- Question Results -->
             <div class="question-results">
                <h3>Question Breakdown</h3>
                <div class="question-card" th:each="question, iterStat : *{questions}">
-                  <h4 th:text="${iterStat.index + 1} + '. ' + ${question.question}">1. Sample question</h4>
-                  <!-- user's answer with dynamic class -->
+                  <h4 th:text="${iterStat.index + 1} + '. ' + ${question.question}"></h4>
                   <div class="answer"
                      th:classappend="${question.isCorrect} ? ' correct' : ' incorrect'">
-                     Your Answer: <span th:text="${question.userAnswer}">Sample Answer</span>
+                     Your Answer: <span th:text="${question.userAnswer}"></span>
                   </div>
-                  <!-- show correct answer only if user's answer is incorrect -->
                   <div class="correct-answer"
                      th:if="${!question.isCorrect}">
-                     ✔ Correct Answer: <span th:text="${question.correctAnswer}">Correct Answer</span>
+                     ✔ Correct Answer: <span th:text="${question.correctAnswer}"></span>
                   </div>
                </div>
             </div>
          </div>
          <script th:inline="javascript">
-         	console.clear();
-         	console.log(/*[[${assessmentDto}]]*/'');
-         	document.addEventListener("DOMContentLoaded", function () {
-         	    const showMoreBtn = document.getElementById("showMoreBtn");
-         	    if (!showMoreBtn) return;
-
-         	    showMoreBtn.addEventListener("click", () => {
-         	      document.querySelectorAll("#universityList .hidden").forEach(el => el.classList.remove("hidden"));
-         	      showMoreBtn.style.display = "none";
-         	    });
-         	  });
+	         console.clear();
+	         console.log( /*[[${assessmentDto}]]*/ '');
+	         document.addEventListener("DOMContentLoaded", function() {
+	             const showMoreBtn = document.getElementById("showMoreBtn");
+	             if (!showMoreBtn) return;
+	
+	             showMoreBtn.addEventListener("click", () => {
+	                 document.querySelectorAll("#universityList .hidden").forEach(el => el.classList.remove("hidden"));
+	                 showMoreBtn.style.display = "none";
+	             });
+	         });
+	
+	         document.getElementById("downloadSummaryBtn")?.addEventListener("click", async function() {
+	             const {
+	                 jsPDF
+	             } = window.jspdf;
+	             const summaryElement = document.querySelector(".result-summary");
+	
+	             if (!summaryElement) {
+	                 alert("Summary section not found!");
+	                 return;
+	             }
+	
+	             summaryElement.scrollIntoView();
+	
+	             const canvas = await html2canvas(summaryElement, {
+	                 scale: 2,
+	                 useCORS: true,
+	             });
+	
+	             const imgData = canvas.toDataURL("image/png");
+	             const pdf = new jsPDF({
+	                 orientation: "portrait",
+	                 unit: "px",
+	                 format: "a4"
+	             });
+	
+	             const pdfWidth = pdf.internal.pageSize.getWidth();
+	             const pdfHeight = pdf.internal.pageSize.getHeight();
+	
+	             const imgWidth = pdfWidth - 40;
+	             const imgHeight = (canvas.height * imgWidth) / canvas.width;
+	
+	             const yOffset = 20;
+	             pdf.addImage(imgData, "PNG", 20, yOffset, imgWidth, imgHeight);
+	
+	             pdf.save("Assessment_Summary.pdf");
+	         });
          </script>
       </main>
    </body>
