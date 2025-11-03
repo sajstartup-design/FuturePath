@@ -10,6 +10,8 @@ import saj.startup.pj.model.object.UserObj;
 
 @Data
 public class UserDto {
+	
+	private int idPk;
 
 	private String firstName;
 	
@@ -32,4 +34,6 @@ public class UserDto {
 	private PaginationObj pagination;
 	
 	private FilterAndSearchObj filter;
+	
+	private UserObj user;
 }

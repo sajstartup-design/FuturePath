@@ -15,4 +15,8 @@ public interface UserService {
 	public UserDto getAllUsers(UserDto inDto) throws Exception;
 	
 	public UserEntity getUserActive() throws Exception;
+	
+	public UserDto getUser(UserDto inDto) throws Exception;
+	
+	public void updateUser(UserDto inDto) throws Exception;
 }

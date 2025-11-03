@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/admin/user/add")
-	public String postShowAddUser(@ModelAttribute UserDto webDto, 
+	public String postAddUser(@ModelAttribute UserDto webDto, 
 			RedirectAttributes ra) {
 		
 		try {
@@ -54,6 +54,55 @@ public class UserController {
 			
 			ra.addFlashAttribute("isSuccess", true);
 			ra.addFlashAttribute("successMsg", MessageConstant.USER_ADDED);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+
+		}
+		
+		return "redirect:/admin/user";
+	}
+	
+	@GetMapping("/admin/user/edit")
+	public String showEditUser(Model model, 
+			@ModelAttribute UserDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			UserDto outDto = userService.getUser(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("userDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/user";
+		}
+		
+		model.addAttribute("page", "user");
+		
+		return "user/user-edit";
+	}
+	
+	@PostMapping("/admin/user/edit")
+	public String postEditUser(@ModelAttribute UserDto webDto, 
+			RedirectAttributes ra) {
+		
+		try {
+			
+			userService.updateUser(webDto);
+			
+			ra.addFlashAttribute("isSuccess", true);
+			ra.addFlashAttribute("successMsg", MessageConstant.USER_EDITED);
 			
 		}catch(Exception e) {
 			e.printStackTrace();

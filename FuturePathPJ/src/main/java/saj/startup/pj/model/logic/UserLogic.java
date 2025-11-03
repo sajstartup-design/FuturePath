@@ -17,4 +17,6 @@ public interface UserLogic {
 	public Page<UserEntity> getAllUsers(Pageable pageable, String search);
 	
 	public UserEntity getUserByUsername(String username);
+	
+	public UserEntity getUser(int userIdPk);
 }

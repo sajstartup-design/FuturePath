@@ -53,4 +53,11 @@ public interface UserDao extends JpaRepository<UserEntity, Integer>{
 	
 	@Query(GET_USER_BY_USERNAME)
 	public UserEntity getUserByUsername(@Param("username") String username) throws DataAccessException;
+	
+	public final String GET_USER = "SELECT e "
+			+ "FROM UserEntity e "
+			+ "WHERE e.idPk = :idPk ";
+	
+	@Query(GET_USER)
+	public UserEntity getUser(@Param("idPk") int idPk) throws DataAccessException;
 }

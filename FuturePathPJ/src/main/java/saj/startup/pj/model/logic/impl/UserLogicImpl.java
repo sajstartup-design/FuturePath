@@ -42,4 +42,10 @@ public class UserLogicImpl implements UserLogic{
 		return userDao.getUserByUsername(username);
 	}
 
+	@Override
+	public UserEntity getUser(int userIdPk) {
+		
+		return userDao.getUser(userIdPk);
+	}
+
 }

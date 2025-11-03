@@ -131,6 +131,49 @@ public class UserServiceImpl implements UserService{
 	    }
 	}
 
+	@Override
+	public UserDto getUser(UserDto inDto) throws Exception {
+		
+		UserDto outDto = new UserDto();
+		
+		UserEntity user = userLogic.getUser(inDto.getIdPk());
+		
+		UserObj obj = new UserObj();
+		
+		obj.setIdPk(user.getIdPk());
+	    obj.setFirstName(user.getFirstName());
+	    obj.setLastName(user.getLastName());
+	    obj.setEmail(user.getEmail());
+	    obj.setPhone(user.getPhone());
+	    obj.setGender(user.getGender());
+	    obj.setUsername(user.getUsername());
+		
+		outDto.setUser(obj);	
+		
+		return outDto;
+	}
+
+	@Override
+	public void updateUser(UserDto inDto) throws Exception {
+		
+		UserEntity existing = userLogic.getUser(inDto.getIdPk());
+		
+		if(existing == null) {
+			throw new Exception("User not found with ID: " + inDto.getIdPk());
+		}
+		
+		existing.setFirstName(inDto.getFirstName());
+		existing.setLastName(inDto.getLastName());
+		existing.setEmail(inDto.getEmail());
+		existing.setPhone(inDto.getPhone());
+		existing.setGender(inDto.getGender());
+		existing.setUsername(inDto.getUsername());
+		existing.setPassword(inDto.getPassword());
+		
+		userLogic.saveUser(existing);		
+		
+	}
+
 	
 	
 
