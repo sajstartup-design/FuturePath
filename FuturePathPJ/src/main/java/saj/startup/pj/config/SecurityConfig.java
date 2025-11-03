@@ -63,6 +63,7 @@ public class SecurityConfig {
 						.requestMatchers("/script/**").permitAll()
 						.requestMatchers("/fonts/**").permitAll()
 						.requestMatchers("/gif/**").permitAll()
+						.requestMatchers("/register").permitAll()
 						
 						.requestMatchers("/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
 						.requestMatchers("/api/admin/**").hasAnyAuthority(CommonConstant.ROLE_ADMIN)
