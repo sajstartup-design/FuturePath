@@ -57,65 +57,6 @@ form{
   height: 2rem;
 }
 
-/* .dropdown{
-	width: -webkit-fill-available;
-	
-}
-
-.dropdown-menu-inner{
-	max-height: 16rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    color: #000;
-}
-
-.dropdown-menu{
-	position: absolute;
-    display: none;
-    top: 100%;
-    left: 0;
-    width: -webkit-fill-available;
-    z-index: 10;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease-in-out;
-    background: #fff;
-    padding: 0.3rem;
-}
-
-.dropdown-menu-item{
-	color: #000 !important;
-	padding: 0.3rem;
-}
-
-.dropdown-menu-item:hover{
-	color: #fff;
-    background-color: hsl(217, 91%, 60%);
-}
-
-.dropdown-menu-inner::-webkit-scrollbar {
-   width: 5px;
-   height: auto;
-}
-
-.dropdown-menu-inner::-webkit-scrollbar-thumb {
-   border-radius: 0.25rem;
-   background-color: var(--color-greys);
-   box-shadow: var(--shadow-small);
-}
-
-.dropdown-menu-search{
-	color: #000 !important;
-	width: -webkit-fill-available;
-}
-
-.dropdown-select{
-	width: 100%;
-	height: 2rem;
-	font-size: 0.9rem;
-	display: flex;
-	align-items: center;
-} */
-
 .input-wrapper textarea{
 	height: 5rem;
 }
@@ -214,5 +155,52 @@ form{
 .evaluation-table th {
   background: #1e2761;
   font-weight: 600;
+}
+
+/* Answer Option Styles */
+.answer-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.check-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: #9bb0f9;
+  cursor: pointer;
+  background: #1e2761;
+  border: 1px solid #37418e;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.check-btn:hover {
+  background: #37418e;
+  color: #fff;
+}
+
+.check-btn input[type="radio"] {
+  display: none;
+}
+
+.check-btn .check-mark {
+  font-weight: bold;
+  color: #9bb0f9;
+  font-size: 0.9rem;
+  transition: color 0.2s ease-in-out;
+}
+
+/* When checked */
+.check-btn input[type="radio"]:checked + .check-mark {
+  color: #00ff99;
+}
+.check-btn input[type="radio"]:checked ~ span,
+.check-btn input[type="radio"]:checked ~ .check-mark {
+  color: #00ff99;
 }
 

@@ -94,23 +94,37 @@
 				</div>
 							
 				<!-- Answers -->
-				<div class="field-group">
-					<div class="field">
-					    <label>ANSWERS</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i> <!-- Changed to check-circle -->
-					      <input type="text" placeholder="Enter answer option" name="answers[0]"/>
-					    </div>
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers[1]"/>
-					    </div>
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers[2]"/>
-					    </div>
-					</div>
-				</div>
+				<!-- Answers -->
+<div class="field-group">
+  <div class="field">
+    <label>ANSWERS</label>
+    <div class="input-wrapper answer-option">
+      <i class="fas fa-check-circle"></i>
+      <input type="text" placeholder="Enter answer option" name="answers[0]" />
+      <label class="check-btn">
+        <input type="radio" name="correctAnswer" value="0" />
+        <span class="check-mark">✔</span> CHECK
+      </label>
+    </div>
+    <div class="input-wrapper answer-option">
+      <i class="fas fa-check-circle"></i>
+      <input type="text" placeholder="Enter answer option" name="answers[1]" />
+      <label class="check-btn">
+        <input type="radio" name="correctAnswer" value="1" />
+        <span class="check-mark">✔</span> CHECK
+      </label>
+    </div>
+    <div class="input-wrapper answer-option">
+      <i class="fas fa-check-circle"></i>
+      <input type="text" placeholder="Enter answer option" name="answers[2]" />
+      <label class="check-btn">
+        <input type="radio" name="correctAnswer" value="2" />
+        <span class="check-mark">✔</span> CHECK
+      </label>
+    </div>
+  </div>
+</div>
+
 							
 				<hr>
 				<!-- Buttons -->
