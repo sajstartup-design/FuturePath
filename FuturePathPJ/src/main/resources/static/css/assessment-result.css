@@ -275,6 +275,28 @@
 	/* 👈 everything stays left */
 }
 
+.uni-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-btn {
+  background-color: #4c6fff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn:hover {
+  background-color: #3a55cc;
+}
+
+
 .university-item {
 	background: rgba(255, 255, 255, 0.05);
 	border-left: 4px solid #5673ff;

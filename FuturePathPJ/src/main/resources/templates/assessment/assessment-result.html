@@ -45,30 +45,42 @@
 				  <h3>🎓 All Universities Offering Programs</h3>
 				
 				  <div class="university-list" id="universityList">
-				    <div class="university-item" 
-				         th:each="university, iterStat : *{universities}" 
+				    <div class="university-item"
+				         th:each="university, iterStat : *{universities}"
 				         th:classappend="${iterStat.index >= 3} ? 'hidden' : ''">
-				      <span class="uni-name" th:text="${university.universityName}">Sample University</span>
+				
+				      <div class="uni-header">
+				        <span class="uni-name" th:text="${university.universityName}">Sample University</span>
+				        <button class="view-btn"
+				                type="button"
+				                th:onclick="'window.location.href=\'/universities/' + ${university.universityIdPk} + '\''">
+				          View
+				        </button>
+				      </div>
+				
 				      <ul class="degree-list">
-				        <li th:each="program : ${university.offeredPrograms}" th:text="${program}">Bachelor of Science in IT</li>
+				        <li th:each="program : ${university.offeredPrograms}" th:text="${program}">
+				          Bachelor of Science in IT
+				        </li>
 				      </ul>
 				    </div>
 				  </div>
 				
 				  <!-- Show More button -->
-				  <button id="showMoreBtn" 
-				          th:if="*{universities != null and universities.size() > 3}" 
-				          type="button" 
+				  <button id="showMoreBtn"
+				          th:if="*{universities != null and universities.size() > 3}"
+				          type="button"
 				          class="show-more-btn">
 				    Show More
 				  </button>
 				
 				  <!-- Optional message if no universities -->
-				  <p th:unless="*{universities != null and !universities.isEmpty()}" 
+				  <p th:unless="*{universities != null and !universities.isEmpty()}"
 				     class="no-universities">
 				    No universities available at the moment.
 				  </p>
 				</section>
+
 				               <!-- Scores Breakdown -->
                <section class="scores-breakdown">
                   <h3>🎯 Scores Breakdown</h3>
