@@ -15,11 +15,11 @@
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
-         	<div>
-          	  <span class="crumb">FuturePath</span>
-			  <i class="fa-solid fa-chevron-right separator"></i>
-    	      <span class="crumb active">ASSESSMENT</span>
-          </div>
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">ASSESSMENT</span>
+            </div>
          </nav>
          <hr>
          <div class="content">
@@ -33,9 +33,22 @@
                   Whether you're aiming for a tech career, creative arts, or something else — 
                   let’s find out which path is right for you! 🌟
                </div>
-               <button type="button" id="collegeBtn">
-               <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
-               </button>
+               
+               <th:block th:if="${config.defaultDegreeAvailability == false and config.customDegreeAvailability == false}">
+			    <!-- Fake Disabled Button (NO ID) -->
+			    <button type="button" class="disabled-btn" disabled>
+			        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+			    </button>
+			</th:block>
+			
+			<th:block th:if="${config.defaultDegreeAvailability == true or config.customDegreeAvailability == true}">
+			    <!-- Real Button -->
+			    <button type="button" id="collegeBtn">
+			        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+			    </button>
+			</th:block>
+               
+               
                <button type="button" id="strandBtn">
                <i class="fa-solid fa-school"></i> FOR SENIOR HIGH STRAND
                </button>
@@ -60,16 +73,15 @@
                </div>
                <div class="degree-buttons">
                   <div class="degree-buttons">
-    <div class="degree-btn"
-         th:each="degree : ${strandegreeDto.strandegreesQuestions}"
-         th:if="${degree.category == 'DEGREE'}"
-         th:text="${degree.code}"
-         th:data-degree="${degree.code}"
-         th:title="${degree.name}"
-         th:classappend="${degree.totalQuestions == 0} ? ' disabled' : ''">
-    </div>
-</div>
-
+                     <div class="degree-btn"
+                        th:each="degree : ${strandegreeDto.strandegreesQuestions}"
+                        th:if="${degree.category == 'DEGREE'}"
+                        th:text="${degree.code}"
+                        th:data-degree="${degree.code}"
+                        th:title="${degree.name}"
+                        th:classappend="${degree.totalQuestions == 0} ? ' disabled' : ''">
+                     </div>
+                  </div>
                </div>
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">

@@ -74,9 +74,9 @@ public class AssessmentController {
 				
 				existingConfig.setTotalQuestion(webDto.getTotalQuestion());
 				existingConfig.setDefaultDegreeAvailability(webDto.isDefaultDegreeAvailability());
-				existingConfig.setCustomDegreeAvailability(true);
-				existingConfig.setDefaultStrandAvailability(true);
-				existingConfig.setCustomStrandAvailability(true);
+				existingConfig.setCustomDegreeAvailability(webDto.isCustomDegreeAvailability());
+				existingConfig.setDefaultStrandAvailability(webDto.isDefaultStrandAvailability());
+				existingConfig.setCustomStrandAvailability(webDto.isCustomStrandAvailability());
 				
 				assessmentConfigDao.save(existingConfig);
 				
@@ -99,6 +99,14 @@ public class AssessmentController {
 	public String showQuizHome(Model model) {
 		
 		try {
+			
+			Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+			
+			
+			if(config.isPresent()){
+				
+				model.addAttribute("config", config.get());	
+			}
 			
 			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreesQuestionsOverview();
 			
