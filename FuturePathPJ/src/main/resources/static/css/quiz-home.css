@@ -84,7 +84,23 @@
 	transform: scale(0.98);
 }
 
-/* Degree Buttons */
+.assessment-card button:disabled,
+.assessment-card button.disabled-btn {
+    background: #3b3f52 !important;
+    border-color: #4b4f66 !important;
+    color: #9ca3af !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.assessment-card button:disabled:hover,
+.assessment-card button.disabled-btn:hover {
+    background: #3b3f52 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
 .degree-buttons {
 	display: flex;
 	flex-wrap: wrap;

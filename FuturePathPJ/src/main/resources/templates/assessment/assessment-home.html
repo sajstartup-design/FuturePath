@@ -34,19 +34,18 @@
                   let’s find out which path is right for you! 🌟
                </div>
                
-               <th:block th:if="${config.defaultDegreeAvailability == false and config.customDegreeAvailability == false}">
-			    <!-- Fake Disabled Button (NO ID) -->
-			    <button type="button" class="disabled-btn" disabled>
-			        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
-			    </button>
-			</th:block>
-			
-			<th:block th:if="${config.defaultDegreeAvailability == true or config.customDegreeAvailability == true}">
-			    <!-- Real Button -->
-			    <button type="button" id="collegeBtn">
-			        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
-			    </button>
-			</th:block>
+               <th:block th:if="${!config.defaultDegreeAvailability and !config.customDegreeAvailability}">
+    <button type="button" class="disabled-btn" disabled>
+        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+    </button>
+</th:block>
+
+<th:block th:if="${config.defaultDegreeAvailability or config.customDegreeAvailability}">
+    <button type="button" id="collegeBtn">
+        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+    </button>
+</th:block>
+
                
                
                <button type="button" id="strandBtn">
@@ -63,7 +62,17 @@
                   💡 <strong>Note:</strong> The default assessment automatically retrieves questions 
                   from all available college degree programs in the system.
                </div>
-               <button type="submit" form="assessmentForm" name="mode" value="DEGREE-DEFAULT-MODE">Start Default Assessment</button>
+               <th:block th:if="${config.defaultDegreeAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-DEFAULT-MODE">
+			            Start Default Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.defaultDegreeAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Default Assessment
+			        </button>
+			    </th:block>
                <hr>
                <h4>Custom Assessment</h4>
                <p>Select which degrees to include and how many questions to answer.</p>
@@ -85,7 +94,17 @@
                </div>
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">
-               <button type="submit" form="assessmentForm" name="mode" value="DEGREE-CUSTOM-MODE">Start Custom Assessment</button>
+               <th:block th:if="${config.customDegreeAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-CUSTOM-MODE">
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.customDegreeAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
             </div>
             <!-- CARD 3: Strand Assessment -->
             <div id="strandOptions" class="assessment-card">
@@ -95,7 +114,17 @@
                   💡 <strong>Note:</strong> The default assessment retrieves questions 
                   from all strands available in the system.
                </div>
-               <button type="submit" form="assessmentForm" name="mode" value="STRAND-DEFAULT-MODE">Start Default Assessment</button>
+               <th:block th:if="${config.defaultStrandAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-DEFAULT-MODE">
+			            Start Default Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.defaultStrandAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Default Assessment
+			        </button>
+			    </th:block>
                <hr>
                <h4>Custom Strand Assessment</h4>
                <p>Select strands and question count for a personalized test.</p>
@@ -117,7 +146,17 @@
                </div>
                <div id="selectedStrands" class="selected-items"></div>
                <input type="hidden" name="strands" id="strandInput">
-               <button type="submit" form="assessmentForm" name="mode" value="STRAND-CUSTOM-MODE">Start Custom Assessment</button>
+               <th:block th:if="${config.customStrandAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-CUSTOM-MODE">
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.customStrandAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
             </div>
          </div>
       </main>
