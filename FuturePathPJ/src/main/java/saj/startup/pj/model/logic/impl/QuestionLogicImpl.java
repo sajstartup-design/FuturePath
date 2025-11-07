@@ -79,7 +79,7 @@ public class QuestionLogicImpl implements QuestionLogic{
 
 	@Override
 	public QuestionEntity getQuestionByIdPk(int idPk) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

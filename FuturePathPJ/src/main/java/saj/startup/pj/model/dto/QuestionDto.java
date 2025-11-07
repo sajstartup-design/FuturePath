@@ -21,6 +21,8 @@ public class QuestionDto {
 	
 	private List<String> answers;
 	
+	private int correctIndex;
+	
 	private QuestionOverviewData overview;
 	
 	private List<QuestionObj> questions;

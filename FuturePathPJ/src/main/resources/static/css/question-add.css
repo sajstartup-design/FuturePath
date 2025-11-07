@@ -168,39 +168,42 @@
 .check-btn {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.8rem;
-  color: #9bb0f9;
   cursor: pointer;
-  background: #1e2761;
-  border: 1px solid #37418e;
-  border-radius: 6px;
-  padding: 0.3rem 0.6rem;
-  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.check-btn:hover {
-  background: #37418e;
-  color: #fff;
 }
 
 .check-btn input[type="radio"] {
   display: none;
 }
 
-.check-btn .check-mark {
+.check-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid #9bb0f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: transparent; /* hide until checked */
+  transition: all 0.2s ease-in-out;
   font-weight: bold;
-  color: #9bb0f9;
-  font-size: 0.9rem;
-  transition: color 0.2s ease-in-out;
+  
 }
 
-/* When checked */
-.check-btn input[type="radio"]:checked + .check-mark {
-  color: #00ff99;
+.check-btn input[type="radio"]:checked + .check-circle {
+  background-color: #00c26a;
+  border-color: #00c26a;
+  color: white; 
+  content: "✔";	
 }
-.check-btn input[type="radio"]:checked ~ span,
-.check-btn input[type="radio"]:checked ~ .check-mark {
-  color: #00ff99;
+
+.check-circle::before {
+  content: "✔";
 }
+
+
+.check-btn input[type="radio"]:not(:checked) + .check-circle::before {
+  content: "";
+}
+
 

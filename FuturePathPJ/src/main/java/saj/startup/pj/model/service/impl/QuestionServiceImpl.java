@@ -46,8 +46,9 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		List<AnswerEntity> answers = new ArrayList<>();
 		
+		int i = 0;
 		for(String answer : inDto.getAnswers()) {
-			
+						
 			AnswerEntity newAnswer = new AnswerEntity();
 			
 			newAnswer.setQuestionIdPk(questionIdPk);
@@ -56,7 +57,15 @@ public class QuestionServiceImpl implements QuestionService{
 			newAnswer.setIsDeleted(false);
 			newAnswer.setCreatedAt(timeNow);
 			
+			if(i == Integer.valueOf(inDto.getCorrectIndex())) {
+				newAnswer.setIsCorrect(true);
+			}else {
+				newAnswer.setIsCorrect(false);
+			}
+			
 			answers.add(newAnswer);
+			
+			i++;
 			
 		}
 		
