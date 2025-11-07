@@ -3,6 +3,7 @@ package saj.startup.pj.model.service.impl;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.common.CommonConstant;
+import saj.startup.pj.model.dao.AssessmentConfigDao;
 import saj.startup.pj.model.dao.entity.AnswerData;
 import saj.startup.pj.model.dao.entity.AnswerEntity;
+import saj.startup.pj.model.dao.entity.AssessmentConfigEntity;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
@@ -33,6 +36,9 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	@Autowired
 	private StrandegreeLogic strandegreeLogic;
+	
+	@Autowired
+	private AssessmentConfigDao assessmentConfigDao;
 
 	@Override
 	public void saveQuestion(QuestionDto inDto) throws Exception {
@@ -134,12 +140,22 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		QuestionDto outDto = new QuestionDto();
 		
+		int limit = 50;
+		
+		Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+		
+		if(config.isPresent()) {
+			
+			limit = config.get().getTotalQuestion();
+			
+		}
+		
 		String mode = inDto.getMode();
 		
 		List<QuestionData> allQuestions = new ArrayList<>();
 		
 		if(CommonConstant.DEGREE_CUSTOM_MODE.equals(mode)) {
-			allQuestions = questionLogic.getDegreesQuestionsForAssessment(inDto.getDegrees());
+			allQuestions = questionLogic.getDegreesQuestionsForAssessment(inDto.getDegrees(), limit);
 		}
 		
 		List<QuestionObj> questions = new ArrayList<>();

@@ -35,10 +35,7 @@ import saj.startup.pj.model.service.UserService;
 
 @Service
 public class AssessmentServiceImpl implements AssessmentService{
-	
-	@Autowired
-	private AnswerLogic answerLogic;
-	
+		
 	@Autowired
 	private QuestionLogic questionLogic;
 	

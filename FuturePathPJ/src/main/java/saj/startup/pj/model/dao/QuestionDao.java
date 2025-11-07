@@ -71,11 +71,12 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		      AND s.category = 'DEGREE'
 		      AND s.code IN :degrees
 		    ORDER BY RANDOM()
-		    LIMIT 3
+		    LIMIT :limit
 		    """;
 
 	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery = true)
-	public List<QuestionData> getQuestionsForAssessment(@Param("degrees") List<String> degrees) throws DataAccessException;
+	public List<QuestionData> getQuestionsForAssessment(@Param("degrees") List<String> degrees,
+			@Param("limit") int limit) throws DataAccessException;
 
 	
 	public final String QUESTION_ASSESSMENT_CHECKER = """
