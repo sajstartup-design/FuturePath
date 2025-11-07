@@ -6,9 +6,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import jakarta.transaction.Transactional;
 import saj.startup.pj.model.dao.entity.UniversityData;
 import saj.startup.pj.model.dao.entity.UniversityEntity;
 import saj.startup.pj.model.dao.entity.UniversityOverviewData;
@@ -127,4 +129,15 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 	
 	@Query(value=GET_UNIVERSITY_RECOMMENDATION, nativeQuery=true)
 	public List<UniversityRecommendationData> getUniversityRecommendation(@Param("programs") List<String> programs) throws DataAccessException;
+	
+	public final String DELETE_UNIVERSITY = """
+			UPDATE universities
+			SET is_deleted = true
+			WHERE id_pk = :idPk
+		""";
+
+	@Transactional
+	@Modifying
+	@Query(value=DELETE_UNIVERSITY, nativeQuery=true)
+	public void deleteUniversity(@Param("idPk") int idPk) throws DataAccessException;
 }

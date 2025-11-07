@@ -125,6 +125,28 @@ public class UniversityController {
 	    return "redirect:/admin/universities";
 	}
 	
+	@PostMapping("/admin/universities/delete")
+	public String deleteUniversity(@ModelAttribute UniversityDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			universityService.deleteUniversity(webDto);
+		    
+		    ra.addFlashAttribute("isSuccess", true);
+		    ra.addFlashAttribute("successMsg", MessageConstant.UNIVERSITY_DELETED);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+	    	
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);	
+		}
+		
+		return "redirect:/admin/universities";
+	}
+	
 	
 	/*
 	 * USER

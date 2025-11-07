@@ -140,7 +140,35 @@
 			</div>
 		</nav>
 	</main>
+	<!-- DELETE CONFIRMATION MODAL -->
+	<div id="deleteModal" class="modal-overlay hidden">
+	  <div class="modal-box">
+	    <h3 class="modal-title">
+	      <i class="fa-solid fa-triangle-exclamation"></i> CONFIRM DELETE
+	    </h3>
+	    <div class="modal-user-header">
+	      <i class="fa-solid fa-user"></i>
+	      <span id="name" class="highlight"></span>
+	    </div>
+	    <form id="deleteForm" method="POST" th:action="@{/admin/universities/delete}">
+	      <input type="hidden" name="idPk" id="idPk">
+	      <p class="modal-text">
+	        Are you sure you want to delete?
+	      </p>
+	      <div class="modal-actions">
+	        <button type="button" class="btn btn-primary btn-cancel" data-close="modal">
+	          <i class="fa-solid fa-xmark"></i> CANCEL
+	        </button>
 	
+	        <button type="submit" class="btn btn-primary btn-delete transitioning" id="confirmDeleteBtn">
+	          <i class="fa-solid fa-trash"></i> DELETE
+	        </button>
+	      </div>
+	
+	    </form>
+	  </div>
+	</div>
+	<script th:src="@{/script/modal.js}"></script>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/pagination.js}"></script>
 	<script th:src="@{/script/university-api.js}"></script>

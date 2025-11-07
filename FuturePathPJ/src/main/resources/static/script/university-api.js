@@ -114,34 +114,26 @@ async function loadUniversities(page = 0,
 				<td><span class="status-label ${university.isActive ? 'active' : 'inactive'}">${university.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
 		            <a href="/admin/universities/edit?idPk=${university.universityIdPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
-		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+					<button 
+					    data-bs-toggle="modal" 
+					    data-bs-target="#deleteModal" 
+					    class="btn btn-icon delete"
+					    data-name="${university.universityName}"
+					    data-id="${university.universityIdPk}"
+					>
+					    <i class="fa-solid fa-trash"></i>
+					</button>
 	            </td>
             `;
-			
-			/*row.querySelector('.edit-btn').addEventListener('click', function(){
-				const form = document.querySelector('#editForm');
-				
-				form.querySelector('#hiddenEncryptedId').value = this.getAttribute('data-id');
-				
-				form.submit();
-			});
-			
-			row.addEventListener('click', function(e) {
-			   
-			    if (e.target.closest('button') || e.target.closest('a')) {
-			        return; 
-			    }
-				
-				const encryptedId = this.getAttribute('data-id');
-
-			    window.location.href="/admin/user/details?encryptedId=" + encryptedId;
-			});
-*/
-
+	
             fragment.appendChild(row);
         });
 
         tableBody.appendChild(fragment);
+		
+		updateModalButtons();
+
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 
