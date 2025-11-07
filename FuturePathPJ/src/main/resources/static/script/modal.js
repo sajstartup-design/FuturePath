@@ -13,13 +13,29 @@ function updateModalButtons() {
 			
 			if(modal.id === 'deleteModal'){
 				
-				const fullnameElem = modal.querySelector("#name");
-				const userId = button.getAttribute("data-id");
-				fullnameElem.textContent = button.getAttribute("data-name");
+				const name = modal.querySelector("#name");
 				
+				if(name){
+					name.textContent = button.getAttribute("data-name");
+				}
+				
+				const idPk = document.getElementById("idPk");
+				
+				if(idPk){
+					const idValue = button.getAttribute("data-id");
+					idPk.value = idValue;
+				}
+				
+				const category = document.getElementById('category');
+				
+				if(category){
+					const categoryValue = button.getAttribute("data-category");
+					category.value = categoryValue;
+				}
+
+
 				document.getElementById("confirmDeleteBtn")
 				    .setAttribute("data-id", button.getAttribute("data-id"));
-				document.getElementById("idPk").value = userId;
 
 			}
         }

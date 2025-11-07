@@ -10,6 +10,8 @@ public class MessageConstant {
 	public static final String STRAND_ADDED = "A new strand has been added";
 	public static final String DEGREE_EDITED = "A degree has been edited";
 	public static final String STRAND_EDITED = "A strand has been edited";
+	public static final String DEGREE_DELETED = "A degree has been deleted";
+	public static final String STRAND_DELETED = "A strand has been deleted";
 	
 	public static final String QUESTION_ADDED = "A new question has been added";
 	

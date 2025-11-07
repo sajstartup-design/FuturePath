@@ -102,8 +102,17 @@ async function loadStrandegrees(page = 0,
 				<td>${strandegree.createdAt}</td>
 				<td><span class="status-label ${strandegree.isActive ? 'active' : 'inactive'}">${strandegree.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
-		            <a href="/admin/strandegrees/edit?idPk=${strandegree.idPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
-		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+		            <a href="/admin/strandegrees/edit?idPk=${strandegree.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
+					<button 
+					    data-bs-toggle="modal" 
+					    data-bs-target="#deleteModal" 
+					    class="btn btn-icon delete"
+					    data-name="${strandegree.name}"
+					    data-id="${strandegree.idPk}"
+						data-category="${strandegree.category}"
+					>
+					    <i class="fa-solid fa-trash"></i>
+					</button>
 	            </td>
             `;
 			
@@ -131,6 +140,10 @@ async function loadStrandegrees(page = 0,
         });
 
         tableBody.appendChild(fragment);
+		
+		updateModalButtons();
+
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 

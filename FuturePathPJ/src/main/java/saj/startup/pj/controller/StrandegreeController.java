@@ -130,6 +130,33 @@ public class StrandegreeController {
 		return "redirect:/admin/strandegrees";
 	}
 	
+	@PostMapping("/admin/strandegrees/delete")
+	public String deleteStrandegrees(@ModelAttribute StrandegreeDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			strandegreeService.deleteStrandegree(webDto);
+			
+			ra.addFlashAttribute("isSuccess", true);
+			
+			if(CommonConstant.DEGREE.equals(webDto.getCategory())) {
+				
+				ra.addFlashAttribute("successMsg", MessageConstant.DEGREE_DELETED);
+			}else {
+				ra.addFlashAttribute("successMsg", MessageConstant.STRAND_DELETED);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/strandegrees";
+	}
+	
 	/*
 	 * USER
 	 * 

@@ -6,9 +6,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import jakarta.transaction.Transactional;
 import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.StrandegreeOverviewData;
 import saj.startup.pj.model.dao.entity.StrandegreeQuestionData;
@@ -76,4 +78,15 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	
 	@Query(GET_STRANDEGREE_BY_ID_PK)
 	public StrandegreeEntity getStrandegreeByIdPk(@Param("idPk") int idPk) throws DataAccessException;
+	
+	public final String DELETE_STRANDEGREE = """
+				UPDATE strandegrees 
+				SET is_deleted = true
+				WHERE id_pk = :idPk
+			""";
+	
+	@Transactional
+	@Modifying
+	@Query(value=DELETE_STRANDEGREE, nativeQuery=true)
+	public void deleteStrandegree(@Param("idPk") int idPk) throws DataAccessException;
 }

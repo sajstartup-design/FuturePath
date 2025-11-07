@@ -184,4 +184,11 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 	    strandegreeLogic.saveStrandegree(existing);
 	}
 
+	@Override
+	public void deleteStrandegree(StrandegreeDto inDto) throws Exception {
+		
+		strandegreeLogic.deleteStrandegree(inDto.getIdPk());
+		
+	}
+
 }

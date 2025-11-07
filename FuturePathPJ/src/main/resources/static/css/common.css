@@ -1242,7 +1242,6 @@ td:last-child {
 .modal-box {
   background: #1C2656;
   padding: 1.5rem;
-  width: 22rem;
   border-radius: 0.625rem; /* 10px */
   text-align: center;
   box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.4); /* 4px 15px */
@@ -1257,6 +1256,20 @@ td:last-child {
   gap: 0.5rem;
   margin-bottom: 0.8rem;
   font-size: 0.8rem;
+
+  color: #d8defa;
+  line-height: 1.7;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  border-radius: 0.6rem;
+  border-left: 3px solid #5673ff;
+
+  text-align: left;
+
+  /* ✅ Prevent long names from wrapping */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .modal-user-header i {
@@ -1291,7 +1304,8 @@ td:last-child {
 /* BUTTON ROW */
 .modal-actions {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 1rem;
 }
 
 
