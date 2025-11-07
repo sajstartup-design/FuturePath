@@ -23,5 +23,8 @@ public class MessageConstant {
 	
 	public static final String REGISTER_SUCCESS = "Welcome aboard! Your registration was successful.";
 	
+	public static final String ASSESSMENT_CONFIGURATION_UPDATED = "The assessment configuration has been updated";
+
+	
 	public static final String SOMETHING_WENT_WRONG = "Something went wrong";
 }

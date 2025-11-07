@@ -32,9 +32,9 @@
                   th:classappend="${page == 'questions'} ? ' active'">
                <i class="fas fa-question-circle icon-btn"></i> QUESTION
                </a>
-               <a href="#"
+               <a th:href="@{/admin/assessment/configuration}"
                   th:classappend="${page == 'quiz-config'} ? ' active'">
-               <i class="fas fa-cogs icon-btn"></i> ASSESSMENT CONFIG
+               <i class="fas fa-cogs icon-btn"></i> CONFIGURATION
                </a>
                <p class="menu-title">STRAND & DEGREE</p>
                <a th:href="@{/admin/strandegrees}" 

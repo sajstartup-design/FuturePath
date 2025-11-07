@@ -1,5 +1,7 @@
 package saj.startup.pj.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.common.MessageConstant;
+import saj.startup.pj.model.dao.AssessmentConfigDao;
+import saj.startup.pj.model.dao.entity.AssessmentConfigEntity;
 import saj.startup.pj.model.dto.AssessmentDto;
+import saj.startup.pj.model.dto.ConfigurationDto;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.service.AssessmentService;
@@ -27,6 +32,68 @@ public class AssessmentController {
 	
 	@Autowired
 	private StrandegreeService strandegreeService;
+	
+	@Autowired
+	private AssessmentConfigDao assessmentConfigDao;
+	
+	@GetMapping("/admin/assessment/configuration")
+	public String showAssessmentConfiguration(Model model) {
+		
+		Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+		
+		
+		if(config.isPresent()){
+			
+			model.addAttribute("config", config.get());	
+		}else {
+			AssessmentConfigEntity newConfig = new AssessmentConfigEntity();
+			newConfig.setTotalQuestion(10);
+			newConfig.setDefaultDegreeAvailability(true);
+			newConfig.setCustomDegreeAvailability(true);
+			newConfig.setDefaultStrandAvailability(true);
+			newConfig.setCustomStrandAvailability(true);
+
+            assessmentConfigDao.save(newConfig);
+            
+            model.addAttribute("config", newConfig);
+		}
+		
+		return "assessment/assessment-config";
+	}
+	
+	@PostMapping("/admin/assessment/configuration")
+	public String postAssessmentConfiguration(@ModelAttribute ConfigurationDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+			
+			if(config.isPresent()) {
+				
+				AssessmentConfigEntity existingConfig = config.get();
+				
+				existingConfig.setTotalQuestion(webDto.getTotalQuestion());
+				existingConfig.setDefaultDegreeAvailability(webDto.isDefaultDegreeAvailability());
+				existingConfig.setCustomDegreeAvailability(true);
+				existingConfig.setDefaultStrandAvailability(true);
+				existingConfig.setCustomStrandAvailability(true);
+				
+				assessmentConfigDao.save(existingConfig);
+				
+				ra.addFlashAttribute("isSuccess", true);
+				ra.addFlashAttribute("successMsg", MessageConstant.ASSESSMENT_CONFIGURATION_UPDATED);
+
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	        ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/assessment/configuration";
+	}
 
 	@GetMapping("/assessment")
 	public String showQuizHome(Model model) {
