@@ -129,6 +129,31 @@ public class QuestionController {
 		return "redirect:/admin/questions";
 	}
 	
+	@GetMapping("/admin/questions/details")
+	public String detailsQuestion(Model model,
+			@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			QuestionDto outDto = questionService.getQuestionByIdPk(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("questionDto", outDto);
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "question/question-details";
+	}
+	
 	@PostMapping("/admin/questions/delete")
 	public String deleteQuestion(@ModelAttribute QuestionDto webDto,
 			RedirectAttributes ra) {

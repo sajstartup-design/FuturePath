@@ -78,8 +78,6 @@ async function loadQuestions(page = 0,
 				
         const response = await fetch(url);
         const data = await response.json();
-		
-		console.log(data);
 
         updatePagination(data.pagination);
 
@@ -101,6 +99,7 @@ async function loadQuestions(page = 0,
 				<td>${question.createdAt}</td>
 				<td><span class="status-label ${question.isActive ? 'active' : 'inactive'}">${question.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
+					<a href="/admin/questions/details?idPk=${question.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>
 		            <a href="/admin/questions/edit?idPk=${question.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
 					<button 
 					    data-bs-toggle="modal" 

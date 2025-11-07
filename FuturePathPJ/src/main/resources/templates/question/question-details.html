@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | Strand & Degree</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/question-add.css}" />
+<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+</head>
+<body>
+	
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			<div>
+          	  <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb">QUESTIONS</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+			  <span class="crumb active">EDIT</span>
+          </div>
+		</nav>
+		<hr>
+		<div class="content">
+
+			 <div class="btn-group">
+               <a th:href="@{/admin/universities}" class="btn btn-secondary transitioning">
+               <i class="fas fa-arrow-left"></i> Back
+               </a>
+            </div>
+    <div class="details-card">
+        <!-- Category & Strand/Degree -->
+        <div class="field-group">
+            <div class="field">
+                <label>CATEGORY</label>
+                <div class="detail-wrapper">
+                    <i class="fas fa-list-alt"></i>
+                    <span th:text="*{questionObj.category}">STRAND</span>
+                </div>
+            </div>
+            <div class="field">
+                <label>STRAND/DEGREE</label>
+                <div class="detail-wrapper">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span th:text="*{questionObj.strandegree}">STRAND-101</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Text -->
+        <div class="field-group">
+            <div class="field">
+                <label>QUESTION</label>
+                <div class="detail-wrapper textarea">
+                    <i class="fas fa-question-circle"></i>
+                    <span th:text="*{questionObj.question}">What is the capital of France?</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Answers -->
+        <div class="field-group">
+            <div class="field">
+                <label>ANSWERS</label>
+                <div class="answer-option">
+                    <i class="fas fa-check-circle"></i>
+                    <span th:text="*{questionObj.answers[0].answer}">Paris</span>
+                    <strong th:if="*{questionObj.answers[0].isCorrect}" style="margin-left:1rem; color:#9bb0f9;">✔ Correct</strong>
+                </div>
+                <div class="answer-option">
+                    <i class="fas fa-check-circle"></i>
+                    <span th:text="*{questionObj.answers[1].answer}">London</span>
+                    <strong th:if="*{questionObj.answers[1].isCorrect}" style="margin-left:1rem; color:#9bb0f9;">✔ Correct</strong>
+                </div>
+                <div class="answer-option">
+                    <i class="fas fa-check-circle"></i>
+                    <span th:text="*{questionObj.answers[2].answer}">Berlin</span>
+                    <strong th:if="*{questionObj.answers[2].isCorrect}" style="margin-left:1rem; color:#9bb0f9;">✔ Correct</strong>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!-- Back Button -->
+        <div class="btn-group">
+            <a th:href="@{/admin/questions}" class="btn btn-secondary transitioning">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </div>
+</div>
+
+
+		<nav class="footer">
+			<div>
+				<span>All rights reserved by FuturePath</span>
+			</div>
+			<div class="terms">
+				<span>Terms of Use</span>
+				<span>Privacy Policy</span>
+				<span>Contact us</span>
+			</div>
+		</nav>
+	</main>
+	<script th:inline="javascript">
+		console.log(/*[[${questionDto}]]*/'');
+	</script>
+	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/dropdown.js}"></script>
+</body>
+</html>
