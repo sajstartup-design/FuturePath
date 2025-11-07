@@ -16,7 +16,15 @@
       <main th:object="${assessmentDto}">
          <nav th:replace="~{header :: header}"></nav>
          <hr>
-         <nav class="sub-header">ASSESSMENT RESULT</nav>
+         <nav class="sub-header">
+         	<div>
+          	  <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb">ASSESSMENT</span>
+    	      <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb active">RESULT</span>
+          	</div>
+         </nav>
          <hr>
          <div class="content">
             <!-- Result Summary -->
