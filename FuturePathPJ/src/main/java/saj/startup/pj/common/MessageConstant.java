@@ -15,6 +15,7 @@ public class MessageConstant {
 	
 	public static final String QUESTION_ADDED = "A new question has been added";
 	public static final String QUESTION_EDITED = "A question has been edited";
+	public static final String QUESTION_DELETED = "A question has been deleted";
 	
 	public static final String UNIVERSITY_ADDED = "A new university has been added";
 	public static final String UNIVERSITY_EDITED = "A university has been edited";

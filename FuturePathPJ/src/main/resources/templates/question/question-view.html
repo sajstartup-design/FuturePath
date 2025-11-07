@@ -144,30 +144,16 @@
 			    <table>
 			      <thead>
 			        <tr>
-			          <th scope="col">ID</th>
-			          	<th scope="col">CATEGORY</th>	
-					    <th scope="col">QUESTION</th>			    	
-					    <th scope="col">CODE</th>		    
-					    <th scope="col">CREATED DATE</th>
-					    <th scope="col">STATUS</th>
-					    <th scope="col">ACTION</th>
+			          <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
+			          	<th scope="col"><i class="fas fa-layer-group"></i> CATEGORY</th>	
+					    <th scope="col"><i class="fas fa-question-circle"></i> QUESTION</th>			    	
+					    <th scope="col"><i class="fa-solid fa-barcode"></i> CODE</th>		    
+					    <th scope="col"><i class="fa-solid fa-calendar-plus"></i> CREATED DATE</th>
+					    <th scope="col"><i class="fa-solid fa-circle-check"></i> STATUS</th>
+					    <th scope="col"><i class="fa-solid fa-gear"></i> ACTION</th>
 			        </tr>
 			      </thead>
 			      <tbody id="table-body">
-			        <tr>
-			          <td>1</td>
-								<td>What is the chemical symbol for Sodium?</td>
-								<td><span class="type-label private">STRAND</span></td>
-								<td><span class="type-label private">STEM</span></td>
-								<td>09/29/2025</td>
-								<td><span class="status-label active">ACTIVE</span></td>
-								<td>
-									<div>
-										<button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
-			            				<button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
-									</div>
-								</td>
-			        </tr>
 			      </tbody>
 			    </table>
 			  </div>
@@ -197,6 +183,35 @@
 			</div>
 		</nav>
 	</main>
+	<!-- DELETE CONFIRMATION MODAL -->
+	<div id="deleteModal" class="modal-overlay hidden">
+	  <div class="modal-box">
+	    <h3 class="modal-title">
+	      <i class="fa-solid fa-triangle-exclamation"></i> CONFIRM DELETE
+	    </h3>
+	    <div class="modal-user-header">
+	      <i class="fas fa-question-circle"></i>
+	      <span id="name" class="highlight"></span>
+	    </div>
+	    <form id="deleteForm" method="POST" th:action="@{/admin/questions/delete}">
+	      <input type="hidden" name="idPk" id="idPk">
+	      <p class="modal-text">
+	        Are you sure you want to delete?
+	      </p>
+	      <div class="modal-actions">
+	        <button type="button" class="btn btn-primary btn-cancel" data-close="modal">
+	          <i class="fa-solid fa-xmark"></i> CANCEL
+	        </button>
+	
+	        <button type="submit" class="btn btn-primary btn-delete transitioning" id="confirmDeleteBtn">
+	          <i class="fa-solid fa-trash"></i> DELETE
+	        </button>
+	      </div>
+	
+	    </form>
+	  </div>
+	</div>
+	<script th:src="@{/script/modal.js}"></script>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/pagination.js}"></script>
 	<script th:src="@{/script/question-api.js}"></script>

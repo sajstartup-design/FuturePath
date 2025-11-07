@@ -102,7 +102,15 @@ async function loadQuestions(page = 0,
 				<td><span class="status-label ${question.isActive ? 'active' : 'inactive'}">${question.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
 		            <a href="/admin/questions/edit?idPk=${question.idPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
-		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+					<button 
+					    data-bs-toggle="modal" 
+					    data-bs-target="#deleteModal" 
+					    class="btn btn-icon delete"
+					    data-name="${question.question}"
+					    data-id="${question.idPk}"
+					>
+					    <i class="fa-solid fa-trash"></i>
+					</button>
 	            </td>
             `;
 			
@@ -110,6 +118,10 @@ async function loadQuestions(page = 0,
         });
 
         tableBody.appendChild(fragment);
+		
+		updateModalButtons();
+
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 

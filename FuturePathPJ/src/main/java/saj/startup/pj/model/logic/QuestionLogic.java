@@ -35,4 +35,6 @@ public interface QuestionLogic {
 	
 	public List<AnswerEntity> getAnswersEntityByQuestionIdPk(int questionIdPk);
 	
+	public void deleteQuestion(int idPk);
+	
 }

@@ -6,9 +6,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import jakarta.transaction.Transactional;
 import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
@@ -102,5 +104,16 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 	
 	@Query(value=GET_QUESTION)
 	public QuestionEntity getQuestion(@Param("idPk") int idPk) throws DataAccessException;
+	
+	public final String DELETE_QUESTION = """
+			UPDATE question
+			SET is_deleted = true
+			WHERE id_pk = :idPk
+		""";
+
+	@Transactional
+	@Modifying
+	@Query(value=DELETE_QUESTION, nativeQuery=true)
+	public void deleteQuestion(@Param("idPk") int idPk) throws DataAccessException;
 	
 }

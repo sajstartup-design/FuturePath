@@ -64,20 +64,6 @@ public class QuestionController {
 	@PostMapping("/admin/questions/add")
 	public String postQuestionsAdd(@ModelAttribute QuestionDto questionDto, Model model,
 			RedirectAttributes ra) {
-
-	    // Print everything to console (for debugging)
-	    System.out.println("Category: " + questionDto.getCategory());
-	    System.out.println("StrandegreeIdPk: " + questionDto.getStrandegreeIdPk());
-	    System.out.println("Question: " + questionDto.getQuestion());
-	    
-	    if (questionDto.getAnswers() != null && !questionDto.getAnswers().isEmpty()) {
-	        System.out.println("Answers:");
-	        for (int i = 0; i < questionDto.getAnswers().size(); i++) {
-	            System.out.println("  " + (i + 1) + ". " + questionDto.getAnswers().get(i));
-	        }
-	    } else {
-	        System.out.println("No answers provided.");
-	    }
 	    
 	    try {
 	    	questionService.saveQuestion(questionDto);
@@ -131,6 +117,28 @@ public class QuestionController {
 			
 	    	ra.addFlashAttribute("isSuccess", true);
 	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_EDITED);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/questions";
+	}
+	
+	@PostMapping("/admin/questions/delete")
+	public String deleteQuestion(@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			questionService.deleteQuestion(webDto);
+			
+	    	ra.addFlashAttribute("isSuccess", true);
+	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_DELETED);
 			
 		}catch(Exception e) {
 			

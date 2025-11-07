@@ -95,4 +95,10 @@ public class QuestionLogicImpl implements QuestionLogic{
 		return answerDao.getAnswersEntityByQuestionIdPk(questionIdPk);
 	}
 
+	@Override
+	public void deleteQuestion(int idPk) {
+		
+		questionDao.deleteQuestion(idPk);
+	}
+
 }

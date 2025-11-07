@@ -222,4 +222,10 @@ public class QuestionServiceImpl implements QuestionService{
 		questionLogic.saveQuestion(existingQuestion);
 		questionLogic.saveAnswers(answers);		
 	}
+
+	@Override
+	public void deleteQuestion(QuestionDto inDto) throws Exception {
+		
+		questionLogic.deleteQuestion(inDto.getIdPk());
+	}
 }
