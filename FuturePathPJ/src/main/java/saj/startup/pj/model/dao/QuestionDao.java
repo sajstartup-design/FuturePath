@@ -48,7 +48,8 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    + "       LOWER(CAST(e.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
 		    + "   )) " 
 		    + "   OR (:search IS NULL OR :search = '') " 
-		    + ")";
+		    + ") "
+		    + "ORDER BY e.idPk";
 	
 	@Query(GET_ALL_QUESTIONS)
 	public Page<QuestionData> getAllQuestions(Pageable pageable,
@@ -94,5 +95,12 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 	@Query(QUESTION_ASSESSMENT_CHECKER)
 	public AssessmentCheckerData getQuestionAssessmentChecker(@Param("questionIdPk") int questionIdPk,
 			@Param("answerIdPk") int answerIdPk) throws DataAccessException;
+	
+	public final String GET_QUESTION = """
+				SELECT q FROM QuestionEntity q WHERE q.idPk = :idPk
+			""";
+	
+	@Query(value=GET_QUESTION)
+	public QuestionEntity getQuestion(@Param("idPk") int idPk) throws DataAccessException;
 	
 }

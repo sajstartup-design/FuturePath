@@ -33,4 +33,6 @@ public interface QuestionLogic {
 	
 	public List<AnswerData> getAnswersByQuestionIdPk(int questionIdPk);
 	
+	public List<AnswerEntity> getAnswersEntityByQuestionIdPk(int questionIdPk);
+	
 }

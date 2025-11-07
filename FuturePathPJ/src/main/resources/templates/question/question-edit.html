@@ -34,8 +34,8 @@
 					      <i class="fas fa-list-alt"></i>
 					      <select name="category" class="dropdown">
 					      	<option>Select Type...</option>
-					      	<option>STRAND</option>
-					      	<option>DEGREE</option>
+					      	<option th:selected="*{questionObj.category == 'STRAND'}">STRAND</option>
+                            <option th:selected="*{questionObj.category == 'DEGREE'}">DEGREE</option>
 					      </select>
 					    </div>
 					</div>
@@ -48,6 +48,7 @@
 					      	<option th:each="strandegree : ${strandegreeDto.strandegrees}" 
 					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
 					      		th:value="${strandegree.idPk}"
+					      		th:selected="*{questionObj.strandegree} == ${strandegree.code}"
 					      	>STRAND</option>
 					      </select>
 					    </div>
@@ -60,29 +61,41 @@
 					    <label>QUESTION</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-question-circle"></i>
-					      <textarea name="question" placeholder="Enter your question" th:text="*{question}"></textarea>
+					      <textarea name="question" placeholder="Enter your question" th:text="*{questionObj.question}" ></textarea>
 					    </div>
 					</div>
 				</div>
 							
 				<!-- Answers -->
-				<div class="field-group">
-					<div class="field">
-					    <label>ANSWERS</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i> <!-- Changed to check-circle -->
-					      <input type="text" placeholder="Enter answer option" name="answers[0]"/>
-					    </div>
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers[1]"/>
-					    </div>
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers[2]"/>
-					    </div>
-					</div>
-				</div>
+			<div class="field-group">
+                  <div class="field">
+                     <label>ANSWERS</label>
+                     <div class="input-wrapper answer-option">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="text" placeholder="Enter answer option" name="answers[0]" th:value="*{questionObj.answers[0].answer}"/>
+                        <label class="check-btn">
+                        <input type="radio" name="correctIndex" value="0" th:checked="*{questionObj.answers[0].isCorrect}">
+                        <span class="check-circle"></span>
+                        </label>
+                     </div>
+                     <div class="input-wrapper answer-option">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="text" placeholder="Enter answer option" name="answers[1]" th:value="*{questionObj.answers[1].answer}" />
+                        <label class="check-btn">
+                        <input type="radio" name="correctIndex" value="1" th:checked="*{questionObj.answers[1].isCorrect}">
+                        <span class="check-circle"></span>
+                        </label>
+                     </div>
+                     <div class="input-wrapper answer-option">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="text" placeholder="Enter answer option" name="answers[2]" th:value="*{questionObj.answers[2].answer}" />
+                        <label class="check-btn">
+                        <input type="radio" name="correctIndex" value="2" th:checked="*{questionObj.answers[2].isCorrect}">
+                        <span class="check-circle"></span>
+                        </label>
+                     </div>
+                  </div>
+               </div>
 							
 				<hr>
 				<!-- Buttons -->
@@ -108,6 +121,9 @@
 			</div>
 		</nav>
 	</main>
+	<script th:inline="javascript">
+		console.log(/*[[${questionDto}]]*/'');
+	</script>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/dropdown.js}"></script>
 </body>

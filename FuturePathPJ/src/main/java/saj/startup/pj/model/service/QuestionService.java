@@ -17,4 +17,6 @@ public interface QuestionService {
 	public QuestionDto getQuestionsForAssessment(QuestionDto inDto) throws Exception;
 	
 	public QuestionDto getQuestionByIdPk(QuestionDto inDto) throws Exception;
+	
+	public void updateQuestion(QuestionDto inDto) throws Exception;
 }

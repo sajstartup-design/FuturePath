@@ -98,11 +98,13 @@ public class QuestionController {
 	
 	@GetMapping("/admin/questions/edit")
 	public String showQuestionsEdit(Model model,
-			@ModelAttribute QuestionDto webDto) {
+			@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
 		
 		try {
 			
 			QuestionDto outDto = questionService.getQuestionByIdPk(webDto);
+			outDto.setIdPk(webDto.getIdPk());
 			
 			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
 			
@@ -111,9 +113,34 @@ public class QuestionController {
 		}catch(Exception e) {
 			
 			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 		}
 		
 		return "question/question-edit";
+	}
+	
+	@PostMapping("/admin/questions/edit")
+	public String postQuestionsEdit(@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			questionService.updateQuestion(webDto);
+			
+	    	ra.addFlashAttribute("isSuccess", true);
+	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_EDITED);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/questions";
 	}
 
 }

@@ -80,13 +80,19 @@ public class QuestionLogicImpl implements QuestionLogic{
 	@Override
 	public QuestionEntity getQuestionByIdPk(int idPk) {
 		
-		return null;
+		return questionDao.getQuestion(idPk);
 	}
 
 	@Override
 	public List<AnswerData> getAnswersByQuestionIdPk(int questionIdPk) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return answerDao.getAnswersByQuestionIdPk(questionIdPk);
+	}
+
+	@Override
+	public List<AnswerEntity> getAnswersEntityByQuestionIdPk(int questionIdPk) {
+		
+		return answerDao.getAnswersEntityByQuestionIdPk(questionIdPk);
 	}
 
 }

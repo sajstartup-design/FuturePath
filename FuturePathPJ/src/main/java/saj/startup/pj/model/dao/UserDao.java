@@ -42,7 +42,8 @@ public interface UserDao extends JpaRepository<UserEntity, Integer>{
 		    + "       LOWER(CAST(u.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
 		    + "   )) " 
 		    + "   OR (:search IS NULL OR :search = '') " 
-		    + ")";
+		    + ") "
+		    + "ORDER BY u.idPk ";
 	
 	@Query(GET_ALL_USERS)
 	public Page<UserEntity> getAllUsers(Pageable pageable,

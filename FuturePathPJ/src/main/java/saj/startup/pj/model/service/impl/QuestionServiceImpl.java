@@ -16,8 +16,10 @@ import saj.startup.pj.model.dao.entity.AnswerEntity;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
 import saj.startup.pj.model.dao.entity.QuestionOverviewData;
+import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.logic.QuestionLogic;
+import saj.startup.pj.model.logic.StrandegreeLogic;
 import saj.startup.pj.model.object.FilterAndSearchObj;
 import saj.startup.pj.model.object.PaginationObj;
 import saj.startup.pj.model.object.QuestionObj;
@@ -28,6 +30,9 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	@Autowired
 	private QuestionLogic questionLogic;
+	
+	@Autowired
+	private StrandegreeLogic strandegreeLogic;
 
 	@Override
 	public void saveQuestion(QuestionDto inDto) throws Exception {
@@ -167,14 +172,54 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		QuestionEntity questionEntity = questionLogic.getQuestionByIdPk(inDto.getIdPk());
 		
+		StrandegreeEntity strandegree = strandegreeLogic.getStrandegree(questionEntity.getStrandegreeIdPk());
+		
+		System.out.println(questionEntity);
+		
 		QuestionObj questionObj = new QuestionObj();
 		
 		questionObj.setQuestion(questionEntity.getQuestion());
+		questionObj.setCategory(strandegree.getCategory());
+		questionObj.setStrandegree(strandegree.getCode());;
 		
 		List<AnswerData> answers = questionLogic.getAnswersByQuestionIdPk(inDto.getIdPk());
 		
 		questionObj.setAnswers(answers);
 		
+		outDto.setQuestionObj(questionObj);
+		
 		return outDto;
+	}
+
+	@Override
+	public void updateQuestion(QuestionDto inDto) throws Exception {
+		
+		QuestionEntity existingQuestion = questionLogic.getQuestionByIdPk(inDto.getIdPk());
+		
+		existingQuestion.setQuestion(inDto.getQuestion());
+		
+		List<AnswerEntity> existingAnswers = questionLogic.getAnswersEntityByQuestionIdPk(inDto.getIdPk());
+		
+		List<AnswerEntity> answers = new ArrayList<>();
+		
+		int i = 0;
+		for(AnswerEntity existingAnswer : existingAnswers) {
+									
+			existingAnswer.setQuestionIdPk(inDto.getIdPk());
+			existingAnswer.setAnswer(inDto.getAnswers().get(i));
+			
+			if(i == Integer.valueOf(inDto.getCorrectIndex())) {
+				existingAnswer.setIsCorrect(true);
+			}else {
+				existingAnswer.setIsCorrect(false);
+			}
+			
+			answers.add(existingAnswer);
+			
+			i++;
+		}
+		
+		questionLogic.saveQuestion(existingQuestion);
+		questionLogic.saveAnswers(answers);		
 	}
 }
