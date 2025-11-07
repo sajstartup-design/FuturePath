@@ -112,20 +112,24 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 	public UniversityEntity getUniversityByIdPk(@Param("idPk") int idPk) throws DataAccessException;
 	
 	public final String GET_UNIVERSITY_RECOMMENDATION = """
-				SELECT 
-				    u.id_pk AS university_id_pk,
-				    u.university_name,
-				    ARRAY_AGG(DISTINCT s.name ORDER BY s.name) AS offered_programs
-				FROM universities u
-				JOIN university_strandegree_availability usa 
-				    ON usa.university_id_pk = u.id_pk
-				JOIN strandegrees s 
-				    ON s.id_pk = usa.strandegree_id_pk
-				WHERE s.code IN (:programs) 
-				  AND usa.availability = TRUE  
-				GROUP BY u.id_pk, u.university_name
-				ORDER BY COUNT(s.id_pk) DESC;
-			""";
+		    SELECT 
+		        u.id_pk AS university_id_pk,
+		        u.university_name,
+		        ARRAY_AGG(
+		            CONCAT('(', s.code, ') ', s.name)
+		            ORDER BY s.name
+		        ) AS offered_programs 
+		    FROM universities u
+		    JOIN university_strandegree_availability usa 
+		        ON usa.university_id_pk = u.id_pk 
+		    JOIN strandegrees s 
+		        ON s.id_pk = usa.strandegree_id_pk
+		    WHERE s.code IN (:programs) 
+		      AND usa.availability = TRUE  
+		    GROUP BY u.id_pk, u.university_name
+		    ORDER BY COUNT(s.id_pk) DESC;
+		""";
+
 	
 	@Query(value=GET_UNIVERSITY_RECOMMENDATION, nativeQuery=true)
 	public List<UniversityRecommendationData> getUniversityRecommendation(@Param("programs") List<String> programs) throws DataAccessException;
