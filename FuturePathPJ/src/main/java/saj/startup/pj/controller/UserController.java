@@ -114,4 +114,24 @@ public class UserController {
 		
 		return "redirect:/admin/user";
 	}
+	
+	@PostMapping("/admin/user/delete")
+	public String deleteUser(@ModelAttribute UserDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			userService.deleteUser(webDto);
+			
+			ra.addFlashAttribute("isSuccess", true);
+			ra.addFlashAttribute("successMsg", MessageConstant.USER_DELETED);
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/user";
+	}
 }

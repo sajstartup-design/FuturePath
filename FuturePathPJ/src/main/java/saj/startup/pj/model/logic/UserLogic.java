@@ -19,4 +19,6 @@ public interface UserLogic {
 	public UserEntity getUserByUsername(String username);
 	
 	public UserEntity getUser(int userIdPk);
+	
+	public void deleteUser(int idPk);
 }

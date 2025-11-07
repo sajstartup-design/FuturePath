@@ -48,4 +48,11 @@ public class UserLogicImpl implements UserLogic{
 		return userDao.getUser(userIdPk);
 	}
 
+	@Override
+	public void deleteUser(int idPk) {
+		
+		userDao.deleteUser(idPk);
+		
+	}
+
 }

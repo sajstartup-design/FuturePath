@@ -19,4 +19,6 @@ public interface UserService {
 	public UserDto getUser(UserDto inDto) throws Exception;
 	
 	public void updateUser(UserDto inDto) throws Exception;
+	
+	public void deleteUser(UserDto inDto) throws Exception;
 }

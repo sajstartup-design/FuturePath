@@ -174,6 +174,13 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public void deleteUser(UserDto inDto) throws Exception {
+		
+		userLogic.deleteUser(inDto.getIdPk());
+		
+	}
+
 	
 	
 

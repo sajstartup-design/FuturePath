@@ -66,7 +66,7 @@ hr {
   justify-content: center;
   align-items: center;
   background: rgba(10, 17, 36, 0.95);
-  z-index: 999;
+  z-index: 999999;
 }
 .loader-content {
   text-align: center;
@@ -1222,5 +1222,97 @@ td:last-child {
   to { opacity: 1; transform: translateY(0); }
 }
 
+
+/* ===== DELETE MODAL ===== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-box {
+  background: #1C2656;
+  padding: 1.5rem;
+  width: 22rem;
+  border-radius: 0.625rem; /* 10px */
+  text-align: center;
+  box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.4); /* 4px 15px */
+  border: 0.0625rem solid #2A397D; /* 1px */
+}
+
+/* USERNAME + ICON ROW */
+.modal-user-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.8rem;
+}
+
+.modal-user-header i {
+  color: #d1d9ff;
+  font-size: 0.8rem;
+}
+
+.highlight {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.modal-actions button i {
+  margin-right: 0.3rem;
+}
+
+/* TITLE */
+.modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ff8080;
+  margin-bottom: 1rem;
+}
+
+/* MESSAGE */
+.modal-text {
+  color: #d1d9ff;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1.2rem;
+}
+
+/* BUTTON ROW */
+.modal-actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+/* CANCEL */
+.btn-cancel {
+  background: #2f3b73;
+  color: #bfcaff;
+}
+
+.btn-cancel:hover {
+  background: #3c4a8a;
+}
+
+/* DELETE */
+.btn-delete {
+  background: #d9534f;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background: #c9302c;
+}
 
 
