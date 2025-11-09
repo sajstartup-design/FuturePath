@@ -180,9 +180,9 @@ public class UniversityController {
 	 * 
 	 */
 	@GetMapping("/universities")
-	public String showUniversities() {
+	public String showUniversitiesList(Model model) {
 		
-		
+		model.addAttribute("page", "universities");
 		
 		return "university/university-list";
 	}

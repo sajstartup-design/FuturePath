@@ -189,9 +189,9 @@ public class StrandegreeController {
 	 * 
 	 */
 	@GetMapping("/strandegrees")
-	public String showUniversities() {
+	public String showUniversitiesList(Model model) {
 		
-		
+		model.addAttribute("page", "universities");
 		
 		return "strandegree/strandegree-list";
 	}

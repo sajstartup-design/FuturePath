@@ -121,17 +121,22 @@ public class AssessmentController {
 			e.printStackTrace();
 		}
 		
+		model.addAttribute("page", "assessment");
+		
 		return "assessment/assessment-home";
 	}
 	
 	@GetMapping("/assessment/riasec/degree")
-	public String showAssessmentRiasec() {
+	public String showAssessmentRiasec(Model model) {
+		
+		model.addAttribute("page", "assessment");
 		
 		return "assessment/assessment-riasec";
 	}
 	
 	@PostMapping("/assessment/riasec/result")
-	public String showAssessmentRiasecResult(AssessmentDto webDto, RedirectAttributes ra) throws Exception {
+	public String showAssessmentRiasecResult(Model model,
+			AssessmentDto webDto, RedirectAttributes ra) throws Exception {
 
 	    // 🔹 Create input DTO and copy all RIASEC totals from the web form
 	    AssessmentDto inDto = new AssessmentDto();
@@ -158,6 +163,8 @@ public class AssessmentController {
 	    AssessmentDto outDto = assessmentService.getAssessmentRIASECResult(inDto);
 
 	    ra.addAttribute("assessmentDto", outDto);
+	    
+	    model.addAttribute("page", "assessment");
 
 	    return "assessment/assessment-riasec-result";
 	}
@@ -205,6 +212,8 @@ public class AssessmentController {
 	        }
 
 	        model.addAttribute("mode", webDto.getMode());
+	        
+	        model.addAttribute("page", "assessment");
 
 	        return "assessment/assessment";
 
@@ -247,6 +256,8 @@ public class AssessmentController {
 		AssessmentDto outDto = assessmentService.getAssessmentResult(assessmentDto);
 		
 		model.addAttribute("assessmentDto", outDto);
+		
+		model.addAttribute("page", "assessment");
 
 	    return "assessment/assessment-result";
 	}
