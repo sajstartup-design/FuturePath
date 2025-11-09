@@ -1,6 +1,7 @@
-/* GENERAL CONTENT */
+/* ---------------- GENERAL CONTENT ---------------- */
 .content {
     margin: auto auto 3rem auto;
+    font-size: 0.85rem; /* base font size updated */
 }
 
 .group-row {
@@ -34,13 +35,13 @@
 }
 
 .welcome-card .greeting {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #9bb0f9;
 }
 
 .welcome-card .message {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #c1c9f0;
     line-height: 1.4;
 }
@@ -92,11 +93,11 @@
 }
 
 .stat-item .label {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: #aeb8ff;
 }
 
-/* ---------------- ASSESSMENT CARD ---------------- */
+/* ---------------- ASSESSMENT / RECOMMENDATION / UNIVERSITY / HISTORY / QUICK ACTION CARD ---------------- */
 .assessment-card, .recommendation-card, .university-card, .history-card, .quick-action-card {
     background: #243066;
     border-radius: 1rem;
@@ -109,20 +110,13 @@
     flex-grow: 1;
 }
 
-.assessment-card .note {
-    font-size: 0.7rem;
-    color: #aeb8ff;
-    margin-bottom: 0.4rem;
-    font-style: italic;
-}
-
+.assessment-card .note,
 .recommendation-card .note {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: #aeb8ff;
     margin-bottom: 0.4rem;
     font-style: italic;
 }
-
 
 .assessment-card:hover,
 .recommendation-card:hover,
@@ -138,7 +132,7 @@
 .university-card .title,
 .history-card .title,
 .quick-action-card .title {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #9bb0f9;
 }
@@ -150,16 +144,16 @@
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #c1c9f0;
 }
 
 .assessment-card .status,
 .assessment-item .status,
 .university-item .status {
-    padding: 0.2rem 0.5rem;
+    padding: 0.3rem 0.6rem;
     border-radius: 0.4rem;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     text-align: center;
@@ -185,16 +179,16 @@
     color: #ef4444;
 }
 
-/* BUTTONS */
+/* ---------------- BUTTONS ---------------- */
 .btn {
     margin-top: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 0.5rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
 
 .btn.primary {
@@ -218,7 +212,7 @@
     justify-content: space-between;
     align-items: center;
     background: #1C2656;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     border-radius: 0.6rem;
     transition: background 0.2s;
 }
@@ -236,7 +230,7 @@
     background: #1C2656;
     border-radius: 0.5rem;
     overflow: hidden;
-    height: 0.6rem;
+    height: 0.8rem;
     margin-top: 0.3rem;
 }
 
@@ -251,7 +245,7 @@
 .assessment-list {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
 }
 
 .assessment-item:hover {
@@ -271,7 +265,7 @@
     text-align: center;
 }
 
-/* RESPONSIVE */
+/* ---------------- RESPONSIVE ---------------- */
 @media screen and (max-width: 1000px) {
     .group-row {
         flex-direction: column;
