@@ -58,6 +58,8 @@ public class AssessmentController {
             model.addAttribute("config", newConfig);
 		}
 		
+		model.addAttribute("page", "configuration");
+		
 		return "assessment/assessment-config";
 	}
 	

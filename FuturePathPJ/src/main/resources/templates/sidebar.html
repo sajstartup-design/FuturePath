@@ -33,7 +33,7 @@
                <i class="fas fa-question-circle icon-btn"></i> QUESTION
                </a>
                <a th:href="@{/admin/assessment/configuration}"
-                  th:classappend="${page == 'quiz-config'} ? ' active'">
+                  th:classappend="${page == 'configuration'} ? ' active'">
                <i class="fas fa-cogs icon-btn"></i> CONFIGURATION
                </a>
                <p class="menu-title">STRAND & DEGREE</p>
@@ -48,7 +48,7 @@
                </a>
                <p class="menu-title">NOTIFICATION</p>
                <a th:href="@{/admin/user}" 
-                  th:classappend="${page == 'user'} ? ' active'">
+                  th:classappend="${page == 'notifications'} ? ' active'">
                <i class="fas fa-user icon-btn"></i> PUSH NOTIFICATION
                </a>
             </div>
