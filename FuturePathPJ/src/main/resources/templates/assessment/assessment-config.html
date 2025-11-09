@@ -30,7 +30,7 @@
          </nav>
          <hr>
          <div class="content">
-            <form th:action="@{/admin/assessment/configuration}" method="POST" th:object="${configurationDto}">
+            <form class="form" th:action="@{/admin/assessment/configuration}" method="POST" th:object="${configurationDto}">
                <div class="section-title">Question Settings</div>
                <!-- TOTAL QUESTIONS -->
                <div class="field-group next-line">
@@ -85,9 +85,9 @@
                   </div>
                </div>
                <div class="btn-group">
-                  <a th:href="@{/admin/assessment/config}" class="btn btn-secondary button cancel-btn transitioning">
-                  <i class="fas fa-times"></i> CANCEL
-                  </a>
+                   <a th:href="@{/admin/dashboard}" class="btn btn-secondary transitioning">
+	               <i class="fas fa-arrow-left"></i> BACK
+	               </a>
                   <button type="submit" class="btn btn-primary save-btn transitioning">
                   <i class="fas fa-save"></i> SAVE
                   </button>
