@@ -161,7 +161,6 @@
 .answer-option {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
 }
 
@@ -254,6 +253,21 @@
 
 .answer-option i {
     color: #9bb0f9;
+}
+
+.answer-option.correct {
+  background-color: #1e3a2d; /* subtle green background */
+  border-color: #00c26a;
+  box-shadow: 0 0 8px rgba(0, 194, 106, 0.4);
+}
+
+.answer-option.correct i {
+  color: #00c26a;
+}
+
+.answer-option.correct span {
+  font-weight: 600;
+  color: #b6ffce;
 }
 
 
