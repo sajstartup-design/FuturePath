@@ -130,6 +130,33 @@ public class StrandegreeController {
 		return "redirect:/admin/strandegrees";
 	}
 	
+	@GetMapping("/admin/strandegrees/details")
+	public String detailsStrandegree(@ModelAttribute StrandegreeDto webDto,
+			Model model,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			StrandegreeDto outDto = strandegreeService.getStrandegree(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("strandegreeDto", outDto);
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/strandegrees";
+		}
+			
+		model.addAttribute("page", "strandegrees");
+		
+		return "strandegree/strandegree-details";
+	}
+	
 	@PostMapping("/admin/strandegrees/delete")
 	public String deleteStrandegrees(@ModelAttribute StrandegreeDto webDto,
 			RedirectAttributes ra) {

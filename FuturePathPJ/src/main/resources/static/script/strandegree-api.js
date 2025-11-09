@@ -102,6 +102,7 @@ async function loadStrandegrees(page = 0,
 				<td>${strandegree.createdAt}</td>
 				<td><span class="status-label ${strandegree.isActive ? 'active' : 'inactive'}">${strandegree.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
+					<a href="/admin/strandegrees/details?idPk=${strandegree.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>
 		            <a href="/admin/strandegrees/edit?idPk=${strandegree.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
 					<button 
 					    data-bs-toggle="modal" 
@@ -115,27 +116,7 @@ async function loadStrandegrees(page = 0,
 					</button>
 	            </td>
             `;
-			
-			/*row.querySelector('.edit-btn').addEventListener('click', function(){
-				const form = document.querySelector('#editForm');
-				
-				form.querySelector('#hiddenEncryptedId').value = this.getAttribute('data-id');
-				
-				form.submit();
-			});
-			
-			row.addEventListener('click', function(e) {
-			   
-			    if (e.target.closest('button') || e.target.closest('a')) {
-			        return; 
-			    }
-				
-				const encryptedId = this.getAttribute('data-id');
-
-			    window.location.href="/admin/user/details?encryptedId=" + encryptedId;
-			});
-*/
-
+	
             fragment.appendChild(row);
         });
 
