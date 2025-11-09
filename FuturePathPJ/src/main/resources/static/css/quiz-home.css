@@ -11,6 +11,7 @@
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
 	text-align: center;
 	box-sizing: border-box;
+	font-size: 0.85rem;
 }
 
 .assessment-card:hover {
@@ -21,14 +22,14 @@
 /* Titles & Text */
 .assessment-card h3,
 .assessment-card h4 {
-	font-size: 1.4rem;
+	font-size: 0.85rem;
 	font-weight: 700;
 	margin-bottom: 0.6rem;
 }
 
 .assessment-card p {
 	color: #d8defa;
-	font-size: 0.95rem;
+	font-size: 0.85rem;
 	margin-bottom: 1.8rem;
 	line-height: 1.6;
 }
@@ -36,7 +37,7 @@
 .assessment-card label {
 	display: block;
 	color: #ffffff;
-	font-size: 1.5rem;
+	font-size: 1rem;
 	margin-bottom: 1.8rem;
 	font-weight: 600;
 	letter-spacing: 0.5px;
@@ -44,7 +45,7 @@
 
 /* Message Box */
 .assessment-card .message {
-	font-size: 1rem;
+	font-size: 0.85rem;
 	color: #d8defa;
 	margin-bottom: 2.2rem;
 	line-height: 1.7;
@@ -63,7 +64,7 @@
 	gap: 0.5rem;
 	margin: 0.5rem 1rem;
 	padding: 0.9rem 2rem;
-	font-size: 1.05rem;
+	font-size: 0.85rem;
 	font-weight: 600;
 	color: #ffffff;
 	background: transparent;
@@ -116,6 +117,7 @@
 	padding: 0.8rem 1.2rem;
 	color: white;
 	font-weight: 500;
+	font-size: 0.85rem;
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
@@ -138,14 +140,12 @@
 	color: rgba(255, 255, 255, 0.4);
 	cursor: not-allowed;
 	pointer-events: none;
-	/* THIS disables clicking */
 	opacity: 0.6;
 }
 
 .degree-btn.disabled:hover {
 	cursor: not-allowed;
 }
-
 
 /* Selected Degree/Strand Chips */
 .selected-items {
@@ -162,14 +162,14 @@
 	padding: 0.3rem 0.7rem;
 	border-radius: 0.4rem;
 	color: #fff;
-	font-size: 0.9rem;
+	font-size: 0.85rem;
 	display: flex;
 	align-items: center;
 	gap: 0.3rem;
 }
 
 .selected-items span i {
-	font-size: 0.8rem;
+	font-size: 0.85rem;
 	cursor: pointer;
 	color: #ff6b6b;
 }
