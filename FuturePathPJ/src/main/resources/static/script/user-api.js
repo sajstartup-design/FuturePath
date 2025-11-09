@@ -101,6 +101,7 @@ async function loadUsers(page = 0,
 				<td>${user.createdAt}</td>
 				<td><span class="status-label ${user.isActive ? 'active' : 'inactive'}">${user.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
+					<a href="/admin/user/details?idPk=${user.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>
 		            <a href="/admin/user/edit?idPk=${user.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
 					<button 
 					    data-bs-toggle="modal" 

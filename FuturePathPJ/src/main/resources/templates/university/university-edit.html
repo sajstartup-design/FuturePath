@@ -25,7 +25,7 @@
          </nav>
          <hr>
          <div class="content">
-            <form th:action="@{/admin/universities/edit}" method="POST" th:object="${universityDto}">
+            <form class="form" th:action="@{/admin/universities/edit}" method="POST" th:object="${universityDto}">
            	<input type="hidden" name="idPk" th:value="*{idPk}" /> 
                <!-- University Name -->
                <div class="field-group">

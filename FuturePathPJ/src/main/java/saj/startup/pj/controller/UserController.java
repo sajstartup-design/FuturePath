@@ -115,6 +115,33 @@ public class UserController {
 		return "redirect:/admin/user";
 	}
 	
+	@GetMapping("/admin/user/details")
+	public String detailsUser(Model model, 
+			@ModelAttribute UserDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			UserDto outDto = userService.getUser(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("userDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/user";
+		}
+		
+		model.addAttribute("page", "user");
+		
+		return "user/user-details";
+	}
+	
 	@PostMapping("/admin/user/delete")
 	public String deleteUser(@ModelAttribute UserDto webDto,
 			RedirectAttributes ra) {
