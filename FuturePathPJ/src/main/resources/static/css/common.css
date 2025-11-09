@@ -1113,19 +1113,19 @@ td:last-child {
 /* Floating Chat Button */
 .chatbot-launcher {
   position: fixed;
-  bottom: 25px;
-  left: 25px;
-  width: 60px;
-  height: 60px;
+  bottom: 1.5625rem; /* 25px */
+  left: 1.5625rem;   /* 25px */
+  width: 3.75rem;    /* 60px */
+  height: 3.75rem;   /* 60px */
   background: #1a73e8;
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;  /* 24px */
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.25); /* 4px 12px */
   z-index: 1000;
   transition: background 0.3s, transform 0.2s;
 }
@@ -1138,17 +1138,17 @@ td:last-child {
 /* Popup Chat Window */
 .chatbot-popup {
   position: fixed;
-  bottom: 100px;
-  left: 25px;
-  width: 320px;
-  height: 400px;
+  bottom: 6.25rem; /* 100px */
+  left: 1.5625rem; /* 25px */
+  width: 20rem;    /* 320px */
+  height: 25rem;   /* 400px */
   background: #182848;
   color: #fff;
-  border-radius: 12px;
+  border-radius: 0.75rem; /* 12px */
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0.375rem 1.25rem rgba(0,0,0,0.3); /* 6px 20px */
   z-index: 999;
   animation: fadeInUp 0.3s ease;
 }
@@ -1160,7 +1160,7 @@ td:last-child {
 /* Header */
 .chatbot-header {
   background: #253a6a;
-  padding: 10px 14px;
+  padding: 0.625rem 0.875rem; /* 10px 14px */
   font-weight: 600;
   display: flex;
   justify-content: space-between;
@@ -1171,14 +1171,14 @@ td:last-child {
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   cursor: pointer;
 }
 
 /* Body */
 .chatbot-body {
   flex: 1;
-  padding: 12px;
+  padding: 0.75rem; /* 12px */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -1186,9 +1186,9 @@ td:last-child {
 
 .bot-msg, .user-msg {
   max-width: 80%;
-  padding: 8px 12px;
-  border-radius: 10px;
-  margin: 6px 0;
+  padding: 0.5rem 0.75rem; /* 8px 12px */
+  border-radius: 0.625rem;  /* 10px */
+  margin: 0.375rem 0;       /* 6px */
   position: relative;
   word-break: break-word;
 }
@@ -1205,9 +1205,9 @@ td:last-child {
 
 .time {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.4375rem; /* 7px */
   color: #ccc;
-  margin-top: 4px;
+  margin-top: 0.25rem; /* 4px */
   text-align: right;
 }
 
@@ -1216,17 +1216,17 @@ td:last-child {
   display: flex;
   align-items: center;
   background: #243b7b;
-  padding: 8px;
-  border-top: 1px solid #2d4488;
+  padding: 0.5rem; /* 8px */
+  border-top: 0.0625rem solid #2d4488; /* 1px */
 }
 
 .chatbot-footer input {
   flex: 1;
-  padding: 8px;
+  padding: 0.5rem; /* 8px */
   border: none;
-  border-radius: 6px;
+  border-radius: 0.375rem; /* 6px */
   outline: none;
-  font-size: 0.9rem;
+  font-size: 0.5625rem; /* 9px */
   color: #000;
 }
 
@@ -1234,13 +1234,13 @@ td:last-child {
   background: none;
   border: none;
   color: #fff;
-  font-size: 1.2rem;
-  margin-left: 8px;
+  font-size: 0.75rem; /* 12px */
+  margin-left: 0.5rem; /* 8px */
   cursor: pointer;
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(1.25rem); } /* 20px */
   to { opacity: 1; transform: translateY(0); }
 }
 
