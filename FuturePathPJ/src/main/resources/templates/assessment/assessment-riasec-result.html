@@ -147,8 +147,13 @@
             </div>
          </nav>
          <hr>
-         <div class="content" th:object="${assessmentDto}">
-         	<div class="content-result">
+<div class="content">
+   <form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}">
+      <input type="hidden" th:each="code : *{riasecCodes}"
+       name="riasecCodes"
+       th:value="${code}" />
+      <input type="hidden" name="mode" value="DEGREE-DEFAULT-MODE" />
+      <div class="content-result">
          	
             <h1>🎯 Your Career Insights</h1>
             <!-- Motivational subtitle -->
@@ -215,9 +220,11 @@
                   </div>
                </div>
             </div>
-            <a th:href="@{/assessment/next}" class="next-step">Proceed to Next Assessment →</a>
-            </div>
-         </div>
+           <button type="submit" class="next-step">Proceed to Next Assessment →</button>
+
+              </div>
+   </form>
+</div>
          <nav class="footer">
             <div>
                <span>All rights reserved by FuturePath</span>

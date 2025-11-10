@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -252,9 +253,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    AssessmentDto dto = new AssessmentDto();
 	    dto.setCombination(topCombo);
 	    dto.setMessage(message.toString());
+	    System.out.println("TOP COMBO: " + topCombo);
 	    dto.setExampleFields(exampleFields);
-	    System.out.println("COMBINATION: " + topCombo);
-	    System.out.println("TOP: : " + getTopMatches(topCombo));
+	    dto.setRiasecCodes(getTopMatches(topCombo));
 	    dto.setRealisticPercentageStr(df.format((double) inDto.getRealistic() / (questionCount.get("R") * 4) * 100));
 	    dto.setInvestigativePercentageStr(df.format((double) inDto.getInvestigative() / (questionCount.get("I") * 4) * 100));
 	    dto.setArtisticPercentageStr(df.format((double) inDto.getArtistic() / (questionCount.get("A") * 4) * 100));
@@ -265,20 +266,23 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    return dto;
 	}
 	
-	public static List<String> getTopMatches(String inputCode) {
+	public static List<Integer> getTopMatches(String inputCode) {
 	    List<Map.Entry<Integer, String>> allEntries = new ArrayList<>(CommonConstant.RIASEC_CODE_MAP.entrySet());
 
+	    // Sort by descending score
 	    allEntries.sort((a, b) -> Integer.compare(
 	            calculateScore(inputCode, b.getValue()),
 	            calculateScore(inputCode, a.getValue())
 	    ));
 
+	    // Return only the keys of the top 5 matches
 	    return allEntries.stream()
-	            .map(e -> CommonConstant.RIASEC_DETAIL_MAP.get(e.getKey()))
-	            .distinct()
 	            .limit(5)
+	            .map(Map.Entry::getKey)
 	            .collect(Collectors.toList());
 	}
+
+
 
 	private static int calculateScore(String inputCode, String testCode) {
 	    String[] inp = inputCode.split("-");
@@ -314,11 +318,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 		
 		return outDto;
 	}
-	
-
-
-
-
 }
 
 

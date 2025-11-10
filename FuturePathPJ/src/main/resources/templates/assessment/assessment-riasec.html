@@ -647,7 +647,7 @@
                      </div>
                      <input type="hidden" name="q42" id="q42-value" required>
                   </div>
-                  <button type="submit" class="submit-btn" id="submitAssessmentBtn">
+                  <button type="submit" class="submit-btn transitioning" id="submitAssessmentBtn">
                   <i class="fa-solid fa-paper-plane"></i> Submit Assessment
                   </button>
                </form>
@@ -668,6 +668,7 @@
          </nav>
       </main>
    </body>
+   <script th:src="@{/script/loading.js}"></script>
    <script th:inline="javascript">
       document.addEventListener("DOMContentLoaded", () => {
         const questionCards = Array.from(document.querySelectorAll(".question-card"));

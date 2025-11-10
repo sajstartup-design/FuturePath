@@ -77,5 +77,7 @@ public class AssessmentDto {
     private List<UniversityRecommendationData> universities;
     
     private AssessmentStatisticsData assessmentStatistics;
+    
+    private List<Integer> riasecCodes;
 
 }

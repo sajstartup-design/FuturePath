@@ -181,39 +181,16 @@ public class AssessmentController {
 	    inDto.setMode(webDto.getMode());
 	    inDto.setDegrees(webDto.getDegrees());
 	    inDto.setStrands(webDto.getStrands());
-
-	    model.addAttribute("mode", webDto.getMode());
+	    inDto.setRiasecCodes(webDto.getRiasecCodes());
 	    
+	    model.addAttribute("mode", webDto.getMode());
+	 
 	    try {
-	        switch (webDto.getMode()) {
+	    	
+	    	QuestionDto outDto = questionService.getQuestionsForAssessment(inDto);
+	    	
+	        model.addAttribute("questionDto", outDto);
 
-	            case CommonConstant.DEGREE_DEFAULT_MODE:
-	                // Default degree assessment redirects directly
-	                return "redirect:/assessment/riasec/degree";
-
-	            case CommonConstant.DEGREE_CUSTOM_MODE:
-	                // Custom degree assessment: fetch questions
-	                QuestionDto outDto = questionService.getQuestionsForAssessment(inDto);
-	                model.addAttribute("questionDto", outDto);
-	                break;
-
-	            case CommonConstant.STRAND_DEFAULT_MODE:
-	                System.out.println("UNDER CONSTRUCTION");
-	                break;
-
-	            case CommonConstant.STRAND_CUSTOM_MODE:
-	            	System.out.println("UNDER CONSTRUCTION");
-	                break;
-
-	            default:
-	                // Invalid mode
-	                ra.addFlashAttribute("isError", true);
-	                ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
-	                return "redirect:/dashboard";
-	        }
-
-	        model.addAttribute("mode", webDto.getMode());
-	        
 	        model.addAttribute("page", "assessment");
 
 	        return "assessment/assessment";

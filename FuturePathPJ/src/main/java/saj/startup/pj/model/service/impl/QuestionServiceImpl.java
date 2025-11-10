@@ -154,9 +154,20 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		List<QuestionData> allQuestions = new ArrayList<>();
 		
-		if(CommonConstant.DEGREE_CUSTOM_MODE.equals(mode)) {
-			allQuestions = questionLogic.getDegreesQuestionsForAssessment(inDto.getDegrees(), limit);
+		String category = CommonConstant.DEGREE.equals(mode) ? CommonConstant.DEGREE : CommonConstant.STRAND;
+		
+		if(CommonConstant.DEGREE_DEFAULT_MODE.equals(mode)) {
+			allQuestions = questionLogic.geQuestionsForAssessmentByRiasecCodes(inDto.getRiasecCodes(), category, limit);
 		}
+		else if(CommonConstant.DEGREE_CUSTOM_MODE.equals(mode)) {
+			allQuestions = questionLogic.geQuestionsForAssessment(inDto.getDegrees(), category, limit);
+		}else if(CommonConstant.STRAND_DEFAULT_MODE.equals(mode)) {
+			allQuestions = questionLogic.geQuestionsForAssessment(inDto.getStrands(), category, limit);
+		}else if(CommonConstant.STRAND_CUSTOM_MODE.equals(mode)) {
+			allQuestions = questionLogic.geQuestionsForAssessment(inDto.getStrands(), category, limit);
+		}
+		
+		
 		
 		List<QuestionObj> questions = new ArrayList<>();
 		
