@@ -34,7 +34,7 @@
     padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
     border-radius: 8px;
-    background: #2c3a7a;
+    background: #2563eb;
     color: #fff;
     text-decoration: none;
     transition: 0.2s;
@@ -247,4 +247,9 @@
 .legend-color.c3 { background: #ffb74d; }
 .legend-color.c4 { background: #ffd86b; }
 
+p{
+	font-size: 1rem;
+    font-weight: 700;
+    color: #9bb0f9;
+}
 
