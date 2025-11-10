@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Assessment | Configuration</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/assessment-config.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+     	 <th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">ASSESSMENT</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">CONFIGURATION</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <form class="form" th:action="@{/admin/assessment/configuration}" method="POST" th:object="${configurationDto}">
+               <div class="section-title">Question Settings</div>
+               <!-- TOTAL QUESTIONS -->
+               <div class="field-group next-line">
+                  <label>TOTAL QUESTIONS</label>
+                  <div class="input-wrapper">
+                     <i class="fa-solid fa-hashtag"></i>
+                     <input type="number" name="totalQuestion" placeholder="Enter total number of questions" min="1" th:value="${config.totalQuestion}"/>
+                  </div>
+               </div>
+               <hr class="divider">
+               <div class="section-title">Degree Assessment Settings</div>
+               <!-- DEFAULT DEGREE ASSESSMENT -->
+               <div class="field-group">
+                  <label>DEFAULT DEGREE ASSESSMENT</label>
+                  <div class="input-wrapper no-bg">
+                     <label class="switch">
+                     <input type="checkbox" name="defaultDegreeAvailability" th:checked="${config.defaultDegreeAvailability}"/>
+                     <span class="slider"></span>
+                     </label>
+                  </div>
+               </div>
+               <!-- CUSTOM DEGREE ASSESSMENT (now slider) -->
+               <div class="field-group">
+                  <label>CUSTOM DEGREE ASSESSMENT</label>
+                  <div class="input-wrapper no-bg">
+                     <label class="switch">
+                     <input type="checkbox" name="customDegreeAvailability" th:checked="${config.customDegreeAvailability}"/>
+                     <span class="slider"></span>
+                     </label>
+                  </div>
+               </div>
+               <hr class="divider">
+               <div class="section-title">Strand Assessment Settings</div>
+               <!-- DEFAULT STRAND ASSESSMENT -->
+               <div class="field-group">
+                  <label>DEFAULT STRAND ASSESSMENT</label>
+                  <div class="input-wrapper no-bg">
+                     <label class="switch">
+                     <input type="checkbox" name="defaultStrandAvailability" th:checked="${config.defaultStrandAvailability}"/>
+                     <span class="slider"></span>
+                     </label>
+                  </div>
+               </div>
+               <!-- CUSTOM STRAND ASSESSMENT (now slider) -->
+               <div class="field-group">
+                  <label>CUSTOM STRAND ASSESSMENT</label>
+                  <div class="input-wrapper no-bg">
+                     <label class="switch">
+                     <input type="checkbox" name="customStrandAvailability" th:checked="${config.customStrandAvailability}"/>
+                     <span class="slider"></span>
+                     </label>
+                  </div>
+               </div>
+               <div class="btn-group">
+                   <a th:href="@{/admin/dashboard}" class="btn btn-secondary transitioning">
+	               <i class="fas fa-arrow-left"></i> BACK
+	               </a>
+                  <button type="submit" class="btn btn-primary save-btn transitioning">
+                  <i class="fas fa-save"></i> SAVE
+                  </button>
+               </div>
+            </form>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+       <script th:inline="javascript">
+      	console.log(/*[[${config}]]*/'');
+      </script>
+      <script th:src="@{/script/loading.js}"></script>
+   </body>
+</html>

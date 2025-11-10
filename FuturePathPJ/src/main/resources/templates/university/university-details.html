@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/user-add.css}" />
+      <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+      <style>
+         .details-card {
+         background: #2D3D88;
+         padding: 3rem;
+         border-radius: 8px;
+         margin-bottom: 3rem;
+         color: #f1f5f9;
+         }
+         .detail-wrapper {
+         display: flex;
+         align-items: center;
+         background: #1e2761;
+         border: 1px solid #37418e;
+         border-radius: 6px;
+         padding: 0.5rem 0.75rem;
+         gap: 0.5rem;
+         min-height: 2rem;
+         }
+         .detail-wrapper i {
+         color: #9bb0f9;
+         font-size: 0.9rem;
+         }
+         .detail-wrapper span {
+         color: #f1f5f9;
+         font-size: 0.9rem;
+         }
+         .detail-wrapper.textarea {
+         min-height: 5rem;
+         align-items: flex-start;
+         padding-top: 0.6rem;
+         }
+         
+         .btn-group{
+         	margin: unset;
+         }
+      </style>
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">UNIVERSITY</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">DETAILS</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content" th:object="${universityDto}">
+            <div class="btn-group">
+               <a th:href="@{/admin/universities}" class="btn btn-secondary transitioning">
+               <i class="fas fa-arrow-left"></i> BACK
+               </a>
+            </div>
+            <div class="details-card">
+               <!-- University Name -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>UNIVERSITY NAME</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-university"></i>
+                        <span th:text="*{university.universityName}">University Name</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>CATEGORY</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-layer-group"></i>
+                        <span th:text="*{university.category}">PRIVATE</span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>CONTACT</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-phone-alt"></i>
+                        <span th:text="*{university.contact}">+1 234 567 890</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>FOUNDED</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span th:text="*{university.founded}">1636</span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>STUDENTS</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-user-graduate"></i>
+                        <span th:text="*{university.students}">20000</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>STREET</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-road"></i>
+                        <span th:text="*{university.street}">123 Main St</span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>CITY</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-city"></i>
+                        <span th:text="*{university.city}">Cambridge</span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>PROVINCE</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span th:text="*{university.province}">Massachusetts</span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>POSTAL CODE</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-mail-bulk"></i>
+                        <span th:text="*{university.postalCode}">02138</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>MOTTO</label>
+                     <div class="detail-wrapper">
+                        <i class="fas fa-quote-left"></i>
+                        <span th:text="*{university.motto}">Veritas</span>
+                     </div>
+                  </div>
+               </div>
+               <!-- Strands Programs -->
+               <div class="evaluation-section">
+                  <h4>STRAND PROGRAMS</h4>
+                  <h5>Available strands in the university</h5>
+                  <table class="evaluation-table">
+                     <thead>
+                        <tr>
+                           <th>Strand</th>
+                           <th>Availability</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="strandegree : ${strandegreeDto.strandegrees}" th:if="${strandegree.category == 'STRAND'}">
+                           <td>
+                              <strong th:text="'(' + ${strandegree.code} + ') ' + ${strandegree.name}">Strand Name</strong>
+                           </td>
+                           <td>
+                              <span th:text="*{strandegreesAvailability[__${strandegree.idPk}__]} ? 'Available' : 'Not Available'">Available</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <!-- Degree Programs -->
+               <div class="evaluation-section">
+                  <h4>DEGREE PROGRAMS</h4>
+                  <h5>Available degrees in the university</h5>
+                  <table class="evaluation-table">
+                     <thead>
+                        <tr>
+                           <th>Degree</th>
+                           <th>Availability</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="strandegree : ${strandegreeDto.strandegrees}" th:if="${strandegree.category == 'DEGREE'}">
+                           <td>
+                              <strong th:text="'(' + ${strandegree.code} + ') ' + ${strandegree.name}">Degree Name</strong>
+                           </td>
+                           <td>
+                              <span th:text="*{strandegreesAvailability[__${strandegree.idPk}__]} ? 'Available' : 'Not Available'">Available</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <hr>
+            </div>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:inline="javascript">
+         console.log(/*[[${universityDto}]]*/'');
+      </script>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+   </body>
+</html>

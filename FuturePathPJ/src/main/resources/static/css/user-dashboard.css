@@ -1,0 +1,274 @@
+/* ---------------- GENERAL CONTENT ---------------- */
+.content {
+    margin: auto auto 3rem auto;
+    font-size: 0.85rem; /* base font size updated */
+}
+
+.group-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.group-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ---------------- WELCOME CARD ---------------- */
+.welcome-card {
+    background: linear-gradient(145deg, #273687, #3a44a0);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.welcome-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+}
+
+.welcome-card .greeting {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #9bb0f9;
+}
+
+.welcome-card .message {
+    font-size: 0.85rem;
+    color: #c1c9f0;
+    line-height: 1.4;
+}
+
+/* ---------------- STATISTICS CARD ---------------- */
+.stats-card {
+    background: linear-gradient(145deg, #273687, #3a44a0);
+    border-radius: 1rem;
+    padding: 1.5rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.stats-card .title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #9bb0f9;
+}
+
+.stats-card .stats-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 120px;
+    background: #1C2656;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.stat-item:hover {
+    background: #273687;
+}
+
+.stat-item .number {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.stat-item .label {
+    font-size: 0.85rem;
+    color: #aeb8ff;
+}
+
+/* ---------------- ASSESSMENT / RECOMMENDATION / UNIVERSITY / HISTORY / QUICK ACTION CARD ---------------- */
+.assessment-card, .recommendation-card, .university-card, .history-card, .quick-action-card {
+    background: linear-gradient(145deg, #273687, #3a44a0);
+
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex-grow: 1;
+}
+
+.assessment-card .note,
+.recommendation-card .note {
+    font-size: 0.75rem;
+    color: #aeb8ff;
+    margin-bottom: 0.4rem;
+    font-style: italic;
+}
+
+.assessment-card:hover,
+.recommendation-card:hover,
+.university-card:hover,
+.history-card:hover,
+.quick-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+}
+
+.assessment-card .title,
+.recommendation-card .title,
+.university-card .title,
+.history-card .title,
+.quick-action-card .title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #9bb0f9;
+}
+
+.assessment-card .info,
+.recommendation-card .details,
+.university-item .info,
+.assessment-item .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: #c1c9f0;
+}
+
+.assessment-card .status,
+.assessment-item .status,
+.university-item .status {
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.status.completed {
+    background: rgba(34,197,94,0.25);
+    color: #4ade80;
+}
+
+.status.pending, .status.not-taken {
+    background: rgba(220,38,38,0.25);
+    color: #ef4444;
+}
+
+.status.open {
+    background: rgba(34,197,94,0.25);
+    color: #4ade80;
+}
+
+.status.closed {
+    background: rgba(220,38,38,0.25);
+    color: #ef4444;
+}
+
+/* ---------------- BUTTONS ---------------- */
+.btn {
+    margin-top: 0.8rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.85rem;
+}
+
+.btn.primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn.primary:hover {
+    background: #1d4ed8;
+}
+
+/* ---------------- UNIVERSITY CARD ---------------- */
+.university-card .university-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.university-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1C2656;
+    padding: 0.6rem 1rem;
+    border-radius: 0.6rem;
+    transition: background 0.2s;
+}
+
+.university-item:hover {
+    background: #273687;
+}
+
+.university-item .info span strong {
+    color: #fff;
+}
+
+/* ---------------- HISTORY CARD ---------------- */
+.progress-bar {
+    background: #1C2656;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    height: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background: #2563eb;
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 0.5rem;
+}
+
+.assessment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.assessment-item:hover {
+    background: #273687;
+}
+
+/* ---------------- QUICK ACTIONS ---------------- */
+.quick-action-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.quick-action-card .btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media screen and (max-width: 1000px) {
+    .group-row {
+        flex-direction: column;
+    }
+}

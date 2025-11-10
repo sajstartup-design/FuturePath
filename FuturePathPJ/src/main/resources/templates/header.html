@@ -15,6 +15,7 @@
                <button><i class="fas fa-search"></i></button>
             </div>
          </div>
+         <div class="real-time" id="headerTime"></div>
          <!-- Right -->
          <div class="header-right">
             <!-- Flag -->
@@ -51,22 +52,6 @@
                         <div class="row-text">
                            <span class="row-title">My Profile</span>
                            <span class="row-sub">Update details and information</span>
-                        </div>
-                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
-                     </a>
-                     <a class="profile-row" href="#">
-                        <span class="icon"><i class="fa-solid fa-wallet"></i></span>
-                        <div class="row-text">
-                           <span class="row-title">My Wallet</span>
-                           <span class="row-sub">Add Money or withdraw</span>
-                        </div>
-                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
-                     </a>
-                     <a class="profile-row" href="#">
-                        <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
-                        <div class="row-text">
-                           <span class="row-title">My Schedule</span>
-                           <span class="row-sub">Appointments and schedules</span>
                         </div>
                         <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
                      </a>
@@ -114,22 +99,6 @@
                         </div>
                         <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
                      </a>
-                     <a class="profile-row" href="#">
-                        <span class="icon"><i class="fa-solid fa-wallet"></i></span>
-                        <div class="row-text">
-                           <span class="row-title">My Wallet</span>
-                           <span class="row-sub">Add Money or withdraw</span>
-                        </div>
-                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
-                     </a>
-                     <a class="profile-row" href="#">
-                        <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
-                        <div class="row-text">
-                           <span class="row-title">My Schedule</span>
-                           <span class="row-sub">Appointments and schedules</span>
-                        </div>
-                        <span class="chev"><i class="fa-solid fa-chevron-right"></i></span>
-                     </a>
                      <!-- LOGOUT FORM -->
                      <form th:action="@{/logout}" method="post" class="profile-row logout-form">
                         <button type="submit" class="logout-btn">
@@ -161,6 +130,26 @@
               profileBtn.classList.remove('active')
             }
             });
+            
+            function updateHeaderTime() {
+                const now = new Date();
+                
+                // Options for day and date
+                const optionsDate = { weekday: 'short', month: 'short', day: 'numeric' };
+                const dateString = now.toLocaleDateString('en-US', optionsDate); // e.g., "Wed, Nov 10"
+                
+                // Options for time
+                const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                const timeString = now.toLocaleTimeString('en-US', optionsTime); // e.g., "10:23:45 AM"
+
+                document.getElementById('headerTime').textContent = `${dateString} | ${timeString}`;
+            }
+
+            // Update immediately
+            updateHeaderTime();
+
+            // Update every second
+            setInterval(updateHeaderTime, 1000);
          </script>
       </nav>
    </body>

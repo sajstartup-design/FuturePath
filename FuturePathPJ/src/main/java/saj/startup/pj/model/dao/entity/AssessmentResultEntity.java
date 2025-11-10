@@ -1,5 +1,7 @@
 package saj.startup.pj.model.dao.entity;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,8 @@ public class AssessmentResultEntity {
 	
 	private int userIdPk;
 	
+	private String category;
+	
 	private int correct;
 	
 	private int incorrect;
@@ -25,4 +29,6 @@ public class AssessmentResultEntity {
 	private int totalQuestion;
 	
 	private double score;
+	
+	private Timestamp dateTaken;
 }

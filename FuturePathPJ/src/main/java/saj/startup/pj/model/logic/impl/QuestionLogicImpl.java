@@ -52,13 +52,13 @@ public class QuestionLogicImpl implements QuestionLogic{
 	}
 
 	@Override
-	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees) {
+	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees, int limit) {
 		
 		/*
 		 * This right here can still be improved
 		 */
 		
-		List<QuestionData> questions = questionDao.getQuestionsForAssessment(degrees);
+		List<QuestionData> questions = questionDao.getQuestionsForAssessment(degrees, limit);
 		
 		for(QuestionData question : questions) {
 			
@@ -79,14 +79,26 @@ public class QuestionLogicImpl implements QuestionLogic{
 
 	@Override
 	public QuestionEntity getQuestionByIdPk(int idPk) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return questionDao.getQuestion(idPk);
 	}
 
 	@Override
 	public List<AnswerData> getAnswersByQuestionIdPk(int questionIdPk) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return answerDao.getAnswersByQuestionIdPk(questionIdPk);
+	}
+
+	@Override
+	public List<AnswerEntity> getAnswersEntityByQuestionIdPk(int questionIdPk) {
+		
+		return answerDao.getAnswersEntityByQuestionIdPk(questionIdPk);
+	}
+
+	@Override
+	public void deleteQuestion(int idPk) {
+		
+		questionDao.deleteQuestion(idPk);
 	}
 
 }

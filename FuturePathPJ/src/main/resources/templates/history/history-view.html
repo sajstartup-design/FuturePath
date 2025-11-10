@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | History</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <style>
+		.activity-feed {
+		    display: flex;
+		    flex-direction: column;
+		    gap: 0.5rem;
+		}
+		
+		.activity-feed .activity {
+		    background: #2D3D88;
+		    color: #fff;
+		    padding: 1rem;
+		    border-radius: 8px;
+		}
+		.activity-feed .activity span {
+		    font-size: 0.9rem;
+		}
+		.activity-feed .activity strong {
+		    font-weight: 600;
+		}
+		</style>
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main th:object="${historyDto}">
+         <th:block th:if="${isSuccess}">
+            <div th:replace="~{alert :: success}"></div>
+         </th:block>
+         <th:block th:if="${isError}">
+            <div th:replace="~{alert :: error}"></div>
+         </th:block>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">HISTORY</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <div class="data-section">
+               <div class="data-controls">
+                  <h4 class="stat-title">Recent Assessment Activity</h4>
+               </div>
+               <div class="activity-feed" id="recent-activities">
+		            <!-- Recent assessments will be injected here -->
+		        </div>
+            </div>
+            <div class="data-section">
+               <div class="data-controls">
+                  <div class="actions">
+                     <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
+                     <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="SEARCH..." class="search"/>
+                     </div>
+                  </div>
+               </div>
+               <div class="data-table">
+                  <table>
+                     <thead>
+                        <tr>
+                           <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
+                           <th scope="col"><i class="fa-solid fa-user"></i> FULL NAME</th>
+                           <th scope="col"><i class="fa-solid fa-layer-group"></i> CATEGORY</th>
+                           <th scope="col"><i class="fa-solid fa-check"></i> CORRECT</th>
+                           <th scope="col"><i class="fa-solid fa-xmark"></i> INCORRECT</th>
+                           <th scope="col"><i class="fa-solid fa-list-ol"></i> TOTAL QUESTIONS</th>
+                           <th scope="col"><i class="fa-solid fa-chart-line"></i> SCORE (%)</th>
+                           <th scope="col"><i class="fa-solid fa-calendar-day"></i> DATE TAKEN</th>
+                           <th scope="col"><i class="fa-solid fa-gear"></i> ACTION</th>
+                        </tr>
+                     </thead>
+                     <tbody id="table-body"></tbody>
+                  </table>
+               </div>
+               <!-- Pagination -->
+               <div class="pagination">
+                  <button class="prev-btn"><i class="fa-solid fa-angle-left"></i> PREV</button>
+                  <button class="btn-page active">1</button>
+                  <button class="btn-page">2</button>
+                  <button class="btn-page">3</button>
+                  <button class="btn-page">4</button>
+                  <button class="btn-page">5</button>
+                  <span>..</span>
+                  <input type="text" placeholder="Go to" class="input-page"/>
+                  <button class="next-btn">NEXT <i class="fa-solid fa-angle-right"></i></button>
+               </div>
+            </div>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/pagination.js}"></script>
+      <script th:src="@{/script/history-api.js}"></script>
+   </body>
+</html>

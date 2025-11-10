@@ -15,28 +15,30 @@
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
-            ASSESSMENT
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">ASSESSMENT</span>
+            </div>
             <div class="btn-group">
             </div>
          </nav>
          <hr>
          <div class="content">
             <div class="assessment-container">
-             <div class="question-nav">
+               <div class="question-nav">
                   <h3>Questions</h3>
                   <div class="question-list" id="questionList">
-                    
                   </div>
                </div>
                <!-- Assessment Form -->
                <form th:action="@{/assessment/riasec/result}" method="POST" class="assessment-form">
-               <input type="hidden" name="realistic" id="realistic" value="0" />
-				<input type="hidden" name="investigative" id="investigative" value="0" />
-				<input type="hidden" name="artistic" id="artistic" value="0" />
-				<input type="hidden" name="social" id="social" value="0" />
-				<input type="hidden" name="enterprising" id="enterprising" value="0" />
-				<input type="hidden" name="conventional" id="conventional" value="0" />
-               
+                  <input type="hidden" name="realistic" id="realistic" value="0" />
+                  <input type="hidden" name="investigative" id="investigative" value="0" />
+                  <input type="hidden" name="artistic" id="artistic" value="0" />
+                  <input type="hidden" name="social" id="social" value="0" />
+                  <input type="hidden" name="enterprising" id="enterprising" value="0" />
+                  <input type="hidden" name="conventional" id="conventional" value="0" />
                   <div class="intro-note">
                      <h2>🧭 Interest Assessment</h2>
                      <p>
@@ -654,146 +656,153 @@
                </button>
             </div>
          </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
       </main>
    </body>
-<script th:inline="javascript">
-document.addEventListener("DOMContentLoaded", () => {
-  const questionCards = Array.from(document.querySelectorAll(".question-card"));
-  const backToTopBtn = document.getElementById("backToTopBtn");
-  const questionList = document.getElementById("questionList");
-  const answeredInput = document.getElementById("answeredJson");
-  const questionAnswers = {};
-
-  // if no question cards, nothing to do
-  if (!questionCards.length) return;
-
-  // 🔹 Dynamically generate nav buttons (one per question) if the container exists
-  if (questionList) {
-    questionCards.forEach((_, index) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.textContent = index + 1;
-      btn.classList.add("question-nav-btn");
-      btn.setAttribute("aria-label", `Go to question ${index + 1}`);
-      btn.dataset.question = index + 1;
-      questionList.appendChild(btn);
-    });
-  }
-
-  // Re-select nav buttons after creation (may be empty)
-  const questionNavBtns = Array.from(document.querySelectorAll(".question-list button"));
-
-  // 🔹 Main logic for choices
-  questionCards.forEach((card, index) => {
-    const choices = Array.from(card.querySelectorAll(".choice-btn"));
-    const hiddenInput = card.querySelector("input[type='hidden']");
-    const questionNumber = index + 1;
-    questionAnswers[`q${questionNumber}`] = null;
-
-    // if no choices or no hidden input, skip this card (defensive)
-    if (!choices.length || !hiddenInput) return;
-
-    choices.forEach(choice => {
-      choice.addEventListener("click", () => {
-        // Remove previous selection in this card
-        choices.forEach(btn => btn.classList.remove("selected"));
-        choice.classList.add("selected");
-
-        const raw = choice.getAttribute("data-value");
-        const value = raw !== null ? parseInt(raw, 10) : null;
-
-        // Guard against NaN
-        questionAnswers[`q${questionNumber}`] = Number.isFinite(value) ? value : null;
-
-        // Update hidden input (string or empty)
-        hiddenInput.value = questionAnswers[`q${questionNumber}`] ?? "";
-
-        // Mark navigation button as answered (if exists)
-        const navBtn = questionNavBtns[index];
-        if (navBtn) navBtn.classList.add("answered");
-
-        // Update overall answers JSON hidden field
-        if (answeredInput) {
-          answeredInput.value = JSON.stringify(questionAnswers);
+   <script th:inline="javascript">
+      document.addEventListener("DOMContentLoaded", () => {
+        const questionCards = Array.from(document.querySelectorAll(".question-card"));
+        const backToTopBtn = document.getElementById("backToTopBtn");
+        const questionList = document.getElementById("questionList");
+        const answeredInput = document.getElementById("answeredJson");
+        const questionAnswers = {};
+      
+        // if no question cards, nothing to do
+        if (!questionCards.length) return;
+      
+        // 🔹 Dynamically generate nav buttons (one per question) if the container exists
+        if (questionList) {
+          questionCards.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent = index + 1;
+            btn.classList.add("question-nav-btn");
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.dataset.question = index + 1;
+            questionList.appendChild(btn);
+          });
         }
-
-        // Log individual answer and totals
-        console.log(`Question ${questionNumber}:`, questionAnswers[`q${questionNumber}`]);
-        const totals = calculateRIASECTotals(questionAnswers);
-        try { console.clear(); } catch(e) {}
-        console.log("🔎 Current RIASEC Totals:");
-        console.table(totals);
-        updateHiddenInputs(totals);
-      });
-    });
-  });
-
-  // 🔹 Smooth scroll to question when nav button clicked
-  if (questionNavBtns.length) {
-    questionNavBtns.forEach((btn, index) => {
-      btn.addEventListener("click", () => {
-        const targetCard = questionCards[index];
-        if (targetCard) {
-          targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
-          // also focus the first interactive element in the card for accessibility
-          const firstChoice = targetCard.querySelector(".choice-btn");
-          if (firstChoice) firstChoice.focus({ preventScroll: true });
+      
+        // Re-select nav buttons after creation (may be empty)
+        const questionNavBtns = Array.from(document.querySelectorAll(".question-list button"));
+      
+        // 🔹 Main logic for choices
+        questionCards.forEach((card, index) => {
+          const choices = Array.from(card.querySelectorAll(".choice-btn"));
+          const hiddenInput = card.querySelector("input[type='hidden']");
+          const questionNumber = index + 1;
+          questionAnswers[`q${questionNumber}`] = null;
+      
+          // if no choices or no hidden input, skip this card (defensive)
+          if (!choices.length || !hiddenInput) return;
+      
+          choices.forEach(choice => {
+            choice.addEventListener("click", () => {
+              // Remove previous selection in this card
+              choices.forEach(btn => btn.classList.remove("selected"));
+              choice.classList.add("selected");
+      
+              const raw = choice.getAttribute("data-value");
+              const value = raw !== null ? parseInt(raw, 10) : null;
+      
+              // Guard against NaN
+              questionAnswers[`q${questionNumber}`] = Number.isFinite(value) ? value : null;
+      
+              // Update hidden input (string or empty)
+              hiddenInput.value = questionAnswers[`q${questionNumber}`] ?? "";
+      
+              // Mark navigation button as answered (if exists)
+              const navBtn = questionNavBtns[index];
+              if (navBtn) navBtn.classList.add("answered");
+      
+              // Update overall answers JSON hidden field
+              if (answeredInput) {
+                answeredInput.value = JSON.stringify(questionAnswers);
+              }
+      
+              // Log individual answer and totals
+              console.log(`Question ${questionNumber}:`, questionAnswers[`q${questionNumber}`]);
+              const totals = calculateRIASECTotals(questionAnswers);
+              try { console.clear(); } catch(e) {}
+              console.log("🔎 Current RIASEC Totals:");
+              console.table(totals);
+              updateHiddenInputs(totals);
+            });
+          });
+        });
+      
+        // 🔹 Smooth scroll to question when nav button clicked
+        if (questionNavBtns.length) {
+          questionNavBtns.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+              const targetCard = questionCards[index];
+              if (targetCard) {
+                targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+                // also focus the first interactive element in the card for accessibility
+                const firstChoice = targetCard.querySelector(".choice-btn");
+                if (firstChoice) firstChoice.focus({ preventScroll: true });
+              }
+            });
+          });
+        }
+      
+        // 🔹 Back-to-top visibility / handler (only if button exists)
+        if (backToTopBtn) {
+          window.addEventListener("scroll", () => {
+            backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+          });
+          backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
         }
       });
-    });
-  }
-
-  // 🔹 Back-to-top visibility / handler (only if button exists)
-  if (backToTopBtn) {
-    window.addEventListener("scroll", () => {
-      backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
-    });
-    backToTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-});
-
-// Function to calculate RIASEC totals
-function calculateRIASECTotals(answers) {
-  const categories = {
-    R: [1, 2, 3, 4, 5, 6],
-    I: [7, 8, 9, 10, 11, 12, 13, 14],
-    A: [15, 16, 17, 18, 19, 20, 21],
-    S: [22, 23, 24, 25, 26, 27],
-    E: [28, 29, 30, 31, 32, 33, 34],
-    C: [35, 36, 37, 38, 39, 40, 41, 42],
-  };
-
-  const totals = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
-
-  for (const [key, val] of Object.entries(answers)) {
-    const value = typeof val === "number" ? val : (val !== null && val !== "" ? Number(val) : NaN);
-    if (!Number.isFinite(value)) continue;
-    const qNum = parseInt(key.replace(/^q/, ""), 10);
-    if (!Number.isFinite(qNum)) continue;
-
-    for (const [category, range] of Object.entries(categories)) {
-      if (range.includes(qNum)) {
-        totals[category] += value;
-        break;
+      
+      // Function to calculate RIASEC totals
+      function calculateRIASECTotals(answers) {
+        const categories = {
+          R: [1, 2, 3, 4, 5, 6],
+          I: [7, 8, 9, 10, 11, 12, 13, 14],
+          A: [15, 16, 17, 18, 19, 20, 21],
+          S: [22, 23, 24, 25, 26, 27],
+          E: [28, 29, 30, 31, 32, 33, 34],
+          C: [35, 36, 37, 38, 39, 40, 41, 42],
+        };
+      
+        const totals = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+      
+        for (const [key, val] of Object.entries(answers)) {
+          const value = typeof val === "number" ? val : (val !== null && val !== "" ? Number(val) : NaN);
+          if (!Number.isFinite(value)) continue;
+          const qNum = parseInt(key.replace(/^q/, ""), 10);
+          if (!Number.isFinite(qNum)) continue;
+      
+          for (const [category, range] of Object.entries(categories)) {
+            if (range.includes(qNum)) {
+              totals[category] += value;
+              break;
+            }
+          }
+        }
+      
+        return totals;
       }
-    }
-  }
-
-  return totals;
-}
-
-function updateHiddenInputs(totals) {
-    document.getElementById("realistic").value = totals.R;
-    document.getElementById("investigative").value = totals.I;
-    document.getElementById("artistic").value = totals.A;
-    document.getElementById("social").value = totals.S;
-    document.getElementById("enterprising").value = totals.E;
-    document.getElementById("conventional").value = totals.C;
-}
-</script>
-
-
-   
+      
+      function updateHiddenInputs(totals) {
+          document.getElementById("realistic").value = totals.R;
+          document.getElementById("investigative").value = totals.I;
+          document.getElementById("artistic").value = totals.A;
+          document.getElementById("social").value = totals.S;
+          document.getElementById("enterprising").value = totals.E;
+          document.getElementById("conventional").value = totals.C;
+      }
+   </script>
 </html>

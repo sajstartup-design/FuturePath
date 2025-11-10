@@ -17,10 +17,22 @@ public interface AnswerDao extends JpaRepository<AnswerEntity, Integer>{
 			FROM AnswerEntity e
 			WHERE e.questionIdPk = :questionIdPk
 			AND e.isDeleted = false
+			ORDER BY e.idPk
 			""";
 	
 	@Query(GET_ANSWERS_BY_QUESTION_ID_PK)
 	public List<AnswerData> getAnswersByQuestionIdPk(@Param("questionIdPk") int questionIdPk) throws DataAccessException;
+	
+	public static final String GET_ANSWERS_ENTITY_BY_QUESTION_ID_PK = """
+			SELECT e
+			FROM AnswerEntity e
+			WHERE e.questionIdPk = :questionIdPk
+			AND e.isDeleted = false
+			ORDER BY e.idPk
+			""";
+	
+	@Query(GET_ANSWERS_ENTITY_BY_QUESTION_ID_PK)
+	public List<AnswerEntity> getAnswersEntityByQuestionIdPk(@Param("questionIdPk") int questionIdPk) throws DataAccessException;
 	
 	
 	public static final String IS_ANSWER_CORRECT = """

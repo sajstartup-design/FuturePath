@@ -32,9 +32,13 @@
                   th:classappend="${page == 'questions'} ? ' active'">
                <i class="fas fa-question-circle icon-btn"></i> QUESTION
                </a>
-               <a href="#"
-                  th:classappend="${page == 'quiz-config'} ? ' active'">
-               <i class="fas fa-cogs icon-btn"></i> ASSESSMENT CONFIG
+               <a th:href="@{/admin/assessment/configuration}"
+                  th:classappend="${page == 'configuration'} ? ' active'">
+               <i class="fas fa-cogs icon-btn"></i> CONFIGURATION
+               </a>
+               <a th:href="@{/admin/assessment/history}"
+                  th:classappend="${page == 'history'} ? ' active'">
+               <i class="fas fa-history icon-btn"></i> ASSESSMENT HISTORY
                </a>
                <p class="menu-title">STRAND & DEGREE</p>
                <a th:href="@{/admin/strandegrees}" 
@@ -47,10 +51,11 @@
                <i class="fas fa-user icon-btn"></i> USER
                </a>
                <p class="menu-title">NOTIFICATION</p>
-               <a th:href="@{/admin/user}" 
-                  th:classappend="${page == 'user'} ? ' active'">
-               <i class="fas fa-user icon-btn"></i> PUSH NOTIFICATION
-               </a>
+               <a href="#" 
+				   th:classappend="${page == 'notifications'} ? ' active'" 
+				   class="underconstruction-link">
+				    <i class="fas fa-user icon-btn"></i> PUSH NOTIFICATION
+				</a>
             </div>
          </nav>
       </th:block>

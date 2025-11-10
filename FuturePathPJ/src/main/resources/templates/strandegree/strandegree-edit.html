@@ -15,11 +15,17 @@
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
-            STRAND & DEGREE > EDIT
+           <div>
+			 <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb">STRAND & DEGREE</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+			  <span class="crumb active">EDIT</span>
+          </div>
          </nav>
          <hr>
          <div class="content">
-            <form th:action="@{/admin/strandegrees/edit}" method="POST" th:object="${strandegreeDto}">
+            <form class="form" th:action="@{/admin/strandegrees/edit}" method="POST" th:object="${strandegreeDto}">
                <input type="hidden" name="idPk" th:value="*{idPk}" />
                <!-- Program Name -->
                <div class="field-group">

@@ -74,9 +74,13 @@ function removeLoadingScreen(e){
 
 document.addEventListener("DOMContentLoaded", () => {
 	
+	addLoadingListener()
+});
+
+function addLoadingListener(){
 	const buttons = document.querySelectorAll('.transitioning')
-	
+
 	buttons.forEach(btn => btn.addEventListener('click', function(){
 		createLoadingScreenBody();
 	}));
-});
+}

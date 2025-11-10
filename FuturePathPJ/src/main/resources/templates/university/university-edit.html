@@ -15,11 +15,17 @@
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
-            UNIVERSITY > EDIT
+            <div>
+          	  <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb">UNIVERSITY</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+			  <span class="crumb active">EDIT</span>
+          </div>
          </nav>
          <hr>
          <div class="content">
-            <form th:action="@{/admin/universities/edit}" method="POST" th:object="${universityDto}">
+            <form class="form" th:action="@{/admin/universities/edit}" method="POST" th:object="${universityDto}">
            	<input type="hidden" name="idPk" th:value="*{idPk}" /> 
                <!-- University Name -->
                <div class="field-group">

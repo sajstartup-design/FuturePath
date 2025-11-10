@@ -235,6 +235,12 @@ public class UniversityServiceImpl implements UniversityService {
 	    }
 	}
 
+	@Override
+	public void deleteUniversity(UniversityDto inDto) throws Exception {
+		
+		universityLogic.deleteUniversity(inDto.getIdPk());
+	}
+
 
 
 }

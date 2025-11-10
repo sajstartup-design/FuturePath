@@ -18,4 +18,6 @@ public interface UniversityService {
 	public UniversityDto getUniversity(UniversityDto inDto) throws Exception;
 	
 	public void updateUniversity(UniversityDto inDto) throws Exception;
+	
+	public void deleteUniversity(UniversityDto inDto) throws Exception;
 }

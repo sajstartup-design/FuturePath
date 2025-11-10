@@ -33,4 +33,6 @@ public interface UniversityLogic {
 	public Boolean findStrandegreeAvailability(int strandegreeIdPk, int unviversityIdPk);
 	
 	public List<UniversityRecommendationData> getUniversityRecommendation(List<String> programs);
+	
+	public void deleteUniversity(int idPk);
 }

@@ -20,4 +20,6 @@ public interface StrandegreeService {
 	public StrandegreeDto getStrandegreesQuestionsOverview() throws Exception;
 	
 	public void updateStrandegree(StrandegreeDto inDto) throws Exception;
+	
+	public void deleteStrandegree(StrandegreeDto inDto) throws Exception;
 }

@@ -1,142 +1,121 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>FuturePath | Strand & Degree</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}" />
-<link rel="stylesheet" th:href="@{/css/question-add.css}" />
-<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
-</head>
-<body>
-	
-	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
-		<nav th:replace="~{header :: header}"></nav>
-		<hr>
-		<nav class="sub-header">
-			QUESTIONS > ADD
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/question-add.css}" />
+      <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+          <div>
+          	  <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb">QUESTIONS</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+			  <span class="crumb active">ADD</span>
+          </div>
 		</nav>
-		<hr>
-		<div class="content">
-
-			<form th:action="@{/admin/questions/add}" method="POST" th:object="${questionDto}">
-				
-				<div class="field-group">
-					<div class="field">
-					    <label>CATEGORY</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-list-alt"></i>
-					      <select name="category" class="dropdown">
-					      	<option>Select Category...</option>
-					      	<option>STRAND</option>
-					      	<option>DEGREE</option>
-					      </select>
-					    </div>
-					</div>
-					<div class="field">
-					    <label>TYPE</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-list-alt"></i>
-					      <select name="category" class="dropdown">
-					      	<option>Select Type...</option>
-					      	<option>RIASEC</option>
-					      	<option>LIKERT</option>
-					      </select>
-					    </div>
-					</div>
-				</div>
-				
-				<div class="field-group">
-					<div class="field">
-					    <label>STRAND/DEGREE</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-graduation-cap"></i>
-					      <select name="strandegreeIdPk" class="dropdown">
-					      	<option>Select Strand/Degree...</option>
-					      	<option th:each="strandegree : ${strandegreeDto.strandegrees}" 
-					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
-					      		th:value="${strandegree.idPk}"
-					      	>STRAND</option>
-					      </select>
-					    </div>
-					</div>
-				</div>
-				
-				<div class="field-group">
-					<div class="field">
-					    <label>RIASEC TYPE</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-graduation-cap"></i>
-					      <select name="strandegreeIdPk" class="dropdown">
-					      	<option>Select RIASEC Type...</option>
-					      	<option>REALISTIC</option>
-					      	<option>INVESTIGATIVE</option>
-					      	<option>ARTISTIC</option>
-					      	<option>SOCIAL</option>
-					      	<option>ENTERPRISING</option>
-					      	<option>CONVENTIONAL</option>
-					      </select>
-					    </div>
-					</div>
-				</div>
-							
-				<!-- Question -->
-				<div class="field-group">
-					<div class="field">
-					    <label>QUESTION</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-question-circle"></i> <!-- Changed to question-circle -->
-					      <textarea name="question" placeholder="Enter your question"></textarea>
-					    </div>
-					</div>
-				</div>
-							
-				<!-- Answers -->
-				<div class="field-group">
-					<div class="field">
-					    <label>ANSWERS</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i> <!-- Changed to check-circle -->
-					      <input type="text" placeholder="Enter answer option" name="answers[0]"/>
-					    </div>
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers[1]"/>
-					    </div>
-					    <div class="input-wrapper">
-					      <i class="fas fa-check-circle"></i>
-					      <input type="text" placeholder="Enter answer option" name="answers[2]"/>
-					    </div>
-					</div>
-				</div>
-							
-				<hr>
-				<!-- Buttons -->
-				<div class="btn-group">
-					<a th:href="@{/admin/questions}" class="btn btn-secondary transitioning">
-						<i class="fas fa-times"></i> CANCEL
-					</a>
-					<button type="submit" class="btn btn-primary transitioning">
-						<i class="fas fa-save"></i> SAVE
-					</button>
-				</div>
-			</form>
-				
-		</div>
-		<nav class="footer">
-			<div>
-				<span>All rights reserved by FuturePath</span>
-			</div>
-			<div class="terms">
-				<span>Terms of Use</span>
-				<span>Privacy Policy</span>
-				<span>Contact us</span>
-			</div>
-		</nav>
-	</main>
-	<script th:src="@{/script/loading.js}"></script>
-	<script th:src="@{/script/dropdown.js}"></script>
-</body>
+         <hr>
+         <div class="content">
+            <form class="form" th:action="@{/admin/questions/add}" method="POST" th:object="${questionDto}">
+               <div class="field-group">
+                  <div class="field">
+                     <label>CATEGORY</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-list-alt"></i>
+                        <select name="category" class="dropdown">
+                           <option>Select Category...</option>
+                           <option>STRAND</option>
+                           <option>DEGREE</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>STRAND/DEGREE</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-graduation-cap"></i>
+                        <select name="strandegreeIdPk" class="dropdown">
+                           <option>Select Strand/Degree...</option>
+                           <option th:each="strandegree : ${strandegreeDto.strandegrees}" 
+                              th:text="${strandegree.category} + '-' + ${strandegree.code}"
+                              th:value="${strandegree.idPk}"
+                              >STRAND</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <!-- Question -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>QUESTION</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-question-circle"></i> <!-- Changed to question-circle -->
+                        <textarea name="question" placeholder="Enter your question"></textarea>
+                     </div>
+                  </div>
+               </div>
+               <!-- Answers -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>ANSWERS</label>
+                     <div class="input-wrapper answer-option">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="text" placeholder="Enter answer option" name="answers[0]" />
+                        <label class="check-btn">
+                        <input type="radio" name="correctIndex" value="0">
+                        <span class="check-circle"></span>
+                        </label>
+                     </div>
+                     <div class="input-wrapper answer-option">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="text" placeholder="Enter answer option" name="answers[1]" />
+                        <label class="check-btn">
+                        <input type="radio" name="correctIndex" value="1">
+                        <span class="check-circle"></span>
+                        </label>
+                     </div>
+                     <div class="input-wrapper answer-option">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="text" placeholder="Enter answer option" name="answers[2]" />
+                        <label class="check-btn">
+                        <input type="radio" name="correctIndex" value="2">
+                        <span class="check-circle"></span>
+                        </label>
+                     </div>
+                  </div>
+               </div>
+               <hr>
+               <!-- Buttons -->
+               <div class="btn-group">
+                  <a th:href="@{/admin/questions}" class="btn btn-secondary transitioning">
+                  <i class="fas fa-times"></i> CANCEL
+                  </a>
+                  <button type="submit" class="btn btn-primary transitioning">
+                  <i class="fas fa-save"></i> SAVE
+                  </button>
+               </div>
+            </form>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+   </body>
 </html>

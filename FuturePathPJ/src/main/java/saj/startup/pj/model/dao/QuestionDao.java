@@ -6,9 +6,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import jakarta.transaction.Transactional;
 import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.QuestionData;
 import saj.startup.pj.model.dao.entity.QuestionEntity;
@@ -48,7 +50,8 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    + "       LOWER(CAST(e.isActive AS CHARACTER)) LIKE LOWER(CONCAT('%', :search, '%'))" 
 		    + "   )) " 
 		    + "   OR (:search IS NULL OR :search = '') " 
-		    + ")";
+		    + ") "
+		    + "ORDER BY e.idPk";
 	
 	@Query(GET_ALL_QUESTIONS)
 	public Page<QuestionData> getAllQuestions(Pageable pageable,
@@ -68,11 +71,12 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		      AND s.category = 'DEGREE'
 		      AND s.code IN :degrees
 		    ORDER BY RANDOM()
-		    LIMIT 3
+		    LIMIT :limit
 		    """;
 
 	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery = true)
-	public List<QuestionData> getQuestionsForAssessment(@Param("degrees") List<String> degrees) throws DataAccessException;
+	public List<QuestionData> getQuestionsForAssessment(@Param("degrees") List<String> degrees,
+			@Param("limit") int limit) throws DataAccessException;
 
 	
 	public final String QUESTION_ASSESSMENT_CHECKER = """
@@ -94,5 +98,23 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 	@Query(QUESTION_ASSESSMENT_CHECKER)
 	public AssessmentCheckerData getQuestionAssessmentChecker(@Param("questionIdPk") int questionIdPk,
 			@Param("answerIdPk") int answerIdPk) throws DataAccessException;
+	
+	public final String GET_QUESTION = """
+				SELECT q FROM QuestionEntity q WHERE q.idPk = :idPk
+			""";
+	
+	@Query(value=GET_QUESTION)
+	public QuestionEntity getQuestion(@Param("idPk") int idPk) throws DataAccessException;
+	
+	public final String DELETE_QUESTION = """
+			UPDATE question
+			SET is_deleted = true
+			WHERE id_pk = :idPk
+		""";
+
+	@Transactional
+	@Modifying
+	@Query(value=DELETE_QUESTION, nativeQuery=true)
+	public void deleteQuestion(@Param("idPk") int idPk) throws DataAccessException;
 	
 }

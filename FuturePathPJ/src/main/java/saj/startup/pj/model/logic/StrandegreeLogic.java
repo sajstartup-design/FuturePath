@@ -24,4 +24,6 @@ public interface StrandegreeLogic {
 	public List<StrandegreeQuestionData> getStrandegreeQuestionOverview();
 	
 	public StrandegreeEntity getStrandegree(int idPk);
+	
+	public void deleteStrandegree(int idPk);
 }

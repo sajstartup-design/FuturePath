@@ -78,8 +78,6 @@ async function loadQuestions(page = 0,
 				
         const response = await fetch(url);
         const data = await response.json();
-		
-		console.log(data);
 
         updatePagination(data.pagination);
 
@@ -92,17 +90,30 @@ async function loadQuestions(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', question.idPk);
+			
+			const date = new Date(question.createdAt);
+		    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+		    const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${question.idPk}</td>
 				<td>${question.category}</td>
 				<td>${question.question}</td>
 				<td>${question.strandegree}</td>
-				<td>${question.createdAt}</td>
+				<td>${formattedDate}</td>
 				<td><span class="status-label ${question.isActive ? 'active' : 'inactive'}">${question.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
-		            <a href="/admin/questions/edit?idPk=${question.idPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
-		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+					<a href="/admin/questions/details?idPk=${question.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>
+		            <a href="/admin/questions/edit?idPk=${question.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
+					<button 
+					    data-bs-toggle="modal" 
+					    data-bs-target="#deleteModal" 
+					    class="btn btn-icon delete"
+					    data-name="${question.question}"
+					    data-id="${question.idPk}"
+					>
+					    <i class="fa-solid fa-trash"></i>
+					</button>
 	            </td>
             `;
 			
@@ -110,6 +121,10 @@ async function loadQuestions(page = 0,
         });
 
         tableBody.appendChild(fragment);
+		
+		updateModalButtons();
+
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 

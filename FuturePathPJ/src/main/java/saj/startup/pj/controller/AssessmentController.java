@@ -1,16 +1,20 @@
 package saj.startup.pj.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.common.MessageConstant;
+import saj.startup.pj.model.dao.AssessmentConfigDao;
+import saj.startup.pj.model.dao.entity.AssessmentConfigEntity;
 import saj.startup.pj.model.dto.AssessmentDto;
+import saj.startup.pj.model.dto.ConfigurationDto;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.service.AssessmentService;
@@ -28,11 +32,83 @@ public class AssessmentController {
 	
 	@Autowired
 	private StrandegreeService strandegreeService;
+	
+	@Autowired
+	private AssessmentConfigDao assessmentConfigDao;
+	
+	@GetMapping("/admin/assessment/configuration")
+	public String showAssessmentConfiguration(Model model) {
+		
+		Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+		
+		
+		if(config.isPresent()){
+			
+			model.addAttribute("config", config.get());	
+		}else {
+			AssessmentConfigEntity newConfig = new AssessmentConfigEntity();
+			newConfig.setTotalQuestion(10);
+			newConfig.setDefaultDegreeAvailability(true);
+			newConfig.setCustomDegreeAvailability(true);
+			newConfig.setDefaultStrandAvailability(true);
+			newConfig.setCustomStrandAvailability(true);
+
+            assessmentConfigDao.save(newConfig);
+            
+            model.addAttribute("config", newConfig);
+		}
+		
+		model.addAttribute("page", "configuration");
+		
+		return "assessment/assessment-config";
+	}
+	
+	@PostMapping("/admin/assessment/configuration")
+	public String postAssessmentConfiguration(@ModelAttribute ConfigurationDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+			
+			if(config.isPresent()) {
+				
+				AssessmentConfigEntity existingConfig = config.get();
+				
+				existingConfig.setTotalQuestion(webDto.getTotalQuestion());
+				existingConfig.setDefaultDegreeAvailability(webDto.isDefaultDegreeAvailability());
+				existingConfig.setCustomDegreeAvailability(webDto.isCustomDegreeAvailability());
+				existingConfig.setDefaultStrandAvailability(webDto.isDefaultStrandAvailability());
+				existingConfig.setCustomStrandAvailability(webDto.isCustomStrandAvailability());
+				
+				assessmentConfigDao.save(existingConfig);
+				
+				ra.addFlashAttribute("isSuccess", true);
+				ra.addFlashAttribute("successMsg", MessageConstant.ASSESSMENT_CONFIGURATION_UPDATED);
+
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	        ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/assessment/configuration";
+	}
 
 	@GetMapping("/assessment")
 	public String showQuizHome(Model model) {
 		
 		try {
+			
+			Optional<AssessmentConfigEntity> config = assessmentConfigDao.findById(1);
+			
+			
+			if(config.isPresent()){
+				
+				model.addAttribute("config", config.get());	
+			}
 			
 			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreesQuestionsOverview();
 			
@@ -45,17 +121,22 @@ public class AssessmentController {
 			e.printStackTrace();
 		}
 		
+		model.addAttribute("page", "assessment");
+		
 		return "assessment/assessment-home";
 	}
 	
 	@GetMapping("/assessment/riasec/degree")
-	public String showAssessmentRiasec() {
+	public String showAssessmentRiasec(Model model) {
+		
+		model.addAttribute("page", "assessment");
 		
 		return "assessment/assessment-riasec";
 	}
 	
 	@PostMapping("/assessment/riasec/result")
-	public String showAssessmentRiasecResult(AssessmentDto webDto, RedirectAttributes ra) throws Exception {
+	public String showAssessmentRiasecResult(Model model,
+			AssessmentDto webDto, RedirectAttributes ra) throws Exception {
 
 	    // 🔹 Create input DTO and copy all RIASEC totals from the web form
 	    AssessmentDto inDto = new AssessmentDto();
@@ -82,6 +163,8 @@ public class AssessmentController {
 	    AssessmentDto outDto = assessmentService.getAssessmentRIASECResult(inDto);
 
 	    ra.addAttribute("assessmentDto", outDto);
+	    
+	    model.addAttribute("page", "assessment");
 
 	    return "assessment/assessment-riasec-result";
 	}
@@ -98,7 +181,8 @@ public class AssessmentController {
 	    inDto.setMode(webDto.getMode());
 	    inDto.setDegrees(webDto.getDegrees());
 	    inDto.setStrands(webDto.getStrands());
-	    System.out.println(webDto.getDegrees());
+
+	    model.addAttribute("mode", webDto.getMode());
 	    
 	    try {
 	        switch (webDto.getMode()) {
@@ -129,6 +213,8 @@ public class AssessmentController {
 	        }
 
 	        model.addAttribute("mode", webDto.getMode());
+	        
+	        model.addAttribute("page", "assessment");
 
 	        return "assessment/assessment";
 
@@ -171,6 +257,8 @@ public class AssessmentController {
 		AssessmentDto outDto = assessmentService.getAssessmentResult(assessmentDto);
 		
 		model.addAttribute("assessmentDto", outDto);
+		
+		model.addAttribute("page", "assessment");
 
 	    return "assessment/assessment-result";
 	}

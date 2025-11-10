@@ -125,15 +125,64 @@ public class UniversityController {
 	    return "redirect:/admin/universities";
 	}
 	
+	@PostMapping("/admin/universities/delete")
+	public String deleteUniversity(@ModelAttribute UniversityDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			universityService.deleteUniversity(webDto);
+		    
+		    ra.addFlashAttribute("isSuccess", true);
+		    ra.addFlashAttribute("successMsg", MessageConstant.UNIVERSITY_DELETED);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+	    	
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);	
+		}
+		
+		return "redirect:/admin/universities";
+	}
+	
+	@GetMapping("/admin/universities/details")
+	public String detailsUniversity(@ModelAttribute UniversityDto webDto,
+			Model model,
+			RedirectAttributes ra) {
+		
+		try {
+			UniversityDto outDto = universityService.getUniversity(webDto);
+			
+			System.out.println(outDto);
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("universityDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("page", "universities");
+		
+		return "university/university-details";
+	}
+	
 	
 	/*
 	 * USER
 	 * 
 	 */
 	@GetMapping("/universities")
-	public String showUniversities() {
+	public String showUniversitiesList(Model model) {
 		
-		
+		model.addAttribute("page", "universities");
 		
 		return "university/university-list";
 	}

@@ -14,7 +14,13 @@
       <main>
          <nav th:replace="~{header :: header}"></nav>
          <hr>
-         <nav class="sub-header">ASSESSMENT</nav>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">ASSESSMENT</span>
+            </div>
+         </nav>
          <hr>
          <div class="content">
             <!-- CARD 1: Choose Assessment Type -->
@@ -27,9 +33,21 @@
                   Whether you're aiming for a tech career, creative arts, or something else — 
                   let’s find out which path is right for you! 🌟
                </div>
-               <button type="button" id="collegeBtn">
-               <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
-               </button>
+               
+               <th:block th:if="${!config.defaultDegreeAvailability and !config.customDegreeAvailability}">
+    <button type="button" class="disabled-btn" disabled>
+        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+    </button>
+</th:block>
+
+<th:block th:if="${config.defaultDegreeAvailability or config.customDegreeAvailability}">
+    <button type="button" id="collegeBtn">
+        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+    </button>
+</th:block>
+
+               
+               
                <button type="button" id="strandBtn">
                <i class="fa-solid fa-school"></i> FOR SENIOR HIGH STRAND
                </button>
@@ -44,7 +62,17 @@
                   💡 <strong>Note:</strong> The default assessment automatically retrieves questions 
                   from all available college degree programs in the system.
                </div>
-               <button type="submit" form="assessmentForm" name="mode" value="DEGREE-DEFAULT-MODE">Start Default Assessment</button>
+               <th:block th:if="${config.defaultDegreeAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-DEFAULT-MODE">
+			            Start Default Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.defaultDegreeAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Default Assessment
+			        </button>
+			    </th:block>
                <hr>
                <h4>Custom Assessment</h4>
                <p>Select which degrees to include and how many questions to answer.</p>
@@ -54,20 +82,29 @@
                </div>
                <div class="degree-buttons">
                   <div class="degree-buttons">
-    <div class="degree-btn"
-         th:each="degree : ${strandegreeDto.strandegreesQuestions}"
-         th:if="${degree.category == 'DEGREE'}"
-         th:text="${degree.code}"
-         th:data-degree="${degree.code}"
-         th:title="${degree.name}"
-         th:classappend="${degree.totalQuestions == 0} ? ' disabled' : ''">
-    </div>
-</div>
-
+                     <div class="degree-btn"
+                        th:each="degree : ${strandegreeDto.strandegreesQuestions}"
+                        th:if="${degree.category == 'DEGREE'}"
+                        th:text="${degree.code}"
+                        th:data-degree="${degree.code}"
+                        th:title="${degree.name}"
+                        th:classappend="${degree.totalQuestions == 0} ? ' disabled' : ''">
+                     </div>
+                  </div>
                </div>
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">
-               <button type="submit" form="assessmentForm" name="mode" value="DEGREE-CUSTOM-MODE">Start Custom Assessment</button>
+               <th:block th:if="${config.customDegreeAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-CUSTOM-MODE">
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.customDegreeAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
             </div>
             <!-- CARD 3: Strand Assessment -->
             <div id="strandOptions" class="assessment-card">
@@ -77,7 +114,17 @@
                   💡 <strong>Note:</strong> The default assessment retrieves questions 
                   from all strands available in the system.
                </div>
-               <button type="submit" form="assessmentForm" name="mode" value="STRAND-DEFAULT-MODE">Start Default Assessment</button>
+               <th:block th:if="${config.defaultStrandAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-DEFAULT-MODE">
+			            Start Default Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.defaultStrandAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Default Assessment
+			        </button>
+			    </th:block>
                <hr>
                <h4>Custom Strand Assessment</h4>
                <p>Select strands and question count for a personalized test.</p>
@@ -99,9 +146,29 @@
                </div>
                <div id="selectedStrands" class="selected-items"></div>
                <input type="hidden" name="strands" id="strandInput">
-               <button type="submit" form="assessmentForm" name="mode" value="STRAND-CUSTOM-MODE">Start Custom Assessment</button>
+               <th:block th:if="${config.customStrandAvailability}">
+			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-CUSTOM-MODE">
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
+			
+			    <th:block th:unless="${config.customStrandAvailability}">
+			        <button type="button" class="disabled-btn" disabled>
+			            Start Custom Assessment
+			        </button>
+			    </th:block>
             </div>
          </div>
+         <nav class="footer">
+			<div>
+				<span>All rights reserved by FuturePath</span>
+			</div>
+			<div class="terms">
+				<span>Terms of Use</span>
+				<span>Privacy Policy</span>
+				<span>Contact us</span>
+			</div>
+		</nav>
       </main>
       <script th:inline="javascript">
          console.log(/*[[${strandegreeDto}]]*/'');

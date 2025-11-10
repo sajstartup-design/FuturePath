@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import lombok.Data;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
+import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.object.RecommendationObj;
 
@@ -74,5 +75,7 @@ public class AssessmentDto {
 
     private List<HistoryQuestionData> questions;
     private List<UniversityRecommendationData> universities;
+    
+    private AssessmentStatisticsData assessmentStatistics;
 
 }

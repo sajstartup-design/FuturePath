@@ -1,5 +1,6 @@
 package saj.startup.pj.model.service.impl;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
+import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
@@ -34,10 +36,7 @@ import saj.startup.pj.model.service.UserService;
 
 @Service
 public class AssessmentServiceImpl implements AssessmentService{
-	
-	@Autowired
-	private AnswerLogic answerLogic;
-	
+		
 	@Autowired
 	private QuestionLogic questionLogic;
 	
@@ -54,6 +53,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception {
 
 	    AssessmentDto outDto = new AssessmentDto();
+	    
+	    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
 	    UserEntity user = userService.getUserActive();
 
@@ -68,12 +69,14 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    List<HistoryQuestionEntity> historyQuestions = new ArrayList<>();
 
-	    // Create and save initial result record
 	    AssessmentResultEntity resultEntity = new AssessmentResultEntity();
 	    resultEntity.setUserIdPk(user.getIdPk());
+	    resultEntity.setDateTaken(timestamp);
+	    resultEntity.setCategory(
+    	    inDto.getMode() != null && inDto.getMode().contains("DEGREE") ? "DEGREE" : "STRAND"
+    	);
 	    int resultIdPk = historyLogic.saveAssessmentResult(resultEntity);
 
-	    // Loop through each answered question
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
 	        Integer questionId = entry.getKey();
 	        Integer answerId = entry.getValue();
@@ -97,15 +100,12 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        historyQuestions.add(history);
 	    }
 
-	    // Save all question histories
 	    historyLogic.saveHistoryQuestions(historyQuestions);
 
-	    // Calculate final score
 	    int totalQuestions = answeredMap.size();
 	    double percentage = totalQuestions > 0 ? ((double) totalCorrect / totalQuestions) * 100 : 0.0;
 	    percentage = Math.round(percentage * 10.0) / 10.0;
 
-	    // Update final result
 	    resultEntity.setCorrect(totalCorrect);
 	    resultEntity.setIncorrect(totalIncorrect);
 	    resultEntity.setScore(percentage);
@@ -134,7 +134,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    List<HistoryQuestionData> questions = historyLogic.getHistoryQuestionsByResultIdPk(inDto.getResultIdPk());
 	    outDto.setQuestions(questions);
 
-	    // 🔹 Build correctCountMap and totalQuestionPerCode from history
 	    for (HistoryQuestionData q : questions) {
 	        String code = q.getCode();
 	        String name = q.getName();
@@ -150,7 +149,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        }
 	    }
 
-	    // 🔹 Compute percentage per code
 	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
 	        String code = e.getKey();
 	        RecommendationObj rec = e.getValue();
@@ -161,24 +159,20 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        rec.setPercentage(percentagePerCode);
 	    }
 
-	    // 🔹 Get top 3 recommendations
 	    List<RecommendationObj> top3 = correctCountMap.values().stream()
 	        .filter(rec -> rec.getPercentage() > 0)
 	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
 	        .limit(3)
 	        .collect(Collectors.toList());
 
-	    // (Optional) Example: pass top3 codes to universityLogic
 	    List<String> top3Codes = top3.stream()
 	        .map(RecommendationObj::getCode)
 	        .collect(Collectors.toList());
 
-	    System.out.println("Top 3 codes: " + top3Codes);
 	    List<UniversityRecommendationData> universities = universityLogic.getUniversityRecommendation(top3Codes);
 	    
 	    outDto.setUniversities(universities);
-	    
-	    // 🔹 Set results
+
 	    outDto.setResultIdPk(inDto.getResultIdPk());
 	    outDto.setTotalCorrect(result.getCorrect());
 	    outDto.setTotalIncorrect(result.getIncorrect());
@@ -305,6 +299,21 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    return score;
 	}
+
+
+
+	@Override
+	public AssessmentDto getAssessmentStatistics() throws Exception {
+		
+		AssessmentDto outDto = new AssessmentDto();
+	
+		AssessmentStatisticsData data = historyLogic.getAssessmentStatistics();
+		
+		outDto.setAssessmentStatistics(data);
+		
+		return outDto;
+	}
+	
 
 
 

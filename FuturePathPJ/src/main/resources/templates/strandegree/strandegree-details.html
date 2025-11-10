@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree | Details</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/user-add.css}" />
+      <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">STRAND & DEGREE</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">DETAILS</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <div class="btn-group">
+               <a th:href="@{/admin/strandegrees}" class="btn btn-secondary transitioning">
+               <i class="fas fa-arrow-left"></i> BACK
+               </a>
+            </div>
+            <div class="form" th:object="${strandegreeDto}">
+               <div class="field-group">
+                  <div class="field">
+                     <label>NAME</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span class="readonly-text" th:text="*{strandegree.name}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>RIASEC CODE</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-layer-group"></i>
+                        <span class="readonly-text" th:text="*{strandegree.riasecCode}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>CODE</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-code"></i>
+                        <span class="readonly-text" th:text="*{strandegree.code}"></span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>CATEGORY</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-layer-group"></i>
+                        <span class="readonly-text" th:text="*{strandegree.category}"></span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>DURATION (years)</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-stopwatch"></i>
+                        <span class="readonly-text" th:text="*{strandegree.duration}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>DETAILS</label>
+                     <div class="input-wrapper details-wrapper textarea">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="readonly-text" th:text="*{strandegree.details}"></span>
+                     </div>
+                  </div>
+               </div>
+               <hr>
+            </div>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+   </body>
+</html>

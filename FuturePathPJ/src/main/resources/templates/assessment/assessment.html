@@ -15,7 +15,11 @@
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
-            ASSESSMENT
+            <div>
+          	  <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb active">ASSESSMENT</span>
+          </div>
             <div class="btn-group">
             </div>
          </nav>
@@ -49,7 +53,7 @@
                         </button>
                      </div>
                   </div>
-                  <button type="submit" class="submit-btn" id="submitAssessmentBtn">
+                  <button type="submit" class="submit-btn transitioning" id="submitAssessmentBtn">
                   <i class="fa-solid fa-paper-plane"></i> Submit Assessment
                   </button>
                </form>
@@ -63,7 +67,18 @@
                <a th:href="@{/dashboard}" class="btn-back-dashboard">Back to Assessment</a>
             </div>
          </div>
+         <nav class="footer">
+			<div>
+				<span>All rights reserved by FuturePath</span>
+			</div>
+			<div class="terms">
+				<span>Terms of Use</span>
+				<span>Privacy Policy</span>
+				<span>Contact us</span>
+			</div>
+		</nav>
       </main>
+      <script th:src="@{/script/loading.js}"></script>
       <script th:inline="javascript">
          document.addEventListener("DOMContentLoaded", () => {
             const webDto = /*[[${questionDto}]]*/ {};

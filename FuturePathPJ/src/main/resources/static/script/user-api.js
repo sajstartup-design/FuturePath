@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             loadUsers(currentPage - 2, searchValue); 
         });
     }
-	console.log(pageBtns);
+
 	if(pageBtns){
 		pageBtns.forEach(btn => btn.addEventListener('click', function(){
 			createLoadingScreenBody();
@@ -71,7 +71,7 @@ async function loadUsers(page = 0,
 	search = ""
 ) {
     try {
-		console.log(search);
+
 		const params = new URLSearchParams({ page, search });
 				
 		const url = `/api/admin/users/retrieve?${params.toString()}`;
@@ -79,8 +79,6 @@ async function loadUsers(page = 0,
         const response = await fetch(url);
         const data = await response.json();
 		
-		console.log(data);
-
         updatePagination(data.pagination);
 
         const tableBody = document.getElementById("table-body");
@@ -92,6 +90,10 @@ async function loadUsers(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', user.idPk);
+			
+			const date = new Date(user.createdAt);
+			const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+			const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${user.idPk}</td>
@@ -100,38 +102,34 @@ async function loadUsers(page = 0,
 				<td>${user.email}</td>
 				<td>${user.phone}</td>
 				<td>${user.gender}</td>
-				<td>${user.createdAt}</td>
+				<td>${formattedDate}</td>
 				<td><span class="status-label ${user.isActive ? 'active' : 'inactive'}">${user.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
-		            <button class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></button>
-		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+					<a href="/admin/user/details?idPk=${user.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>
+		            <a href="/admin/user/edit?idPk=${user.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
+					<button 
+					    data-bs-toggle="modal" 
+					    data-bs-target="#deleteModal" 
+					    class="btn btn-icon delete"
+					    data-name="${user.firstName} ${user.lastName}"
+					    data-id="${user.idPk}"
+					>
+					    <i class="fa-solid fa-trash"></i>
+					</button>
+
 	            </td>
             `;
 			
-			/*row.querySelector('.edit-btn').addEventListener('click', function(){
-				const form = document.querySelector('#editForm');
-				
-				form.querySelector('#hiddenEncryptedId').value = this.getAttribute('data-id');
-				
-				form.submit();
-			});
-			
-			row.addEventListener('click', function(e) {
-			   
-			    if (e.target.closest('button') || e.target.closest('a')) {
-			        return; 
-			    }
-				
-				const encryptedId = this.getAttribute('data-id');
-
-			    window.location.href="/admin/user/details?encryptedId=" + encryptedId;
-			});
-*/
-
             fragment.appendChild(row);
         });
 
+		
+		
         tableBody.appendChild(fragment);
+		
+		updateModalButtons();
+		
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 

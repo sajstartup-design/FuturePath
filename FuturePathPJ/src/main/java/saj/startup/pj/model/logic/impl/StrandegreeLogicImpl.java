@@ -55,4 +55,10 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 		return strandegreeDao.getStrandegreeByIdPk(idPk);
 	}
 
+	@Override
+	public void deleteStrandegree(int idPk) {
+		
+		strandegreeDao.deleteStrandegree(idPk);
+	}
+
 }

@@ -2,11 +2,12 @@
 	margin: auto;
 }
 
-form{
+.form{
 	background: #2D3D88;
 	padding: 3rem 3rem;
 	box-sizing: border-box;
 	margin-bottom: 3rem;
+	border-radius: 8px;
 }
 
 .field-group {
@@ -76,6 +77,15 @@ form{
 .input-wrapper input::placeholder {
   color: #94a3b8;
 }
+
+.details-wrapper{
+	min-height: 2rem;
+}
+
+.details-wrapper.textarea{
+	min-height: 5rem;
+}
+
 
 /* Buttons */
 .btn-group {
@@ -165,3 +175,5 @@ form{
   width: 1.2rem;
   cursor: pointer;
 }
+
+

@@ -1,175 +1,169 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>FuturePath | Strand & Degree</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}" />
-<link rel="stylesheet" th:href="@{/css/user-add.css}" />
-<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
-</head>
-<body>
-	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
-		<nav th:replace="~{header :: header}"></nav>
-		<hr>
-		<nav class="sub-header">
-			STRAND & DEGREE > ADD
-		</nav>
-		<hr>
-		<div class="content">
-			<form th:action="@{/admin/strandegrees/add}" method="POST" th:object="${strandegreeDto}">
-				
-				<!-- Program Name -->
-				<div class="field-group">
-					<div class="field">
-					    <label>NAME</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-graduation-cap"></i>
-					      <input type="text" placeholder="Enter program name" name="name"/>
-					    </div>
-					</div>
-				</div>
-				<div class="field-group">
-					<div class="field">
-  <label>RIASEC CODE</label>  
-  <div class="input-wrapper">
-    <i class="fas fa-layer-group"></i>
-<select name="riasecCode" class="dropdown">
-  <option selected disabled>Select Code...</option>
-
-  <!-- 🧰 Realistic (R) -->
-  <optgroup label="Realistic (R) — Hands-on, working with tools/things">
-    <option value="1">R-I-C | Civil Engineering</option>
-    <option value="2">R-I-C | Mechanical Engineering</option>
-    <option value="3">R-I-C | Aerospace Engineering</option>
-    <option value="4">R-A-I | Architecture (Design focus)</option>
-    <option value="5">R-S-I | Physical Therapy / Kinesiology</option>
-    <option value="6">R-S-I | Nursing (Practical focus)</option>
-    <option value="7">R-I-E | Agriculture / Crop Science</option>
-  </optgroup>
-
-  <!-- 🔬 Investigative (I) -->
-  <optgroup label="Investigative (I) — Scientific, analytical, problem-solving">
-    <option value="8">I-R-C | Computer Science</option>
-    <option value="9">I-R-S | Biology / Pre-Med</option>
-    <option value="10">I-R-C | Chemistry / Biochemistry</option>
-    <option value="11">I-C-R | Mathematics / Statistics</option>
-    <option value="12">I-R-C | Physics</option>
-    <option value="13">I-S-A | Psychology (Research focus)</option>
-    <option value="14">I-C-E | Economics (Theoretical focus)</option>
-  </optgroup>
-
-  <!-- 🎨 Artistic (A) -->
-  <optgroup label="Artistic (A) — Creative, expressive, unstructured work">
-    <option value="15">A-R-I | Graphic Design / Digital Media</option>
-    <option value="16">A-S-I | English Literature</option>
-    <option value="17">A-R-I | Fine Arts / Studio Art</option>
-    <option value="18">A-S-E | Music / Theater Arts</option>
-    <option value="19">A-I-R | Architecture (Aesthetics focus)</option>
-    <option value="20">A-E-S | Journalism / Creative Writing</option>
-  </optgroup>
-
-  <!-- 🤝 Social (S) -->
-  <optgroup label="Social (S) — Helping, teaching, healing, informing">
-    <option value="21">S-A-E | Elementary / Secondary Education</option>
-    <option value="22">S-E-A | Social Work / Counseling</option>
-    <option value="23">S-I-R | Nursing (Caring / Interpersonal focus)</option>
-    <option value="24">S-E-A | Communication Studies</option>
-    <option value="25">S-I-E | Public Health</option>
-    <option value="26">S-I-A | History (Teaching / Human focus)</option>
-  </optgroup>
-
-  <!-- 💼 Enterprising (E) -->
-  <optgroup label="Enterprising (E) — Leading, persuading, managing for profit">
-    <option value="27">E-C-S | Business Management</option>
-    <option value="28">E-A-S | Marketing / Advertising</option>
-    <option value="29">E-S-I | Pre-Law / Political Science</option>
-    <option value="30">E-C-I | Finance (Sales / Client focus)</option>
-    <option value="31">E-S-C | Hospitality / Tourism</option>
-    <option value="32">E-A-I | Entrepreneurship</option>
-  </optgroup>
-
-  <!-- 🗂️ Conventional (C) -->
-  <optgroup label="Conventional (C) — Organizing, data, detail-oriented">
-    <option value="33">C-E-I | Accounting</option>
-    <option value="34">C-I-E | Information Systems (MIS)</option>
-    <option value="35">C-I-R | Data Analytics (Entry-level)</option>
-    <option value="36">C-E-I | Finance (Compliance / Recording focus)</option>
-    <option value="37">C-E-S | Paralegal Studies</option>
-  </optgroup>
-</select>
-
-  </div>
-</div>
-
-				</div>
-
-				<!-- Code & Category -->
-				<div class="field-group">
-					<div class="field">
-					    <label>CODE (Ex. BSIT)</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-code"></i>
-					      <input type="text" placeholder="Enter program code" name="code"/>
-					    </div>
-					</div>
-					<div class="field">
-					    <label>CATEGORY</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-layer-group"></i>
-					      <select name="category" class="dropdown">
-					      	<option>Select Category...</option>
-					      	<option>STRAND</option>
-					      	<option>DEGREE</option>
-					      </select>
-					    </div>
-					</div>
-					<div class="field">
-					    <label>DURATION (1 year)</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-stopwatch"></i>
-					      <input type="number" placeholder="Enter program duration" name="duration"/>
-					    </div>
-					</div>
-				</div>
-
-				<!-- Details -->
-				<div class="field-group">
-					<div class="field">
-					    <label>DETAILS</label>  
-					    <div class="input-wrapper">
-					      <i class="fas fa-info-circle"></i>
-					      <textarea type="text" placeholder="Enter program details" name="details"/></textarea>
-					    </div>
-					</div>
-				</div>
-				
-				<hr>
-				<!-- Buttons -->
-				<div class="btn-group">
-					<a th:href="@{/admin/strandegrees}" class="btn btn-secondary transitioning">
-						<i class="fas fa-times"></i> CANCEL
-					</a>
-					<button type="submit" class="btn btn-primary transitioning">
-						<i class="fas fa-save"></i> SAVE
-					</button>
-				</div>
-			</form>			
-		</div>
-		<nav class="footer">
-			<div>
-				<span>All rights reserved by FuturePath</span>
-			</div>
-			<div class="terms">
-				<span>Terms of Use</span>
-				<span>Privacy Policy</span>
-				<span>Contact us</span>
-			</div>
-		</nav>
-	</main>
-	<script th:src="@{/script/loading.js}"></script>
-	<script th:src="@{/script/dropdown.js}"></script>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/user-add.css}" />
+      <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">STRAND & DEGREE</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">ADD</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <form class="form" th:action="@{/admin/strandegrees/add}" method="POST" th:object="${strandegreeDto}">
+               <!-- Program Name -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>NAME</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-graduation-cap"></i>
+                        <input type="text" placeholder="Enter program name" name="name"/>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>RIASEC CODE</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-layer-group"></i>
+                        <select name="riasecCode" class="dropdown">
+                           <option selected disabled>Select Code...</option>
+                           <!-- 🧰 Realistic (R) -->
+                           <optgroup label="Realistic (R) — Hands-on, working with tools/things">
+                              <option value="1">R-I-C | Civil Engineering</option>
+                              <option value="2">R-I-C | Mechanical Engineering</option>
+                              <option value="3">R-I-C | Aerospace Engineering</option>
+                              <option value="4">R-A-I | Architecture (Design focus)</option>
+                              <option value="5">R-S-I | Physical Therapy / Kinesiology</option>
+                              <option value="6">R-S-I | Nursing (Practical focus)</option>
+                              <option value="7">R-I-E | Agriculture / Crop Science</option>
+                           </optgroup>
+                           <!-- 🔬 Investigative (I) -->
+                           <optgroup label="Investigative (I) — Scientific, analytical, problem-solving">
+                              <option value="8">I-R-C | Computer Science</option>
+                              <option value="9">I-R-S | Biology / Pre-Med</option>
+                              <option value="10">I-R-C | Chemistry / Biochemistry</option>
+                              <option value="11">I-C-R | Mathematics / Statistics</option>
+                              <option value="12">I-R-C | Physics</option>
+                              <option value="13">I-S-A | Psychology (Research focus)</option>
+                              <option value="14">I-C-E | Economics (Theoretical focus)</option>
+                           </optgroup>
+                           <!-- 🎨 Artistic (A) -->
+                           <optgroup label="Artistic (A) — Creative, expressive, unstructured work">
+                              <option value="15">A-R-I | Graphic Design / Digital Media</option>
+                              <option value="16">A-S-I | English Literature</option>
+                              <option value="17">A-R-I | Fine Arts / Studio Art</option>
+                              <option value="18">A-S-E | Music / Theater Arts</option>
+                              <option value="19">A-I-R | Architecture (Aesthetics focus)</option>
+                              <option value="20">A-E-S | Journalism / Creative Writing</option>
+                           </optgroup>
+                           <!-- 🤝 Social (S) -->
+                           <optgroup label="Social (S) — Helping, teaching, healing, informing">
+                              <option value="21">S-A-E | Elementary / Secondary Education</option>
+                              <option value="22">S-E-A | Social Work / Counseling</option>
+                              <option value="23">S-I-R | Nursing (Caring / Interpersonal focus)</option>
+                              <option value="24">S-E-A | Communication Studies</option>
+                              <option value="25">S-I-E | Public Health</option>
+                              <option value="26">S-I-A | History (Teaching / Human focus)</option>
+                           </optgroup>
+                           <!-- 💼 Enterprising (E) -->
+                           <optgroup label="Enterprising (E) — Leading, persuading, managing for profit">
+                              <option value="27">E-C-S | Business Management</option>
+                              <option value="28">E-A-S | Marketing / Advertising</option>
+                              <option value="29">E-S-I | Pre-Law / Political Science</option>
+                              <option value="30">E-C-I | Finance (Sales / Client focus)</option>
+                              <option value="31">E-S-C | Hospitality / Tourism</option>
+                              <option value="32">E-A-I | Entrepreneurship</option>
+                           </optgroup>
+                           <!-- 🗂️ Conventional (C) -->
+                           <optgroup label="Conventional (C) — Organizing, data, detail-oriented">
+                              <option value="33">C-E-I | Accounting</option>
+                              <option value="34">C-I-E | Information Systems (MIS)</option>
+                              <option value="35">C-I-R | Data Analytics (Entry-level)</option>
+                              <option value="36">C-E-I | Finance (Compliance / Recording focus)</option>
+                              <option value="37">C-E-S | Paralegal Studies</option>
+                           </optgroup>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <!-- Code & Category -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>CODE (Ex. BSIT)</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-code"></i>
+                        <input type="text" placeholder="Enter program code" name="code"/>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>CATEGORY</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-layer-group"></i>
+                        <select name="category" class="dropdown">
+                           <option>Select Category...</option>
+                           <option>STRAND</option>
+                           <option>DEGREE</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>DURATION (1 year)</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-stopwatch"></i>
+                        <input type="number" placeholder="Enter program duration" name="duration"/>
+                     </div>
+                  </div>
+               </div>
+               <!-- Details -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>DETAILS</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-info-circle"></i>
+                        <textarea type="text" placeholder="Enter program details" name="details"/></textarea>
+                     </div>
+                  </div>
+               </div>
+               <hr>
+               <!-- Buttons -->
+               <div class="btn-group">
+                  <a th:href="@{/admin/strandegrees}" class="btn btn-secondary transitioning">
+                  <i class="fas fa-times"></i> CANCEL
+                  </a>
+                  <button type="submit" class="btn btn-primary transitioning">
+                  <i class="fas fa-save"></i> SAVE
+                  </button>
+               </div>
+            </form>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+   </body>
 </html>

@@ -1,0 +1,163 @@
+.content{
+	margin: auto;
+}
+
+.content {
+  margin: auto;
+  max-width: 850px;
+}
+
+.form {
+  background: #2D3D88;
+  padding: 3rem;
+  border-radius: 10px;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  min-width: 25rem;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 1.2rem;
+  border-left: 4px solid #9bb0f9;
+  padding-left: 0.7rem;
+}
+
+/* Field Layout */
+.field-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.field-group.next-line {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.field-group.next-line .input-wrapper {
+	width: -webkit-fill-available;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Input Wrapper */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #1e2761;
+  border: 1px solid #37418e;
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  gap: 0.6rem;
+}
+
+.input-wrapper i {
+  color: #9bb0f9;
+  font-size: 0.9rem;
+}
+
+.input-wrapper input[type="text"],
+.input-wrapper input[type="number"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f1f5f9;
+  font-size: 0.9rem;
+}
+
+/* Switch Style */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 22px;
+  margin-left: auto;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #6b7280;
+  border-radius: 24px;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  background: #fff;
+  border-radius: 50%;
+  bottom: 2px;
+  left: 2px;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Buttons */
+.btn-group {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+
+
+
+
+/* Remove background for slider rows */
+.no-bg {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* Keep alignment correct */
+.no-bg .switch {
+    margin-left: 0;
+}
+
+/* Make slider rows label + switch inline */
+.field-group .no-bg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Make labels inline for slider rows (not block) */
+.field-group .no-bg ~ label,
+.field-group label {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+}
+

@@ -92,6 +92,10 @@ async function loadStrandegrees(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', strandegree.idPk);
+			
+			const date = new Date(strandegree.createdAt);
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+            const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${strandegree.idPk}</td>
@@ -99,38 +103,32 @@ async function loadStrandegrees(page = 0,
 				<td>${strandegree.code}</td>
 				<td>${strandegree.category}</td>
 				<td>${strandegree.details}</td>
-				<td>${strandegree.createdAt}</td>
+				<td>${formattedDate}</td>
 				<td><span class="status-label ${strandegree.isActive ? 'active' : 'inactive'}">${strandegree.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
-		            <a href="/admin/strandegrees/edit?idPk=${strandegree.idPk}" class="btn btn-icon edit"><i class="fa-solid fa-pen-to-square"></i></a>
-		            <button class="btn btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+					<a href="/admin/strandegrees/details?idPk=${strandegree.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>
+		            <a href="/admin/strandegrees/edit?idPk=${strandegree.idPk}" class="btn btn-icon edit transitioning"><i class="fa-solid fa-pen-to-square"></i></a>
+					<button 
+					    data-bs-toggle="modal" 
+					    data-bs-target="#deleteModal" 
+					    class="btn btn-icon delete"
+					    data-name="${strandegree.name}"
+					    data-id="${strandegree.idPk}"
+						data-category="${strandegree.category}"
+					>
+					    <i class="fa-solid fa-trash"></i>
+					</button>
 	            </td>
             `;
-			
-			/*row.querySelector('.edit-btn').addEventListener('click', function(){
-				const form = document.querySelector('#editForm');
-				
-				form.querySelector('#hiddenEncryptedId').value = this.getAttribute('data-id');
-				
-				form.submit();
-			});
-			
-			row.addEventListener('click', function(e) {
-			   
-			    if (e.target.closest('button') || e.target.closest('a')) {
-			        return; 
-			    }
-				
-				const encryptedId = this.getAttribute('data-id');
-
-			    window.location.href="/admin/user/details?encryptedId=" + encryptedId;
-			});
-*/
-
+	
             fragment.appendChild(row);
         });
 
         tableBody.appendChild(fragment);
+		
+		updateModalButtons();
+
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 

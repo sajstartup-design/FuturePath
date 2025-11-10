@@ -15,26 +15,29 @@
       <main>
          <nav th:replace="~{header :: header}"></nav>
          <hr>
-         <nav class="sub-header">STRAND & DEGREE</nav>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">STRAND & DEGREE</span>
+            </div>
+         </nav>
          <hr>
          <div class="content">
-<div class="strand-degree-controls">
-  <div class="filter-btn">
-    <i class="fa-solid fa-filter"></i>
-  </div>
-
-  <div class="search-box">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="SEARCH STRAND OR DEGREE"
-    />
-  </div>
-</div>
-
-<div class="strand-degree-list"></div>
-
+            <div class="strand-degree-controls">
+               <div class="filter-btn">
+                  <i class="fa-solid fa-filter"></i>
+               </div>
+               <div class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input
+                     type="text"
+                     id="searchInput"
+                     placeholder="SEARCH STRAND OR DEGREE"
+                     />
+               </div>
+            </div>
+            <div class="strand-degree-list"></div>
          </div>
          <nav class="footer">
             <div><span>All rights reserved by FuturePath</span></div>

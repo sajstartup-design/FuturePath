@@ -1,7 +1,5 @@
 package saj.startup.pj.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +19,8 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/admin/user")
-	public String showUsers(Model model) {
+	public String showUsers(Model model,
+			RedirectAttributes ra) {
 		
 		try {
 			UserDto outDto = userService.getUserOverview();
@@ -31,6 +30,11 @@ public class UserController {
 		}catch(Exception e) {
 			
 			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/dashboard";
 		}
 		
 		model.addAttribute("page", "user");
@@ -47,7 +51,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/admin/user/add")
-	public String postShowAddUser(@ModelAttribute UserDto webDto, 
+	public String postAddUser(@ModelAttribute UserDto webDto, 
 			RedirectAttributes ra) {
 		
 		try {
@@ -63,6 +67,102 @@ public class UserController {
 			ra.addFlashAttribute("isError", true);
 			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 
+		}
+		
+		return "redirect:/admin/user";
+	}
+	
+	@GetMapping("/admin/user/edit")
+	public String showEditUser(Model model, 
+			@ModelAttribute UserDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			UserDto outDto = userService.getUser(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("userDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/user";
+		}
+		
+		model.addAttribute("page", "user");
+		
+		return "user/user-edit";
+	}
+	
+	@PostMapping("/admin/user/edit")
+	public String postEditUser(@ModelAttribute UserDto webDto, 
+			RedirectAttributes ra) {
+		
+		try {
+			
+			userService.updateUser(webDto);
+			
+			ra.addFlashAttribute("isSuccess", true);
+			ra.addFlashAttribute("successMsg", MessageConstant.USER_EDITED);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+
+		}
+		
+		return "redirect:/admin/user";
+	}
+	
+	@GetMapping("/admin/user/details")
+	public String detailsUser(Model model, 
+			@ModelAttribute UserDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			UserDto outDto = userService.getUser(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("userDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/user";
+		}
+		
+		model.addAttribute("page", "user");
+		
+		return "user/user-details";
+	}
+	
+	@PostMapping("/admin/user/delete")
+	public String deleteUser(@ModelAttribute UserDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			userService.deleteUser(webDto);
+			
+			ra.addFlashAttribute("isSuccess", true);
+			ra.addFlashAttribute("successMsg", MessageConstant.USER_DELETED);
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 		}
 		
 		return "redirect:/admin/user";

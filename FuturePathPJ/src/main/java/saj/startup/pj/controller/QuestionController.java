@@ -64,20 +64,6 @@ public class QuestionController {
 	@PostMapping("/admin/questions/add")
 	public String postQuestionsAdd(@ModelAttribute QuestionDto questionDto, Model model,
 			RedirectAttributes ra) {
-
-	    // Print everything to console (for debugging)
-	    System.out.println("Category: " + questionDto.getCategory());
-	    System.out.println("StrandegreeIdPk: " + questionDto.getStrandegreeIdPk());
-	    System.out.println("Question: " + questionDto.getQuestion());
-	    
-	    if (questionDto.getAnswers() != null && !questionDto.getAnswers().isEmpty()) {
-	        System.out.println("Answers:");
-	        for (int i = 0; i < questionDto.getAnswers().size(); i++) {
-	            System.out.println("  " + (i + 1) + ". " + questionDto.getAnswers().get(i));
-	        }
-	    } else {
-	        System.out.println("No answers provided.");
-	    }
 	    
 	    try {
 	    	questionService.saveQuestion(questionDto);
@@ -98,11 +84,13 @@ public class QuestionController {
 	
 	@GetMapping("/admin/questions/edit")
 	public String showQuestionsEdit(Model model,
-			@ModelAttribute QuestionDto webDto) {
+			@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
 		
 		try {
 			
 			QuestionDto outDto = questionService.getQuestionByIdPk(webDto);
+			outDto.setIdPk(webDto.getIdPk());
 			
 			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
 			
@@ -111,9 +99,81 @@ public class QuestionController {
 		}catch(Exception e) {
 			
 			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
 		}
 		
 		return "question/question-edit";
+	}
+	
+	@PostMapping("/admin/questions/edit")
+	public String postQuestionsEdit(@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			questionService.updateQuestion(webDto);
+			
+	    	ra.addFlashAttribute("isSuccess", true);
+	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_EDITED);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/questions";
+	}
+	
+	@GetMapping("/admin/questions/details")
+	public String detailsQuestion(Model model,
+			@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			QuestionDto outDto = questionService.getQuestionByIdPk(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("questionDto", outDto);
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "question/question-details";
+	}
+	
+	@PostMapping("/admin/questions/delete")
+	public String deleteQuestion(@ModelAttribute QuestionDto webDto,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			questionService.deleteQuestion(webDto);
+			
+	    	ra.addFlashAttribute("isSuccess", true);
+	    	ra.addFlashAttribute("successMsg", MessageConstant.QUESTION_DELETED);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+	    	ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+		}
+		
+		return "redirect:/admin/questions";
 	}
 
 }

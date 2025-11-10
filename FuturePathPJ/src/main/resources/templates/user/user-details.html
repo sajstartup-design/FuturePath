@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | User Details</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/user-add.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">USERS</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">DETAILS</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <div class="btn-group">
+               <a th:href="@{/admin/user}" class="btn btn-secondary transitioning">
+               <i class="fas fa-arrow-left"></i> BACK
+               </a>
+            </div>
+            <div class="form" th:object="${userDto}">
+               <div class="field-group">
+                  <div class="field">
+                     <label>FIRST NAME</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-user"></i>
+                        <span class="readonly-text" th:text="*{user.firstName}"></span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>LAST NAME</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-user"></i>
+                        <span class="readonly-text" th:text="*{user.lastName}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>EMAIL ADDRESS</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <span class="readonly-text" th:text="*{user.email}"></span>
+                     </div>
+                  </div>
+                  <div class="field">
+                     <label>PHONE NUMBER</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-phone"></i>
+                        <span class="readonly-text" th:text="*{user.phone}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>GENDER</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-venus-mars"></i>
+                        <span class="readonly-text"
+                           th:text="*{user.gender == 'M' ? 'Male' : (user.gender == 'F' ? 'Female' : 'Other')}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>USERNAME</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-id-badge"></i>
+                        <span class="readonly-text" th:text="*{user.username}"></span>
+                     </div>
+                  </div>
+               </div>
+               <div class="field-group">
+                  <div class="field">
+                     <label>PASSWORD</label>
+                     <div class="input-wrapper details-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <span class="readonly-text">••••••••</span>
+                     </div>
+                  </div>
+               </div>
+               <hr>
+            </div>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+   </body>
+</html>

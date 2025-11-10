@@ -24,7 +24,7 @@ public interface QuestionLogic {
 	
 	public Page<QuestionData> getAllQuestions(Pageable pageable, String search);
 	
-	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees);
+	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees, int limit);
 	
 	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
 			int answerIdPk);
@@ -32,5 +32,9 @@ public interface QuestionLogic {
 	public QuestionEntity getQuestionByIdPk(int idPk);
 	
 	public List<AnswerData> getAnswersByQuestionIdPk(int questionIdPk);
+	
+	public List<AnswerEntity> getAnswersEntityByQuestionIdPk(int questionIdPk);
+	
+	public void deleteQuestion(int idPk);
 	
 }

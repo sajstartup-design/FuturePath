@@ -84,7 +84,7 @@ public class UniversityLogicImpl implements UniversityLogic{
 
 	@Override
 	public Boolean findStrandegreeAvailability(int strandegreeIdPk, int unviversityIdPk) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -92,6 +92,12 @@ public class UniversityLogicImpl implements UniversityLogic{
 	public List<UniversityRecommendationData> getUniversityRecommendation(List<String> programs) {
 		
 		return universityDao.getUniversityRecommendation(programs);
+	}
+
+	@Override
+	public void deleteUniversity(int idPk) {
+		
+		universityDao.deleteUniversity(idPk);
 	}
 
 
