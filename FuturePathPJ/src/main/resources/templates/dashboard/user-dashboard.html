@@ -79,8 +79,8 @@
                         <div>❌ Incorrect: <span th:text="*{totalIncorrect ?: 0}">0%</span></div>
                         <div>🗓️ Last Taken: <span th:text="${@dateTimeUtil.formatTimestamp(assessmentDto.userAssessmentStatistics.lastTaken)}">-</span></div>
                      </div>
-					<a th:href="@{/assessment/result/view(resultIdPk=${assessmentDto.resultIdPk})}" 
-					   class="btn primary">View Result</a>
+                     <a th:href="@{/assessment/result/view(resultIdPk=${assessmentDto.resultIdPk})}" 
+                        class="btn primary">View Result</a>
                   </div>
                   <div class="recommendation-card">
                      <div class="title">🎯 Your Recommendation</div>
@@ -102,24 +102,21 @@
                   </div>
                </div>
                <div class="university-card">
-    <div class="title">🏛️ Top University Matches</div>
-    <div class="university-list">
-        <div class="university-item" 
-             th:each="uni, iterStat : *{universities}" 
-             th:if="${iterStat.index < 4}">
-            <div class="info">
-                <span><strong th:text="${uni.universityName}">University Name</strong></span>
-                <span>📍 <span th:text="${uni.city + ', ' + uni.province}">City, Province</span></span>
-                <span>⭐ Ranking: <span th:text="${uni.ranking}">1</span></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Show "View More" only if there are more than 4 universities -->
-    <button class="btn primary" th:if="*{universities.size() > 4}">View More</button>
-</div>
-
-
+                  <div class="title">🏛️ Top University Matches</div>
+                  <div class="university-list">
+                     <div class="university-item" 
+                        th:each="uni, iterStat : *{universities}" 
+                        th:if="${iterStat.index < 4}">
+                        <div class="info">
+                           <span><strong th:text="${uni.universityName}">University Name</strong></span>
+                           <span>📍 <span th:text="${uni.city + ', ' + uni.province}">City, Province</span></span>
+                           <span>⭐ Ranking: <span th:text="${uni.ranking != null && uni.ranking > 0 ? uni.ranking : '-'}">-</span></span>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Show "View More" only if there are more than 4 universities -->
+                  <button class="btn primary" th:if="*{universities.size() > 4}">View More</button>
+               </div>
             </div>
             <div class="history-card">
                <div class="title">📜 Assessment History</div>
