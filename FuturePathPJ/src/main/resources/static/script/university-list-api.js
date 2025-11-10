@@ -46,7 +46,7 @@ async function loadUniversities() {
 		    <p><strong>Students:</strong> ${students}</p>
 		    <p><strong>Courses:</strong> ${courses}</p>
 		  </div>
-		  <a href="/universities/details?idPk=${uni.idPk}" class="view-btn" data-id="${uni.idPk}">
+		  <a href="/universities/details?idPk=${uni.universityIdPk}" class="view-btn transitioning" data-id="${uni.universityIdPk}">
 		    <i class="fa-solid fa-circle-info"></i> View Details
 		  </a>
 		`;
@@ -56,6 +56,9 @@ async function loadUniversities() {
     });
 
     container.appendChild(fragment);
+	
+	addLoadingListener();
+	
     removeLoadingScreenBody();
   } catch (error) {
     console.error("Error fetching universities:", error);
