@@ -1,5 +1,6 @@
 .content{
 	margin: auto auto 3rem auto;
+	gap: unset;
 }
 
 /* Welcome Card */
@@ -23,6 +24,26 @@
     margin: 0;
     font-size: 0.85rem; /* 14px */
 }
+
+.quick-actions {
+    display: flex;
+    gap: 1rem;          /* spacing between buttons */
+}
+
+.quick-actions .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    background: #2c3a7a;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.quick-actions .btn:hover {
+    background: #344892;
+}
+
 
 /* Statistics Section */
 .statistics-section {
@@ -109,27 +130,29 @@
 .charts-row{
 	display: flex;
 	justify-content: space-between;
+	gap: 1rem;
 }
 
 
-.chart-card {
-    background: #1f2a60;
+.chart-card, .pie-card {
+    flex: 1; /* take equal remaining space */
     padding: 1.5rem;
     border-radius: 15px;
-    width: 350px;
     color: #fff;
-	background: linear-gradient(145deg, #2c3a7a, #344892);    
-	box-shadow: rgba(0,0,0,0.25) 0 0.3rem 0.6rem -0.1rem;
+    background: linear-gradient(145deg, #2c3a7a, #344892);
+    box-shadow: rgba(0,0,0,0.25) 0 0.3rem 0.6rem -0.1rem;
+    min-width: 0; /* prevents overflow for long content */
+    font-size: 0.85rem; /* normal font size */
 }
 
 .chart-header h4 {
     margin: 0;
-    font-size: 18px;
     font-weight: 600;
+    font-size: 0.85rem; /* normal size */
 }
 
 .chart-header span {
-    font-size: 13px;
+    font-size: 0.85rem; /* normal size */
     opacity: 0.7;
 }
 
@@ -140,31 +163,36 @@
 
 .chart-footer {
     display: flex;
-    margin-top: 1.2rem;
+    justify-content: space-between;
+    margin-top: 1rem;
     gap: 10px;
 }
 
 .footer-box {
-    flex: 1;
-    background: #243272;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 12px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem; /* normal font size */
+    min-width: 60px;
 }
 
 .footer-title {
+    font-size: 0.85rem;
     opacity: 0.8;
+    color: #ccc;
 }
 
 .footer-value {
-    font-size: 18px;
+    font-size: 0.85rem;
     font-weight: 600;
+    color: #fff;
 }
 
 .footer-tag {
-    font-size: 11px;
+    font-size: 0.85rem; /* normal size */
     padding: 2px 5px;
     border-radius: 5px;
     margin-top: 5px;
@@ -179,13 +207,14 @@
     background: #db4437;
 }
 
-/* Same style as bar chart card */
+/* Pie card specific */
 .pie-card {
     width: 350px;
     background: linear-gradient(145deg, #273687, #3a44a0);
     padding: 1.5rem;
     border-radius: 15px;
     color: #fff;
+    font-size: 0.85rem;
 }
 
 .pie-card .chart-wrapper {
@@ -203,7 +232,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
+    font-size: 0.85rem;
 }
 
 .legend-color {
@@ -212,12 +241,10 @@
     border-radius: 4px;
 }
 
-/* Colors that match your pie chart palette */
+/* Pie chart colors */
 .legend-color.c1 { background: #4aa8ff; }
 .legend-color.c2 { background: #ff6584; }
 .legend-color.c3 { background: #ffb74d; }
 .legend-color.c4 { background: #ffd86b; }
-
-
 
 
