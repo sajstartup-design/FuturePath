@@ -92,6 +92,10 @@ async function loadStrandegrees(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', strandegree.idPk);
+			
+			const date = new Date(strandegree.createdAt);
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+            const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${strandegree.idPk}</td>
@@ -99,7 +103,7 @@ async function loadStrandegrees(page = 0,
 				<td>${strandegree.code}</td>
 				<td>${strandegree.category}</td>
 				<td>${strandegree.details}</td>
-				<td>${strandegree.createdAt}</td>
+				<td>${formattedDate}</td>
 				<td><span class="status-label ${strandegree.isActive ? 'active' : 'inactive'}">${strandegree.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
 					<a href="/admin/strandegrees/details?idPk=${strandegree.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>

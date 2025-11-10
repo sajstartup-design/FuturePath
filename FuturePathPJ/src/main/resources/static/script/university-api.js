@@ -93,15 +93,10 @@ async function loadUniversities(page = 0,
             row.classList.add("table-row");
 			row.setAttribute('data-id', university.idPk);
 			
-			const createdAtDate = new Date(university.createdAt);
-			    const formattedDate = createdAtDate.toLocaleString("en-US", {
-			        month: "2-digit",
-			        day: "2-digit",
-			        year: "numeric",
-			        hour: "numeric",
-			        minute: "2-digit",
-			        hour12: true
-			    });
+		
+			const date = new Date(university.createdAt);
+			const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+			const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${university.universityIdPk}</td>

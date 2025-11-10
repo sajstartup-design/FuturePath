@@ -26,7 +26,7 @@ public interface AssessmentResultDao extends JpaRepository<AssessmentResultEntit
 	public final String GET_ALL_ASSESSMENT_RESULT_BY_USER = """
 			SELECT 
 		        id_pk AS result_id_pk,
-		        "" AS full_name,
+		        '' AS full_name,
 		        correct AS total_correct,
 		        incorrect AS total_incorrect,
 		        total_question AS total_question,

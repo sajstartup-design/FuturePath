@@ -90,13 +90,17 @@ async function loadQuestions(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', question.idPk);
+			
+			const date = new Date(question.createdAt);
+		    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+		    const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${question.idPk}</td>
 				<td>${question.category}</td>
 				<td>${question.question}</td>
 				<td>${question.strandegree}</td>
-				<td>${question.createdAt}</td>
+				<td>${formattedDate}</td>
 				<td><span class="status-label ${question.isActive ? 'active' : 'inactive'}">${question.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
 					<a href="/admin/questions/details?idPk=${question.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>

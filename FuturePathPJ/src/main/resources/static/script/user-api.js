@@ -90,6 +90,10 @@ async function loadUsers(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', user.idPk);
+			
+			const date = new Date(user.createdAt);
+			const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+			const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
                 <td>${user.idPk}</td>
@@ -98,7 +102,7 @@ async function loadUsers(page = 0,
 				<td>${user.email}</td>
 				<td>${user.phone}</td>
 				<td>${user.gender}</td>
-				<td>${user.createdAt}</td>
+				<td>${formattedDate}</td>
 				<td><span class="status-label ${user.isActive ? 'active' : 'inactive'}">${user.isActive ? 'ACTIVE' : 'INACTIVE'}</span></td>
 				<td class="actions-cell">
 					<a href="/admin/user/details?idPk=${user.idPk}" class="btn btn-icon view transitioning"><i class="fa-solid fa-eye"></i></a>

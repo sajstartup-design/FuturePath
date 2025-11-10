@@ -92,6 +92,10 @@ async function loadHistory(page = 0,
             const row = document.createElement("tr");
             row.classList.add("table-row");
 			row.setAttribute('data-id', assessment.resultIdPk);
+			
+			const date = new Date(assessment.dateTaken);
+			const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+			const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
             	<td>#${assessment.resultIdPk}</td>
@@ -99,7 +103,7 @@ async function loadHistory(page = 0,
 				<td>${assessment.totalIncorrect}</td>
 				<td>${assessment.totalQuestion}</td>
 				<td>${assessment.score}%</td>
-				<td>${assessment.dateTaken}</td>
+				<td>${formattedDate}</td>
 				<td class="actions-cell">
 			        <a href="/assessment/result/view?resultIdPk=${assessment.resultIdPk}" class="btn btn-icon view"><i class="fa-solid fa-eye"></i></a>
 			    </td>
