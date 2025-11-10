@@ -154,7 +154,10 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		List<QuestionData> allQuestions = new ArrayList<>();
 		
-		String category = CommonConstant.DEGREE.equals(mode) ? CommonConstant.DEGREE : CommonConstant.STRAND;
+		String category =
+		        (inDto.getMode() != null && inDto.getMode().contains(CommonConstant.DEGREE))
+		                ? CommonConstant.DEGREE
+		                : CommonConstant.STRAND;		
 		
 		if(CommonConstant.DEGREE_DEFAULT_MODE.equals(mode)) {
 			allQuestions = questionLogic.geQuestionsForAssessmentByRiasecCodes(inDto.getRiasecCodes(), category, limit);
