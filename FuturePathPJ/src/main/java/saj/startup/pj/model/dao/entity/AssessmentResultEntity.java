@@ -20,6 +20,8 @@ public class AssessmentResultEntity {
 	
 	private int userIdPk;
 	
+	private String category;
+	
 	private int correct;
 	
 	private int incorrect;

@@ -181,7 +181,8 @@ public class AssessmentController {
 	    inDto.setMode(webDto.getMode());
 	    inDto.setDegrees(webDto.getDegrees());
 	    inDto.setStrands(webDto.getStrands());
-	    System.out.println(webDto.getDegrees());
+
+	    model.addAttribute("mode", webDto.getMode());
 	    
 	    try {
 	        switch (webDto.getMode()) {

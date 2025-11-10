@@ -71,6 +71,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    AssessmentResultEntity resultEntity = new AssessmentResultEntity();
 	    resultEntity.setUserIdPk(user.getIdPk());
 	    resultEntity.setDateTaken(timestamp);
+	    resultEntity.setCategory(
+    	    inDto.getMode() != null && inDto.getMode().contains("DEGREE") ? "DEGREE" : "STRAND"
+    	);
 	    int resultIdPk = historyLogic.saveAssessmentResult(resultEntity);
 
 	    for (Map.Entry<Integer, Integer> entry : answeredMap.entrySet()) {
