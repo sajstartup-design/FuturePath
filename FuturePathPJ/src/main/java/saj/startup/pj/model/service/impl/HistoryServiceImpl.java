@@ -81,5 +81,19 @@ public class HistoryServiceImpl implements HistoryService{
 		return outDto;
 	}
 
+	@Override
+	public HistoryDto getRecentAssessmentResult() throws Exception {
+		
+		HistoryDto outDto = new HistoryDto();
+		
+		Pageable pageable = PageRequest.of(0, CommonConstant.RECENT_MAX_DISPLAY);
+		
+		Page<AssessmentResultData> assessments = historyLogic.getAllAssessmentResult(pageable, CommonConstant.BLANK);
+		
+		outDto.setAssessments(assessments.toList());
+
+		return outDto;
+	}
+
 
 }

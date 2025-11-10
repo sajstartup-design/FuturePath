@@ -10,4 +10,6 @@ public interface HistoryService {
 	public HistoryDto getAllAssessmentByUser(HistoryDto inDto) throws Exception; 
 	
 	public HistoryDto getAllAssessmentResult(HistoryDto inDto) throws Exception; 
+	
+	public HistoryDto getRecentAssessmentResult() throws Exception; 
 }

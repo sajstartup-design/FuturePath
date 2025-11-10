@@ -206,36 +206,27 @@
                   <div class="recent-assessment data-section">
                      <div class="data-controls">
                         <h4 class="stat-title">Recent Assessment Activity</h4>
-                        <a class="btn btn-primary">View All</a>
+                        <a th:href="@{/admin/assessment/history}" class="btn btn-primary">View All</a>
                      </div>
                      <div class="data-table">
                         <table class="recent-activities-table">
                            <thead>
                               <tr>
-                                 <th>User</th>
-                                 <th>Type</th>
-                                 <th>Score</th>
-                                 <th>Date</th>
+                                 <th><i class="fa-solid fa-user"></i> USER</th>
+                                 <th><i class="fa-solid fa-graduation-cap"></i> CATEGORY</th>
+                                 <th><i class="fa-solid fa-chart-line"></i> SCORE</th>
+                                 <th><i class="fa-solid fa-calendar-day"></i> DATE</th>
                               </tr>
                            </thead>
                            <tbody>
-                              <tr>
-                                 <td>Christine Pagobo</td>
-                                 <td>Degree</td>
-                                 <td>85%</td>
-                                 <td>09/29/2025</td>
-                              </tr>
-                              <tr>
-                                 <td>John Doe</td>
-                                 <td>Strand</td>
-                                 <td>90%</td>
-                                 <td>09/28/2025</td>
-                              </tr>
-                              <tr>
-                                 <td>Mary Jane</td>
-                                 <td>Degree</td>
-                                 <td>78%</td>
-                                 <td>09/28/2025</td>
+                              <tr th:each="assessment : *{historyDto.assessments}">
+                                 <td th:text="${assessment.fullName}">Full Name</td>
+                                 <td>
+                                    <i th:classappend="${assessment.category == 'Degree'} ? 'fa-solid fa-graduation-cap' : 'fa-solid fa-layer-group'"></i>
+                                    <span th:text="${assessment.category}">Category</span>
+                                 </td>
+                                 <td th:text="${assessment.score} + '%'">Score</td>
+                                 <td th:text="${#dates.format(assessment.dateTaken, 'MM/dd/yyyy hh:mm a')}">Date & Time</td>
                               </tr>
                            </tbody>
                         </table>
@@ -244,9 +235,20 @@
                </div>
             </div>
          </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
       </main>
       <script th:inline="javascript">
          console.log(/*[[${assessmentDto}]]*/'');
+         console.log(/*[[${historyDto}]]*/'');
          const assessmentDto = /*[[${assessmentDto}]]*/'';
          const score0_25 = assessmentDto.assessmentStatistics.score0_25;
          const score26_50 = assessmentDto.assessmentStatistics.score26_50;
@@ -299,7 +301,7 @@
                 	        grid: { display: false }
                 	    }
                 	},
-
+         
                  plugins: {
                      legend: { display: false },
                      tooltip: {

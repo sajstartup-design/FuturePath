@@ -9,6 +9,8 @@ public class CommonConstant {
 	public static final int UNIVERSITY_MAX_DISPLAY = 10;
 	public static final int QUESTION_MAX_DISPLAY = 10;
 	
+	public static final int RECENT_MAX_DISPLAY = 5;
+	
 	public static final String PRIVATE = "PRIVATE";
 	public static final String PUBLIC = "PUBLIC";
 	
@@ -17,6 +19,8 @@ public class CommonConstant {
 	
 	public static final String ROLE_USER = "USER";
 	public static final String ROLE_ADMIN = "ADMIN";
+	
+	public static final String BLANK = "";
 	
 	public static final String DEGREE_DEFAULT_MODE = "DEGREE-DEFAULT-MODE";
 	public static final String DEGREE_CUSTOM_MODE = "DEGREE-CUSTOM-MODE";
