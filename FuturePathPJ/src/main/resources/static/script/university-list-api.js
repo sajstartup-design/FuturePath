@@ -46,9 +46,9 @@ async function loadUniversities() {
 		    <p><strong>Students:</strong> ${students}</p>
 		    <p><strong>Courses:</strong> ${courses}</p>
 		  </div>
-		  <button class="view-btn" data-id="${uni.idPk}">
+		  <a href="/universities/details?idPk=${uni.idPk}" class="view-btn" data-id="${uni.idPk}">
 		    <i class="fa-solid fa-circle-info"></i> View Details
-		  </button>
+		  </a>
 		`;
 
 	

@@ -186,5 +186,32 @@ public class UniversityController {
 		
 		return "university/university-list";
 	}
+	
+	@GetMapping("/universities/details")
+	public String detailsUniversityForUser(@ModelAttribute UniversityDto webDto,
+			Model model,
+			RedirectAttributes ra) {
+		
+		try {
+			UniversityDto outDto = universityService.getUniversity(webDto);
+			
+			System.out.println(outDto);
+			
+			StrandegreeDto strandegreeOutDto = strandegreeService.getAllStrandegreesNoPageable();
+			
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("strandegreeDto", strandegreeOutDto);
+			model.addAttribute("universityDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("page", "universities");
+		
+		return "university/university-details-two";
+	}
 
 }
