@@ -19,7 +19,8 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/admin/user")
-	public String showUsers(Model model) {
+	public String showUsers(Model model,
+			RedirectAttributes ra) {
 		
 		try {
 			UserDto outDto = userService.getUserOverview();
@@ -29,6 +30,11 @@ public class UserController {
 		}catch(Exception e) {
 			
 			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/dashboard";
 		}
 		
 		model.addAttribute("page", "user");
