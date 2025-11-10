@@ -23,6 +23,7 @@ import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
+import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
@@ -298,6 +299,21 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    return score;
 	}
+
+
+
+	@Override
+	public AssessmentDto getAssessmentStatistics() throws Exception {
+		
+		AssessmentDto outDto = new AssessmentDto();
+	
+		AssessmentStatisticsData data = historyLogic.getAssessmentStatistics();
+		
+		outDto.setAssessmentStatistics(data);
+		
+		return outDto;
+	}
+	
 
 
 

@@ -10,6 +10,7 @@ import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.projection.AssessmentResultData;
+import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 
 @Service
 public interface HistoryLogic {
@@ -23,4 +24,6 @@ public interface HistoryLogic {
 	public List<HistoryQuestionData> getHistoryQuestionsByResultIdPk(int resultIdPk);
 	
 	public Page<AssessmentResultData> getAllAssessmentResultByUser(Pageable pageable, String search, int userIdPk);
+	
+	public AssessmentStatisticsData getAssessmentStatistics();
 }

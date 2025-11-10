@@ -5,10 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.dto.QuestionDto;
 import saj.startup.pj.model.dto.StrandegreeDto;
 import saj.startup.pj.model.dto.UniversityDto;
 import saj.startup.pj.model.dto.UserDto;
+import saj.startup.pj.model.service.AssessmentService;
 import saj.startup.pj.model.service.QuestionService;
 import saj.startup.pj.model.service.StrandegreeService;
 import saj.startup.pj.model.service.UniversityService;
@@ -28,6 +30,9 @@ public class DashboardController {
 	
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private AssessmentService assessmentService;
 
 	@GetMapping("/admin/dashboard")
 	public String showAdminDashboard(Model model) {
@@ -37,11 +42,13 @@ public class DashboardController {
 			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreeOverview();
 			UniversityDto universityOutDto = universityService.getUniversitiesOverview();
 			QuestionDto questionOutDto = questionService.getQuestionOverview();
-					
+			AssessmentDto assessmentOutDto = assessmentService.getAssessmentStatistics();
+			
 			model.addAttribute("userDto", userOutDto);
 			model.addAttribute("strandegreeDto", strandegreeOutDto);
 			model.addAttribute("universityDto", universityOutDto);
 			model.addAttribute("questionDto", questionOutDto);
+			model.addAttribute("assessmentDto", assessmentOutDto);
 			
 		}catch(Exception e) {
 			

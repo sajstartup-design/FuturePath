@@ -12,4 +12,6 @@ public interface AssessmentService {
 	public AssessmentDto getAssessmentResult(AssessmentDto inDto) throws Exception;
 	
 	public AssessmentDto getAssessmentRIASECResult(AssessmentDto inDto) throws Exception;
+	
+	public AssessmentDto getAssessmentStatistics() throws Exception;
 }

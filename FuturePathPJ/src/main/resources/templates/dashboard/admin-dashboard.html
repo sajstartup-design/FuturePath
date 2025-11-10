@@ -23,226 +23,252 @@
          </nav>
          <hr>
          <div class="content">
-         <!-- Welcome Card -->
-         <div class="content">
             <!-- Welcome Card -->
-            <div class="welcome-card">
-               <h3>Welcome, Admin!</h3>
-               <p>Here is the overview of your system.</p>
+            <div class="content">
+               <!-- Welcome Card -->
+               <div class="welcome-card">
+                  <h3>Welcome, Admin!</h3>
+                  <p>Here is the overview of your system.</p>
+               </div>
+               <!-- Quick Actions -->
+               <div class="quick-actions">
+                  <a class="btn btn-primary" th:href="@{/admin/user/add}">Create User</a>
+                  <a class="btn btn-primary" th:href="@{/admin/universities/add}">Create University</a>
+                  <a class="btn btn-primary" th:href="@{/admin/strandegrees/add}">Create Degree</a>
+                  <a class="btn btn-primary" th:href="@{/admin/strandegrees/add}">Create Strand</a>
+                  <a class="btn btn-primary" th:href="@{/admin/questions/add}">Create Question</a>
+               </div>
+               <!-- Statistics Section -->
+               <div class="statistics-section">
+                  <!-- General Statistics -->
+                  <div class="stats-group">
+                     <h4>General Statistics</h4>
+                     <div class="stats-cards">
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-users stat-icon"></i>
+                              <span class="stat-label">Users</span>
+                           </div>
+                           <span class="stat-value" th:text="${userDto.overview.totalUsers ?: 0}">0</span>
+                           <p>Total Users</p>
+                        </div>
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-layer-group stat-icon"></i>
+                              <span class="stat-label">Strands</span>
+                           </div>
+                           <span class="stat-value" th:text="${strandegreeDto.overview.totalStrand ?: 0}">0</span>
+                           <p>Total Strands</p>
+                        </div>
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-graduation-cap stat-icon"></i>
+                              <span class="stat-label">Degrees</span>
+                           </div>
+                           <span class="stat-value" th:text="${strandegreeDto.overview.totalDegree ?: 0}">0</span>
+                           <p>Total Degrees</p>
+                        </div>
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-school stat-icon"></i>
+                              <span class="stat-label">Universities</span>
+                           </div>
+                           <span class="stat-value" th:text="${universityDto.overview.totalUniversity ?: 0}">0</span>
+                           <p>Total Universities</p>
+                        </div>
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fas fa-question-circle"></i>
+                              <span class="stat-label">Questions</span>
+                           </div>
+                           <span class="stat-value" th:text="${questionDto.overview.totalQuestions ?: 0}">0</span>
+                           <p>Total Questions</p>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Assessment Statistics -->
+                  <div class="stats-group">
+                     <h4>Assessment Statistics</h4>
+                     <div class="stats-cards">
+                        <!-- Taken Assessments -->
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-clipboard-check stat-icon"></i>
+                              <span class="stat-label">Taken Assessments</span>
+                           </div>
+                           <span class="stat-value" th:text="${assessmentDto.assessmentStatistics.takenAssessments ?: 0}">0</span>
+                           <p>Total quizzes taken</p>
+                        </div>
+                        <!-- Average Score -->
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-chart-line stat-icon"></i>
+                              <span class="stat-label">Average Score</span>
+                           </div>
+                           <span class="stat-value" th:text="|${assessmentDto.assessmentStatistics.averageScores ?: 0}%|">0%</span>
+                           <p>Overall performance across all quizzes</p>
+                        </div>
+                        <!-- Degree Assessments -->
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-graduation-cap stat-icon"></i>
+                              <span class="stat-label">Degree Assessments</span>
+                           </div>
+                           <span class="stat-value" th:text="${assessmentDto.assessmentStatistics.degreeAssessments ?: 0}">0</span>
+                           <p>Total quizzes for degree subjects</p>
+                        </div>
+                        <!-- Degree Average Score -->
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-chart-line stat-icon"></i>
+                              <span class="stat-label">Degree Average Score</span>
+                           </div>
+                           <span class="stat-value" th:text="|${assessmentDto.assessmentStatistics.degreeAverageScores ?: 0}%|">0%</span>
+                           <p>Average score for degree quizzes</p>
+                        </div>
+                        <!-- Strand Assessments -->
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-layer-group stat-icon"></i>
+                              <span class="stat-label">Strand Assessments</span>
+                           </div>
+                           <span class="stat-value" th:text="${assessmentDto.assessmentStatistics.strandAssessments ?: 0}">0</span>
+                           <p>Total quizzes for strand subjects</p>
+                        </div>
+                        <!-- Strand Average Score -->
+                        <div class="stat-card">
+                           <div class="stat-top">
+                              <i class="fa-solid fa-chart-line stat-icon"></i>
+                              <span class="stat-label">Strand Average Score</span>
+                           </div>
+                           <span class="stat-value" th:text="|${assessmentDto.assessmentStatistics.strandAverageScores ?: 0}%|">0%</span>
+                           <p>Average score for strand quizzes</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="charts-row">
+                     <div class="chart-card">
+                        <div class="chart-header">
+                           <h4>Assessment Scores</h4>
+                           <span>Distribution of scores across all assessments</span>
+                        </div>
+                        <div class="chart-wrapper">
+                           <canvas id="assessmentScoresChart"></canvas>
+                        </div>
+                        <div class="chart-footer">
+                           <div class="footer-box score-25">
+                              <span class="footer-title">25%</span>
+                              <span class="footer-value" th:text="${assessmentDto.assessmentStatistics.score0_25 ?: 0}">0</span>
+                           </div>
+                           <div class="footer-box score-50">
+                              <span class="footer-title">50%</span>
+                              <span class="footer-value" th:text="${assessmentDto.assessmentStatistics.score26_50 ?: 0}">0</span>
+                           </div>
+                           <div class="footer-box score-75">
+                              <span class="footer-title">75%</span>
+                              <span class="footer-value" th:text="${assessmentDto.assessmentStatistics.score51_75 ?: 0}">0</span>
+                           </div>
+                           <div class="footer-box score-100">
+                              <span class="footer-title">100%</span>
+                              <span class="footer-value" th:text="${assessmentDto.assessmentStatistics.score76_100 ?: 0}">0</span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="chart-card pie-card">
+                        <div class="chart-header">
+                           <h4>Assessment Score Distribution</h4>
+                           <span>Percentage of assessments by score bracket</span>
+                        </div>
+                        <div class="chart-wrapper">
+                           <canvas id="scorePieChart"></canvas>
+                        </div>
+                        <div class="pie-legend">
+                           <div class="legend-item">
+                              <span class="legend-color c1"></span>
+                              <span>25%</span>
+                           </div>
+                           <div class="legend-item">
+                              <span class="legend-color c2"></span>
+                              <span>50%</span>
+                           </div>
+                           <div class="legend-item">
+                              <span class="legend-color c3"></span>
+                              <span>75%</span>
+                           </div>
+                           <div class="legend-item">
+                              <span class="legend-color c4"></span>
+                              <span>100%</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Recent Assessment Activity Table -->
+                  <div class="recent-assessment data-section">
+                     <div class="data-controls">
+                        <h4 class="stat-title">Recent Assessment Activity</h4>
+                        <a class="btn btn-primary">View All</a>
+                     </div>
+                     <div class="data-table">
+                        <table class="recent-activities-table">
+                           <thead>
+                              <tr>
+                                 <th>User</th>
+                                 <th>Type</th>
+                                 <th>Score</th>
+                                 <th>Date</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>Christine Pagobo</td>
+                                 <td>Degree</td>
+                                 <td>85%</td>
+                                 <td>09/29/2025</td>
+                              </tr>
+                              <tr>
+                                 <td>John Doe</td>
+                                 <td>Strand</td>
+                                 <td>90%</td>
+                                 <td>09/28/2025</td>
+                              </tr>
+                              <tr>
+                                 <td>Mary Jane</td>
+                                 <td>Degree</td>
+                                 <td>78%</td>
+                                 <td>09/28/2025</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-               <a class="btn btn-primary" th:href="@{/admin/user/add}">Create User</a>
-               <a class="btn btn-primary" th:href="@{/admin/universities/add}">Create University</a>
-               <a class="btn btn-primary" th:href="@{/admin/strandegrees/add}">Create Degree</a>
-               <a class="btn btn-primary" th:href="@{/admin/strandegrees/add}">Create Strand</a>
-               <a class="btn btn-primary" th:href="@{/admin/questions/add}">Create Question</a>
-            </div>
-            <!-- Statistics Section -->
-            <div class="statistics-section">
-               <!-- General Statistics -->
-               <div class="stats-group">
-                  <h4>General Statistics</h4>
-                  <div class="stats-cards">
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-users stat-icon"></i>
-                           <span class="stat-label">Users</span>
-                        </div>
-						<span class="stat-value" th:text="${userDto.overview.totalUsers ?: 0}">0</span>
-                        <p>Total Users</p>
-                     </div>
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-layer-group stat-icon"></i>
-                           <span class="stat-label">Strands</span>
-                        </div>
-                        <span class="stat-value" th:text="${strandegreeDto.overview.totalStrand ?: 0}">0</span>
-                        <p>Total Strands</p>
-                     </div>
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-graduation-cap stat-icon"></i>
-                           <span class="stat-label">Degrees</span>
-                        </div>
-                        <span class="stat-value" th:text="${strandegreeDto.overview.totalDegree ?: 0}">0</span>
-                        <p>Total Degrees</p>
-                     </div>
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-school stat-icon"></i>
-                           <span class="stat-label">Universities</span>
-                        </div>
-                        <span class="stat-value" th:text="${universityDto.overview.totalUniversity ?: 0}">0</span>
-                        <p>Total Universities</p>
-                     </div>
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fas fa-question-circle"></i>
-                           <span class="stat-label">Questions</span>
-                        </div>
-                        <span class="stat-value" th:text="${questionDto.overview.totalQuestions ?: 0}">0</span>
-                        <p>Total Questions</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Assessment Statistics -->
-               <div class="stats-group">
-                  <h4>Assessment Statistics</h4>
-                  <div class="stats-cards">
-                     <!-- Taken Assessments -->
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-clipboard-check stat-icon"></i>
-                           <span class="stat-label">Taken Assessments</span>
-                        </div>
-                        <span class="stat-value">0</span>
-                        <p>Total quizzes taken</p>
-                     </div>
-                     <!-- Average Score -->
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-chart-line stat-icon"></i>
-                           <span class="stat-label">Average Score</span>
-                        </div>
-                        <span class="stat-value">0%</span>
-                        <p>Overall performance</p>
-                     </div>
-                     <!-- Degree Assessments -->
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-graduation-cap stat-icon"></i>
-                           <span class="stat-label">Degree Assessments</span>
-                        </div>
-                        <span class="stat-value">0</span>
-                        <p>Total degree quizzes</p>
-                     </div>
-                     <!-- Strand Assessments -->
-                     <div class="stat-card">
-                        <div class="stat-top">
-                           <i class="fa-solid fa-layer-group stat-icon"></i>
-                           <span class="stat-label">Strand Assessments</span>
-                        </div>
-                        <span class="stat-value">0</span>
-                        <p>Total strand quizzes</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="charts-row">
-                  <div class="chart-card">
-                     <div class="chart-header">
-                        <h4>User Scores</h4>
-                        <span>Distribution of scores</span>
-                     </div>
-                     <div class="chart-wrapper">
-                        <canvas id="userScoresChart"></canvas>
-                     </div>
-                     <div class="chart-footer">
-                        <div class="footer-box score-25">
-                           <span class="footer-title">25%</span>
-                           <span class="footer-value">0</span>
-                        </div>
-                        <div class="footer-box score-50">
-                           <span class="footer-title">50%</span>
-                           <span class="footer-value">0</span>
-                        </div>
-                        <div class="footer-box score-75">
-                           <span class="footer-title">75%</span>
-                           <span class="footer-value">0</span>
-                        </div>
-                        <div class="footer-box score-100">
-                           <span class="footer-title">100%</span>
-                           <span class="footer-value">0</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="chart-card pie-card">
-                     <div class="chart-header">
-                        <h4>User Score Distribution</h4>
-                        <span>Percentage of users by score bracket</span>
-                     </div>
-                     <div class="chart-wrapper">
-                        <canvas id="scorePieChart"></canvas>
-                     </div>
-                     <div class="pie-legend">
-                        <div class="legend-item">
-                           <span class="legend-color c1"></span>
-                           <span>25%</span>
-                        </div>
-                        <div class="legend-item">
-                           <span class="legend-color c2"></span>
-                           <span>50%</span>
-                        </div>
-                        <div class="legend-item">
-                           <span class="legend-color c3"></span>
-                           <span>75%</span>
-                        </div>
-                        <div class="legend-item">
-                           <span class="legend-color c4"></span>
-                           <span>100%</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Recent Assessment Activity Table -->
-               <div class="recent-assessment data-section">
-                  <div class="data-controls">
-                     <h4 class="stat-title">Recent Assessment Activity</h4>
-                     <a class="btn btn-primary">View All</a>
-                  </div>
-                  <div class="data-table">
-                     <table class="recent-activities-table">
-                        <thead>
-                           <tr>
-                              <th>User</th>
-                              <th>Type</th>
-                              <th>Score</th>
-                              <th>Date</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>Christine Pagobo</td>
-                              <td>Degree</td>
-                              <td>85%</td>
-                              <td>09/29/2025</td>
-                           </tr>
-                           <tr>
-                              <td>John Doe</td>
-                              <td>Strand</td>
-                              <td>90%</td>
-                              <td>09/28/2025</td>
-                           </tr>
-                           <tr>
-                              <td>Mary Jane</td>
-                              <td>Degree</td>
-                              <td>78%</td>
-                              <td>09/28/2025</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-         </div>
          </div>
       </main>
+      <script th:inline="javascript">
+         console.log(/*[[${assessmentDto}]]*/'');
+         const assessmentDto = /*[[${assessmentDto}]]*/'';
+         const score0_25 = assessmentDto.assessmentStatistics.score0_25;
+         const score26_50 = assessmentDto.assessmentStatistics.score26_50;
+         const score51_75 = assessmentDto.assessmentStatistics.score51_75;
+         const score76_100 = assessmentDto.assessmentStatistics.score76_100;
+      </script>
       <script>
-         const ctx = document.getElementById("userScoresChart");
+         const ctxBar = document.getElementById("assessmentScoresChart");
          
-         new Chart(ctx, {
+         new Chart(ctxBar, {
              type: "bar",
              data: {
-                 labels: ["25%", "50%", "75%", "100%"], // Score labels
+                 labels: ["25%", "50%", "75%", "100%"],
                  datasets: [
                      {
-                         label: "Users",
-                         data: [0, 0, 0, 0], // Number of users for each score
+                         label: "Assessments",
+                         data: [score0_25, score26_50, score51_75, score76_100],
                          backgroundColor: [
-                             "rgba(255, 206, 86, 0.9)",   // 25%
-                             "rgba(255, 159, 64, 0.9)",   // 50%
-                             "rgba(54, 162, 235, 0.9)",   // 75%
-                             "rgba(75, 192, 192, 0.9)"    // 100%
+                             "rgba(255, 206, 86, 0.9)",
+                             "rgba(255, 159, 64, 0.9)",
+                             "rgba(54, 162, 235, 0.9)",
+                             "rgba(75, 192, 192, 0.9)"
                          ],
                          borderRadius: 8,
                          barThickness: 20
@@ -253,36 +279,42 @@
                  responsive: true,
                  maintainAspectRatio: false,
                  scales: {
-                     y: {
-                         beginAtZero: true,
-                         grid: { color: "rgba(255,255,255,0.1)" },
-                         ticks: {
-                             color: "#fff",
-                             font: { size: 11 }
-                         }
-                     },
-                     x: {
-                         grid: { display: false },
-                         ticks: {
-                             color: "#fff",
-                             font: { size: 12 }
-                         }
-                     }
-                 },
+                	    y: {
+                	        beginAtZero: true,
+                	        ticks: {
+                	            color: "#fff", // y-axis numbers in white
+                	            font: { size: 12 },
+                	            stepSize: 1, // show integers only
+                	            callback: function(value) {
+                	                return Number.isInteger(value) ? value : null; // optional safeguard
+                	            }
+                	        },
+                	        grid: { color: "rgba(255,255,255,0.1)" }
+                	    },
+                	    x: {
+                	        ticks: {
+                	            color: "#fff", // x-axis labels in white
+                	            font: { size: 12 }
+                	        },
+                	        grid: { display: false }
+                	    }
+                	},
+
                  plugins: {
                      legend: { display: false },
                      tooltip: {
                          callbacks: {
                              label: function(context) {
-                                 return `${context.parsed.y} Users`;
+                                 return `${context.parsed.y} Assessments`;
                              }
-                         }
+                         },
+                         bodyColor: "#fff", // tooltip text white
+                         titleColor: "#fff" // tooltip title white
                      }
                  }
              }
          });
-      </script>
-      <script>
+         
          const ctxPie = document.getElementById("scorePieChart");
          
          new Chart(ctxPie, {
@@ -291,14 +323,9 @@
                  labels: ["25%", "50%", "75%", "100%"],
                  datasets: [
                      {
-                         data: [0, 0, 0, 0], // sample — replace with backend data
-                         backgroundColor: [
-                             "#4aa8ff",
-                             "#ff6584",
-                             "#ffb74d",
-                             "#ffd86b"
-                         ],
-                         borderWidth: 0,
+                         data: [score0_25, score26_50, score51_75, score76_100],
+                         backgroundColor: ["#4aa8ff","#ff6584","#ffb74d","#ffd86b"],
+                         borderWidth: 0
                      }
                  ]
              },
@@ -306,7 +333,11 @@
                  responsive: true,
                  maintainAspectRatio: false,
                  plugins: {
-                     legend: { display: false }
+                     legend: { display: false },
+                     tooltip: {
+                         bodyColor: "#fff",
+                         titleColor: "#fff"
+                     }
                  }
              }
          });
