@@ -68,8 +68,21 @@ public class DashboardController {
 	}
 	
 	@GetMapping("/dashboard")
-	public String showUserDashboard(Model model) {
+	public String showUserDashboard(Model model){
 		
+		try {
+			
+			AssessmentDto assessmentOutDto = assessmentService.getAssessmentStatisticsByUser();
+			
+			model.addAttribute("assessmentDto", assessmentOutDto);
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("page", "dashboard");
+
 		return "dashboard/user-dashboard";
 	}
 }

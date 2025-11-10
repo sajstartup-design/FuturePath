@@ -28,6 +28,8 @@ public class UniversityDto {
 	private String province;
 	
 	private String postalCode;
+	
+	private int ranking;
 
 	private HashMap<Integer, Boolean> strandegreesAvailability;
 	

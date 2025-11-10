@@ -91,7 +91,8 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 		  + " e.createdAt, "
 		  + " e.category, "
 		  + " e.founded, "
-		  + " e.students "
+		  + " e.students, "
+		  + " e.ranking "
 		  + ") "
 		  + "FROM UniversityEntity e "
 		  + "LEFT JOIN UniversityStrandegreeAvailabilityEntity s "
@@ -118,7 +119,10 @@ public interface UniversityDao extends JpaRepository<UniversityEntity, Integer>{
 		        ARRAY_AGG(
 		            CONCAT('(', s.code, ') ', s.name)
 		            ORDER BY s.name
-		        ) AS offered_programs 
+		        ) AS offered_programs,
+		        u.city,
+		        u.province,
+		        u.ranking
 		    FROM universities u
 		    JOIN university_strandegree_availability usa 
 		        ON usa.university_id_pk = u.id_pk 

@@ -51,6 +51,7 @@ public class UniversityServiceImpl implements UniversityService {
 		newUniversity.setFounded(inDto.getFounded());
 		newUniversity.setStudents(inDto.getStudents());
 		newUniversity.setMotto(inDto.getMotto());
+		newUniversity.setRanking(inDto.getRanking());
 		
 		int universityIdPk = universityLogic.saveUniversity(newUniversity);
 		
@@ -136,8 +137,7 @@ public class UniversityServiceImpl implements UniversityService {
 			obj.setFounded(university.getFounded());
 			obj.setStudents(university.getStudents());
 			obj.setCourses(university.getCoursesOffered());		
-			
-			
+			obj.setRanking(university.getRanking());;
 			
 			universities.add(obj);
 			

@@ -55,4 +55,6 @@ public class UniversityData {
 	private String founded;
 	
 	private String students;
+	
+	private int ranking;
 }

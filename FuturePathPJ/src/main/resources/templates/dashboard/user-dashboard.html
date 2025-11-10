@@ -25,7 +25,7 @@
             </div>
          </nav>
          <hr>
-         <div class="content">
+         <div class="content" th:object="${assessmentDto}">
             <div class="welcome-card">
                <div class="greeting">Welcome back, <strong th:text="${session.fullname}">User</strong> 👋</div>
                <div class="message">Ready to discover your future path?</div>
@@ -34,23 +34,26 @@
                <div class="title">📊 Assessment Statistics</div>
                <div class="stats-container">
                   <div class="stat-item">
-                     <div class="number">3</div>
+                     <div class="number" th:text="*{userAssessmentStatistics?.takenAssessments ?: 0}">0</div>
                      <div class="label">Assessments Taken</div>
                   </div>
                   <div class="stat-item">
-                     <div class="number">82%</div>
+                     <div class="number" th:text="|*{userAssessmentStatistics?.averageScores ?: 0}%|">0%</div>
                      <div class="label">Average Score</div>
                   </div>
                   <div class="stat-item">
-                     <div class="number">95%</div>
+                     <div class="number" th:text="|*{userAssessmentStatistics?.highestScores ?: 0}%|">0%</div>
                      <div class="label">Highest Score</div>
                   </div>
                   <div class="stat-item">
-                     <div class="number">70%</div>
+                     <div class="number" th:text="|*{userAssessmentStatistics?.lowestScores ?: 0}%|">0%</div>
                      <div class="label">Lowest Score</div>
                   </div>
                   <div class="stat-item">
-                     <div class="number">Nov 6, 2025</div>
+                     <div class="number" 
+                        th:text="${@dateTimeUtil.formatTimestamp(assessmentDto.userAssessmentStatistics.lastTaken)}">
+                        -
+                     </div>
                      <div class="label">Last Taken</div>
                   </div>
                </div>
@@ -71,54 +74,52 @@
                      <div class="note">*This shows your last taken assessment result</div>
                      <div class="info">
                         <div class="status completed">Completed</div>
-                        <div>🎯 Last Score: 82%</div>
-                        <div>✅ Correct: 41</div>
-                        <div>❌ Incorrect: 9</div>
-                        <div>🗓️ Last Taken: Nov 3, 2025</div>
+                        <div>🎯 Last Score: <span th:text="|*{percentage ?: 0}%|">0%</span></div>
+                        <div>✅ Correct: <span th:text="*{totalCorrect ?: 0}">0%</span></div>
+                        <div>❌ Incorrect: <span th:text="*{totalIncorrect ?: 0}">0%</span></div>
+                        <div>🗓️ Last Taken: <span th:text="${@dateTimeUtil.formatTimestamp(assessmentDto.userAssessmentStatistics.lastTaken)}">-</span></div>
                      </div>
-                     <button class="btn primary">View Result</button>
+					<a th:href="@{/assessment/result/view(resultIdPk=${assessmentDto.resultIdPk})}" 
+					   class="btn primary">View Result</a>
                   </div>
                   <div class="recommendation-card">
                      <div class="title">🎯 Your Recommendation</div>
                      <div class="note">*Based on your last assessment</div>
                      <div class="details">
-                        <span>🧩 Best-fit Strand: <strong>STEM</strong></span> <!-- static for now -->
-                        <span>🎓 Best-fit Degree: <strong>BS Computer Science</strong></span> <!-- dynamic if available -->
-                        <span>🏛️ Suggested University: <strong>Ateneo de Manila University</strong></span>
+                        <div>🎓 Best-fit Degree:</div>
+                        <ul >
+                           <li th:each="rec : *{top3Recommendations}" th:text="${rec.name}">
+                              Degree Name
+                           </li>
+                        </ul>
+                        <div>
+                           🏛️ Suggested University: 
+                           <strong>
+                           <a th:href="@{/universities}">Check Top University Matches</a>
+                           </strong>
+                        </div>
                      </div>
-                     <button class="btn primary">View Full Recommendation</button>
                   </div>
                </div>
                <div class="university-card">
-                  <div class="title">🏛️ Top University Matches</div>
-                  <div class="university-list">
-                     <div class="university-item">
-                        <div class="info">
-                           <span><strong>Ateneo de Manila University</strong></span>
-                           <span>📍 Quezon City</span>
-                           <span>⭐ Ranking: 1</span>
-                        </div>
-                        <div class="status open">Open</div>
-                     </div>
-                     <div class="university-item">
-                        <div class="info">
-                           <span><strong>University of the Philippines</strong></span>
-                           <span>📍 Diliman, Quezon City</span>
-                           <span>⭐ Ranking: 2</span>
-                        </div>
-                        <div class="status open">Open</div>
-                     </div>
-                     <div class="university-item">
-                        <div class="info">
-                           <span><strong>De La Salle University</strong></span>
-                           <span>📍 Manila</span>
-                           <span>⭐ Ranking: 3</span>
-                        </div>
-                        <div class="status closed">Closed</div>
-                     </div>
-                  </div>
-                  <button class="btn primary">View More</button>
-               </div>
+    <div class="title">🏛️ Top University Matches</div>
+    <div class="university-list">
+        <div class="university-item" 
+             th:each="uni, iterStat : *{universities}" 
+             th:if="${iterStat.index < 4}">
+            <div class="info">
+                <span><strong th:text="${uni.universityName}">University Name</strong></span>
+                <span>📍 <span th:text="${uni.city + ', ' + uni.province}">City, Province</span></span>
+                <span>⭐ Ranking: <span th:text="${uni.ranking}">1</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show "View More" only if there are more than 4 universities -->
+    <button class="btn primary" th:if="*{universities.size() > 4}">View More</button>
+</div>
+
+
             </div>
             <div class="history-card">
                <div class="title">📜 Assessment History</div>

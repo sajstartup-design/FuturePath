@@ -26,6 +26,7 @@ import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
+import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
 import saj.startup.pj.model.logic.HistoryLogic;
@@ -316,6 +317,77 @@ public class AssessmentServiceImpl implements AssessmentService{
 		
 		outDto.setAssessmentStatistics(data);
 		
+		return outDto;
+	}
+
+
+
+	@Override
+	public AssessmentDto getAssessmentStatisticsByUser() throws Exception {
+		
+		AssessmentDto outDto = new AssessmentDto();
+		
+		UserEntity user = userService.getUserActive();
+		
+		UserAssessmentStatisticsData data = historyLogic.getAssessmentStatisticsByUser(user.getIdPk());
+		
+		System.out.println(data);
+		
+		Map<String, RecommendationObj> correctCountMap = new HashMap<>();
+	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
+
+	    AssessmentResultEntity result = historyLogic.getAssessmentResult(data.getLastResultIdPk());
+	    List<HistoryQuestionData> questions = historyLogic.getHistoryQuestionsByResultIdPk(data.getLastResultIdPk());
+	    outDto.setQuestions(questions);
+
+	    for (HistoryQuestionData q : questions) {
+	        String code = q.getCode();
+	        String name = q.getName();
+	        boolean isCorrect = Boolean.TRUE.equals(q.getIsCorrect());
+
+	        correctCountMap.putIfAbsent(code, new RecommendationObj(code, name, 0, 0.0));
+	        totalQuestionPerCode.put(code, totalQuestionPerCode.getOrDefault(code, 0) + 1);
+
+	        if (isCorrect) {
+	            correctCountMap.get(code).setCorrectCount(
+	                correctCountMap.get(code).getCorrectCount() + 1
+	            );
+	        }
+	    }
+
+	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
+	        String code = e.getKey();
+	        RecommendationObj rec = e.getValue();
+	        int totalPerCode = totalQuestionPerCode.getOrDefault(code, 0);
+	        double percentagePerCode = totalPerCode > 0
+	            ? ((double) rec.getCorrectCount() / totalPerCode) * 100
+	            : 0.0;
+	        rec.setPercentage(percentagePerCode);
+	    }
+
+	    List<RecommendationObj> top3 = correctCountMap.values().stream()
+	        .filter(rec -> rec.getPercentage() > 0)
+	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
+	        .limit(3)
+	        .collect(Collectors.toList());
+
+	    List<String> top3Codes = top3.stream()
+	        .map(RecommendationObj::getCode)
+	        .collect(Collectors.toList());
+
+	    List<UniversityRecommendationData> universities = universityLogic.getUniversityRecommendation(top3Codes);
+	    
+	    outDto.setUniversities(universities);
+
+	    outDto.setResultIdPk(data.getLastResultIdPk());
+	    outDto.setTotalCorrect(result.getCorrect());
+	    outDto.setTotalIncorrect(result.getIncorrect());
+	    outDto.setTotalQuestion(result.getTotalQuestion());
+	    outDto.setPercentage(result.getScore());
+	    outDto.setRecommendationMap(correctCountMap);
+	    outDto.setTop3Recommendations(top3);
+	    outDto.setUserAssessmentStatistics(data);
+	    
 		return outDto;
 	}
 }

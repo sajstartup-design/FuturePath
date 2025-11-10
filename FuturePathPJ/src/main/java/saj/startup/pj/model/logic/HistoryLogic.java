@@ -11,6 +11,7 @@ import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.projection.AssessmentResultData;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
+import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 
 @Service
 public interface HistoryLogic {
@@ -26,6 +27,8 @@ public interface HistoryLogic {
 	public Page<AssessmentResultData> getAllAssessmentResultByUser(Pageable pageable, String search, int userIdPk);
 	
 	public AssessmentStatisticsData getAssessmentStatistics();
+	
+	public UserAssessmentStatisticsData getAssessmentStatisticsByUser(int userIdPk);
 	
 	public Page<AssessmentResultData> getAllAssessmentResult(Pageable pageable, String search);
 }
