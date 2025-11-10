@@ -15,6 +15,7 @@
                <button><i class="fas fa-search"></i></button>
             </div>
          </div>
+         <div class="real-time" id="headerTime"></div>
          <!-- Right -->
          <div class="header-right">
             <!-- Flag -->
@@ -129,6 +130,26 @@
               profileBtn.classList.remove('active')
             }
             });
+            
+            function updateHeaderTime() {
+                const now = new Date();
+                
+                // Options for day and date
+                const optionsDate = { weekday: 'short', month: 'short', day: 'numeric' };
+                const dateString = now.toLocaleDateString('en-US', optionsDate); // e.g., "Wed, Nov 10"
+                
+                // Options for time
+                const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                const timeString = now.toLocaleTimeString('en-US', optionsTime); // e.g., "10:23:45 AM"
+
+                document.getElementById('headerTime').textContent = `${dateString} | ${timeString}`;
+            }
+
+            // Update immediately
+            updateHeaderTime();
+
+            // Update every second
+            setInterval(updateHeaderTime, 1000);
          </script>
       </nav>
    </body>
