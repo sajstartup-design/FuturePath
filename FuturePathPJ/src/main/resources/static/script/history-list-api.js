@@ -99,6 +99,7 @@ async function loadHistory(page = 0,
 
             row.innerHTML = `
             	<td>#${assessment.resultIdPk}</td>
+				<td>${assessment.category}</td>
 				<td>${assessment.totalCorrect}</td>
 				<td>${assessment.totalIncorrect}</td>
 				<td>${assessment.totalQuestion}</td>
