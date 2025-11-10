@@ -97,6 +97,7 @@ async function loadUsers(page = 0,
 
             row.innerHTML = `
                 <td>${user.idPk}</td>
+				<td>${user.username}</td>
 				<td>${user.firstName}</td>
 				<td>${user.lastName}</td>
 				<td>${user.email}</td>
