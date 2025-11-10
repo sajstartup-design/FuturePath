@@ -19,7 +19,7 @@
 
 /* ---------------- WELCOME CARD ---------------- */
 .welcome-card {
-    background: linear-gradient(135deg, #1C2656 0%, #273687 100%);
+    background: linear-gradient(145deg, #273687, #3a44a0);
     border-radius: 1rem;
     padding: 1.5rem 2rem;
     display: flex;
@@ -48,7 +48,7 @@
 
 /* ---------------- STATISTICS CARD ---------------- */
 .stats-card {
-    background: #243066;
+    background: linear-gradient(145deg, #273687, #3a44a0);
     border-radius: 1rem;
     padding: 1.5rem 1.8rem;
     display: flex;
@@ -99,7 +99,8 @@
 
 /* ---------------- ASSESSMENT / RECOMMENDATION / UNIVERSITY / HISTORY / QUICK ACTION CARD ---------------- */
 .assessment-card, .recommendation-card, .university-card, .history-card, .quick-action-card {
-    background: #243066;
+    background: linear-gradient(145deg, #273687, #3a44a0);
+
     border-radius: 1rem;
     padding: 1.2rem 1.5rem;
     display: flex;

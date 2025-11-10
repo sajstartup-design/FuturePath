@@ -24,6 +24,8 @@ public class AnalyticsEntity {
 
 	private int totalPassedStrandAssessments;
 	private int totalFailedStrandAssessments;
+	
+	
 
 	
 	

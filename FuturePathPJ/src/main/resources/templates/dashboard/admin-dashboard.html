@@ -1,131 +1,332 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>FuturePath | Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}" />
-<link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-</head>
-<body>
-	<nav th:replace="~{sidebar :: sidebar}"></nav>
-	<main>
-		<nav th:replace="~{header :: header}"></nav>
-		<hr>
-		<nav class="sub-header">
-			<div>
-          	  <span class="crumb">FuturePath</span>
-			  <i class="fa-solid fa-chevron-right separator"></i>
-    	      <span class="crumb active">DASHBOARD</span>
-          </div>
-		</nav>
-		<hr>
-		<div class="content">
-
-    <!-- Welcome Card -->
-    <div class="welcome-card">
-        <h3>Welcome, Admin!</h3>
-        <p>Here is the overview of your system.</p>
-    </div>
-
-    <!-- Statistics Section -->
-    <div class="statistics-section">
-
-        <!-- General Statistics -->
-        <div class="stats-group">
-            <h4>General Statistics</h4>
-            <div class="stats-cards">
-                <div class="stat-card">
-                    <span>Total Users</span>
-                    <span class="stat-value">1</span>
-                </div>
-                <div class="stat-card">
-                    <span>Total Strands</span>
-                    <span class="stat-value">1</span>
-                </div>
-                <div class="stat-card">
-                    <span>Total Degrees</span>
-                    <span class="stat-value">1</span>
-                </div>
-                <div class="stat-card">
-                    <span>Total Universities</span>
-                    <span class="stat-value">1</span>
-                </div>
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Dashboard</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">DASHBOARD</span>
             </div>
-        </div>
+         </nav>
+         <hr>
+         <div class="content">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+               <h3>Welcome, Admin!</h3>
+               <p>Here is the overview of your system.</p>
+            </div>
+            <!-- Statistics Section -->
+            <div class="statistics-section">
+               <!-- General Statistics -->
+               <div class="stats-group">
+                  <h4>General Statistics</h4>
+                  <div class="stats-cards">
+                     <div class="stat-card">
+                        <div class="stat-top">
+                           <i class="fa-solid fa-users stat-icon"></i>
+                           <span class="stat-label">Users</span>
+                        </div>
+                        <span class="stat-value">0</span>
+                        <p>Total Users</p>
+                     </div>
+                     <div class="stat-card">
+                        <div class="stat-top">
+                           <i class="fa-solid fa-layer-group stat-icon"></i>
+                           <span class="stat-label">Strands</span>
+                        </div>
+                        <span class="stat-value">0</span>
+                        <p>Total Strands</p>
+                     </div>
+                     <div class="stat-card">
+                        <div class="stat-top">
+                           <i class="fa-solid fa-graduation-cap stat-icon"></i>
+                           <span class="stat-label">Degrees</span>
+                        </div>
+                        <span class="stat-value">0</span>
+                        <p>Total Degrees</p>
+                     </div>
+                     <div class="stat-card">
+                        <div class="stat-top">
+                           <i class="fa-solid fa-school stat-icon"></i>
+                           <span class="stat-label">Universities</span>
+                        </div>
+                        <span class="stat-value">0</span>
+                        <p>Total Universities</p>
+                     </div>
+                     <div class="stat-card">
+                        <div class="stat-top">
+                           <i class="fas fa-question-circle"></i>
+                           <span class="stat-label">Questions</span>
+                        </div>
+                        <span class="stat-value">0</span>
+                        <p>Total Questions</p>
+                     </div>
+                  </div>
+               </div>
+               <!-- Assessment Statistics -->
+               <div class="stats-group">
+				    <h4>Assessment Statistics</h4>
+				    <div class="stats-cards">
+				
+				        <!-- Taken Assessments -->
+				        <div class="stat-card">
+				            <div class="stat-top">
+				                <i class="fa-solid fa-clipboard-check stat-icon"></i>
+				                <span class="stat-label">Taken Assessments</span>
+				            </div>
+				            <span class="stat-value">15</span>
+				            <p>Total quizzes taken</p>
+				        </div>
+				
+				        <!-- Average Score -->
+				        <div class="stat-card">
+				            <div class="stat-top">
+				                <i class="fa-solid fa-chart-line stat-icon"></i>
+				                <span class="stat-label">Average Score</span>
+				            </div>
+				            <span class="stat-value">84%</span>
+				            <p>Overall performance</p>
+				        </div>
+				
+				        <!-- Degree Assessments -->
+				        <div class="stat-card">
+				            <div class="stat-top">
+				                <i class="fa-solid fa-graduation-cap stat-icon"></i>
+				                <span class="stat-label">Degree Assessments</span>
+				            </div>
+				            <span class="stat-value">10</span>
+				            <p>Total degree quizzes</p>
+				        </div>
+				
+				        <!-- Strand Assessments -->
+				        <div class="stat-card">
+				            <div class="stat-top">
+				                <i class="fa-solid fa-layer-group stat-icon"></i>
+				                <span class="stat-label">Strand Assessments</span>
+				            </div>
+				            <span class="stat-value">5</span>
+				            <p>Total strand quizzes</p>
+				        </div>
+				
+				    </div>
+				</div>
+				
+		<!-- <div class="charts-row">
+    
+    Bar Chart
+    <div class="chart-box">
+        <h4>Assessment Breakdown</h4>
+        <canvas id="breakdownBarChart"></canvas>
+    </div>
 
-        <!-- Assessment Statistics -->
-        <div class="stats-group">
-            <h4>Assessment Statistics</h4>
-            <div class="stats-cards">
-    <div class="stat-card">
-        <span>Taken Assessments</span>
-        <span class="stat-value">15</span>
-        <p>Total quizzes taken</p>
+    Pie Chart
+    <div class="chart-box">
+        <h4>User Score Distribution</h4>
+        <canvas id="scorePieChart"></canvas>
     </div>
-    <div class="stat-card">
-        <span>Average Score</span>
-        <span class="stat-value">84%</span>
-        <p>Overall performance</p>
+
+</div> -->
+<div class="charts-row">
+<div class="chart-card">
+    <div class="chart-header">
+        <h4>Page Views</h4>
+        <span>This week vs Last week</span>
     </div>
-    <div class="stat-card">
-        <span>Users Completed</span>
-        <span class="stat-value">10</span>
-        <p>Unique users</p>
+
+    <div class="chart-wrapper">
+        <canvas id="pageViewsChart"></canvas>
     </div>
-    <div class="stat-card">
-        <span>Assessment Breakdown</span>
-        <span class="stat-value">Degree:10, Strand:5</span>
-        <p>Degree vs Strand</p>
+
+    <div class="chart-footer">
+        <div class="footer-box new">
+            <span class="footer-title">New User</span>
+            <span class="footer-value">2540</span>
+            <span class="footer-tag positive">+21%</span>
+        </div>
+        <div class="footer-box returning">
+            <span class="footer-title">Returning User</span>
+            <span class="footer-value">1540</span>
+            <span class="footer-tag negative">-21%</span>
+        </div>
+        <div class="footer-box referral">
+            <span class="footer-title">Referral</span>
+            <span class="footer-value">10</span>
+            <span class="footer-tag negative">-21%</span>
+        </div>
     </div>
 </div>
 
-
-            <!-- Recent Assessment Activity Table -->
-            <div class="recent-assessment">
-                <span class="stat-title">Recent Assessment Activity</span>
-                <table class="recent-activities-table">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Type</th>
-                            <th>Score</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Christine Pagobo</td>
-                            <td>Degree</td>
-                            <td>85%</td>
-                            <td>09/29/2025</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>Strand</td>
-                            <td>90%</td>
-                            <td>09/28/2025</td>
-                        </tr>
-                        <tr>
-                            <td>Mary Jane</td>
-                            <td>Degree</td>
-                            <td>78%</td>
-                            <td>09/28/2025</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
+<div class="chart-card pie-card">
+    <div class="chart-header">
+        <h4>User Score Distribution</h4>
+        <span>Percentage of users by score bracket</span>
     </div>
+
+    <div class="chart-wrapper">
+        <canvas id="scorePieChart"></canvas>
+    </div>
+
+    <div class="pie-legend">
+        <div class="legend-item">
+            <span class="legend-color c1"></span>
+            <span>25%</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color c2"></span>
+            <span>50%</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color c3"></span>
+            <span>75%</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color c4"></span>
+            <span>100%</span>
+        </div>
+    </div>
+</div>
 
 </div>
 
 
-		</main>
-</body>
+               <!-- Recent Assessment Activity Table -->
+               <div class="recent-assessment data-section">
+                  <div class="data-controls">
+                  	<h4 class="stat-title">Recent Assessment Activity</h4>
+                  	<a class="btn btn-primary">View All</a>
+                  </div>
+                  <div class="data-table">
+              		
+                  <table class="recent-activities-table">
+                     <thead>
+                        <tr>
+                           <th>User</th>
+                           <th>Type</th>
+                           <th>Score</th>
+                           <th>Date</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>Christine Pagobo</td>
+                           <td>Degree</td>
+                           <td>85%</td>
+                           <td>09/29/2025</td>
+                        </tr>
+                        <tr>
+                           <td>John Doe</td>
+                           <td>Strand</td>
+                           <td>90%</td>
+                           <td>09/28/2025</td>
+                        </tr>
+                        <tr>
+                           <td>Mary Jane</td>
+                           <td>Degree</td>
+                           <td>78%</td>
+                           <td>09/28/2025</td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </main>
+<script>
+const ctx = document.getElementById("pageViewsChart");
+
+new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+        datasets: [
+            {
+                label: "This Week",
+                data: [25, 70, 40, 90, 60],
+                backgroundColor: "rgba(59,130,246,0.9)",
+                borderRadius: 8,
+                barThickness: 12
+            },
+            {
+                label: "Last Week",
+                data: [10, 50, 20, 40, 65],
+                backgroundColor: "rgba(255,255,255,0.8)",
+                borderRadius: 8,
+                barThickness: 12
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: "rgba(255,255,255,0.1)"
+                },
+                ticks: {
+                    color: "#fff",
+                    font: { size: 11 }
+                }
+            },
+            x: {
+                grid: { display: false },
+                ticks: {
+                    color: "#fff",
+                    font: { size: 12 }
+                }
+            }
+        },
+        plugins: {
+            legend: { display: false },
+        }
+    }
+});
+</script>
+<script>
+const ctxPie = document.getElementById("scorePieChart");
+
+new Chart(ctxPie, {
+    type: "pie",
+    data: {
+        labels: ["25%", "50%", "75%", "100%"],
+        datasets: [
+            {
+                data: [10, 25, 20, 45], // sample — replace with backend data
+                backgroundColor: [
+                    "#4aa8ff",
+                    "#ff6584",
+                    "#ffb74d",
+                    "#ffd86b"
+                ],
+                borderWidth: 0,
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }
+        }
+    }
+});
+</script>
+
+      
+   </body>
 </html>

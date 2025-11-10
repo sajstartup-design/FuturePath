@@ -4,7 +4,7 @@
 
 /* Welcome Card */
 .welcome-card {
-    background: linear-gradient(145deg, #1f2b59, #273777);
+    background: linear-gradient(145deg, #273687, #3a44a0);
     color: #e2e6ff;
     padding: 1.5rem 2rem;
     border-radius: 1rem;
@@ -50,7 +50,7 @@
 
 /* Individual statistic card */
 .stat-card {
-    background: linear-gradient(145deg, #1f2b59, #273777);
+    background: linear-gradient(145deg, #273687, #3a44a0);
     color: #e2e6ff;
     padding: 1rem 1.2rem;
     border-radius: 0.8rem;
@@ -62,11 +62,7 @@
     text-align: center;
     box-shadow: rgba(0,0,0,0.25) 0 0.3rem 0.6rem -0.1rem;
     font-size: 0.85rem; /* 14px */
-}
-
-.stat-card span {
-    font-size: 0.85rem;
-    margin-bottom: 0.3rem;
+    min-width: 12rem;
 }
 
 .stat-card strong {
@@ -88,50 +84,140 @@
     max-height: 8rem;          /* adjust as needed */
 }
 
+.stat-value{
+	font-size: 1.2rem !important;
+}
 
-/* Recent Assessment Table */
-.recent-assessment {
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 0.85rem;
+}
+
+.stat-value {
+    font-size: 1.3rem !important;
+    margin-top: .3rem;
+}
+
+.charts-row{
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.chart-card {
+    background: #1f2a60;
+    padding: 1.5rem;
+    border-radius: 15px;
+    width: 350px;
+    color: #fff;
+	background: linear-gradient(145deg, #2c3a7a, #344892);    
+	box-shadow: rgba(0,0,0,0.25) 0 0.3rem 0.6rem -0.1rem;
+}
+
+.chart-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chart-header span {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.chart-wrapper {
+    height: 220px;
     margin-top: 1rem;
-    background: linear-gradient(145deg, #1f2b59, #273777);
-    padding: 1rem;
-    border-radius: 0.8rem;
-    box-shadow: rgba(0,0,0,0.25) 0 0.3rem 0.6rem -0.1rem;
-    color: #e2e6ff;
-    font-size: 0.85rem;
 }
 
-.recent-assessment .stat-title {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-    font-size: 0.85rem;
-    color: #46a1ff;
+.chart-footer {
+    display: flex;
+    margin-top: 1.2rem;
+    gap: 10px;
 }
 
-.recent-activities-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
+.footer-box {
+    flex: 1;
+    background: #243272;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
-.recent-activities-table th, 
-.recent-activities-table td {
-    padding: 0.5rem 0.7rem;
-    text-align: left;
-    border-bottom: 1px dashed rgba(255,255,255,0.2);
-    color: #e2e6ff;
+.footer-title {
+    opacity: 0.8;
 }
 
-.recent-activities-table th {
-    background-color: rgba(70, 161, 255, 0.1);
+.footer-value {
+    font-size: 18px;
     font-weight: 600;
 }
 
-.recent-activities-table tr:hover {
-    background-color: rgba(70, 161, 255, 0.15);
+.footer-tag {
+    font-size: 11px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: fit-content;
 }
 
-.recent-activities-table td {
-    font-size: 0.85rem;
+.footer-tag.positive {
+    background: #0f9d58;
 }
+
+.footer-tag.negative {
+    background: #db4437;
+}
+
+/* Same style as bar chart card */
+.pie-card {
+    width: 350px;
+    background: linear-gradient(145deg, #273687, #3a44a0);
+    padding: 1.5rem;
+    border-radius: 15px;
+    color: #fff;
+}
+
+.pie-card .chart-wrapper {
+    height: 260px;
+    margin-top: 1rem;
+}
+
+.pie-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+}
+
+/* Colors that match your pie chart palette */
+.legend-color.c1 { background: #4aa8ff; }
+.legend-color.c2 { background: #ff6584; }
+.legend-color.c3 { background: #ffb74d; }
+.legend-color.c4 { background: #ffd86b; }
+
+
+
 
