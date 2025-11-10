@@ -253,7 +253,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    dto.setCombination(topCombo);
 	    dto.setMessage(message.toString());
 	    dto.setExampleFields(exampleFields);
-
+	    System.out.println("COMBINATION: " + topCombo);
+	    System.out.println("TOP: : " + getTopMatches(topCombo));
 	    dto.setRealisticPercentageStr(df.format((double) inDto.getRealistic() / (questionCount.get("R") * 4) * 100));
 	    dto.setInvestigativePercentageStr(df.format((double) inDto.getInvestigative() / (questionCount.get("I") * 4) * 100));
 	    dto.setArtisticPercentageStr(df.format((double) inDto.getArtistic() / (questionCount.get("A") * 4) * 100));

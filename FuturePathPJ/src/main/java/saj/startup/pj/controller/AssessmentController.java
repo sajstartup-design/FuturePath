@@ -162,7 +162,7 @@ public class AssessmentController {
 
 	    AssessmentDto outDto = assessmentService.getAssessmentRIASECResult(inDto);
 
-	    ra.addAttribute("assessmentDto", outDto);
+	    model.addAttribute("assessmentDto", outDto);
 	    
 	    model.addAttribute("page", "assessment");
 
