@@ -40,4 +40,27 @@ public class HistoryRestController {
             return new HistoryDto();
         }
     }
+	
+	@GetMapping("/admin/history/retrieve")
+    public HistoryDto getAdminAllHistory(@RequestParam(defaultValue = "0") int page,
+    		@RequestParam(required = false) String search) {
+        try {
+            HistoryDto inDto = new HistoryDto();
+
+            PaginationObj pagination = new PaginationObj();
+            pagination.setPage(page);
+
+            FilterAndSearchObj filter = new FilterAndSearchObj();
+            filter.setSearch(search);
+
+            inDto.setPagination(pagination);
+            inDto.setFilter(filter);
+
+            return historyService.getAllAssessmentResult(inDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new HistoryDto();
+        }
+    }
 }

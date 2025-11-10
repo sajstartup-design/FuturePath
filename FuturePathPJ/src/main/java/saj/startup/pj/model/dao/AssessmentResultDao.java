@@ -26,11 +26,13 @@ public interface AssessmentResultDao extends JpaRepository<AssessmentResultEntit
 	public final String GET_ALL_ASSESSMENT_RESULT_BY_USER = """
 			SELECT 
 		        id_pk AS result_id_pk,
+		        "" AS full_name,
 		        correct AS total_correct,
 		        incorrect AS total_incorrect,
 		        total_question AS total_question,
 		        score AS score,
-		        date_taken AS date_taken
+		        date_taken AS date_taken,
+		        category
 		    FROM assessment_result
 		    WHERE user_id_pk = :userIdPk
 		      AND (
@@ -69,4 +71,32 @@ public interface AssessmentResultDao extends JpaRepository<AssessmentResultEntit
 	
 	@Query(value=GET_ASSESSMENT_STATISTICS, nativeQuery=true)
 	public AssessmentStatisticsData getAssessmentStatistics() throws DataAccessException;
+	
+	public final String GET_ALL_ASSESSMENT_RESULT = """
+			SELECT 
+			    a.id_pk AS result_id_pk,
+			    CONCAT(u.first_name, ' ', u.last_name) AS full_name,
+			    a.correct AS total_correct,
+			    a.incorrect AS total_incorrect,
+			    a.total_question AS total_question,
+			    a.score AS score,
+			    a.date_taken AS date_taken,
+			    a.category
+			FROM assessment_result a
+			LEFT JOIN users u ON u.id_pk = a.user_id_pk
+			WHERE (
+			      :search IS NULL OR :search = '' OR 
+			      CAST(a.correct AS TEXT) ILIKE '%' || :search || '%' OR
+			      CAST(a.incorrect AS TEXT) ILIKE '%' || :search || '%' OR
+			      CAST(a.total_question AS TEXT) ILIKE '%' || :search || '%' OR
+			      CAST(a.score AS TEXT) ILIKE '%' || :search || '%' OR
+			      TO_CHAR(a.date_taken, 'YYYY-MM-DD HH24:MI') ILIKE '%' || :search || '%'
+			  )
+			ORDER BY a.date_taken ASC;
+
+		""";
+
+	@Query(value=GET_ALL_ASSESSMENT_RESULT, nativeQuery=true)
+	public Page<AssessmentResultData> getAllAssessmentResult(Pageable pageable,
+			@Param("search") String search) throws DataAccessException;
 }

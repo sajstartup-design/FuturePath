@@ -36,6 +36,10 @@
                   th:classappend="${page == 'configuration'} ? ' active'">
                <i class="fas fa-cogs icon-btn"></i> CONFIGURATION
                </a>
+               <a th:href="@{/admin/assessment/history}"
+                  th:classappend="${page == 'history'} ? ' active'">
+               <i class="fas fa-history icon-btn"></i> ASSESSMENT HISTORY
+               </a>
                <p class="menu-title">STRAND & DEGREE</p>
                <a th:href="@{/admin/strandegrees}" 
                   th:classappend="${page == 'strandegrees'} ? ' active'">

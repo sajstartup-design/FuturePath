@@ -61,4 +61,10 @@ public class HistoryLogicImpl implements HistoryLogic {
 		return assessmentResultDao.getAssessmentStatistics();
 	}
 
+	@Override
+	public Page<AssessmentResultData> getAllAssessmentResult(Pageable pageable, String search) {
+		
+		return assessmentResultDao.getAllAssessmentResult(pageable, search);
+	}
+
 }

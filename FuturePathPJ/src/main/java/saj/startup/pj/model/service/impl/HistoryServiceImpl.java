@@ -55,5 +55,31 @@ public class HistoryServiceImpl implements HistoryService{
 		return outDto;
 	}
 
+	@Override
+	public HistoryDto getAllAssessmentResult(HistoryDto inDto) throws Exception {
+		
+		HistoryDto outDto = new HistoryDto();
+		
+		Pageable pageable = PageRequest.of(inDto.getPagination().getPage(), CommonConstant.USER_MAX_DISPLAY);
+		
+		FilterAndSearchObj filter = inDto.getFilter();
+		
+		Page<AssessmentResultData> assessments = historyLogic.getAllAssessmentResult(pageable, filter.getSearch());
+		
+		outDto.setAssessments(assessments.toList());
+		
+		PaginationObj pagination = new PaginationObj();
+		
+		pagination.setPage(assessments.getNumber());
+		pagination.setTotalPages(assessments.getTotalPages());
+		pagination.setTotalElements(assessments.getTotalElements());
+		pagination.setHasNext(assessments.hasNext());
+		pagination.setHasPrevious(assessments.hasPrevious());
+		
+		outDto.setPagination(pagination);
+		
+		return outDto;
+	}
+
 
 }

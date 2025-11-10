@@ -26,4 +26,6 @@ public interface HistoryLogic {
 	public Page<AssessmentResultData> getAllAssessmentResultByUser(Pageable pageable, String search, int userIdPk);
 	
 	public AssessmentStatisticsData getAssessmentStatistics();
+	
+	public Page<AssessmentResultData> getAllAssessmentResult(Pageable pageable, String search);
 }
