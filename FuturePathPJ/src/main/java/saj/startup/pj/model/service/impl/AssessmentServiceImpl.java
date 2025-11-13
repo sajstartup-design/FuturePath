@@ -324,23 +324,32 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	@Override
 	public AssessmentDto getAssessmentStatisticsByUser() throws Exception {
-		
-		AssessmentDto outDto = new AssessmentDto();
-		
-		UserEntity user = userService.getUserActive();
-		
-		UserAssessmentStatisticsData data = historyLogic.getAssessmentStatisticsByUser(user.getIdPk());
-		
-		System.out.println(data);
-		
-		Map<String, RecommendationObj> correctCountMap = new HashMap<>();
-	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
+
+	    AssessmentDto outDto = new AssessmentDto();
+	    UserEntity user = userService.getUserActive();
+
+	    // 🔹 Get user statistics safely
+	    UserAssessmentStatisticsData data = historyLogic.getAssessmentStatisticsByUser(user.getIdPk());
+	    if (data == null) {
+	        // no assessment yet → return empty dto
+	        return outDto;
+	    }
 
 	    AssessmentResultEntity result = historyLogic.getAssessmentResult(data.getLastResultIdPk());
 	    List<HistoryQuestionData> questions = historyLogic.getHistoryQuestionsByResultIdPk(data.getLastResultIdPk());
+
+	    // 🔹 Initialize empty collections if null
+	    if (questions == null) {
+	        questions = new ArrayList<>();
+	    }
+
+	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
+	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
+
 	    outDto.setQuestions(questions);
 
 	    for (HistoryQuestionData q : questions) {
+	        if (q == null) continue;
 	        String code = q.getCode();
 	        String name = q.getName();
 	        boolean isCorrect = Boolean.TRUE.equals(q.getIsCorrect());
@@ -349,9 +358,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        totalQuestionPerCode.put(code, totalQuestionPerCode.getOrDefault(code, 0) + 1);
 
 	        if (isCorrect) {
-	            correctCountMap.get(code).setCorrectCount(
-	                correctCountMap.get(code).getCorrectCount() + 1
-	            );
+	            RecommendationObj rec = correctCountMap.get(code);
+	            rec.setCorrectCount(rec.getCorrectCount() + 1);
 	        }
 	    }
 
@@ -360,36 +368,44 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        RecommendationObj rec = e.getValue();
 	        int totalPerCode = totalQuestionPerCode.getOrDefault(code, 0);
 	        double percentagePerCode = totalPerCode > 0
-	            ? ((double) rec.getCorrectCount() / totalPerCode) * 100
-	            : 0.0;
+	                ? ((double) rec.getCorrectCount() / totalPerCode) * 100
+	                : 0.0;
 	        rec.setPercentage(percentagePerCode);
 	    }
 
 	    List<RecommendationObj> top3 = correctCountMap.values().stream()
-	        .filter(rec -> rec.getPercentage() > 0)
-	        .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
-	        .limit(3)
-	        .collect(Collectors.toList());
+	            .filter(rec -> rec.getPercentage() > 0)
+	            .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
+	            .limit(3)
+	            .collect(Collectors.toList());
 
 	    List<String> top3Codes = top3.stream()
-	        .map(RecommendationObj::getCode)
-	        .collect(Collectors.toList());
+	            .map(RecommendationObj::getCode)
+	            .collect(Collectors.toList());
 
-	    List<UniversityRecommendationData> universities = universityLogic.getUniversityRecommendation(top3Codes);
-	    
+	    // 🔹 Handle empty codes safely
+	    List<UniversityRecommendationData> universities = top3Codes.isEmpty()
+	            ? new ArrayList<>()
+	            : universityLogic.getUniversityRecommendation(top3Codes);
+
 	    outDto.setUniversities(universities);
 
+	    // 🔹 Null-check before setting result data
+	    if (result != null) {
+	        outDto.setTotalCorrect(result.getCorrect());
+	        outDto.setTotalIncorrect(result.getIncorrect());
+	        outDto.setTotalQuestion(result.getTotalQuestion());
+	        outDto.setPercentage(result.getScore());
+	    }
+
 	    outDto.setResultIdPk(data.getLastResultIdPk());
-	    outDto.setTotalCorrect(result.getCorrect());
-	    outDto.setTotalIncorrect(result.getIncorrect());
-	    outDto.setTotalQuestion(result.getTotalQuestion());
-	    outDto.setPercentage(result.getScore());
 	    outDto.setRecommendationMap(correctCountMap);
 	    outDto.setTop3Recommendations(top3);
 	    outDto.setUserAssessmentStatistics(data);
-	    
-		return outDto;
+
+	    return outDto;
 	}
+
 }
 
 
