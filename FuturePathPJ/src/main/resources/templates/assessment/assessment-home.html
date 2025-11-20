@@ -63,7 +63,7 @@
                   from all available college degree programs in the system.
                </div>
                <th:block th:if="${config.defaultDegreeAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-DEFAULT-MODE">
+			        <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="DEGREE-DEFAULT-MODE">
 			            Start Default Assessment
 			        </button>
 			    </th:block>
@@ -95,7 +95,7 @@
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">
                <th:block th:if="${config.customDegreeAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-CUSTOM-MODE">
+			        <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="DEGREE-CUSTOM-MODE">
 			            Start Custom Assessment
 			        </button>
 			    </th:block>
@@ -115,7 +115,7 @@
                   from all strands available in the system.
                </div>
                <th:block th:if="${config.defaultStrandAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-DEFAULT-MODE">
+			        <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="STRAND-DEFAULT-MODE">
 			            Start Default Assessment
 			        </button>
 			    </th:block>
@@ -147,7 +147,7 @@
                <div id="selectedStrands" class="selected-items"></div>
                <input type="hidden" name="strands" id="strandInput">
                <th:block th:if="${config.customStrandAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-CUSTOM-MODE">
+			        <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="STRAND-CUSTOM-MODE">
 			            Start Custom Assessment
 			        </button>
 			    </th:block>
@@ -173,6 +173,7 @@
       <script th:inline="javascript">
          console.log(/*[[${strandegreeDto}]]*/'');
       </script>
+      <script th:src="@{/script/loading.js}"></script>
       <script>
          const collegeBtn = document.getElementById('collegeBtn');
          const strandBtn = document.getElementById('strandBtn');
