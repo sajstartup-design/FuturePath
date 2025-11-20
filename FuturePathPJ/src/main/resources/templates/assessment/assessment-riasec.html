@@ -667,6 +667,16 @@
             </div>
          </nav>
       </main>
+      <!-- Unanswered Modal -->
+      <div id="unansweredModal" class="themed-modal-overlay">
+         <div class="themed-modal-box">
+            <h3>Unanswered Question</h3>
+            <p>Please answer all questions before submitting the assessment.</p>
+            <div class="themed-modal-actions">
+               <button class="modal-btn" onclick="closeUnansweredModal()">OK</button>
+            </div>
+         </div>
+      </div>
    </body>
    <script th:src="@{/script/loading.js}"></script>
    <script th:inline="javascript">
@@ -805,5 +815,33 @@
           document.getElementById("enterprising").value = totals.E;
           document.getElementById("conventional").value = totals.C;
       }
+   </script>
+   <script>
+      // --- Modal controls ---
+      function openUnansweredModal() {
+          document.getElementById("unansweredModal").style.display = "flex";
+      }
+      function closeUnansweredModal() {
+          document.getElementById("unansweredModal").style.display = "none";
+      }
+      
+      // --- Listen for submit ---
+      document.addEventListener("DOMContentLoaded", () => {
+          const form = document.querySelector(".assessment-form");
+      
+          form.addEventListener("submit", function (e) {
+              const hiddenInputs = form.querySelectorAll("input[type='hidden'][id$='-value']");
+      
+              // Check if any question is unanswered
+              for (const input of hiddenInputs) {
+                  if (input.value === "" || input.value === null) {
+                      e.preventDefault();
+                      openUnansweredModal();
+                      removeLoadingScreenBody();
+                      return;
+                  }
+              }
+          });
+      });
    </script>
 </html>
