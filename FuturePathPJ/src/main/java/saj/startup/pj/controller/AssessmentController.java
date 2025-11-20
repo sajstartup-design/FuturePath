@@ -184,6 +184,10 @@ public class AssessmentController {
 	    inDto.setRiasecCodes(webDto.getRiasecCodes());
 	    
 	    model.addAttribute("mode", webDto.getMode());
+	    
+	    if(CommonConstant.DEGREE_DEFAULT_MODE.equals(webDto.getMode()) && !webDto.isFromRiasec()) {
+	    	return "redirect:/assessment/riasec/degree";
+	    }
 	 
 	    try {
 	    	

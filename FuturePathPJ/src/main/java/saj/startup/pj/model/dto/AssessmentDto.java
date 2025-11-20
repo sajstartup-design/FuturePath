@@ -82,5 +82,7 @@ public class AssessmentDto {
     
     
     private List<Integer> riasecCodes;
+    
+	private boolean fromRiasec;
 
 }

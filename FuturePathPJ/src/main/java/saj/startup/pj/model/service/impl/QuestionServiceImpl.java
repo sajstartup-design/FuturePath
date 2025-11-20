@@ -159,6 +159,7 @@ public class QuestionServiceImpl implements QuestionService{
 		                ? CommonConstant.DEGREE
 		                : CommonConstant.STRAND;		
 		
+		System.out.println("RIASEC CODES: " + inDto.getRiasecCodes());
 		if(CommonConstant.DEGREE_DEFAULT_MODE.equals(mode)) {
 			allQuestions = questionLogic.geQuestionsForAssessmentByRiasecCodes(inDto.getRiasecCodes(), category, limit);
 		}
