@@ -52,13 +52,33 @@ public class QuestionLogicImpl implements QuestionLogic{
 	}
 
 	@Override
-	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees, int limit) {
+	public List<QuestionData> geQuestionsForAssessment(List<String> programs, String category, int limit) {
 		
 		/*
 		 * This right here can still be improved
 		 */
 		
-		List<QuestionData> questions = questionDao.getQuestionsForAssessment(degrees, limit);
+		List<QuestionData> questions = questionDao.getQuestionsForAssessment(programs, category, limit);
+		
+		for(QuestionData question : questions) {
+			
+			List<AnswerData> answers = answerDao.getAnswersByQuestionIdPk(question.getQuestionIdPk());
+			
+			question.setAnswers(answers);
+		}
+		
+		return questions;
+	}
+	
+	@Override
+	public List<QuestionData> geQuestionsForAssessmentByRiasecCodes(List<Integer> riasecCodes, String category,
+			int limit) {
+		
+		/*
+		 * This right here can still be improved
+		 */
+		
+		List<QuestionData> questions = questionDao.getQuestionsForAssessmentByRiasecCode(riasecCodes, category, limit);
 		
 		for(QuestionData question : questions) {
 			
@@ -100,5 +120,4 @@ public class QuestionLogicImpl implements QuestionLogic{
 		
 		questionDao.deleteQuestion(idPk);
 	}
-
 }

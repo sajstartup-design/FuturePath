@@ -38,7 +38,13 @@ public class StrandegreeServiceImpl implements StrandegreeService {
 		newStrandegree.setCode(inDto.getCode());
 		newStrandegree.setCategory(inDto.getCategory());
 		newStrandegree.setDetails(inDto.getDetails());
-		newStrandegree.setDuration(inDto.getDuration());
+		
+		if(CommonConstant.DEGREE.equals(inDto.getCategory())){
+			newStrandegree.setDuration(inDto.getDuration());
+		}else{
+			newStrandegree.setDuration(0);
+		}
+
 		newStrandegree.setRiasecCode(inDto.getRiasecCode());
 		newStrandegree.setIsActive(true);
 		newStrandegree.setIsDeleted(false);

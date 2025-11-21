@@ -14,6 +14,7 @@ import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.projection.AssessmentResultData;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
+import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 import saj.startup.pj.model.logic.HistoryLogic;
 
 @Service
@@ -65,6 +66,13 @@ public class HistoryLogicImpl implements HistoryLogic {
 	public Page<AssessmentResultData> getAllAssessmentResult(Pageable pageable, String search) {
 		
 		return assessmentResultDao.getAllAssessmentResult(pageable, search);
+	}
+
+	@Override
+	public UserAssessmentStatisticsData getAssessmentStatisticsByUser(int userIdPk) {
+		
+		return assessmentResultDao.getAssessmentStatisticsByUser(userIdPk);
+		
 	}
 
 }

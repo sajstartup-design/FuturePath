@@ -98,16 +98,25 @@
                      <label>FOUNDED</label>
                      <div class="detail-wrapper">
                         <i class="fas fa-calendar-alt"></i>
-                        <span th:text="*{university.founded}">1636</span>
+                        <span th:text="*{university.founded}">0</span>
                      </div>
                   </div>
                   <div class="field">
                      <label>STUDENTS</label>
                      <div class="detail-wrapper">
                         <i class="fas fa-user-graduate"></i>
-                        <span th:text="*{university.students}">20000</span>
+                        <span th:text="*{university.students}">0</span>
                      </div>
                   </div>
+
+				    <div class="field">
+				        <label>RANKING</label>
+				        <div class="detail-wrapper">
+				            <i class="fas fa-star"></i>
+				            <span th:text="*{university.ranking}">0</span>
+				        </div>
+				    </div>
+			
                </div>
                <div class="field-group">
                   <div class="field">

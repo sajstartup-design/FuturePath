@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/university-details-two.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">UNIVERSITY</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">DETAILS</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content" th:object="${universityDto}">
+            <div class="university-details">
+               <!-- Header / Title -->
+               <div class="uni-top">
+                  <div class="uni-title">
+                     <h1 class="name" th:text="*{university.universityName}"></h1>
+                     <div class="meta">
+                        <span class="badge-type" th:text="*{university.category}"></span>
+                        <span class="badge-ranking" th:text="|#*{university.ranking}|">#1</span>
+                     </div>
+                  </div>
+               </div>
+               <!-- Quick Stats -->
+               <div class="stat-grid">
+                  <div class="stat-card-large">
+                     <i class="fa-solid fa-calendar-days stat-icon"></i>
+                     <div class="stat-title">Founded</div>
+                     <div class="stat-value" th:text="*{university.founded}">-</div>
+                  </div>
+                  <div class="stat-card-large">
+                     <i class="fa-solid fa-user-graduate stat-icon"></i>
+                     <div class="stat-title">Students</div>
+                     <div class="stat-value" th:text="|*{university.students}+|">-</div>
+                  </div>
+                  <div class="stat-card-large">
+                     <i class="fa-solid fa-landmark stat-icon"></i>
+                     <div class="stat-title">Type</div>
+                     <div class="stat-value" th:text="*{university.category}">-</div>
+                  </div>
+                  <div class="stat-card-large">
+                     <i class="fa-solid fa-ranking-star stat-icon"></i>
+                     <div class="stat-title">Ranking</div>
+                     <div class="stat-value" th:text="*{university.ranking != null && university.ranking > 0 ? university.ranking : '-'}">-</div>
+                  </div>
+               </div>
+               <section>
+                  <div class="stat-card-large">
+                     <i class="fa-solid fa-quote-left stat-icon"></i>
+                     <div class="stat-title">Motto</div>
+                     <div class="stat-value" th:text="*{university.motto}">-</div>
+                  </div>
+               </section>
+               <!-- Main Details -->
+               <div class="uni-grid">
+                  <section class="data-section details-card">
+                     <div class="data-controls">
+                        <div>
+                           <h3 class="section-title">Contact & Address</h3>
+                           <p class="section-sub">Get in touch or visit our campus</p>
+                        </div>
+                     </div>
+                     <div class="detail-list">
+                        <div class="detail-row">
+                           <div class="label"><i class="fa-solid fa-phone"></i> Contact</div>
+                           <div class="value" th:text="*{university.contact}">-</div>
+                        </div>
+                        <div class="detail-row">
+                           <div class="label"><i class="fa-solid fa-road"></i> Street</div>
+                           <div class="value" th:text="*{university.street}">-</div>
+                        </div>
+                        <div class="detail-row">
+                           <div class="label"><i class="fa-solid fa-city"></i> City</div>
+                           <div class="value" th:text="*{university.city}">-</div>
+                        </div>
+                        <div class="detail-row">
+                           <div class="label"><i class="fa-solid fa-map-location-dot"></i> Province</div>
+                           <div class="value" th:text="*{university.province}">-</div>
+                        </div>
+                        <div class="detail-row">
+                           <div class="label"><i class="fa-solid fa-envelope"></i> Postal Code</div>
+                           <div class="value" th:text="*{university.postalCode}">-</div>
+                        </div>
+                     </div>
+                  </section>
+               </div>
+               <!-- Strand Programs -->
+               <div class="evaluation-section">
+                  <h4>STRAND PROGRAMS</h4>
+                  <h5>Available strands in the university</h5>
+                  <table class="evaluation-table">
+                     <thead>
+                        <tr>
+                           <th>Strand</th>
+                           <th>Availability</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="strandegree : ${strandegreeDto.strandegrees}" th:if="${strandegree.category == 'STRAND'}">
+                           <td><strong th:text="'(' + ${strandegree.code} + ') ' + ${strandegree.name}">Strand Name</strong></td>
+                           <td>
+                              <span th:text="*{strandegreesAvailability[__${strandegree.idPk}__]} ? 'Available' : 'Not Available'">Available</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <!-- Degree Programs -->
+               <div class="evaluation-section">
+                  <h4>DEGREE PROGRAMS</h4>
+                  <h5>Available degrees in the university</h5>
+                  <table class="evaluation-table">
+                     <thead>
+                        <tr>
+                           <th>Degree</th>
+                           <th>Availability</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr th:each="strandegree : ${strandegreeDto.strandegrees}" th:if="${strandegree.category == 'DEGREE'}">
+                           <td><strong th:text="'(' + ${strandegree.code} + ') ' + ${strandegree.name}">Degree Name</strong></td>
+                           <td>
+                              <span th:text="*{strandegreesAvailability[__${strandegree.idPk}__]} ? 'Available' : 'Not Available'">Available</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:inline="javascript">
+         console.log(/*[[${universityDto}]]*/'');
+      </script>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+   </body>
+</html>

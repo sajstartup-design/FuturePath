@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.projection.AssessmentResultData;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
+import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 
 public interface AssessmentResultDao extends JpaRepository<AssessmentResultEntity, Integer>{
 
@@ -71,6 +72,23 @@ public interface AssessmentResultDao extends JpaRepository<AssessmentResultEntit
 	
 	@Query(value=GET_ASSESSMENT_STATISTICS, nativeQuery=true)
 	public AssessmentStatisticsData getAssessmentStatistics() throws DataAccessException;
+	
+	public final String GET_ASSESSMENT_STATISTICS_BY_USER = """
+			SELECT
+    COALESCE(CAST(COUNT(*) AS INTEGER), 0) AS takenAssessments,
+    COALESCE(ROUND(CAST(AVG(score) AS NUMERIC), 2), 0) AS averageScores,
+    COALESCE(MAX(score), 0) AS highestScores,
+    COALESCE(MIN(score), 0) AS lowestScores,
+    MAX(date_taken) AS lastTaken,
+    COALESCE(MAX(id_pk), 0) AS lastResultIdPk
+FROM assessment_result
+WHERE user_id_pk = :userIdPk;
+
+
+		""";
+
+	@Query(value=GET_ASSESSMENT_STATISTICS_BY_USER, nativeQuery=true)
+	public UserAssessmentStatisticsData getAssessmentStatisticsByUser(@Param("userIdPk") int userIdPk) throws DataAccessException;
 	
 	public final String GET_ALL_ASSESSMENT_RESULT = """
 			SELECT 

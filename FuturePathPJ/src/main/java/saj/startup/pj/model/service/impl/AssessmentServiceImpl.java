@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
+import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
 import saj.startup.pj.model.logic.HistoryLogic;
@@ -252,8 +254,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    AssessmentDto dto = new AssessmentDto();
 	    dto.setCombination(topCombo);
 	    dto.setMessage(message.toString());
+	    System.out.println("TOP COMBO: " + topCombo);
 	    dto.setExampleFields(exampleFields);
-
+	    dto.setRiasecCodes(getTopMatches(topCombo));
 	    dto.setRealisticPercentageStr(df.format((double) inDto.getRealistic() / (questionCount.get("R") * 4) * 100));
 	    dto.setInvestigativePercentageStr(df.format((double) inDto.getInvestigative() / (questionCount.get("I") * 4) * 100));
 	    dto.setArtisticPercentageStr(df.format((double) inDto.getArtistic() / (questionCount.get("A") * 4) * 100));
@@ -264,20 +267,23 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    return dto;
 	}
 	
-	public static List<String> getTopMatches(String inputCode) {
+	public static List<Integer> getTopMatches(String inputCode) {
 	    List<Map.Entry<Integer, String>> allEntries = new ArrayList<>(CommonConstant.RIASEC_CODE_MAP.entrySet());
 
+	    // Sort by descending score
 	    allEntries.sort((a, b) -> Integer.compare(
 	            calculateScore(inputCode, b.getValue()),
 	            calculateScore(inputCode, a.getValue())
 	    ));
 
+	    // Return only the keys of the top 5 matches
 	    return allEntries.stream()
-	            .map(e -> CommonConstant.RIASEC_DETAIL_MAP.get(e.getKey()))
-	            .distinct()
 	            .limit(5)
+	            .map(Map.Entry::getKey)
 	            .collect(Collectors.toList());
 	}
+
+
 
 	private static int calculateScore(String inputCode, String testCode) {
 	    String[] inp = inputCode.split("-");
@@ -313,10 +319,92 @@ public class AssessmentServiceImpl implements AssessmentService{
 		
 		return outDto;
 	}
-	
 
 
 
+	@Override
+	public AssessmentDto getAssessmentStatisticsByUser() throws Exception {
+
+	    AssessmentDto outDto = new AssessmentDto();
+	    UserEntity user = userService.getUserActive();
+
+	    // 🔹 Get user statistics safely
+	    UserAssessmentStatisticsData data = historyLogic.getAssessmentStatisticsByUser(user.getIdPk());
+	    if (data == null) {
+	        // no assessment yet → return empty dto
+	        return outDto;
+	    }
+
+	    AssessmentResultEntity result = historyLogic.getAssessmentResult(data.getLastResultIdPk());
+	    List<HistoryQuestionData> questions = historyLogic.getHistoryQuestionsByResultIdPk(data.getLastResultIdPk());
+
+	    // 🔹 Initialize empty collections if null
+	    if (questions == null) {
+	        questions = new ArrayList<>();
+	    }
+
+	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
+	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
+
+	    outDto.setQuestions(questions);
+
+	    for (HistoryQuestionData q : questions) {
+	        if (q == null) continue;
+	        String code = q.getCode();
+	        String name = q.getName();
+	        boolean isCorrect = Boolean.TRUE.equals(q.getIsCorrect());
+
+	        correctCountMap.putIfAbsent(code, new RecommendationObj(code, name, 0, 0.0));
+	        totalQuestionPerCode.put(code, totalQuestionPerCode.getOrDefault(code, 0) + 1);
+
+	        if (isCorrect) {
+	            RecommendationObj rec = correctCountMap.get(code);
+	            rec.setCorrectCount(rec.getCorrectCount() + 1);
+	        }
+	    }
+
+	    for (Map.Entry<String, RecommendationObj> e : correctCountMap.entrySet()) {
+	        String code = e.getKey();
+	        RecommendationObj rec = e.getValue();
+	        int totalPerCode = totalQuestionPerCode.getOrDefault(code, 0);
+	        double percentagePerCode = totalPerCode > 0
+	                ? ((double) rec.getCorrectCount() / totalPerCode) * 100
+	                : 0.0;
+	        rec.setPercentage(percentagePerCode);
+	    }
+
+	    List<RecommendationObj> top3 = correctCountMap.values().stream()
+	            .filter(rec -> rec.getPercentage() > 0)
+	            .sorted((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()))
+	            .limit(3)
+	            .collect(Collectors.toList());
+
+	    List<String> top3Codes = top3.stream()
+	            .map(RecommendationObj::getCode)
+	            .collect(Collectors.toList());
+
+	    // 🔹 Handle empty codes safely
+	    List<UniversityRecommendationData> universities = top3Codes.isEmpty()
+	            ? new ArrayList<>()
+	            : universityLogic.getUniversityRecommendation(top3Codes);
+
+	    outDto.setUniversities(universities);
+
+	    // 🔹 Null-check before setting result data
+	    if (result != null) {
+	        outDto.setTotalCorrect(result.getCorrect());
+	        outDto.setTotalIncorrect(result.getIncorrect());
+	        outDto.setTotalQuestion(result.getTotalQuestion());
+	        outDto.setPercentage(result.getScore());
+	    }
+
+	    outDto.setResultIdPk(data.getLastResultIdPk());
+	    outDto.setRecommendationMap(correctCountMap);
+	    outDto.setTop3Recommendations(top3);
+	    outDto.setUserAssessmentStatistics(data);
+
+	    return outDto;
+	}
 
 }
 

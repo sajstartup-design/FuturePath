@@ -33,21 +33,16 @@
                   Whether you're aiming for a tech career, creative arts, or something else — 
                   let’s find out which path is right for you! 🌟
                </div>
-               
                <th:block th:if="${!config.defaultDegreeAvailability and !config.customDegreeAvailability}">
-    <button type="button" class="disabled-btn" disabled>
-        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
-    </button>
-</th:block>
-
-<th:block th:if="${config.defaultDegreeAvailability or config.customDegreeAvailability}">
-    <button type="button" id="collegeBtn">
-        <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
-    </button>
-</th:block>
-
-               
-               
+                  <button type="button" class="disabled-btn" disabled>
+                  <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+                  </button>
+               </th:block>
+               <th:block th:if="${config.defaultDegreeAvailability or config.customDegreeAvailability}">
+                  <button type="button" id="collegeBtn">
+                  <i class="fa-solid fa-graduation-cap"></i> FOR COLLEGE
+                  </button>
+               </th:block>
                <button type="button" id="strandBtn">
                <i class="fa-solid fa-school"></i> FOR SENIOR HIGH STRAND
                </button>
@@ -63,16 +58,15 @@
                   from all available college degree programs in the system.
                </div>
                <th:block th:if="${config.defaultDegreeAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-DEFAULT-MODE">
-			            Start Default Assessment
-			        </button>
-			    </th:block>
-			
-			    <th:block th:unless="${config.defaultDegreeAvailability}">
-			        <button type="button" class="disabled-btn" disabled>
-			            Start Default Assessment
-			        </button>
-			    </th:block>
+                  <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="DEGREE-DEFAULT-MODE">
+                  Start Default Assessment
+                  </button>
+               </th:block>
+               <th:block th:unless="${config.defaultDegreeAvailability}">
+                  <button type="button" class="disabled-btn" disabled>
+                  Start Default Assessment
+                  </button>
+               </th:block>
                <hr>
                <h4>Custom Assessment</h4>
                <p>Select which degrees to include and how many questions to answer.</p>
@@ -95,16 +89,15 @@
                <div id="selectedDegrees" class="selected-items"></div>
                <input type="hidden" name="degrees" id="degreeInput">
                <th:block th:if="${config.customDegreeAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="DEGREE-CUSTOM-MODE">
-			            Start Custom Assessment
-			        </button>
-			    </th:block>
-			
-			    <th:block th:unless="${config.customDegreeAvailability}">
-			        <button type="button" class="disabled-btn" disabled>
-			            Start Custom Assessment
-			        </button>
-			    </th:block>
+                  <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="DEGREE-CUSTOM-MODE">
+                  Start Custom Assessment
+                  </button>
+               </th:block>
+               <th:block th:unless="${config.customDegreeAvailability}">
+                  <button type="button" class="disabled-btn" disabled>
+                  Start Custom Assessment
+                  </button>
+               </th:block>
             </div>
             <!-- CARD 3: Strand Assessment -->
             <div id="strandOptions" class="assessment-card">
@@ -115,16 +108,15 @@
                   from all strands available in the system.
                </div>
                <th:block th:if="${config.defaultStrandAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-DEFAULT-MODE">
-			            Start Default Assessment
-			        </button>
-			    </th:block>
-			
-			    <th:block th:unless="${config.defaultStrandAvailability}">
-			        <button type="button" class="disabled-btn" disabled>
-			            Start Default Assessment
-			        </button>
-			    </th:block>
+                  <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="STRAND-DEFAULT-MODE">
+                  Start Default Assessment
+                  </button>
+               </th:block>
+               <th:block th:unless="${config.defaultStrandAvailability}">
+                  <button type="button" class="disabled-btn" disabled>
+                  Start Default Assessment
+                  </button>
+               </th:block>
                <hr>
                <h4>Custom Strand Assessment</h4>
                <p>Select strands and question count for a personalized test.</p>
@@ -147,32 +139,42 @@
                <div id="selectedStrands" class="selected-items"></div>
                <input type="hidden" name="strands" id="strandInput">
                <th:block th:if="${config.customStrandAvailability}">
-			        <button type="submit" form="assessmentForm" name="mode" value="STRAND-CUSTOM-MODE">
-			            Start Custom Assessment
-			        </button>
-			    </th:block>
-			
-			    <th:block th:unless="${config.customStrandAvailability}">
-			        <button type="button" class="disabled-btn" disabled>
-			            Start Custom Assessment
-			        </button>
-			    </th:block>
+                  <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="STRAND-CUSTOM-MODE">
+                  Start Custom Assessment
+                  </button>
+               </th:block>
+               <th:block th:unless="${config.customStrandAvailability}">
+                  <button type="button" class="disabled-btn" disabled>
+                  Start Custom Assessment
+                  </button>
+               </th:block>
             </div>
          </div>
          <nav class="footer">
-			<div>
-				<span>All rights reserved by FuturePath</span>
-			</div>
-			<div class="terms">
-				<span>Terms of Use</span>
-				<span>Privacy Policy</span>
-				<span>Contact us</span>
-			</div>
-		</nav>
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
       </main>
+      <!-- Selection Warning Modal -->
+      <div class="themed-modal-overlay" id="selectionModal">
+         <div class="themed-modal-box">
+            <h3>Action Needed</h3>
+            <p>Please select at least one option before starting the custom assessment.</p>
+            <div class="themed-modal-actions">
+               <button class="modal-btn continue-btn" onclick="closeSelectionModal()">OK</button>
+            </div>
+         </div>
+      </div>
       <script th:inline="javascript">
          console.log(/*[[${strandegreeDto}]]*/'');
       </script>
+      <script th:src="@{/script/loading.js}"></script>
       <script>
          const collegeBtn = document.getElementById('collegeBtn');
          const strandBtn = document.getElementById('strandBtn');
@@ -231,6 +233,45 @@
          setupSelection('#collegeOptions .degree-btn', 'selectedDegrees', 'degreeInput');
          setupSelection('#strandOptions .degree-btn', 'selectedStrands', 'strandInput');
          
+         function openSelectionModal() {
+             const modal = document.getElementById("selectionModal");
+             if (modal) modal.style.display = "flex";
+         }
+         
+         function closeSelectionModal() {
+             const modal = document.getElementById("selectionModal");
+             if (modal) modal.style.display = "none";
+         }
+         
+         
+         document.addEventListener("DOMContentLoaded", () => {
+         
+             const degreeCustomBtn = document.querySelector('button[value="DEGREE-CUSTOM-MODE"]');
+             const strandCustomBtn = document.querySelector('button[value="STRAND-CUSTOM-MODE"]');
+         
+             const degreeInput = document.getElementById('degreeInput');
+             const strandInput = document.getElementById('strandInput');
+         
+             if (degreeCustomBtn) {
+                 degreeCustomBtn.addEventListener('click', (e) => {
+                     if (!degreeInput.value.trim()) {
+                         e.preventDefault();
+                         openSelectionModal();
+                         removeLoadingScreenBody();
+                     }
+                 });
+             }
+         
+             if (strandCustomBtn) {
+                 strandCustomBtn.addEventListener('click', (e) => {
+                     if (!strandInput.value.trim()) {
+                         e.preventDefault();
+                         openSelectionModal();
+                         removeLoadingScreenBody();
+                     }
+                 });
+             }
+         });
       </script>
    </body>
 </html>

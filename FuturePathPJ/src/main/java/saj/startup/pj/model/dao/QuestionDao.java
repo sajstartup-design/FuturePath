@@ -68,14 +68,37 @@ public interface QuestionDao extends JpaRepository<QuestionEntity, Integer>{
 		    FROM question e
 		    INNER JOIN strandegrees s ON s.id_pk = e.strandegree_id_pk
 		    WHERE e.is_deleted = false 
-		      AND s.category = 'DEGREE'
-		      AND s.code IN :degrees
+		      AND s.category = :category
+		      AND s.code IN :programs
 		    ORDER BY RANDOM()
 		    LIMIT :limit
 		    """;
 
 	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT, nativeQuery = true)
-	public List<QuestionData> getQuestionsForAssessment(@Param("degrees") List<String> degrees,
+	public List<QuestionData> getQuestionsForAssessment(@Param("programs") List<String> programs,
+			@Param("category") String category,
+			@Param("limit") int limit) throws DataAccessException;
+	
+	public final String GET_QUESTIONS_FOR_ASSESSMENT_BY_RIASEC_CODE = """
+		    SELECT 
+		        e.id_pk AS questionIdPk,
+		        s.category AS category,
+		        e.question AS question,
+		        s.code AS strandegree,
+		        e.is_active AS isActive,
+		        e.created_at AS createdAt
+		    FROM question e
+		    INNER JOIN strandegrees s ON s.id_pk = e.strandegree_id_pk
+		    WHERE e.is_deleted = false 
+		      AND s.category = :category
+		      AND s.riasec_code IN :riasecCodes
+		    ORDER BY RANDOM()
+		    LIMIT :limit
+		    """;
+
+	@Query(value = GET_QUESTIONS_FOR_ASSESSMENT_BY_RIASEC_CODE, nativeQuery = true)
+	public List<QuestionData> getQuestionsForAssessmentByRiasecCode(@Param("riasecCodes") List<Integer> riasecCodes,
+			@Param("category") String category,
 			@Param("limit") int limit) throws DataAccessException;
 
 	

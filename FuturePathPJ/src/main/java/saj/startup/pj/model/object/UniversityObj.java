@@ -28,5 +28,7 @@ public class UniversityObj {
 	private int courses;
 	
 	private String motto;
+	
+	private int ranking;
 
 }

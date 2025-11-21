@@ -39,4 +39,6 @@ public class QuestionDto {
 	
 	private QuestionObj questionObj;
 	
+	private List<Integer> riasecCodes;
+	
 }

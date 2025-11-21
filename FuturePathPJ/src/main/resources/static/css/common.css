@@ -38,6 +38,10 @@ html, body {
 	letter-spacing: 0.15rem;
 }
 
+a{
+	text-decoration: none;
+}
+
 hr {
   border: none;
   height: 1px;

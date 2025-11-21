@@ -4,4 +4,7 @@ public interface UniversityRecommendationData {
     Integer getUniversityIdPk();
     String getUniversityName();
     String[] getOfferedPrograms();
+    String getCity();
+    String getProvince();
+    int getRanking();
 }

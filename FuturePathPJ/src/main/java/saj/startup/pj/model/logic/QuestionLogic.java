@@ -24,7 +24,9 @@ public interface QuestionLogic {
 	
 	public Page<QuestionData> getAllQuestions(Pageable pageable, String search);
 	
-	public List<QuestionData> getDegreesQuestionsForAssessment(List<String> degrees, int limit);
+	public List<QuestionData> geQuestionsForAssessment(List<String> programs, String category, int limit);
+	
+	public List<QuestionData> geQuestionsForAssessmentByRiasecCodes(List<Integer> riasecCodes, String category, int limit);
 	
 	public AssessmentCheckerData getQuestionAssessmentChecker(int questionIdPk,
 			int answerIdPk);

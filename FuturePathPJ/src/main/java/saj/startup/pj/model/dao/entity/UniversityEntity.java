@@ -43,4 +43,6 @@ public class UniversityEntity {
 	private String students;
 	
 	private String motto;
+	
+	private int ranking;
 }

@@ -123,8 +123,56 @@
 				<span>Contact us</span>
 			</div>
 		</nav>
+		<!-- Unfilled Fields Modal -->
+<div id="unfilledModal" class="themed-modal-overlay">
+    <div class="themed-modal-box">
+        <h3>Missing Information</h3>
+        <p>Please fill out all required fields before saving the user.</p>
+        <div class="themed-modal-actions">
+            <button class="modal-btn" onclick="closeUnfilledModal()">OK</button>
+        </div>
+    </div>
+</div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/dropdown.js}"></script>
+<script>
+function openUnfilledModal() {
+    document.getElementById("unfilledModal").style.display = "flex";
+}
+
+function closeUnfilledModal() {
+    document.getElementById("unfilledModal").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".form");
+
+    form.addEventListener("submit", function(e) {
+        let emptyFound = false;
+
+        // Only check text inputs inside .field
+        form.querySelectorAll(".field input").forEach(input => {
+            console.log(input.value);
+            console.log(input);
+            if (!input.value.trim()) emptyFound = true;
+        });
+
+        // Check underlying selects (custom dropdown)
+        form.querySelectorAll("select").forEach(select => {
+            console.log(select.value);
+            if (!select.value) emptyFound = true;  // works with placeholder value=""
+        });
+
+        if (emptyFound) {
+            e.preventDefault();
+            openUnfilledModal();
+        }
+    });
+});
+
+
+</script>
+	
 </body>
 </html>
