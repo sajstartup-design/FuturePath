@@ -100,7 +100,7 @@
                   <a th:href="@{/admin/user}" class="btn btn-secondary transitioning">
                   <i class="fas fa-times"></i> CANCEL
                   </a>
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary transitioning">
                   <i class="fas fa-save"></i> SAVE
                   </button>
                </div>
@@ -146,20 +146,18 @@
          
                  // Only check text inputs inside .field
                  form.querySelectorAll(".required").forEach(input => {
-                     console.log(input.value);
-                     console.log(input);
                      if (!input.value.trim()) emptyFound = true;
                  });
          
                  // Check underlying selects (custom dropdown)
                  form.querySelectorAll("required").forEach(select => {
-                     console.log(select.value);
-                     if (!select.value) emptyFound = true;  // works with placeholder value=""
+                     if (!select.value) emptyFound = true;
                  });
          
                  if (emptyFound) {
                      e.preventDefault();
                      openUnfilledModal();
+                     removeLoadingScreenBody();
                  }
              });
          });

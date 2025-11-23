@@ -34,8 +34,8 @@
 					    <label>CATEGORY</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-list-alt"></i>
-					      <select name="category" class="dropdown">
-					      	<option>Select Type...</option>
+					      <select name="category" class="dropdown" disabled>
+					      	<option value="">Select Type...</option>
 					      	<option th:selected="*{questionObj.category == 'STRAND'}">STRAND</option>
                             <option th:selected="*{questionObj.category == 'DEGREE'}">DEGREE</option>
 					      </select>
@@ -45,8 +45,8 @@
 					    <label>STRAND/DEGREE</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-graduation-cap"></i>
-					      <select name="strandegreeIdPk" class="dropdown">
-					      	<option>Select Strand/Degree...</option>
+					      <select name="strandegreeIdPk" class="required dropdown">
+					      	<option value="">Select Strand/Degree...</option>
 					      	<option th:each="strandegree : ${strandegreeDto.strandegrees}" 
 					      		th:text="${strandegree.category} + '-' + ${strandegree.code}"
 					      		th:value="${strandegree.idPk}"
@@ -63,7 +63,7 @@
 					    <label>QUESTION</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-question-circle"></i>
-					      <textarea name="question" placeholder="Enter your question" th:text="*{questionObj.question}" ></textarea>
+					      <textarea name="question" placeholder="Enter your question" th:text="*{questionObj.question}" class="required"></textarea>
 					    </div>
 					</div>
 				</div>
@@ -74,25 +74,25 @@
                      <label>ANSWERS</label>
                      <div class="input-wrapper answer-option">
                         <i class="fas fa-check-circle"></i>
-                        <input type="text" placeholder="Enter answer option" name="answers[0]" th:value="*{questionObj.answers[0].answer}"/>
+                        <input type="text" placeholder="Enter answer option" name="answers[0]" th:value="*{questionObj.answers[0].answer}" class="required"/>
                         <label class="check-btn">
-                        <input type="radio" name="correctIndex" value="0" th:checked="*{questionObj.answers[0].isCorrect}">
+                        <input type="radio" name="correctIndex" value="0" th:checked="*{questionObj.answers[0].isCorrect}" class="required">
                         <span class="check-circle"></span>
                         </label>
                      </div>
                      <div class="input-wrapper answer-option">
                         <i class="fas fa-check-circle"></i>
-                        <input type="text" placeholder="Enter answer option" name="answers[1]" th:value="*{questionObj.answers[1].answer}" />
+                        <input type="text" placeholder="Enter answer option" name="answers[1]" th:value="*{questionObj.answers[1].answer}" class="required"/>
                         <label class="check-btn">
-                        <input type="radio" name="correctIndex" value="1" th:checked="*{questionObj.answers[1].isCorrect}">
+                        <input type="radio" name="correctIndex" value="1" th:checked="*{questionObj.answers[1].isCorrect}" class="required">
                         <span class="check-circle"></span>
                         </label>
                      </div>
                      <div class="input-wrapper answer-option">
                         <i class="fas fa-check-circle"></i>
-                        <input type="text" placeholder="Enter answer option" name="answers[2]" th:value="*{questionObj.answers[2].answer}" />
+                        <input type="text" placeholder="Enter answer option" name="answers[2]" th:value="*{questionObj.answers[2].answer}" class="required"/>
                         <label class="check-btn">
-                        <input type="radio" name="correctIndex" value="2" th:checked="*{questionObj.answers[2].isCorrect}">
+                        <input type="radio" name="correctIndex" value="2" th:checked="*{questionObj.answers[2].isCorrect}" class="required">
                         <span class="check-circle"></span>
                         </label>
                      </div>
@@ -122,11 +122,63 @@
 				<span>Contact us</span>
 			</div>
 		</nav>
+		<!-- Unfilled Fields Modal -->
+         <div id="unfilledModal" class="themed-modal-overlay">
+            <div class="themed-modal-box">
+               <h3>Missing Information</h3>
+               <p>Please fill out all required fields before saving the question.</p>
+               <div class="themed-modal-actions">
+                  <button class="modal-btn" onclick="closeUnfilledModal()">OK</button>
+               </div>
+            </div>
+         </div>
 	</main>
 	<script th:inline="javascript">
 		console.log(/*[[${questionDto}]]*/'');
 	</script>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/dropdown.js}"></script>
+	<script>
+         function openUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "flex";
+         }
+         
+         function closeUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "none";
+         }
+         
+         document.addEventListener("DOMContentLoaded", () => {
+             const form = document.querySelector(".form");
+         
+             form.addEventListener("submit", function(e) {
+                 let emptyFound = false;
+         
+                 // Only check text inputs inside .field
+                 form.querySelectorAll(".required").forEach(input => {
+                     console.log(input.value);
+                     console.log(input);
+                     if (!input.value.trim()) emptyFound = true;
+                 });
+         
+                 // Check underlying selects (custom dropdown)
+                 form.querySelectorAll("required").forEach(select => {
+
+                     if (!select.value) emptyFound = true; 
+                 });
+                 
+                 // Validate radio group
+		        const radioChecked = document.querySelector('input[name="correctIndex"]:checked');
+		        if (!radioChecked) emptyFound = true;
+         
+                 if (emptyFound) {
+                     e.preventDefault();
+                     openUnfilledModal();
+                     removeLoadingScreenBody();
+                 }
+             });
+         });
+         
+         
+      </script>
 </body>
 </html>
