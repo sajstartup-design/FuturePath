@@ -34,7 +34,7 @@
     </div>
 
     <div class="main-container">
-      <form th:action="@{/register}" method="POST" class="login-card">
+      <form th:action="@{/register}" method="POST" class="form login-card">
         <h5 class="welcome">We are FUTUREPATH</h5>
         <h3>Sign up with us</h3>
 
@@ -44,7 +44,7 @@
 			  <label>FIRST NAME</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-user"></i>
-			    <input type="text" placeholder="Enter first name" name="firstName" />
+			    <input type="text" placeholder="Enter first name" name="firstName" class="required" />
 			  </div>
 			</div>
 			
@@ -52,7 +52,7 @@
 			  <label>LAST NAME</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-user"></i>
-			    <input type="text" placeholder="Enter last name" name="lastName" />
+			    <input type="text" placeholder="Enter last name" name="lastName" class="required"/>
 			  </div>
 			</div>
 			
@@ -60,7 +60,7 @@
 			  <label>EMAIL</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-envelope"></i>
-			    <input type="email" placeholder="Enter email address" name="email" />
+			    <input type="email" placeholder="Enter email address" name="email" class="required"/>
 			  </div>
 			</div>
 			
@@ -68,7 +68,7 @@
 			  <label>PHONE</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-phone"></i>
-			    <input type="text" placeholder="Enter phone number" name="phone" />
+			    <input type="text" placeholder="Enter phone number" name="phone" class="required"/>
 			  </div>
 			</div>
 			
@@ -76,11 +76,11 @@
 			  <label>GENDER</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-venus-mars"></i>
-			    <select name="gender" class="dropdown">
-			      <option>SELECT GENDER</option>
-			      <option>Male</option>
-			      <option>Female</option>
-			      <option>Other</option>
+			    <select name="gender" class="required dropdown">
+			      <option value="">SELECT GENDER</option>
+			      <option value="Male">Male</option>
+			      <option value="Female">Female</option>
+			      <option value="Other">Other</option>
 			    </select>
 			  </div>
 			</div>
@@ -89,7 +89,7 @@
 			  <label>USERNAME</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-user-circle"></i>
-			    <input type="text" placeholder="Enter username" name="username" />
+			    <input type="text" placeholder="Enter username" name="username" class="required"/>
 			  </div>
 			</div>
 			
@@ -97,7 +97,7 @@
 			  <label>PASSWORD</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-lock"></i>
-			    <input type="password" placeholder="Enter password" name="password" />
+			    <input type="password" placeholder="Enter password" name="password" class="required"/>
 			  </div>
 			</div>
 			
@@ -105,7 +105,7 @@
 			  <label>CONFIRM PASSWORD</label>  
 			  <div class="input-wrapper">
 			    <i class="fas fa-lock"></i>
-			    <input type="password" placeholder="Confirm password" name="confirmPassword" />
+			    <input type="password" placeholder="Confirm password" name="confirmPassword" class="required"/>
 			  </div>
 			</div>
 
@@ -129,8 +129,53 @@
         <a href="#">Contact us</a>
       </div>
     </footer>
+    <!-- Unfilled Fields Modal -->
+         <div id="unfilledModal" class="themed-modal-overlay">
+            <div class="themed-modal-box">
+               <h3>Missing Information</h3>
+               <p>Please fill out all required fields before registering.</p>
+               <div class="themed-modal-actions">
+                  <button class="modal-btn" onclick="closeUnfilledModal()">OK</button>
+               </div>
+            </div>
+         </div>
   </main> 
   <script th:src="@{/script/loading.js}"></script>
   <script th:src="@{/script/dropdown.js}"></script>
+  <script>
+         function openUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "flex";
+         }
+         
+         function closeUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "none";
+         }
+         
+         document.addEventListener("DOMContentLoaded", () => {
+             const form = document.querySelector(".form");
+         
+             form.addEventListener("submit", function(e) {
+                 let emptyFound = false;
+         
+                 // Only check text inputs inside .field
+                 form.querySelectorAll(".required").forEach(input => {
+                     if (!input.value.trim()) emptyFound = true;
+                 });
+         
+                 // Check underlying selects (custom dropdown)
+                 form.querySelectorAll(".required").forEach(select => {
+                     if (!select.value) emptyFound = true;  // works with placeholder value=""
+                 });
+         
+                 if (emptyFound) {
+                     e.preventDefault();
+                     openUnfilledModal();
+                     removeLoadingScreenBody();
+                 }
+             });
+         });
+         
+         
+      </script>
 </body>
 </html>

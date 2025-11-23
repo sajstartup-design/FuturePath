@@ -155,8 +155,6 @@
          
                  // Only check text inputs inside .field
                  form.querySelectorAll(".required").forEach(input => {
-                     console.log(input.value);
-                     console.log(input);
                      if (!input.value.trim()) emptyFound = true;
                  });
          
