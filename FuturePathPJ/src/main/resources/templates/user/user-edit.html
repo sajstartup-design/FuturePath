@@ -33,14 +33,14 @@
 					    <label>FIRST NAME</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-user"></i>
-					      <input type="text" placeholder="Enter first name" name="firstName" th:value="*{user.firstName}"/>
+					      <input class="required" type="text" placeholder="Enter first name" name="firstName" th:value="*{user.firstName}"/>
 					    </div>
 					  </div>
 					  <div class="field">
 					    <label>LAST NAME</label>
 					    <div class="input-wrapper">
 					      <i class="fas fa-user"></i>
-					      <input type="text" placeholder="Enter last name" name="lastName" th:value="*{user.lastName}"/>
+					      <input class="required" type="text" placeholder="Enter last name" name="lastName" th:value="*{user.lastName}"/>
 					    </div>
 					  </div>
 				</div>
@@ -51,14 +51,14 @@
 					    <label>EMAIL ADDRESS</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-envelope"></i>
-					      <input type="email" placeholder="Enter email address" name="email" th:value="*{user.email}"/>
+					      <input class="required" type="email" placeholder="Enter email address" name="email" th:value="*{user.email}"/>
 					    </div>
 					  </div>
 					  <div class="field">
 					    <label>PHONE NUMBER</label>
 					    <div class="input-wrapper">
 					      <i class="fas fa-phone"></i>
-					      <input type="text" placeholder="Enter phone number" name="phone" th:value="*{user.phone}"/>
+					      <input class="required" type="text" placeholder="Enter phone number" name="phone" th:value="*{user.phone}"/>
 					    </div>
 			  		</div>
 				</div>
@@ -68,7 +68,7 @@
 					    <label>GENDER</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-venus-mars"></i>
-					      <select name="gender" class="dropdown">
+					      <select name="gender" class="required dropdown">
 					      	<option>Select Gender...</option>
 					      	<option th:selected="*{user.gender == 'Male'}">Male</option>
 					      	<option th:selected="*{user.gender == 'Female'}">Female</option>
@@ -85,7 +85,7 @@
 					    <label>USERNAME</label>  
 					    <div class="input-wrapper">
 					      <i class="fas fa-id-badge"></i> 
-					      <input type="text" placeholder="Enter username" name="username" th:value="*{user.username}"/>
+					      <input class="required" type="text" placeholder="Enter username" name="username" th:value="*{user.username}"/>
 					    </div>
 					  </div>
 				</div>
@@ -124,8 +124,55 @@
 				<span>Contact us</span>
 			</div>
 		</nav>
+		<!-- Unfilled Fields Modal -->
+         <div id="unfilledModal" class="themed-modal-overlay">
+            <div class="themed-modal-box">
+               <h3>Missing Information</h3>
+               <p>Please fill out all required fields before saving the user.</p>
+               <div class="themed-modal-actions">
+                  <button class="modal-btn" onclick="closeUnfilledModal()">OK</button>
+               </div>
+            </div>
+         </div>
 	</main>
 	<script th:src="@{/script/loading.js}"></script>
 	<script th:src="@{/script/dropdown.js}"></script>
+	<script>
+         function openUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "flex";
+         }
+         
+         function closeUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "none";
+         }
+         
+         document.addEventListener("DOMContentLoaded", () => {
+             const form = document.querySelector(".form");
+         
+             form.addEventListener("submit", function(e) {
+                 let emptyFound = false;
+         
+                 // Only check text inputs inside .field
+                 form.querySelectorAll(".required").forEach(input => {
+                     console.log(input.value);
+                     console.log(input);
+                     if (!input.value.trim()) emptyFound = true;
+                 });
+         
+                 // Check underlying selects (custom dropdown)
+                 form.querySelectorAll("required").forEach(select => {
+                     console.log(select.value);
+                     if (!select.value) emptyFound = true;  // works with placeholder value=""
+                 });
+         
+                 if (emptyFound) {
+                     e.preventDefault();
+                     openUnfilledModal();
+                 }
+             });
+         });
+         
+         
+      </script>
 </body>
 </html>
