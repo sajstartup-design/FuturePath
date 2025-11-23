@@ -228,6 +228,7 @@ public class QuestionServiceImpl implements QuestionService{
 		QuestionEntity existingQuestion = questionLogic.getQuestionByIdPk(inDto.getIdPk());
 		
 		existingQuestion.setQuestion(inDto.getQuestion());
+		existingQuestion.setStrandegreeIdPk(inDto.getStrandegreeIdPk());
 		
 		List<AnswerEntity> existingAnswers = questionLogic.getAnswersEntityByQuestionIdPk(inDto.getIdPk());
 		
