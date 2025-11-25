@@ -44,7 +44,23 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/admin/feedback")
-	public String showFeedbackView(Model model) {
+	public String showFeedbackView(Model model,
+			RedirectAttributes ra) {
+		
+		try {
+			FeedbackDto outDto = feedbackService.getFeedbackOverview();
+			
+			model.addAttribute("feedbackDto", outDto);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/admin/dashboard";
+		}
 		
 		model.addAttribute("page", "feedback");
 		

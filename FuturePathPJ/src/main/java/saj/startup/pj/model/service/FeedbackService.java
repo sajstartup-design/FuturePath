@@ -10,4 +10,6 @@ public interface FeedbackService {
 	public void saveFeedback(FeedbackDto inDto) throws Exception;
 	
 	public FeedbackDto getAllFeedbacks(FeedbackDto inDto) throws Exception;
+	
+	public FeedbackDto getFeedbackOverview() throws Exception;
 }

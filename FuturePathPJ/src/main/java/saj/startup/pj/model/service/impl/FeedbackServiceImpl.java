@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.FeedbackData;
 import saj.startup.pj.model.dao.entity.FeedbackEntity;
+import saj.startup.pj.model.dao.entity.FeedbackOverviewData;
 import saj.startup.pj.model.dto.FeedbackDto;
 import saj.startup.pj.model.logic.FeedbackLogic;
 import saj.startup.pj.model.object.FilterAndSearchObj;
@@ -59,6 +60,18 @@ public class FeedbackServiceImpl implements FeedbackService{
 		outDto.setFeedbacks(feedbacks);
 		outDto.setPagination(pagination);
 
+		return outDto;
+	}
+
+	@Override
+	public FeedbackDto getFeedbackOverview() throws Exception {
+		
+		FeedbackDto outDto = new FeedbackDto();
+		
+		FeedbackOverviewData overview = feedbackLogic.getFeedbackOverview();
+		
+		outDto.setOverview(overview);
+		
 		return outDto;
 	}
 }

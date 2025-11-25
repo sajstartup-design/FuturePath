@@ -9,8 +9,25 @@ import org.springframework.data.repository.query.Param;
 
 import saj.startup.pj.model.dao.entity.FeedbackData;
 import saj.startup.pj.model.dao.entity.FeedbackEntity;
+import saj.startup.pj.model.dao.entity.FeedbackOverviewData;
 
 public interface FeedbackDao extends JpaRepository<FeedbackEntity, Integer> {
+	
+	public final String GET_FEEDBACK_OVERVIEW =
+		    "SELECT new saj.startup.pj.model.dao.entity.FeedbackOverviewData( " +
+		    "CAST(COALESCE(COUNT(f), 0) AS INTEGER), " +                                 
+		    "CAST(COALESCE(SUM(CASE WHEN f.ratings = 5 THEN 1 ELSE 0 END), 0) AS INTEGER), " + 
+		    "CAST(COALESCE(SUM(CASE WHEN f.ratings = 4 THEN 1 ELSE 0 END), 0) AS INTEGER), " + 
+		    "CAST(COALESCE(SUM(CASE WHEN f.ratings = 3 THEN 1 ELSE 0 END), 0) AS INTEGER), " + 
+		    "CAST(COALESCE(SUM(CASE WHEN f.ratings = 2 THEN 1 ELSE 0 END), 0) AS INTEGER), " + 
+		    "CAST(COALESCE(SUM(CASE WHEN f.ratings = 1 THEN 1 ELSE 0 END), 0) AS INTEGER) " +  
+		    ") " +
+		    "FROM FeedbackEntity f";
+
+
+	@Query(GET_FEEDBACK_OVERVIEW)
+	public FeedbackOverviewData getFeedbackOverview() throws DataAccessException;
+	
 
 	public final String GET_FEEDBACK_BY_RESULT_ID = "SELECT e "
 			+ "FROM FeedbackEntity e "

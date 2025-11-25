@@ -26,69 +26,90 @@
             </div>
          </nav>
          <hr>
-         <div class="content">
+         <div class="content" th:object="${feedbackDto}">
             <!-- Overview Section -->
             <div class="overview">
                <h2 class="title">FEEDBACK OVERVIEW</h2>
                <span class="subtitle">A quick summary of all feedback</span>
                <div class="stats">
-   <div class="stat-card">
-      <div class="icon total">
-         <i class="fas fa-comments"></i>
-      </div>
-      <p class="label">TOTAL FEEDBACK</p>
-      <p class="value">0</p>
-   </div>
-
-   <div class="stat-card rating-5">
-      <div class="icon star">
-         <i class="fas fa-star"></i>
-      </div>
-      <p class="label">5 STAR</p>
-      <p class="value">0</p>
-   </div>
-
-   <div class="stat-card rating-4">
-      <div class="icon star">
-         <i class="fas fa-star"></i>
-      </div>
-      <p class="label">4 STAR</p>
-      <p class="value">0</p>
-   </div>
-
-   <div class="stat-card rating-3">
-      <div class="icon star">
-         <i class="fas fa-star"></i>
-      </div>
-      <p class="label">3 STAR</p>
-      <p class="value">0</p>
-   </div>
-
-   <div class="stat-card rating-2">
-      <div class="icon star">
-         <i class="fas fa-star"></i>
-      </div>
-      <p class="label">2 STAR</p>
-      <p class="value">0</p>
-   </div>
-
-   <div class="stat-card rating-1">
-      <div class="icon star">
-         <i class="fas fa-star"></i>
-      </div>
-      <p class="label">1 STAR</p>
-      <p class="value">0</p>
-   </div>
-</div>
-
+                  <!-- TOTAL FEEDBACK -->
+                  <div class="stat-card">
+                     <div class="icon total">
+                        <i class="fas fa-comments"></i>
+                     </div>
+                     <p class="label">TOTAL FEEDBACK</p>
+                     <p class="value" th:text="*{overview.totalFeedback}">0</p>
+                  </div>
+                  <!-- 5 STAR -->
+                  <div class="stat-card rating-5">
+                     <div class="icon star">
+                        <i class="fas fa-star"></i>
+                     </div>
+                     <p class="label">5 STAR</p>
+                     <p class="value" th:text="*{overview.total5StarRating}">0</p>
+                  </div>
+                  <!-- 4 STAR -->
+                  <div class="stat-card rating-4">
+                     <div class="icon star">
+                        <i class="fas fa-star"></i>
+                     </div>
+                     <p class="label">4 STAR</p>
+                     <p class="value" th:text="*{overview.total4StarRating}">0</p>
+                  </div>
+                  <!-- 3 STAR -->
+                  <div class="stat-card rating-3">
+                     <div class="icon star">
+                        <i class="fas fa-star"></i>
+                     </div>
+                     <p class="label">3 STAR</p>
+                     <p class="value" th:text="*{overview.total3StarRating}">0</p>
+                  </div>
+                  <!-- 2 STAR -->
+                  <div class="stat-card rating-2">
+                     <div class="icon star">
+                        <i class="fas fa-star"></i>
+                     </div>
+                     <p class="label">2 STAR</p>
+                     <p class="value" th:text="*{overview.total2StarRating}">0</p>
+                  </div>
+                  <!-- 1 STAR -->
+                  <div class="stat-card rating-1">
+                     <div class="icon star">
+                        <i class="fas fa-star"></i>
+                     </div>
+                     <p class="label">1 STAR</p>
+                     <p class="value" th:text="*{overview.total1StarRating}">0</p>
+                  </div>
+                  <!-- POSITIVE (3, 4, 5) -->
+                  <div class="stat-card positive">
+                     <div class="icon good">
+                        <i class="fas fa-thumbs-up"></i>
+                     </div>
+                     <p class="label">POSITIVE</p>
+                     <p class="value"
+                        th:text="*{overview.total3StarRating + overview.total4StarRating + overview.total5StarRating}">
+                        0
+                     </p>
+                  </div>
+                  <!-- NEGATIVE (1, 2) -->
+                  <div class="stat-card negative">
+                     <div class="icon bad">
+                        <i class="fas fa-thumbs-down"></i>
+                     </div>
+                     <p class="label">NEGATIVE</p>
+                     <p class="value"
+                        th:text="*{overview.total1StarRating + overview.total2StarRating}">
+                        0
+                     </p>
+                  </div>
+               </div>
             </div>
             <div class="data-section">
                <!-- Top Controls -->
                <div class="data-controls">
                   <button type="button" class="btn btn-primary transitioning" >
-				    <i class="fa-solid fa-file-export"></i> EXPORT
-				</button>
-
+                  <i class="fa-solid fa-file-export"></i> EXPORT
+                  </button>
                   <div class="actions">
                      <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
                      <div class="search-box">
@@ -101,14 +122,13 @@
                <div class="data-table">
                   <table>
                      <thead>
-					    <tr>
-					       <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
-					       <th scope="col"><i class="fa-solid fa-user"></i> USER</th>
-					       <th scope="col"><i class="fa-solid fa-star"></i> RATINGS</th>
-					       <th scope="col"><i class="fa-solid fa-comment-dots"></i> FEEDBACK</th>
-					    </tr>
-					</thead>
-
+                        <tr>
+                           <th scope="col"><i class="fa-solid fa-hashtag"></i> ID</th>
+                           <th scope="col"><i class="fa-solid fa-user"></i> USER</th>
+                           <th scope="col"><i class="fa-solid fa-star"></i> RATINGS</th>
+                           <th scope="col"><i class="fa-solid fa-comment-dots"></i> FEEDBACK</th>
+                        </tr>
+                     </thead>
                      <tbody id="table-body">		       
                      </tbody>
                   </table>
