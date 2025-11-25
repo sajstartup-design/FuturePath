@@ -106,7 +106,7 @@
                <button class="transitioning" onclick="window.location.href='/assessment'">Retake Assessment</button>
                <button id="downloadSummaryBtn" type="button">Download Result (PDF)</button>
                <button class="transitioning" onclick="window.location.href='/dashboard'">Go to Dashboard</button>
-               <button th:if="*{feedback == null}" id="feedbackModalBtn" data-bs-toggle="modal" data-bs-target="#feedbackModal" type="button">Give Feedback</button>
+               <button th:if="*{feedback == null AND owner}" id="feedbackModalBtn" data-bs-toggle="modal" data-bs-target="#feedbackModal" type="button">Give Feedback</button>
                <button th:if="*{feedback != null}" id="viewFeedbackBtn" type="button">View Feedback</button>
             </div>
             <div class="feedback-result hidden" th:if="*{feedback != null}">
@@ -155,7 +155,7 @@
             </div>
          </div>
          <!-- FEEDBACK / RATING MODAL -->
-         <div id="feedbackModal" class="modal-overlay hidden" th:if="*{feedback == null}">
+         <div id="feedbackModal" class="modal-overlay hidden" th:if="*{feedback == null AND owner}">
             <div class="modal-box">
                <h3 class="modal-title">
                   <i class="fa-solid fa-star"></i> GIVE FEEDBACK

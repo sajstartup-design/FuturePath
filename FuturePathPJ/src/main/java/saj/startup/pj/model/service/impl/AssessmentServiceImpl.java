@@ -132,7 +132,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    AssessmentDto outDto = new AssessmentDto();
 
-	    System.out.println("Result Id: " + inDto.getResultIdPk());
+	    UserEntity user = userService.getUserActive();
 
 	    Map<String, RecommendationObj> correctCountMap = new HashMap<>();
 	    Map<String, Integer> totalQuestionPerCode = new HashMap<>();
@@ -183,6 +183,10 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    FeedbackEntity feedback = feedbackLogic.getFeedbackByResultId(inDto.getResultIdPk());
 	    
 	    outDto.setFeedback(feedback);
+	    
+	    if(user.getIdPk() == result.getUserIdPk()) {
+	    	outDto.setOwner(true);
+	    }
 	    
 	    outDto.setResultIdPk(inDto.getResultIdPk());
 	    outDto.setTotalCorrect(result.getCorrect());

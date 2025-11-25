@@ -87,5 +87,7 @@ public class AssessmentDto {
 	private boolean fromRiasec;
 	
 	private FeedbackEntity feedback;
+	
+	private boolean owner;
 
 }
