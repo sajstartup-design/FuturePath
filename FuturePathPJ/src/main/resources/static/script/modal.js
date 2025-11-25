@@ -1,8 +1,11 @@
+updateModalButtons();
+
 function updateModalButtons() {
 
     // OPEN MODAL + FILL DATA
     document.addEventListener("click", function (e) {
         const button = e.target.closest("[data-bs-toggle='modal']");
+		console.log(button);
         if (!button) return;
 
         const target = button.getAttribute("data-bs-target");
@@ -37,6 +40,11 @@ function updateModalButtons() {
 				document.getElementById("confirmDeleteBtn")
 				    .setAttribute("data-id", button.getAttribute("data-id"));
 
+			}
+			
+			if(modal.id === 'feedbackModal'){
+				
+				console.log("FEEDBCK");
 			}
         }
     });

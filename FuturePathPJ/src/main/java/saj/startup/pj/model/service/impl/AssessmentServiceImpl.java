@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import saj.startup.pj.common.CommonConstant;
 import saj.startup.pj.model.dao.entity.AssessmentCheckerData;
 import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
+import saj.startup.pj.model.dao.entity.FeedbackEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
@@ -29,6 +30,7 @@ import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
 import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 import saj.startup.pj.model.dto.AssessmentDto;
 import saj.startup.pj.model.logic.AnswerLogic;
+import saj.startup.pj.model.logic.FeedbackLogic;
 import saj.startup.pj.model.logic.HistoryLogic;
 import saj.startup.pj.model.logic.QuestionLogic;
 import saj.startup.pj.model.logic.UniversityLogic;
@@ -50,6 +52,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 	
 	@Autowired
 	private UniversityLogic universityLogic;
+	
+	@Autowired
+	private FeedbackLogic feedbackLogic;
 	
 	@Override
 	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception {
@@ -174,7 +179,11 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    List<UniversityRecommendationData> universities = universityLogic.getUniversityRecommendation(top3Codes);
 	    
 	    outDto.setUniversities(universities);
-
+	    
+	    FeedbackEntity feedback = feedbackLogic.getFeedbackByResultId(inDto.getResultIdPk());
+	    
+	    outDto.setFeedback(feedback);
+	    
 	    outDto.setResultIdPk(inDto.getResultIdPk());
 	    outDto.setTotalCorrect(result.getCorrect());
 	    outDto.setTotalIncorrect(result.getIncorrect());

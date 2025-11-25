@@ -27,4 +27,7 @@ public class MessageConstant {
 
 	
 	public static final String SOMETHING_WENT_WRONG = "Something went wrong";
+	
+    public static final String FEEDBACK_SUBMITTED = "Thank you for giving your feedback!";
+
 }

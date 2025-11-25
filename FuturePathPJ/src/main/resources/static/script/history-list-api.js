@@ -106,7 +106,7 @@ async function loadHistory(page = 0,
 				<td>${assessment.score}%</td>
 				<td>${formattedDate}</td>
 				<td class="actions-cell">
-			        <a href="/assessment/result/view?resultIdPk=${assessment.resultIdPk}" class="btn btn-icon view"><i class="fa-solid fa-eye"></i></a>
+			        <a href="/assessment/result/view?resultIdPk=${assessment.resultIdPk}" class="transitioning btn btn-icon view"><i class="fa-solid fa-eye"></i></a>
 			    </td>
             `;
 
@@ -114,6 +114,8 @@ async function loadHistory(page = 0,
         });
 
         tableBody.appendChild(fragment);
+		
+		addLoadingListener();
 		
 		removeLoadingScreenBody();
 

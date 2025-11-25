@@ -76,6 +76,8 @@ public class SecurityConfig {
 						.requestMatchers("/history/**").hasAuthority(CommonConstant.ROLE_USER) 
 						
 						.requestMatchers("/api/**").hasAnyAuthority(CommonConstant.ROLE_USER)
+						
+						.requestMatchers("/feedback/**").authenticated()
 						)
 				.formLogin((form) -> form
 						.loginPage("/login")

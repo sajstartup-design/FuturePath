@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.Data;
+import saj.startup.pj.model.dao.entity.FeedbackEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
@@ -84,5 +85,7 @@ public class AssessmentDto {
     private List<Integer> riasecCodes;
     
 	private boolean fromRiasec;
+	
+	private FeedbackEntity feedback;
 
 }
