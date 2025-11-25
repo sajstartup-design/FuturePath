@@ -92,7 +92,7 @@ async function loadUsers(page = 0,
 			row.setAttribute('data-id', feedback.resultIdPk);
 		
 			row.innerHTML = `
-			    <td>${feedback.resultIdPk}</td>
+			    <td><i class="fa-solid fa-hashtag">${feedback.resultIdPk}</td>
 
 			    <td>${feedback.firstName} ${feedback.lastName} (@${feedback.username})</td>
 
