@@ -4,10 +4,11 @@ import java.util.Map;
 
 public class CommonConstant {
 
-	public static final int USER_MAX_DISPLAY = 10;
-	public static final int STRANDEGREE_MAX_DISPLAY = 10;
-	public static final int UNIVERSITY_MAX_DISPLAY = 10;
-	public static final int QUESTION_MAX_DISPLAY = 10;
+	public static final int USER_MAX_DISPLAY = 25;
+	public static final int STRANDEGREE_MAX_DISPLAY = 25;
+	public static final int UNIVERSITY_MAX_DISPLAY = 25;
+	public static final int QUESTION_MAX_DISPLAY = 25;
+	public static final int FEEDBACK_MAX_DISPLAY = 50;
 	
 	public static final int RECENT_MAX_DISPLAY = 5;
 	

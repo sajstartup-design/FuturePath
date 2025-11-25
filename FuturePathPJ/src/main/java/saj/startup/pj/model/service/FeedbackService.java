@@ -8,4 +8,6 @@ import saj.startup.pj.model.dto.FeedbackDto;
 public interface FeedbackService {
 	
 	public void saveFeedback(FeedbackDto inDto) throws Exception;
+	
+	public FeedbackDto getAllFeedbacks(FeedbackDto inDto) throws Exception;
 }

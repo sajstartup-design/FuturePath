@@ -1481,3 +1481,69 @@ td:last-child {
     to   { transform: scale(1); opacity: 1; }
 }
 
+.rating-cell .rating-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+}
+
+/* 5 STAR = GREEN */
+.rating-5 .rating-badge {
+    background: #28a745;
+}
+
+/* 4 STAR = BLUE */
+.rating-4 .rating-badge {
+    background: #007bff;
+}
+
+/* 3 STAR = ORANGE */
+.rating-3 .rating-badge {
+    background: #fd7e14;
+}
+
+/* 2 STAR = RED-ORANGE */
+.rating-2 .rating-badge {
+    background: #dc3545;
+}
+
+/* 1 STAR = DARK RED */
+.rating-1 .rating-badge {
+    background: #8b0000;
+}
+
+/* Make star icons larger + bold */
+.stat-card .icon.star i {
+    font-size: 1.4rem;
+}
+
+/* 5 STAR = GREEN */
+.rating-5 .icon.star i {
+    color: #28a745;
+}
+
+/* 4 STAR = BLUE */
+.rating-4 .icon.star i {
+    color: #007bff;
+}
+
+/* 3 STAR = ORANGE */
+.rating-3 .icon.star i {
+    color: #fd7e14;
+}
+
+/* 2 STAR = RED-ORANGE */
+.rating-2 .icon.star i {
+    color: #dc3545;
+}
+
+/* 1 STAR = DARK RED */
+.rating-1 .icon.star i {
+    color: #8b0000;
+}
+

@@ -1,9 +1,12 @@
 package saj.startup.pj.model.logic.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.FeedbackDao;
+import saj.startup.pj.model.dao.entity.FeedbackData;
 import saj.startup.pj.model.dao.entity.FeedbackEntity;
 import saj.startup.pj.model.logic.FeedbackLogic;
 
@@ -23,6 +26,12 @@ public class FeedbackLogicImpl implements FeedbackLogic{
 	public FeedbackEntity getFeedbackByResultId(int resultIdPk) {
 	
 		return feedbackDao.getFeedbackByResultId(resultIdPk);
+	}
+
+	@Override
+	public Page<FeedbackData> getAllFeedbacks(Pageable pageable, String search) {
+		
+		return feedbackDao.getAllFeedbacks(pageable, search);
 	}
 
 }

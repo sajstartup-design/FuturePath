@@ -50,13 +50,13 @@
                   th:classappend="${page == 'user'} ? ' active'">
                <i class="fas fa-user icon-btn"></i> USER
                </a>
-               <p class="menu-title">REVIEWS</p>
-				<a th:href="@{/admin/user}" 
-				   th:classappend="${page == 'review'} ? ' active'">
-				   <i class="fas fa-star icon-btn"></i> REVIEW
+               <p class="menu-title">FEEDBACK</p>
+				<a th:href="@{/admin/feedback}" 
+				   th:classappend="${page == 'feedback'} ? ' active'">
+				   <i class="fas fa-star icon-btn"></i> FEEDBACK
 				</a>
                <p class="menu-title">NOTIFICATION</p>
-               <a th:href="@{/admin/review}" 
+               <a th:href="@{/admin/notifications}" 
 				   th:classappend="${page == 'notifications'} ? ' active'" 
 				   class="underconstruction-link">
 				    <i class="fas fa-user icon-btn"></i> PUSH NOTIFICATION
