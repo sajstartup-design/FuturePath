@@ -31,6 +31,7 @@
 		<div class="content">
 			<form class="form" th:action="@{/profile/save}" method="POST" th:object="${userDto}" >
 				<input type="hidden" name="idPk" th:value="*{idPk}" />
+				<input type="hidden" name="role" th:value="*{user.role}" />
 				<!-- First & Last Name -->
 				<div class="field-group">
 					<div class="field">
@@ -109,7 +110,7 @@
 
 				<!-- Buttons -->
 				<div class="btn-group">
-					<a th:href="@{/admin/user}" class="btn btn-secondary transitioning">
+					<a th:href="@{/dashboard}" class="btn btn-secondary transitioning">
 						<i class="fas fa-times"></i> CANCEL
 					</a>
 					<button type="submit" class="btn btn-primary transitioning">

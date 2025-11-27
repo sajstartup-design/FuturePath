@@ -27,6 +27,8 @@ public class UserDto {
 	
 	private String password;
 	
+	private String role;
+	
 	private UserOverviewData overview;
 	
 	private List<UserObj> users;

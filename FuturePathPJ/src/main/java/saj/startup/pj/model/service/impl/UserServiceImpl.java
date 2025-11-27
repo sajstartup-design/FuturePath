@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
 		newUser.setIsActive(true);
 		newUser.setIsDeleted(false);
 		newUser.setCreatedAt(timeNow);
-		newUser.setRole(CommonConstant.ROLE_USER);
+		newUser.setRole(inDto.getRole());
 		
 		userLogic.saveUser(newUser);
 	}
@@ -147,6 +147,7 @@ public class UserServiceImpl implements UserService{
 	    obj.setPhone(user.getPhone());
 	    obj.setGender(user.getGender());
 	    obj.setUsername(user.getUsername());
+	    obj.setRole(user.getRole());
 		
 		outDto.setUser(obj);	
 		
@@ -168,6 +169,7 @@ public class UserServiceImpl implements UserService{
 		existing.setPhone(inDto.getPhone());
 		existing.setGender(inDto.getGender());
 		existing.setUsername(inDto.getUsername());
+		existing.setRole(inDto.getRole());
 		
 		if(inDto.getPassword() != null && !inDto.getPassword().isEmpty()) {
 			existing.setPassword(encoder.encode(inDto.getPassword()));

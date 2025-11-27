@@ -21,6 +21,8 @@ public class UserObj {
 	
 	private String username;
 	
+	private String role;
+	
 	private Boolean isActive;
 	
 	private Timestamp createdAt;
