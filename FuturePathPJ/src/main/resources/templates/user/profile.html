@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FuturePath | User</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/user-add.css}" />
+<link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+</head>
+<body>
+	<nav th:replace="~{sidebar :: sidebar}"></nav>
+	<main>
+		<th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
+		<nav th:replace="~{header :: header}"></nav>
+		<hr>
+		<nav class="sub-header">
+			<div>
+			 <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+			  <span class="crumb active">PROFILE</span>
+          </div>
+		</nav>
+		<hr>
+		<div class="content">
+			<form class="form" th:action="@{/profile/save}" method="POST" th:object="${userDto}" >
+				<input type="hidden" name="idPk" th:value="*{idPk}" />
+				<!-- First & Last Name -->
+				<div class="field-group">
+					<div class="field">
+					    <label>FIRST NAME</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-user"></i>
+					      <input class="required" type="text" placeholder="Enter first name" name="firstName" th:value="*{user.firstName}"/>
+					    </div>
+					  </div>
+					  <div class="field">
+					    <label>LAST NAME</label>
+					    <div class="input-wrapper">
+					      <i class="fas fa-user"></i>
+					      <input class="required" type="text" placeholder="Enter last name" name="lastName" th:value="*{user.lastName}"/>
+					    </div>
+					  </div>
+				</div>
+
+				<!-- Email & Phone -->
+				<div class="field-group">
+					<div class="field">
+					    <label>EMAIL ADDRESS</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-envelope"></i>
+					      <input class="required" type="email" placeholder="Enter email address" name="email" th:value="*{user.email}"/>
+					    </div>
+					  </div>
+					  <div class="field">
+					    <label>PHONE NUMBER</label>
+					    <div class="input-wrapper">
+					      <i class="fas fa-phone"></i>
+					      <input class="required" type="text" placeholder="Enter phone number" name="phone" th:value="*{user.phone}"/>
+					    </div>
+			  		</div>
+				</div>
+				
+				<div class="field-group">
+					<div class="field">
+					    <label>GENDER</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-venus-mars"></i>
+					      <select name="gender" class="required dropdown">
+					      	<option>Select Gender...</option>
+					      	<option th:selected="*{user.gender == 'Male'}">Male</option>
+					      	<option th:selected="*{user.gender == 'Female'}">Female</option>
+					      	<option th:selected="*{user.gender == 'Other'}">Other</option>
+					      </select>
+					    </div>
+					  </div>
+				</div>
+				
+
+				<!-- Username -->
+				<div class="field-group">
+					<div class="field">
+					    <label>USERNAME</label>  
+					    <div class="input-wrapper">
+					      <i class="fas fa-id-badge"></i> 
+					      <input class="required" type="text" placeholder="Enter username" name="username" th:value="*{user.username}"/>
+					    </div>
+					  </div>
+				</div>
+
+				<!-- Passwords -->
+				<div class="field-group">
+					<div class="field">
+					    <label>PASSWORD</label>  
+					    <div class="input-wrapper">
+				        <i class="fas fa-lock"></i>
+				      <input type="password" placeholder="Enter password" name="password"/>
+				    </div>
+				  </div>
+		  		</div>
+
+				<hr>
+
+				<!-- Buttons -->
+				<div class="btn-group">
+					<a th:href="@{/admin/user}" class="btn btn-secondary transitioning">
+						<i class="fas fa-times"></i> CANCEL
+					</a>
+					<button type="submit" class="btn btn-primary transitioning">
+						<i class="fas fa-save"></i> UPDATE
+					</button>
+				</div>
+			</form>			
+		</div>
+		<nav class="footer">
+			<div>
+				<span>All rights reserved by FuturePath</span>
+			</div>
+			<div class="terms">
+				<span>Terms of Use</span>
+				<span>Privacy Policy</span>
+				<span>Contact us</span>
+			</div>
+		</nav>
+		<!-- Unfilled Fields Modal -->
+         <div id="unfilledModal" class="themed-modal-overlay">
+            <div class="themed-modal-box">
+               <h3>Missing Information</h3>
+               <p>Please fill out all required fields before updating the user.</p>
+               <div class="themed-modal-actions">
+                  <button class="modal-btn" onclick="closeUnfilledModal()">OK</button>
+               </div>
+            </div>
+         </div>
+	</main>
+	<script th:src="@{/script/loading.js}"></script>
+	<script th:src="@{/script/dropdown.js}"></script>
+	<script>
+         function openUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "flex";
+         }
+         
+         function closeUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "none";
+         }
+         
+         document.addEventListener("DOMContentLoaded", () => {
+             const form = document.querySelector(".form");
+         
+             form.addEventListener("submit", function(e) {
+                 let emptyFound = false;
+         
+                 // Only check text inputs inside .field
+                 form.querySelectorAll(".required").forEach(input => {
+                     if (!input.value.trim()) emptyFound = true;
+                 });
+         
+                 // Check underlying selects (custom dropdown)
+                 form.querySelectorAll("required").forEach(select => {
+                     console.log(select.value);
+                     if (!select.value) emptyFound = true;  // works with placeholder value=""
+                 });
+         
+                 if (emptyFound) {
+                     e.preventDefault();
+                     openUnfilledModal();
+                     removeLoadingScreenBody();
+                 }
+             });
+         });
+         
+         
+      </script>
+</body>
+</html>

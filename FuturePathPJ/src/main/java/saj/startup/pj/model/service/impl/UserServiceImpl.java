@@ -168,7 +168,10 @@ public class UserServiceImpl implements UserService{
 		existing.setPhone(inDto.getPhone());
 		existing.setGender(inDto.getGender());
 		existing.setUsername(inDto.getUsername());
-		existing.setPassword(encoder.encode(inDto.getPassword()));
+		
+		if(inDto.getPassword() != null && !inDto.getPassword().isEmpty()) {
+			existing.setPassword(encoder.encode(inDto.getPassword()));
+		}
 		
 		userLogic.saveUser(existing);		
 		

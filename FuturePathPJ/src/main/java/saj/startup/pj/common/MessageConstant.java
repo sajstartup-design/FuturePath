@@ -6,6 +6,8 @@ public class MessageConstant {
 	public static final String USER_EDITED = "A user has been edited";
 	public static final String USER_DELETED = "A user has been deleted";
 	
+	public static final String PROFILE_UPDATED = "Profile has been successfully updated";
+	
 	public static final String DEGREE_ADDED = "A new degree has been added";
 	public static final String STRAND_ADDED = "A new strand has been added";
 	public static final String DEGREE_EDITED = "A degree has been edited";
