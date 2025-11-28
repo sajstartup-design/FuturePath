@@ -34,7 +34,13 @@ public class UserServiceImpl implements UserService{
 	private PasswordEncoder encoder;
 
 	@Override
-	public void saveUser(UserDto inDto) throws Exception {
+	public boolean saveUser(UserDto inDto) throws Exception {
+		
+		UserEntity existingUser = userLogic.getUserByUsername(inDto.getUsername());
+		
+		if(existingUser != null) {
+			return false;
+		}
 		
 		Timestamp timeNow = new Timestamp(System.currentTimeMillis());
 		
@@ -53,6 +59,8 @@ public class UserServiceImpl implements UserService{
 		newUser.setRole(inDto.getRole());
 		
 		userLogic.saveUser(newUser);
+		
+		return true;
 	}
 	
 	@Override

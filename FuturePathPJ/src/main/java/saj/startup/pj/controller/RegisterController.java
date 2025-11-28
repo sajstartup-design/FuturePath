@@ -31,7 +31,13 @@ public class RegisterController {
 		
 		try {
 			
-			userService.saveUser(webDto);
+			boolean result = userService.saveUser(webDto);
+			
+			if(!result) {
+				ra.addFlashAttribute("isError", true);
+				ra.addFlashAttribute("userDto", webDto);
+				return "redirect:/register";
+			}
 			
 			ra.addFlashAttribute("isSuccess", true);
 			ra.addFlashAttribute("successMsg", MessageConstant.REGISTER_SUCCESS);

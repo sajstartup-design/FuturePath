@@ -8,7 +8,7 @@ import saj.startup.pj.model.dto.UserDto;
 @Service
 public interface UserService {
 
-	public void saveUser(UserDto inDto) throws Exception;
+	public boolean saveUser(UserDto inDto) throws Exception;
 	
 	public UserDto getUserOverview() throws Exception;
 	

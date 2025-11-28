@@ -140,6 +140,15 @@
                </div>
             </div>
          </div>
+         <div id="inUseModal" class="themed-modal-overlay" style="display: flex;" th:if="${isError}">
+		    <div class="themed-modal-box">
+		        <h3>Username Already Exists</h3>
+		        <p>The username you entered is already in use. Please choose a different username.</p>
+		        <div class="themed-modal-actions">
+		            <button class="modal-btn" onclick="closeInUseModal()">OK</button>
+		        </div>
+		    </div>
+		</div>
   </main> 
   <script th:src="@{/script/loading.js}"></script>
   <script th:src="@{/script/dropdown.js}"></script>
@@ -150,6 +159,9 @@
          
          function closeUnfilledModal() {
              document.getElementById("unfilledModal").style.display = "none";
+         }
+         function closeInUseModal() {
+             document.getElementById("inUseModal").style.display = "none";
          }
          
          document.addEventListener("DOMContentLoaded", () => {
