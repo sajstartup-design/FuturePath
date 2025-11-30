@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/question-add.css}" />
+      <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+	    <th:block th:if="${isSuccess}">
+		    <div th:replace="~{alert :: success}"></div>
+		</th:block>
+		<th:block th:if="${isError}">
+		    <div th:replace="~{alert :: error}"></div>
+		</th:block>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+          <div>
+          	  <span class="crumb">FuturePath</span>
+			  <i class="fa-solid fa-chevron-right separator"></i>
+    	      <span class="crumb active">PUSH NOTIFICATION</span>
+          </div>
+		</nav>
+         <hr>
+         <div class="content">
+            <form class="form" th:action="@{/admin/push-notification}" method="POST" th:object="${notificationDto}">
+               <div class="field-group">
+                  <div class="field">
+                     <label>USERS</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <select name="userIdPk" class="required dropdown">
+                           <option value="0">ALL</option>
+                        </select>
+                     </div>
+                  </div>
+                  
+               </div>
+               <!-- Question -->
+               <div class="field-group">
+                  <div class="field">
+                     <label>MESSAGE</label>  
+                     <div class="input-wrapper">
+                        <i class="fas fa-question-circle"></i>
+                        <textarea name="message" placeholder="Enter your message" class="required"></textarea>
+                     </div>
+                  </div>
+               </div>
+               <hr>
+               <!-- Buttons -->
+               <div class="btn-group">
+                  <a th:href="@{/admin/dashboard}" class="btn btn-secondary transitioning">
+                  <i class="fas fa-times"></i> CANCEL
+                  </a>
+                  <button type="submit" class="btn btn-primary transitioning">
+                  <i class="fas fa-save"></i> SAVE
+                  </button>
+               </div>
+            </form>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+         <!-- Unfilled Fields Modal -->
+         <div id="unfilledModal" class="themed-modal-overlay">
+            <div class="themed-modal-box">
+               <h3>Missing Information</h3>
+               <p>Please fill out all required fields before saving the question.</p>
+               <div class="themed-modal-actions">
+                  <button class="modal-btn" onclick="closeUnfilledModal()">OK</button>
+               </div>
+            </div>
+         </div>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+      <script>
+         function openUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "flex";
+         }
+         
+         function closeUnfilledModal() {
+             document.getElementById("unfilledModal").style.display = "none";
+         }
+         
+         document.addEventListener("DOMContentLoaded", () => {
+             const form = document.querySelector(".form");
+         
+             form.addEventListener("submit", function(e) {
+                 let emptyFound = false;
+         
+                 // Only check text inputs inside .field
+                 form.querySelectorAll(".required").forEach(input => {
+                     if (!input.value.trim()) emptyFound = true;
+                 });
+         
+                 // Check underlying selects (custom dropdown)
+                 form.querySelectorAll("required").forEach(select => {
+                     if (!select.value) emptyFound = true; 
+                 });
+                       
+                 if (emptyFound) {
+                     e.preventDefault();
+                     openUnfilledModal();
+                     removeLoadingScreenBody();
+                 }
+             });
+         });
+         
+         
+      </script>
+   </body>
+</html>

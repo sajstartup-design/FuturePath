@@ -19,12 +19,96 @@
          <!-- Right -->
          <div class="header-right">
             <!-- Flag -->
-            <img src="https://flagcdn.com/w20/ph.png" alt="PH" class="flag-icon" />
+            
             <!-- Notification + Mail buttons -->
-            <button><i class="fas fa-bell"></i></button>
-            <button><i class="fas fa-envelope"></i></button>
+            <!-- Notification Bell -->
+            <th:block sec:authorize="hasAuthority('USER')">
+				<img src="https://flagcdn.com/w20/ph.png" alt="PH" class="flag-icon" />
+				<div id="notificationWrapper" class="notif-wrapper">
+    <!-- Bell Button -->
+    <button id="notificationBtn" class="notif-bell-btn bell-btn">
+        <i class="fas fa-bell"></i>
+        <span id="notificationBadge" class="notif-badge"></span>
+    </button>
+
+    <!-- Dropdown -->
+    <div id="notificationDropdown" class="notif-dropdown">
+        <!-- Header -->
+        <div class="notif-dropdown-header">
+            Notifications
+        </div>
+
+        <!-- Notification items -->
+        <div class="notif-dropdown-items" id="notifDropdownItems">
+            <!-- notifications will be injected here -->
+        </div>
+    </div>
+
+
+			<script>
+			async function loadNotification() {
+			    try {
+			        const url = `/api/notification`;
+			        const response = await fetch(url);
+			        const data = await response.json();
+			
+			        console.log(data);
+			
+			        const dropdownContainer = document.getElementById("notifDropdownItems");
+			        dropdownContainer.innerHTML = ""; // clear existing items
+			
+			        if (data.notifications && data.notifications.length > 0) {
+			            data.notifications.forEach(notification => {
+			                const item = document.createElement("div");
+			                item.className = "notif-dropdown-item";
+			                
+			                item.innerHTML = `
+			                    <span class="notif-item-message">${notification.message}</span>
+			                    <span class="notif-item-time">${notification.timeAgo}</span>
+			                `;
+			
+			                dropdownContainer.appendChild(item);
+			            });
+			        } else {
+			            const emptyItem = document.createElement("div");
+			            emptyItem.className = "notif-dropdown-item";
+			            emptyItem.innerHTML = `<span class="notif-item-message">No notifications</span>`;
+			            dropdownContainer.appendChild(emptyItem);
+			        }
+			
+			    } catch (error) {
+			        console.error("Error fetching notifications:", error);
+			    }
+			}
+			
+			// load notifications on page load
+			loadNotification();
+			</script>
+			<script>
+					const notificationBtn = document.getElementById('notificationBtn');
+				const notificationDropdown = document.getElementById('notificationDropdown');
+				const notificationWrapper = document.getElementById('notificationWrapper');
+				
+				notificationBtn.addEventListener('click', () => {
+				    notificationDropdown.classList.toggle('show');
+				});
+				
+				// Close dropdown when clicking outside
+				document.addEventListener('click', (event) => {
+				    if (!notificationWrapper.contains(event.target)) {
+				        notificationDropdown.classList.remove('show');
+				    }
+				});
+				
+				</script>
+		</th:block>
+    </div>
+
+
+
             <!-- Profile -->
             <div class="profile" id="profileBtn" sec:authorize="hasAuthority('ADMIN')">
+				
                <img class="single-pic" th:src="@{/images/letter-a.png}" alt="User" />
                <div class="profile-text">
                   <small>Welcome,</small>
@@ -112,6 +196,7 @@
                   </nav>
                </div>
             </div>
+            </div>
          </div>
          <script>
             const profile = document.getElementById('profile');
@@ -144,6 +229,7 @@
 
                 document.getElementById('headerTime').textContent = `${dateString} | ${timeString}`;
             }
+           
 
             // Update immediately
             updateHeaderTime();

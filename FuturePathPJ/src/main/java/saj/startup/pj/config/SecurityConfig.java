@@ -80,6 +80,7 @@ public class SecurityConfig {
 						.requestMatchers("/api/**").hasAnyAuthority(CommonConstant.ROLE_USER)
 						
 						.requestMatchers("/feedback/**").authenticated()
+						.requestMatchers("/notification/**").authenticated()
 						)
 				.formLogin((form) -> form
 						.loginPage("/login")

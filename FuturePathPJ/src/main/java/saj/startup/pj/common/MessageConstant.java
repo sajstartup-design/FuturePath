@@ -31,5 +31,8 @@ public class MessageConstant {
 	public static final String SOMETHING_WENT_WRONG = "Something went wrong";
 	
     public static final String FEEDBACK_SUBMITTED = "Thank you for giving your feedback!";
+    
+    public static final String PUSH_NOTIFICATION_SENT = "Push notification sent successfully!";
+
 
 }
