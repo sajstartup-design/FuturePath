@@ -51,9 +51,9 @@ function renderStrandegrees(list) {
             : ""
         }
       </div>
-      <button class="view-btn" data-id="${item.idPk}">
+      <a href="/strandegrees/details?idPk=${item.idPk}" class="view-btn" data-id="${item.idPk}">
         <i class="fa-solid fa-circle-info"></i> View Details
-      </button>
+      </a>
     `;
 
     fragment.appendChild(card);

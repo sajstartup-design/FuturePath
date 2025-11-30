@@ -195,4 +195,31 @@ public class StrandegreeController {
 		
 		return "strandegree/strandegree-list";
 	}
+	
+	@GetMapping("/strandegrees/details")
+	public String detailsStrandegreeTwo(@ModelAttribute StrandegreeDto webDto,
+			Model model,
+			RedirectAttributes ra) {
+		
+		try {
+			
+			StrandegreeDto outDto = strandegreeService.getStrandegree(webDto);
+			outDto.setIdPk(webDto.getIdPk());
+			
+			model.addAttribute("strandegreeDto", outDto);
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/strandegrees";
+		}
+			
+		model.addAttribute("page", "strandegrees");
+		
+		return "strandegree/strandegree-details-two";
+	}
 }

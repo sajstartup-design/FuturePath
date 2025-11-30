@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>FuturePath | Strand & Degree</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+      <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/strandegree-details-two.css}" />
+   </head>
+   <body>
+      <nav th:replace="~{sidebar :: sidebar}"></nav>
+      <main>
+         <nav th:replace="~{header :: header}"></nav>
+         <hr>
+         <nav class="sub-header">
+            <div>
+               <span class="crumb">FuturePath</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb">STRAND & DEGREE</span>
+               <i class="fa-solid fa-chevron-right separator"></i>
+               <span class="crumb active">DETAILS</span>
+            </div>
+         </nav>
+         <hr>
+         <div class="content" th:object="${strandegreeDto}">
+            <div class="university-details">
+               <!-- Header / Title -->
+               <div class="uni-top">
+                  <div class="uni-title">
+                     <h1 class="name" ></h1>
+                     <div class="meta">
+                        <span class="badge-type" th:text="*{strandegree.name}"></span>
+                     </div>
+                  </div>
+               </div>
+               <!-- Quick Stats -->
+               <div class="stat-grid">
+                  <div class="stat-card-large">
+				    <!-- For "Code", maybe a "barcode" or "qrcode" icon fits better -->
+				    <i class="fa-solid fa-qrcode stat-icon"></i>
+				    <div class="stat-title">Code</div>
+				    <div class="stat-value" th:text="*{strandegree.code}">-</div>
+				</div>
+				
+				<div class="stat-card-large">
+				    <!-- For "Duration", a "clock" icon makes more sense -->
+				    <i class="fa-solid fa-clock stat-icon"></i>
+				    <div class="stat-title">Duration</div>
+				    <div class="stat-value" th:text="|*{strandegree.duration} yrs|">-</div>
+				</div>
+
+               </div>
+               <section>
+                  <div class="stat-card-large">
+                     <i class="fa-solid fa-quote-left stat-icon"></i>
+                     <div class="stat-value" th:text="*{strandegree.details}">-</div>
+                  </div>
+               </section>                         
+            </div>
+         </div>
+         <nav class="footer">
+            <div>
+               <span>All rights reserved by FuturePath</span>
+            </div>
+            <div class="terms">
+               <span>Terms of Use</span>
+               <span>Privacy Policy</span>
+               <span>Contact us</span>
+            </div>
+         </nav>
+      </main>
+      <script th:src="@{/script/loading.js}"></script>
+      <script th:src="@{/script/dropdown.js}"></script>
+   </body>
+</html>
