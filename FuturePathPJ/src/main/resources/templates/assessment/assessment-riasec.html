@@ -679,6 +679,17 @@
             </div>
          </div>
       </div>
+      <div id="allDislikeModal" class="themed-modal-overlay">
+	    <div class="themed-modal-box">
+	        <h3>All Answers Are 0</h3>
+	        <p>You selected the lowest option on all questions.  
+	           Please review your responses before submitting.</p>
+	
+	        <div class="themed-modal-actions">
+	            <button class="modal-btn" onclick="closeAllDislikeModal()">OK</button>
+	        </div>
+	    </div>
+	</div>
    </body>
    <script th:src="@{/script/loading.js}"></script>
    <script th:inline="javascript">
@@ -818,32 +829,60 @@
           document.getElementById("conventional").value = totals.C;
       }
    </script>
-   <script>
-      // --- Modal controls ---
-      function openUnansweredModal() {
-          document.getElementById("unansweredModal").style.display = "flex";
-      }
-      function closeUnansweredModal() {
-          document.getElementById("unansweredModal").style.display = "none";
-      }
-      
-      // --- Listen for submit ---
-      document.addEventListener("DOMContentLoaded", () => {
-          const form = document.querySelector(".assessment-form");
-      
-          form.addEventListener("submit", function (e) {
-              const hiddenInputs = form.querySelectorAll("input[type='hidden'][id$='-value']");
-      
-              // Check if any question is unanswered
-              for (const input of hiddenInputs) {
-                  if (input.value === "" || input.value === null) {
-                      e.preventDefault();
-                      openUnansweredModal();
-                      removeLoadingScreenBody();
-                      return;
-                  }
-              }
-          });
-      });
-   </script>
+<script>
+	function openUnansweredModal() {
+    document.getElementById("unansweredModal").style.display = "flex";
+}
+function closeUnansweredModal() {
+    document.getElementById("unansweredModal").style.display = "none";
+}
+
+function openAllDislikeModal() {
+    document.getElementById("allDislikeModal").style.display = "flex";
+}
+function closeAllDislikeModal() {
+    document.getElementById("allDislikeModal").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".assessment-form");
+    const unansweredModal = document.getElementById("unansweredModal");
+    const allDislikeModal = document.getElementById("allDislikeModal");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+        const hiddenInputs = form.querySelectorAll("input[type='hidden'][id$='-value']");
+
+        let allZero = true;
+        let hasEmpty = false;
+
+        hiddenInputs.forEach(input => {
+            const val = input.value;
+            const num = Number(val);
+
+            if (val === "" || val === null) hasEmpty = true;
+            if (!Number.isFinite(num) || num !== 0) allZero = false;
+        });
+
+        // 1️⃣ All answers are 0 → priority
+        if (allZero && hiddenInputs.length > 0) { // make sure there are answers
+            e.preventDefault();
+            openAllDislikeModal();
+            try { removeLoadingScreenBody(); } catch(e){}
+            return;
+        }
+
+        // 2️⃣ Any unanswered
+        if (hasEmpty) {
+            e.preventDefault();
+            openUnansweredModal();
+            try { removeLoadingScreenBody(); } catch(e){}
+            return;
+        }
+
+        // 3️⃣ Otherwise, allow submit
+    });
+});
+</script>
 </html>
