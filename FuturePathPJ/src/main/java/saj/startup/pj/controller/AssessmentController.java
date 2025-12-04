@@ -111,9 +111,7 @@ public class AssessmentController {
 			}
 			
 			StrandegreeDto strandegreeOutDto = strandegreeService.getStrandegreesQuestionsOverview();
-			
-			System.out.println(strandegreeOutDto);
-			
+
 			model.addAttribute("strandegreeDto", strandegreeOutDto);
 			
 		}catch(Exception e) {

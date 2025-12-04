@@ -59,15 +59,15 @@
                </div>
                <th:block th:if="${config.defaultDegreeAvailability}">
                   <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="DEGREE-DEFAULT-MODE">
-                  Start Default Assessment
+                  Start Assessment
                   </button>
                </th:block>
                <th:block th:unless="${config.defaultDegreeAvailability}">
                   <button type="button" class="disabled-btn" disabled>
-                  Start Default Assessment
+                  Start Assessment
                   </button>
                </th:block>
-               <hr>
+               <!-- <hr>
                <h4>Custom Assessment</h4>
                <p>Select which degrees to include and how many questions to answer.</p>
                <div class="message">
@@ -97,7 +97,7 @@
                   <button type="button" class="disabled-btn" disabled>
                   Start Custom Assessment
                   </button>
-               </th:block>
+               </th:block> -->
             </div>
             <!-- CARD 3: Strand Assessment -->
             <div id="strandOptions" class="assessment-card">
@@ -109,15 +109,15 @@
                </div>
                <th:block th:if="${config.defaultStrandAvailability}">
                   <button type="submit" form="assessmentForm" class="transitioning" name="mode" value="STRAND-DEFAULT-MODE">
-                  Start Default Assessment
+                  Start Assessment
                   </button>
                </th:block>
                <th:block th:unless="${config.defaultStrandAvailability}">
                   <button type="button" class="disabled-btn" disabled>
-                  Start Default Assessment
+                  Start Assessment
                   </button>
                </th:block>
-               <hr>
+               <!-- <hr>
                <h4>Custom Strand Assessment</h4>
                <p>Select strands and question count for a personalized test.</p>
                <div class="message">
@@ -147,7 +147,7 @@
                   <button type="button" class="disabled-btn" disabled>
                   Start Custom Assessment
                   </button>
-               </th:block>
+               </th:block> -->
             </div>
          </div>
          <nav class="footer">
