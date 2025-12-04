@@ -12,6 +12,7 @@
    <body>
       <nav th:replace="~{sidebar :: sidebar}"></nav>
       <main>
+		  <section class="header-wrapper">
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
@@ -24,6 +25,7 @@
           </div>
          </nav>
          <hr>
+         </section>
          <div class="content">
             <form class="form" th:action="@{/admin/universities/edit}" method="POST" th:object="${universityDto}">
            	<input type="hidden" name="idPk" th:value="*{idPk}" /> 

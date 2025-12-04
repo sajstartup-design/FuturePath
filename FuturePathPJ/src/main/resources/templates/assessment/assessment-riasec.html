@@ -12,6 +12,7 @@
    <body>
       <nav th:replace="~{sidebar :: sidebar}"></nav>
       <main>
+		  <section class="header-wrapper">
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
@@ -24,6 +25,7 @@
             </div>
          </nav>
          <hr>
+         </section>
          <div class="content">
             <div class="assessment-container">
                <div class="question-nav">

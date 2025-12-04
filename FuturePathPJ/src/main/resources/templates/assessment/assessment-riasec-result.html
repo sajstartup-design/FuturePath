@@ -135,6 +135,7 @@
    <body>
       <nav th:replace="~{sidebar :: sidebar}"></nav>
       <main>
+		  <section class="header-wrapper">
          <nav th:replace="~{header :: header}"></nav>
          <hr>
          <nav class="sub-header">
@@ -147,6 +148,7 @@
             </div>
          </nav>
          <hr>
+         </section>
 <div class="content">
    <form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}">
       <input type="hidden" th:each="code : *{riasecCodes}"

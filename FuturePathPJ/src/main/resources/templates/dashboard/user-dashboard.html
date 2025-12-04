@@ -15,6 +15,7 @@
       <!-- Sidebar -->
       <nav th:replace="~{sidebar :: sidebar}"></nav>
       <main>
+		  <section class="header-wrapper">
          <!-- Header -->
          <nav th:replace="~{header :: header}"></nav>
          <hr>
@@ -26,6 +27,7 @@
             </div>
          </nav>
          <hr>
+         </section>
          <div class="content" th:object="${assessmentDto}">
             <div class="welcome-card">
                <div class="greeting">Welcome back, <strong th:text="${session.fullname}">User</strong> 👋</div>

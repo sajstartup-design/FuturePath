@@ -128,6 +128,7 @@ i{
   display: flex;
   flex-direction: column;
   gap: 1.5rem; /* spacing between overview and data section */
+  margin-top: 7.5rem;
   margin-bottom: 3rem;
 }
 
@@ -156,6 +157,19 @@ i{
   flex-wrap: wrap; /* allows cards to wrap on small screens */
 }
 
+.header-wrapper {
+    background: #1C2656;
+    border-radius: 1rem;
+    position: fixed;
+    top: 1rem;           /* ensures no overflow */
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    margin-right: 1rem;
+}
+
+
 /* Header Container */
 .header {
   background: #1C2656;
@@ -168,6 +182,7 @@ i{
   color: #fff;
   font-size: 0.9rem;
   border-radius: 1rem;
+  width: -webkit-fill-available;
 }
 
 /* Flex groups */

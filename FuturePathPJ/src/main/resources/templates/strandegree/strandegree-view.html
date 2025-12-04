@@ -17,6 +17,7 @@
 		<th:block th:if="${isError}">
 		    <div th:replace="~{alert :: error}"></div>
 		</th:block>
+		<section class="header-wrapper">
 		<nav th:replace="~{header :: header}"></nav>
 		<hr>
 		<nav class="sub-header">
@@ -27,6 +28,7 @@
           </div>
 		</nav>
 		<hr>	
+		</section>
 		<div class="content">
 			
 		  <!-- Overview Section -->

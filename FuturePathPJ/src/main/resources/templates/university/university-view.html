@@ -18,17 +18,21 @@
 		<th:block th:if="${isError}">
 		    <div th:replace="~{alert :: error}"></div>
 		</th:block>
-
-		<nav th:replace="~{header :: header}"></nav>
-		<hr>
-		<nav class="sub-header">
+		
+		<section class="header-wrapper">
+			<nav th:replace="~{header :: header}"></nav>
+			<hr>
+			<nav class="sub-header">
 			<div>
-          	  <span class="crumb">FuturePath</span>
-			  <i class="fa-solid fa-chevron-right separator"></i>
-    	      <span class="crumb active">UNIVERSITY</span>
-          </div>
-		</nav>
-		<hr>	
+	          	  <span class="crumb">FuturePath</span>
+				  <i class="fa-solid fa-chevron-right separator"></i>
+	    	      <span class="crumb active">UNIVERSITY</span>
+	          </div>
+			</nav>
+			<hr>	
+		</section>
+
+		
 		<div class="content">
 		
 		  <!-- Overview Section -->
