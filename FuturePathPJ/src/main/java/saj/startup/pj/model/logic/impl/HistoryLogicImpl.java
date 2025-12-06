@@ -9,11 +9,16 @@ import org.springframework.stereotype.Service;
 
 import saj.startup.pj.model.dao.AssessmentResultDao;
 import saj.startup.pj.model.dao.HistoryQuestionDao;
+import saj.startup.pj.model.dao.RiasecRecommendationDao;
+import saj.startup.pj.model.dao.RiasecResultDao;
 import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
+import saj.startup.pj.model.dao.entity.RiasecRecommendationEntity;
+import saj.startup.pj.model.dao.entity.RiasecResultEntity;
 import saj.startup.pj.model.dao.projection.AssessmentResultData;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
+import saj.startup.pj.model.dao.projection.RiasecResultData;
 import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 import saj.startup.pj.model.logic.HistoryLogic;
 
@@ -25,6 +30,12 @@ public class HistoryLogicImpl implements HistoryLogic {
 	
 	@Autowired
 	private AssessmentResultDao assessmentResultDao;
+	
+	@Autowired
+	private RiasecResultDao riasecResultDao;
+	
+	@Autowired
+	private RiasecRecommendationDao riasecRecommendationDao;
 	
 	@Override
 	public int saveAssessmentResult(AssessmentResultEntity entity) {
@@ -74,5 +85,42 @@ public class HistoryLogicImpl implements HistoryLogic {
 		return assessmentResultDao.getAssessmentStatisticsByUser(userIdPk);
 		
 	}
+
+	@Override
+	public void saveRiasecResult(RiasecResultEntity entity) {
+		
+		riasecResultDao.save(entity);
+	}
+
+	@Override
+	public RiasecResultEntity getRiasecResultById(int riasecIdPk) {
+		
+		return riasecResultDao.getRiasecResultById(riasecIdPk);
+	}
+
+	@Override
+	public RiasecRecommendationEntity getRiasecRecommendationByRiasecIdPk(int riasecIdPk) {
+		
+		return riasecRecommendationDao.getRiasecRecommendationByRiasecIdPk(riasecIdPk);
+	}
+
+	@Override
+	public void saveRiasecRecommendation(RiasecRecommendationEntity entity) {
+		
+		riasecRecommendationDao.save(entity);
+	}
+
+	@Override
+	public Page<RiasecResultData> getAllRiasecResultByUser(Pageable pageable, String search, int userIdPk) {
+		
+		return riasecResultDao.getAllRiasecResultByUser(pageable, search, userIdPk);
+	}
+
+	@Override
+	public Page<RiasecResultData> getAllRiasecResult(Pageable pageable, String search) {
+		
+		return riasecResultDao.getAllRiasecResult(pageable, search);
+	}
+
 
 }

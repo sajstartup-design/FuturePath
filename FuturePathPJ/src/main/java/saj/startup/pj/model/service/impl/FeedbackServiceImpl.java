@@ -29,7 +29,7 @@ public class FeedbackServiceImpl implements FeedbackService{
 		
 		FeedbackEntity newFeedback = new FeedbackEntity();
 		
-		newFeedback.setResultIdPk(inDto.getResultIdPk());
+		newFeedback.setResultIdPk(inDto.getRiasecIdPk());
 		newFeedback.setRatings(inDto.getRatings());
 		newFeedback.setFeedback(inDto.getFeedback());
 		

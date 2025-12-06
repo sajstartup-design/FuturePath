@@ -84,26 +84,22 @@ async function loadHistory(page = 0, search = "") {
             tableBody.innerHTML = '';
             const fragment = document.createDocumentFragment();
 
-            data.assessments.forEach(assessment => {
+            data.riasecResults.forEach(result => {
                 const row = document.createElement("tr");
                 row.classList.add("table-row");
-                row.setAttribute('data-id', assessment.resultIdPk);
+                row.setAttribute('data-id', result.riasecIdPk);
 				
-				const date = new Date(assessment.dateTaken);
+				const date = new Date(result.dateTaken);
 	            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
 	            const formattedDate = date.toLocaleDateString('en-US', options);
 
                 row.innerHTML = `
-                    <td>#${assessment.resultIdPk}</td>
-                    <td>${assessment.fullName}</td>
-					<td>${assessment.category}</td>
-                    <td>${assessment.totalCorrect}</td>
-                    <td>${assessment.totalIncorrect}</td>
-                    <td>${assessment.totalQuestion}</td>
-                    <td>${assessment.score}%</td>
+                    <td>#${result.riasecIdPk}</td>
+                    <td>${result.fullName}</td>
+					<td>${result.category}</td>
                     <td>${formattedDate}</td>
                     <td class="actions-cell">
-                        <a href="/assessment/result/view?resultIdPk=${assessment.resultIdPk}" class="btn btn-icon view">
+                        <a href="/assessment/riasec/result?riasecIdPk=${result.riasecIdPk}" class="btn btn-icon view">
                             <i class="fa-solid fa-eye"></i>
                         </a>
                     </td>
@@ -117,7 +113,7 @@ async function loadHistory(page = 0, search = "") {
         // Populate recent activities only once
 		// Populate recent activities only once
 		if (!recentPopulated) {
-		    recentAssessments = data.assessments.slice(0, 5);
+		    recentAssessments = data.riasecResults.slice(0, 5);
 		    const recentContainer = document.getElementById("recent-activities");
 		    if (recentContainer) {
 		        recentContainer.innerHTML = '';
@@ -135,8 +131,7 @@ async function loadHistory(page = 0, search = "") {
 		            div.innerHTML = `
 		                <span>
 		                    <strong>${assessment.fullName}</strong> has taken a 
-		                    <strong>${assessment.category}</strong> assessment and scored 
-		                    <strong>${assessment.score}%</strong> on ${formattedDate}.
+		                    <strong>${assessment.category}</strong> assessment on ${formattedDate}.
 		                </span>
 		            `;
 		            recentFragment.appendChild(div);

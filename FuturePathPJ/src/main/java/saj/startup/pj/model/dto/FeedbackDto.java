@@ -13,6 +13,8 @@ public class FeedbackDto {
 
 	private int resultIdPk;
 	
+	private int riasecIdPk;
+	
 	private int ratings;
 	
 	private String feedback;

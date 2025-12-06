@@ -5,19 +5,15 @@
       <title>FuturePath | RIASEC Result</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
       <link rel="stylesheet" th:href="@{/css/common.css}" />
+      <link rel="stylesheet" th:href="@{/css/assessment-result.css}" />
       <style>
-		 .content{
-			margin: 3rem auto 5rem auto;
-		 }      
-      	
+         .content{
+         margin: 7rem auto 5rem auto;
+         }      
          .content-result {
-         
-         
-
          padding: 2.5rem 3rem;
          border-radius: 1rem;
          color: white;
-         max-width: 700px;
          width: 100%;
          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
          border: 1px solid #3d4b8a;
@@ -132,102 +128,110 @@
          }
       </style>
    </head>
-   <body>
+   <body th:object="${assessmentDto}">
       <nav th:replace="~{sidebar :: sidebar}"></nav>
-      <main>
-		  <section class="header-wrapper">
-         <nav th:replace="~{header :: header}"></nav>
-         <hr>
-         <nav class="sub-header">
-            <div>
-               <span class="crumb">FuturePath</span>
-               <i class="fa-solid fa-chevron-right separator"></i>
-               <span class="crumb">ASSESSMENT</span>
-               <i class="fa-solid fa-chevron-right separator"></i>
-               <span class="crumb active">RESULT</span>
-            </div>
-         </nav>
-         <hr>
+      <main >
+         <section class="header-wrapper">
+            <nav th:replace="~{header :: header}"></nav>
+            <hr>
+            <nav class="sub-header">
+               <div>
+                  <span class="crumb">FuturePath</span>
+                  <i class="fa-solid fa-chevron-right separator"></i>
+                  <span class="crumb">ASSESSMENT</span>
+                  <i class="fa-solid fa-chevron-right separator"></i>
+                  <span class="crumb active">RESULT</span>
+               </div>
+            </nav>
+            <hr>
          </section>
-<div class="content">
-   <form th:action="@{/assessment}" method="POST" th:object="${assessmentDto}">
-      <input type="hidden" th:each="code : *{riasecCodes}"
-       name="riasecCodes"
-       th:value="${code}" />
-      <input type="hidden" name="mode" value="DEGREE-DEFAULT-MODE" />
-      <input type="hidden" name="fromRiasec" value="true" />
-      <div class="content-result">
-         	
-            <h1>🎯 Your Career Insights</h1>
-            <!-- Motivational subtitle -->
-            <h3 style="color: #ffffff; font-weight: 600; margin-bottom: 1.5rem;">
-               Discover the paths that suit your strengths and passions
-            </h3>
-            <!-- Result Message -->
-            <p class="result-message" th:utext="*{message}">
-               You enjoy working with your hands, building, and creating things.
-            </p>
-            <p class="example-fields">
-               <strong style="color:#ffffff; font-weight:700;">Potential Fields:</strong>
-               <span style="color:#00eaff; font-weight:600;" th:text="*{exampleFields}">
-               Engineering, Architecture, Mechanics
-               </span>
-            </p>
-            <div class="strength-scores">
-               <div class="score">
-                  <div class="score-name">Realistic</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" 
-                        th:style="'width:' + *{realisticPercentageStr} + '%;'" 
-                        th:text="*{realisticPercentageStr} + '%'">0%</div>
+         <div class="content">
+            <div>
+               <input type="hidden" th:each="code : *{riasecCodes}"
+                  name="riasecCodes"
+                  th:value="${code}" />
+               <input type="hidden" name="mode" value="DEGREE-DEFAULT-MODE" />
+               <input type="hidden" name="fromRiasec" value="true" />
+               <div class="content-result">
+                  <h1>🎯 Your Career Insights</h1>
+                  <!-- Motivational subtitle -->
+                  <h3 style="color: #ffffff; font-weight: 600; margin-bottom: 1.5rem;">
+                     Discover the paths that suit your strengths and passions
+                  </h3>
+                  <!-- Result Message -->
+                  <p class="result-message" th:utext="*{message}">
+                     You enjoy working with your hands, building, and creating things.
+                  </p>
+                  <div class="strength-scores">
+                     <div class="score">
+                        <div class="score-name" th:text="|*{countRecommendStrandegree} / *{countAllStrandegree} programs is suitable for you|"></div>
+                        <div class="score-bar">
+                           <div class="score-bar-fill" 
+                              th:style="'width:' + *{strandegreePercentageStr} + '%;'" 
+                              th:text="*{strandegreePercentageStr} + '%'">0%</div>
+                        </div>
+                     </div>
                   </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Investigative</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" 
-                        th:style="'width:' + *{investigativePercentageStr} + '%;'" 
-                        th:text="*{investigativePercentageStr} + '%'">0%</div>
+                  <section class="top-recommendations">
+                  <h3>🏆 Top 3 Recommended Fields</h3>
+                  <div class="top-list" th:if="*{degrees != null and !degrees.isEmpty()}">
+                     <div class="top-item" th:each="rec, stat : *{degrees}">
+                        <span class="rec-name" th:text="${rec}"></span>
+                     </div>
                   </div>
+                  <p th:unless="*{degrees != null and !degrees.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
+                     I'm sorry, you currently have no recommendations based on your answers.
+                  </p>
+               </section>
                </div>
-               <div class="score">
-                  <div class="score-name">Artistic</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" 
-                        th:style="'width:' + *{artisticPercentageStr} + '%;'" 
-                        th:text="*{artisticPercentageStr} + '%'">0%</div>
+               <div class="next-steps">
+                  <h3>Next Steps</h3>
+                  <button class="transitioning" onclick="window.location.href='/assessment'">Retake Assessment</button>
+                  <button id="downloadSummaryBtn" type="button">Download Result (PDF)</button>
+                  <button class="transitioning" onclick="window.location.href='/dashboard'">Go to Dashboard</button>
+                  <button th:if="*{feedback == null AND owner}" id="feedbackModalBtn" data-bs-toggle="modal" data-bs-target="#feedbackModal" type="button">Give Feedback</button>
+                  <button th:if="*{feedback != null}" id="viewFeedbackBtn" type="button">View Feedback</button>                
+               </div>
+               <div class="feedback-result hidden" th:if="*{feedback} != null">
+	          <h3>🎉 Thank you for your feedback!</h3>
+	          <div class="feedback-summary">
+	             <div class="feedback-rating" th:with="rating=*{feedback.ratings}">
+	                <strong>Rating:</strong>
+	                <span th:each="i : ${#numbers.sequence(1,5)}">
+	                <i class="fa-solid fa-star"
+	                   th:classappend="${i <= rating} ? 'text-yellow-400' : 'text-gray-300'"></i>
+	                </span>
+	             </div>
+	             <div class="feedback-text" style="margin-top:0.5rem;">
+	                <strong>Your Feedback:</strong>
+	                <p th:text="*{feedback.feedback}"></p>
+	             </div>
+	          </div>
+	          <script>
+	             document.addEventListener("DOMContentLoaded", function() {
+	                 const viewBtn = document.getElementById("viewFeedbackBtn");
+	                 const feedbackBox = document.querySelector(".feedback-result");
+	             
+	                 if (viewBtn && feedbackBox) {
+	                     viewBtn.addEventListener("click", () => {
+	                         feedbackBox.classList.remove("hidden"); // show feedback
+	                         viewBtn.style.display = "none";        // hide the button
+	                     });
+	                 }
+	             });
+	             
+	          </script>
+	       </div>
+               <div class="question-results">
+                  <h3>Question Breakdown</h3>
+                  <div class="question-card">
+                     <div class="message">
+                        1. I like to work on cars? <strong>DISLIKE</strong><br>
+                     </div>
                   </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Social</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" 
-                        th:style="'width:' + *{socialPercentageStr} + '%;'" 
-                        th:text="*{socialPercentageStr} + '%'">0%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Enterprising</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" 
-                        th:style="'width:' + *{enterprisingPercentageStr} + '%;'" 
-                        th:text="*{enterprisingPercentageStr} + '%'">0%</div>
-                  </div>
-               </div>
-               <div class="score">
-                  <div class="score-name">Conventional</div>
-                  <div class="score-bar">
-                     <div class="score-bar-fill" 
-                        th:style="'width:' + *{conventionalPercentageStr} + '%;'" 
-                        th:text="*{conventionalPercentageStr} + '%'">0%</div>
-                  </div>
-               </div>
+               </div>           
             </div>
-           <button type="submit" class="next-step transitioning">Proceed to Next Assessment →</button>
-
-              </div>
-   </form>
-</div>
+         </div>
          <nav class="footer">
             <div>
                <span>All rights reserved by FuturePath</span>
@@ -238,6 +242,75 @@
                <span>Contact us</span>
             </div>
          </nav>
+         
+         
+             
+         <!-- FEEDBACK / RATING MODAL -->
+         <div id="feedbackModal" class="modal-overlay hidden" >
+            <div class="modal-box">
+               <h3 class="modal-title">
+                  <i class="fa-solid fa-star"></i> GIVE FEEDBACK
+               </h3>
+               <!-- USER / ITEM HEADER -->
+               <div class="modal-user-header">
+                  <span id="feedbackName" class="highlight">Help us improve – your feedback matters!</span>
+               </div>
+               <!-- Feedback Form -->
+               <form id="feedbackForm" method="POST" th:action="@{/feedback}">
+                  <input type="hidden" name="riasecIdPk" id="riasecIdPk" th:value="*{riasecIdPk}">
+                  <!-- RATING -->
+                  <div class="flex justify-center mb-4">
+                     <span class="text-yellow-400 text-xl cursor-pointer rating-star" data-value="1">&#9733;</span>
+                     <span class="text-yellow-400 text-xl cursor-pointer rating-star" data-value="2">&#9733;</span>
+                     <span class="text-yellow-400 text-xl cursor-pointer rating-star" data-value="3">&#9733;</span>
+                     <span class="text-yellow-400 text-xl cursor-pointer rating-star" data-value="4">&#9733;</span>
+                     <span class="text-yellow-400 text-xl cursor-pointer rating-star" data-value="5">&#9733;</span>
+                  </div>
+                  <input type="hidden" name="ratings" id="feedbackRating">
+                  <!-- FEEDBACK TEXT -->
+                  <textarea name="feedback" id="feedbackText" placeholder="Write your feedback..." 
+                     class="w-full h-24 px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 mb-4"></textarea>
+                  <div class="modal-actions">
+                     <button type="button" class="btn btn-primary btn-cancel" data-close="modal">
+                     <i class="fa-solid fa-xmark"></i> CANCEL
+                     </button>
+                     <button type="submit" class="btn btn-primary btn-delete transitioning">
+                     <i class="fa-solid fa-paper-plane"></i> SUBMIT
+                     </button>
+                  </div>
+               </form>
+            </div>
+            <script>
+               // ⭐ RATING LOGIC
+               const stars = document.querySelectorAll('.rating-star');
+               const ratingInput = document.getElementById('feedbackRating');
+               
+               stars.forEach(star => {
+                 star.addEventListener('click', function() {
+                   const value = this.dataset.value;
+                   ratingInput.value = value;
+               
+                   // Highlight stars up to clicked
+                   stars.forEach(s => {
+                     s.style.color = s.dataset.value <= value ? '#FFD700' : '#d1d9ff';
+                   });
+                 });
+               });
+               
+               // Optional: reset stars on modal open
+               function openFeedbackModal(name, id) {
+                 document.getElementById('feedbackName').textContent = name;
+                 document.getElementById('feedbackId').value = id;
+                 document.getElementById('feedbackText').value = '';
+                 ratingInput.value = '';
+               
+                 stars.forEach(s => s.style.color = '#d1d9ff'); // reset
+                 document.getElementById('feedbackModal').classList.remove('hidden');
+               }
+            </script>
+         </div>
+         <script th:src="@{/script/modal.js}"></script>
+         <script th:inline="javascript">console.log(/*[[${assessmentDto}]]*/'')</script>
       </main>
       <script th:src="@{/script/loading.js}"></script>
    </body>

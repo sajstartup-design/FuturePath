@@ -33,7 +33,7 @@ public class HistoryRestController {
             inDto.setPagination(pagination);
             inDto.setFilter(filter);
 
-            return historyService.getAllAssessmentByUser(inDto);
+            return historyService.getAllRiasecResultByUser(inDto);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -56,7 +56,7 @@ public class HistoryRestController {
             inDto.setPagination(pagination);
             inDto.setFilter(filter);
 
-            return historyService.getAllAssessmentResult(inDto);
+            return historyService.getAllRiasecResult(inDto);
         } catch (Exception e) {
             e.printStackTrace();
 

@@ -3,7 +3,6 @@ package saj.startup.pj.model.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import lombok.Data;
 import saj.startup.pj.model.dao.entity.FeedbackEntity;
@@ -17,6 +16,8 @@ import saj.startup.pj.model.object.RecommendationObj;
 public class AssessmentDto {
 	
 	private int idPk;
+	
+	private int riasecIdPk;
 	
 	private String answeredJson;
 	
@@ -67,6 +68,7 @@ public class AssessmentDto {
     private double socialPercentage;
     private double enterprisingPercentage;
     private double conventionalPercentage;
+    private double strandegreePercentage;
     
     private String realisticPercentageStr;
     private String investigativePercentageStr;
@@ -74,6 +76,7 @@ public class AssessmentDto {
     private String socialPercentageStr;
     private String enterprisingPercentageStr;
     private String conventionalPercentageStr;
+    private String strandegreePercentageStr;
 
     private List<HistoryQuestionData> questions;
     private List<UniversityRecommendationData> universities;
@@ -89,5 +92,8 @@ public class AssessmentDto {
 	private FeedbackEntity feedback;
 	
 	private boolean owner;
+	
+	private int countRecommendStrandegree;
+	private int countAllStrandegree;
 
 }

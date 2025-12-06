@@ -24,6 +24,9 @@ import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.entity.FeedbackEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
+import saj.startup.pj.model.dao.entity.RiasecRecommendationEntity;
+import saj.startup.pj.model.dao.entity.RiasecResultEntity;
+import saj.startup.pj.model.dao.entity.StrandegreeEntity;
 import saj.startup.pj.model.dao.entity.UserEntity;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
 import saj.startup.pj.model.dao.projection.UniversityRecommendationData;
@@ -33,6 +36,7 @@ import saj.startup.pj.model.logic.AnswerLogic;
 import saj.startup.pj.model.logic.FeedbackLogic;
 import saj.startup.pj.model.logic.HistoryLogic;
 import saj.startup.pj.model.logic.QuestionLogic;
+import saj.startup.pj.model.logic.StrandegreeLogic;
 import saj.startup.pj.model.logic.UniversityLogic;
 import saj.startup.pj.model.object.RecommendationObj;
 import saj.startup.pj.model.service.AssessmentService;
@@ -55,6 +59,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 	
 	@Autowired
 	private FeedbackLogic feedbackLogic;
+	
+	@Autowired
+	private StrandegreeLogic strandegreeLogic;
 	
 	@Override
 	public AssessmentDto saveAssessmentResult(AssessmentDto inDto) throws Exception {
@@ -212,14 +219,18 @@ public class AssessmentServiceImpl implements AssessmentService{
 	        "E", 7,
 	        "C", 8
 	    );
-
+	    
+	    RiasecResultEntity riasec = historyLogic.getRiasecResultById(inDto.getRiasecIdPk());
+	    
+	    UserEntity user = userService.getUserActive();
+	    
 	    Map<String, Integer> totals = Map.of(
-	        "R", inDto.getRealistic(),
-	        "I", inDto.getInvestigative(),
-	        "A", inDto.getArtistic(),
-	        "S", inDto.getSocial(),
-	        "E", inDto.getEnterprising(),
-	        "C", inDto.getConventional()
+	        "R", riasec.getRealistic(),
+	        "I", riasec.getInvestigative(),
+	        "A", riasec.getArtistic(),
+	        "S", riasec.getSocial(),
+	        "E", riasec.getEnterprising(),
+	        "C", riasec.getConventional()
 	    );
 	    
 	    List<String> top3Letters = totals.entrySet().stream()
@@ -230,6 +241,45 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 
 	    String topCombo = String.join("-", top3Letters);
+	    
+	    List<Integer> codes = getTopMatches(topCombo);
+	    
+	    int countAllStrandegree = strandegreeLogic.countAllStrandegree();
+	    int countRecommendedStrandegree = strandegreeLogic.countRecommendedStrandegree(codes);
+	    
+	    RiasecRecommendationEntity recommendation = historyLogic.getRiasecRecommendationByRiasecIdPk(riasec.getIdPk());
+	    
+	    List<String> degrees = new ArrayList<>();
+	    
+	    if(recommendation == null) {
+	    	
+	    	List<Integer> idPks = new ArrayList<>();
+	    	
+	    	List<StrandegreeEntity> strandegrees = strandegreeLogic.getRandomRecommendedStrandegree(codes);
+	    	
+	    	for(StrandegreeEntity strandegree : strandegrees) {
+	    		degrees.add("(" + strandegree.getCode() + ") " + strandegree.getName());
+	    		idPks.add(strandegree.getIdPk());
+	    	}
+	    	
+	    	RiasecRecommendationEntity riasecRecommendation = new RiasecRecommendationEntity();
+	    	
+	    	riasecRecommendation.setRiasecIdPk(riasec.getIdPk());
+	    	riasecRecommendation.setStrandegreeIdPks(idPks);
+	    	
+	    	historyLogic.saveRiasecRecommendation(riasecRecommendation);
+	    }else {
+	    	
+	    	
+	    	
+	    	List<StrandegreeEntity> strandegrees = strandegreeLogic.getStrandegreeByIdPks(recommendation.getStrandegreeIdPks());
+	    	
+	    	for(StrandegreeEntity strandegree : strandegrees) { 
+	    		degrees.add("(" + strandegree.getCode() + ") " + strandegree.getName());
+	    	}
+	    	
+	    	
+	    }
 
 	    StringBuilder message = new StringBuilder("Based on your interests and strengths:<br><br>");
 	    for (String letter : top3Letters) {
@@ -270,14 +320,55 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    System.out.println("TOP COMBO: " + topCombo);
 	    dto.setExampleFields(exampleFields);
 	    dto.setRiasecCodes(getTopMatches(topCombo));
-	    dto.setRealisticPercentageStr(df.format((double) inDto.getRealistic() / (questionCount.get("R") * 4) * 100));
-	    dto.setInvestigativePercentageStr(df.format((double) inDto.getInvestigative() / (questionCount.get("I") * 4) * 100));
-	    dto.setArtisticPercentageStr(df.format((double) inDto.getArtistic() / (questionCount.get("A") * 4) * 100));
-	    dto.setSocialPercentageStr(df.format((double) inDto.getSocial() / (questionCount.get("S") * 4) * 100));
-	    dto.setEnterprisingPercentageStr(df.format((double) inDto.getEnterprising() / (questionCount.get("E") * 4) * 100));
-	    dto.setConventionalPercentageStr(df.format((double) inDto.getConventional() / (questionCount.get("C") * 4) * 100));
-
+	    System.out.println(getTopMatches(topCombo));
+	    dto.setRealisticPercentageStr(df.format((double) riasec.getRealistic() / (questionCount.get("R") * 4) * 100));
+	    dto.setInvestigativePercentageStr(df.format((double) riasec.getInvestigative() / (questionCount.get("I") * 4) * 100));
+	    dto.setArtisticPercentageStr(df.format((double) riasec.getArtistic() / (questionCount.get("A") * 4) * 100));
+	    dto.setSocialPercentageStr(df.format((double) riasec.getSocial() / (questionCount.get("S") * 4) * 100));
+	    dto.setEnterprisingPercentageStr(df.format((double) riasec.getEnterprising() / (questionCount.get("E") * 4) * 100));
+	    dto.setConventionalPercentageStr(df.format((double) riasec.getConventional() / (questionCount.get("C") * 4) * 100));
+	    dto.setStrandegreePercentageStr(df.format((double) countRecommendedStrandegree / countAllStrandegree * 100));
+	    dto.setDegrees(degrees);
+	    dto.setCountAllStrandegree(countAllStrandegree);
+	    dto.setCountRecommendStrandegree(countRecommendedStrandegree);
+	    dto.setRiasecIdPk(riasec.getIdPk());
+	    
+	    FeedbackEntity feedback = feedbackLogic.getFeedbackByResultId(riasec.getIdPk());
+	    
+	    dto.setFeedback(feedback);
+	    
+	    if(user.getIdPk() == riasec.getUserIdPk()) {
+	    	dto.setOwner(true);
+	    }
+	    
 	    return dto;
+	}
+	
+	@Override
+	public AssessmentDto saveAssessmentRiasecResult(AssessmentDto inDto) throws Exception {
+		
+		AssessmentDto outDto = new AssessmentDto();
+		
+		UserEntity user = userService.getUserActive();
+		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
+		RiasecResultEntity riasec = new RiasecResultEntity();
+	    
+		riasec.setUserIdPk(user.getIdPk());
+	    riasec.setRealistic(inDto.getRealistic());
+	    riasec.setInvestigative(inDto.getInvestigative());
+	    riasec.setArtistic(inDto.getArtistic());
+	    riasec.setSocial(inDto.getSocial());
+	    riasec.setEnterprising(inDto.getEnterprising());
+	    riasec.setConventional(inDto.getConventional()); 
+	    riasec.setDateTaken(timestamp);
+	    
+	    historyLogic.saveRiasecResult(riasec);
+	    
+	    outDto.setRiasecIdPk(riasec.getIdPk());
+	    
+	    return outDto;  
 	}
 	
 	public static List<Integer> getTopMatches(String inputCode) {
@@ -418,6 +509,10 @@ public class AssessmentServiceImpl implements AssessmentService{
 
 	    return outDto;
 	}
+
+
+
+
 
 }
 

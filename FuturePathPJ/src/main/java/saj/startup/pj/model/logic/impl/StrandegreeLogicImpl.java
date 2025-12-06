@@ -61,4 +61,28 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 		strandegreeDao.deleteStrandegree(idPk);
 	}
 
+	@Override
+	public int countRecommendedStrandegree(List<Integer> codes) {
+
+		return strandegreeDao.countRecommendedStrandegree(codes);
+	}
+
+	@Override
+	public int countAllStrandegree() {
+		
+		return strandegreeDao.countAllDStrandegree();
+	}
+
+	@Override
+	public List<StrandegreeEntity> getRandomRecommendedStrandegree(List<Integer> codes) {
+		
+		return strandegreeDao.getRandomRecommendedStrandegree(codes);
+	}
+
+	@Override
+	public List<StrandegreeEntity> getStrandegreeByIdPks(List<Integer> idPks) {
+		
+		return strandegreeDao.getStrandegreesByIdPks(idPks);
+	}
+
 }

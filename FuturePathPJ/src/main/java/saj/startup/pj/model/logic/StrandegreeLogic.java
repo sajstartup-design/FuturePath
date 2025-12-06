@@ -26,4 +26,12 @@ public interface StrandegreeLogic {
 	public StrandegreeEntity getStrandegree(int idPk);
 	
 	public void deleteStrandegree(int idPk);
+	
+	public int countRecommendedStrandegree(List<Integer> codes);
+	
+	public int countAllStrandegree(); 
+	
+	public List<StrandegreeEntity> getRandomRecommendedStrandegree(List<Integer> codes);
+	
+	public List<StrandegreeEntity> getStrandegreeByIdPks(List<Integer> idPks);
 }

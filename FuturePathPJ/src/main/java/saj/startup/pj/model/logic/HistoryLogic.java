@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import saj.startup.pj.model.dao.entity.AssessmentResultEntity;
 import saj.startup.pj.model.dao.entity.HistoryQuestionData;
 import saj.startup.pj.model.dao.entity.HistoryQuestionEntity;
+import saj.startup.pj.model.dao.entity.RiasecRecommendationEntity;
+import saj.startup.pj.model.dao.entity.RiasecResultEntity;
 import saj.startup.pj.model.dao.projection.AssessmentResultData;
 import saj.startup.pj.model.dao.projection.AssessmentStatisticsData;
+import saj.startup.pj.model.dao.projection.RiasecResultData;
 import saj.startup.pj.model.dao.projection.UserAssessmentStatisticsData;
 
 @Service
@@ -26,9 +29,23 @@ public interface HistoryLogic {
 	
 	public Page<AssessmentResultData> getAllAssessmentResultByUser(Pageable pageable, String search, int userIdPk);
 	
+	public Page<RiasecResultData> getAllRiasecResultByUser(Pageable pageable, String search, int userIdPk);
+	
+	public Page<RiasecResultData> getAllRiasecResult(Pageable pageable, String search);
+	
 	public AssessmentStatisticsData getAssessmentStatistics();
 	
 	public UserAssessmentStatisticsData getAssessmentStatisticsByUser(int userIdPk);
 	
 	public Page<AssessmentResultData> getAllAssessmentResult(Pageable pageable, String search);
+	
+	public void saveRiasecResult(RiasecResultEntity entity);
+	
+	public RiasecResultEntity getRiasecResultById(int riasecIdPk);
+	
+	public RiasecRecommendationEntity getRiasecRecommendationByRiasecIdPk(int riasecIdPk);
+	
+	public void saveRiasecRecommendation(RiasecRecommendationEntity entity);
+	
+	
 }

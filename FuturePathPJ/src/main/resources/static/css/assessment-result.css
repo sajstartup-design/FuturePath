@@ -254,7 +254,6 @@
 
 /* Program name */
 .score-name {
-	width: 6rem;
 	/* fixed width for alignment */
 	font-weight: 600;
 	color: #dbe1ff;

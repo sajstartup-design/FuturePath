@@ -12,4 +12,8 @@ public interface HistoryService {
 	public HistoryDto getAllAssessmentResult(HistoryDto inDto) throws Exception; 
 	
 	public HistoryDto getRecentAssessmentResult() throws Exception; 
+	
+	public HistoryDto getAllRiasecResultByUser(HistoryDto inDto) throws Exception;
+	
+	public HistoryDto getAllRiasecResult(HistoryDto inDto) throws Exception;
 }

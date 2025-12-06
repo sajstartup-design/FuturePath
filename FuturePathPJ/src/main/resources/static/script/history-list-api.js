@@ -88,25 +88,21 @@ async function loadHistory(page = 0,
 
         const fragment = document.createDocumentFragment();
 
-        data.assessments.forEach(assessment => {
+        data.riasecResults.forEach(result => {
             const row = document.createElement("tr");
             row.classList.add("table-row");
-			row.setAttribute('data-id', assessment.resultIdPk);
+			row.setAttribute('data-id', result.riasecIdPk);
 			
-			const date = new Date(assessment.dateTaken);
+			const date = new Date(result.dateTaken);
 			const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
 			const formattedDate = date.toLocaleDateString('en-US', options);
 
             row.innerHTML = `
-            	<td>#${assessment.resultIdPk}</td>
-				<td>${assessment.category}</td>
-				<td>${assessment.totalCorrect}</td>
-				<td>${assessment.totalIncorrect}</td>
-				<td>${assessment.totalQuestion}</td>
-				<td>${assessment.score}%</td>
+            	<td>#${result.riasecIdPk}</td>
+            	<td>#${result.category}</td>
 				<td>${formattedDate}</td>
 				<td class="actions-cell">
-			        <a href="/assessment/result/view?resultIdPk=${assessment.resultIdPk}" class="transitioning btn btn-icon view"><i class="fa-solid fa-eye"></i></a>
+			        <a href="/assessment/riasec/result?riasecIdPk=${result.riasecIdPk}" class="transitioning btn btn-icon view"><i class="fa-solid fa-eye"></i></a>
 			    </td>
             `;
 

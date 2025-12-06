@@ -158,11 +158,33 @@ public class AssessmentController {
 	    System.out.println("E: " + inDto.getEnterprising());
 	    System.out.println("C: " + inDto.getConventional());
 
-	    AssessmentDto outDto = assessmentService.getAssessmentRIASECResult(inDto);
-
-	    model.addAttribute("assessmentDto", outDto);
-	    
-	    model.addAttribute("page", "assessment");
+	    try {
+			AssessmentDto outDto = assessmentService.saveAssessmentRiasecResult(webDto);
+			
+			model.addAttribute("assessmentDto", outDto);
+			
+			return "redirect:/assessment/riasec/result/?riasecIdPk=" + outDto.getRiasecIdPk();
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			ra.addFlashAttribute("isError", true);
+			ra.addFlashAttribute("errorMsg", MessageConstant.SOMETHING_WENT_WRONG);
+			
+			return "redirect:/assessment";
+			
+		}
+	}
+	
+	@GetMapping("/assessment/riasec/result")
+	public String showAssessmentRiasecResult(Model model, AssessmentDto assessmentDto) throws Exception {
+		
+		AssessmentDto outDto = assessmentService.getAssessmentRIASECResult(assessmentDto);
+		
+		model.addAttribute("assessmentDto", outDto);
+		
+		model.addAttribute("page", "assessment");
 
 	    return "assessment/assessment-riasec-result";
 	}
@@ -231,7 +253,7 @@ public class AssessmentController {
 	}
 	
 	@GetMapping("/assessment/result/view")
-	public String showAssessmentRiasecResult(Model model, AssessmentDto assessmentDto) throws Exception {
+	public String showAssessmentResult(Model model, AssessmentDto assessmentDto) throws Exception {
 		
 		AssessmentDto outDto = assessmentService.getAssessmentResult(assessmentDto);
 		

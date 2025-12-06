@@ -89,4 +89,44 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 	@Modifying
 	@Query(value=DELETE_STRANDEGREE, nativeQuery=true)
 	public void deleteStrandegree(@Param("idPk") int idPk) throws DataAccessException;
+	
+	public final String COUNT_RECOMMENDED_STRANDEGREE = """
+				SELECT COUNT(e)
+				FROM StrandegreeEntity e
+				WHERE e.riasecCode IN (:codes)
+				AND e.category = 'DEGREE'
+			""";
+
+	@Query(COUNT_RECOMMENDED_STRANDEGREE)
+	public int countRecommendedStrandegree(@Param("codes") List<Integer> codes) throws DataAccessException;
+	
+	public final String COUNT_ALL_STRANDEGREE = """
+			SELECT COUNT(e)
+			FROM StrandegreeEntity e
+			WHERE e.category = 'DEGREE'
+		""";
+
+	@Query(COUNT_ALL_STRANDEGREE)
+	public int countAllDStrandegree() throws DataAccessException;
+	
+	public final String GET_RANDOM_RECOMMENDED_STRANDEGREE = """
+			SELECT *
+			FROM strandegrees e
+			WHERE e.riasec_code IN (:codes)
+			ORDER BY RANDOM()
+			LIMIT 3;
+
+		""";
+
+	@Query(value=GET_RANDOM_RECOMMENDED_STRANDEGREE, nativeQuery=true)
+	public List<StrandegreeEntity> getRandomRecommendedStrandegree(@Param("codes") List<Integer> codes) throws DataAccessException;
+	
+	public final String GET_STRANDEGREE_BY_ID_PKS = """
+			SELECT e
+			FROM StrandegreeEntity e
+			WHERE e.idPk IN (:idPks)
+		""";
+
+	@Query(GET_STRANDEGREE_BY_ID_PKS)
+	public List<StrandegreeEntity> getStrandegreesByIdPks(@Param("idPks") List<Integer> idPks) throws DataAccessException;
 }
