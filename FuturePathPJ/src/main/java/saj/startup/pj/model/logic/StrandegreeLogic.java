@@ -34,4 +34,6 @@ public interface StrandegreeLogic {
 	public List<StrandegreeEntity> getRandomRecommendedStrandegree(List<Integer> codes);
 	
 	public List<StrandegreeEntity> getStrandegreeByIdPks(List<Integer> idPks);
+	
+	public List<StrandegreeEntity> getStrandegreeByRiasecCodesAndNotInIdPks(List<Integer> codes, List<Integer> idPks);
 }

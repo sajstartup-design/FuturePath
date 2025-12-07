@@ -129,4 +129,16 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 
 	@Query(GET_STRANDEGREE_BY_ID_PKS)
 	public List<StrandegreeEntity> getStrandegreesByIdPks(@Param("idPks") List<Integer> idPks) throws DataAccessException;
+	
+	public final String GET_STRANDEGREE_BY_RIASEC_CODE_AND_NOT_IN_ID_PKS = """
+				SELECT e FROM StrandegreeEntity e
+				WHERE e.riasecCode IN (:codes) 
+				AND e.category = 'DEGREE' 
+				AND e.idPk NOT IN (:idPks) ORDER BY e.idPk
+			""";
+	
+	@Query(GET_STRANDEGREE_BY_RIASEC_CODE_AND_NOT_IN_ID_PKS)
+	public List<StrandegreeEntity> getStrandegreeByRiasecCodesAndNotInIdPks(
+			@Param("codes") List<Integer> codes,
+			@Param("idPks") List<Integer> idPks) throws DataAccessException;
 }

@@ -278,7 +278,11 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    		degrees.add("(" + strandegree.getCode() + ") " + strandegree.getName());
 	    	}
 	    	
+	    	List<StrandegreeEntity> otherStrandegrees = strandegreeLogic.getStrandegreeByRiasecCodesAndNotInIdPks(codes ,recommendation.getStrandegreeIdPks());
 	    	
+	    	for(StrandegreeEntity strandegree : otherStrandegrees) { 
+	    		degrees.add("(" + strandegree.getCode() + ") " + strandegree.getName());
+	    	}
 	    }
 
 	    StringBuilder message = new StringBuilder("Based on your interests and strengths:<br><br>");

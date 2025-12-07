@@ -126,6 +126,11 @@
          line-height: 1rem;
          transition: width 0.5s ease;
          }
+         #moreDegrees{
+		 display: flex;
+		 flex-direction: column;
+		 gap:0.6rem;
+		 }
       </style>
    </head>
    <body th:object="${assessmentDto}">
@@ -174,14 +179,54 @@
                   </div>
                   <section class="top-recommendations">
                   <h3>🏆 Top 3 Recommended Fields</h3>
-                  <div class="top-list" th:if="*{degrees != null and !degrees.isEmpty()}">
-                     <div class="top-item" th:each="rec, stat : *{degrees}">
-                        <span class="rec-name" th:text="${rec}"></span>
-                     </div>
-                  </div>
-                  <p th:unless="*{degrees != null and !degrees.isEmpty()}" style="text-align:center; color:#aab6ff; margin-top:1rem;">
-                     I'm sorry, you currently have no recommendations based on your answers.
-                  </p>
+
+				<div class="top-list" th:if="*{degrees != null and !degrees.isEmpty()}">
+				
+				    <!-- FIRST 3 -->
+				    <div class="top-item"
+				         th:each="rec, stat : *{degrees}"
+				         th:if="${stat.index < 3}">
+				        <span class="rec-name" th:text="${rec}"></span>
+				    </div>
+				
+				    <!-- HIDDEN REST -->
+				    <div id="moreDegrees" style="display:none;">
+						<h3>🏆 Additional Recommended Fields</h3>
+				        <div class="top-item"
+				             th:each="rec, stat : *{degrees}"
+				             th:if="${stat.index >= 3}">
+				            <span class="rec-name" th:text="${rec}"></span>
+				        </div>
+				    </div>
+				
+				</div>
+				
+				<!-- VIEW ALL BUTTON -->
+				<button id="viewAllBtn"
+				        type="button"
+				        style="display:block; margin:1rem auto; background:#5a6dff; color:white; padding:.4rem 1rem; border-radius:6px; cursor:pointer;"
+				        th:if="*{#lists.size(degrees) > 3}">
+				    View all
+				</button>
+				
+				<p th:unless="*{degrees != null and !degrees.isEmpty()}" 
+				   style="text-align:center; color:#aab6ff; margin-top:1rem;">
+				   I'm sorry, you currently have no recommendations based on your answers.
+				</p>
+                  <script>
+					document.addEventListener("DOMContentLoaded", function() {
+					    const btn = document.getElementById("viewAllBtn");
+					    const more = document.getElementById("moreDegrees");
+					
+					    if (btn) {
+					        btn.addEventListener("click", function() {
+					            more.style.display = "flex";
+					            btn.style.display = "none";
+					        });
+					    }
+					});
+					</script>
+
                </section>
                </div>
                <div class="next-steps">
@@ -242,9 +287,6 @@
                <span>Contact us</span>
             </div>
          </nav>
-         
-         
-             
          <!-- FEEDBACK / RATING MODAL -->
          <div id="feedbackModal" class="modal-overlay hidden" >
             <div class="modal-box">

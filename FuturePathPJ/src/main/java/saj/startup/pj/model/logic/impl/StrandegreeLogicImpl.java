@@ -85,4 +85,10 @@ public class StrandegreeLogicImpl implements StrandegreeLogic{
 		return strandegreeDao.getStrandegreesByIdPks(idPks);
 	}
 
+	@Override
+	public List<StrandegreeEntity> getStrandegreeByRiasecCodesAndNotInIdPks(List<Integer> codes, List<Integer> idPks) {
+	
+		return strandegreeDao.getStrandegreeByRiasecCodesAndNotInIdPks(codes, idPks);
+	}
+
 }
