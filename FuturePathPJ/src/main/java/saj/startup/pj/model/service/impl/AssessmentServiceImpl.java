@@ -363,6 +363,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    riasec.setEnterprising(inDto.getEnterprising());
 	    riasec.setConventional(inDto.getConventional()); 
 	    riasec.setDateTaken(timestamp);
+	    riasec.setCategory(CommonConstant.DEGREE);
 	    
 	    historyLogic.saveRiasecResult(riasec);
 	    
