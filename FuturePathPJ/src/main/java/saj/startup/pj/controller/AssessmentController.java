@@ -163,7 +163,7 @@ public class AssessmentController {
 			
 			model.addAttribute("assessmentDto", outDto);
 			
-			return "redirect:/assessment/riasec/result/?riasecIdPk=" + outDto.getRiasecIdPk();
+			return "redirect:/assessment/riasec/result?riasecIdPk=" + outDto.getRiasecIdPk();
 			
 		} catch(Exception e) {
 			

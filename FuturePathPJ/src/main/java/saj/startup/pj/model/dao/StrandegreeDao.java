@@ -113,7 +113,7 @@ public interface StrandegreeDao extends JpaRepository<StrandegreeEntity, Integer
 			SELECT *
 			FROM strandegrees e
 			WHERE e.riasec_code IN (:codes)
-			ORDER BY e.idPk
+			ORDER BY e.id_pk
 			LIMIT 3;
 
 		""";

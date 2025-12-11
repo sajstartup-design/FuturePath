@@ -34,7 +34,7 @@ public interface RiasecResultDao extends JpaRepository<RiasecResultEntity, Integ
 		          CAST(e.id_pk AS TEXT) ILIKE CONCAT('%', :search, '%') OR
 		          TO_CHAR(e.date_taken, 'YYYY-MM-DD HH24:MI') ILIKE CONCAT('%', :search, '%')
 		      )
-		    ORDER BY date_taken ASC
+		    ORDER BY e.id_pk ASC
 		""";
 
 	@Query(value=GET_ALL_RIASEC_RESULT_BY_USER, nativeQuery=true)
@@ -55,7 +55,7 @@ public interface RiasecResultDao extends JpaRepository<RiasecResultEntity, Integ
 		          CAST(e.id_pk AS TEXT) ILIKE CONCAT('%', :search, '%') OR
 		          TO_CHAR(e.date_taken, 'YYYY-MM-DD HH24:MI') ILIKE CONCAT('%', :search, '%')
 		      )
-		    ORDER BY date_taken ASC
+		    ORDER BY e.id_pk ASC
 		""";
 
 	@Query(value=GET_ALL_RIASEC_RESULT, nativeQuery=true)

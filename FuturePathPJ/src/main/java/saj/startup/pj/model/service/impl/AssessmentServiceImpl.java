@@ -268,6 +268,12 @@ public class AssessmentServiceImpl implements AssessmentService{
 	    	riasecRecommendation.setStrandegreeIdPks(idPks);
 	    	
 	    	historyLogic.saveRiasecRecommendation(riasecRecommendation);
+	    	
+	    	List<StrandegreeEntity> otherStrandegrees = strandegreeLogic.getStrandegreeByRiasecCodesAndNotInIdPks(codes ,idPks);
+	    	
+	    	for(StrandegreeEntity strandegree : otherStrandegrees) { 
+	    		degrees.add("(" + strandegree.getCode() + ") " + strandegree.getName());
+	    	}
 	    }else {
 	    	
 	    	
